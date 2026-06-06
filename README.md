@@ -131,6 +131,19 @@ Full Alegra v1 surface, each with `list`/`get`/`create`/`update`/`delete`
 
 Run `alegra <resource> --help` for actions and filters.
 
+## Guides & recipes
+
+The [documentation site](https://jjuanrivvera.github.io/alegra-cli/) has more than
+flag references — it's full of real accounting recipes:
+
+- **[Cookbook](https://jjuanrivvera.github.io/alegra-cli/cookbook/)** — copy-paste commands for everyday tasks
+- **[Invoice → Cash](https://jjuanrivvera.github.io/alegra-cli/guides/invoice-to-cash/)** — a full sales cycle: client → item → invoice → email → payment
+- **[Electronic Invoicing](https://jjuanrivvera.github.io/alegra-cli/guides/electronic-invoicing/)** — the draft→open→stamp lifecycle, `numberTemplate`/`stamp`, and per-country fields (CO/MX/PE/CR)
+- **[Expenses & Purchases](https://jjuanrivvera.github.io/alegra-cli/guides/expenses-and-purchases/)** — suppliers, bills, purchase orders, outgoing payments
+- **[Reporting & Month-End](https://jjuanrivvera.github.io/alegra-cli/guides/reporting-and-month-end/)** — totals, aging, and closing snapshots
+- **[Automation & Scripting](https://jjuanrivvera.github.io/alegra-cli/guides/automation/)** — CSV bulk ops, cron, CI, MCP agents
+- **[Errors & Rate Limits](https://jjuanrivvera.github.io/alegra-cli/reference/errors/)** · **[FAQ](https://jjuanrivvera.github.io/alegra-cli/reference/faq/)**
+
 ## Configuration reference
 
 | Env var | Meaning |

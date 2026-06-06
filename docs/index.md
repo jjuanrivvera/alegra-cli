@@ -17,10 +17,10 @@ profiles, a dry-run mode, and a built-in [MCP server](user-guide/mcp.md).
 
 ## Quick links
 
-- [Installation](getting-started/installation.md)
-- [Authentication](getting-started/authentication.md)
-- [Quickstart](getting-started/quickstart.md)
-- [Command Reference](commands/index.md)
+- [Installation](getting-started/installation.md) · [Authentication](getting-started/authentication.md) · [Quickstart](getting-started/quickstart.md)
+- **[Cookbook](cookbook.md)** — copy-paste recipes for everyday tasks
+- Guides: [Invoice → Cash](guides/invoice-to-cash.md) · [Expenses & Purchases](guides/expenses-and-purchases.md) · [Electronic Invoicing](guides/electronic-invoicing.md) · [Reporting & Month-End](guides/reporting-and-month-end.md) · [Automation](guides/automation.md)
+- Reference: [Commands](commands/index.md) · [Errors & Rate Limits](reference/errors.md) · [FAQ](reference/faq.md)
 
 ## At a glance
 

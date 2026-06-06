@@ -54,9 +54,19 @@ nav:
       - Installation: getting-started/installation.md
       - Authentication: getting-started/authentication.md
       - Quickstart: getting-started/quickstart.md
+  - Cookbook: cookbook.md
+  - Guides:
+      - Invoice → Cash: guides/invoice-to-cash.md
+      - Expenses & Purchases: guides/expenses-and-purchases.md
+      - Electronic Invoicing: guides/electronic-invoicing.md
+      - Reporting & Month-End: guides/reporting-and-month-end.md
+      - Automation & Scripting: guides/automation.md
   - User Guide:
       - Configuration & Profiles: user-guide/configuration.md
       - Output Formats: user-guide/output-formats.md
       - Creating & Updating: user-guide/writing-data.md
       - MCP Server: user-guide/mcp.md
-  - Command Reference: commands/index.md
+  - Reference:
+      - Command Reference: commands/index.md
+      - Errors & Rate Limits: reference/errors.md
+      - FAQ & Troubleshooting: reference/faq.md
