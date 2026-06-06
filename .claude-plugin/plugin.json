@@ -10,7 +10,7 @@
   "homepage": "https://github.com/jjuanrivvera/alegra-cli",
   "repository": "https://github.com/jjuanrivvera/alegra-cli",
   "license": "MIT",
-  "skills": ["./"],
+  "skills": "./skills",
   "keywords": [
     "alegra",
     "accounting",

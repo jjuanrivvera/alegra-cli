@@ -75,7 +75,7 @@ func newSkillsInstallCmd() *cobra.Command {
 				return nil
 			}
 			for _, f := range files {
-				data, rerr := alegracli.SkillFS.ReadFile(f)
+				data, rerr := fs.ReadFile(alegracli.SkillFS, f)
 				if rerr != nil {
 					return rerr
 				}
@@ -127,7 +127,7 @@ func newSkillsPrintCmd() *cobra.Command {
 		Short: "Print the bundled SKILL.md to stdout",
 		Args:  cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, _ []string) error {
-			data, err := alegracli.SkillFS.ReadFile("SKILL.md")
+			data, err := fs.ReadFile(alegracli.SkillFS, "SKILL.md")
 			if err != nil {
 				return err
 			}
