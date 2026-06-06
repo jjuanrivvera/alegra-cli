@@ -14,11 +14,11 @@ func init() {
 		New:         func(c *api.Client) *api.Resource[api.Payment] { return c.Payments() },
 		Columns:     []string{"id", "date", "amount", "type", "status"},
 		OrderFields: []string{"id", "date"},
-		ListFilters: []listFilter{
+		ListFilters: append([]listFilter{
 			{Flag: "type", Query: "type", Usage: "in or out"},
 			{Flag: "status", Query: "status", Usage: "Filter by status"},
 			{Flag: "client-id", Query: "client_id", Usage: "Filter by client ID"},
-		},
+		}, dateRangeFilters()...),
 		Extra: func(parent *cobra.Command, sp resourceSpec[api.Payment]) {
 			parent.AddCommand(NewActionCmd(sp, "void", "void", "Void a payment"))
 			parent.AddCommand(NewActionCmd(sp, "open", "open", "Revert a voided payment"))

@@ -10,6 +10,13 @@ Get a single custom-field by ID
 alegra custom-fields get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra custom-fields get <id>
+  alegra custom-fields get <id> -o json
+```
+
 ### Options
 
 ```

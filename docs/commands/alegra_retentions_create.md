@@ -6,8 +6,23 @@ title: alegra retentions create
 
 Create a retention
 
+### Synopsis
+
+Create a retention.
+
+Provide the body with --file <path> (recommended for nested documents),
+--data '<json>', or one or more --set key=value pairs for flat fields.
+
 ```
 alegra retentions create [flags]
+```
+
+### Examples
+
+```
+  alegra retentions create -f retention.json
+  alegra retentions create --set name="Example"
+  echo '{...}' | alegra retentions create -f -
 ```
 
 ### Options
@@ -16,7 +31,7 @@ alegra retentions create [flags]
   -d, --data string       Request body as a JSON string
   -f, --file string       Read JSON request body from a file (use - for stdin)
   -h, --help              help for create
-      --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable.
+      --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable. For nested documents (e.g. invoice items[]) use --file.
 ```
 
 ### Options inherited from parent commands

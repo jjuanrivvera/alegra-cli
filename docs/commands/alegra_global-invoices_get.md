@@ -10,6 +10,13 @@ Get a single global-invoice by ID
 alegra global-invoices get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra global-invoices get <id>
+  alegra global-invoices get <id> -o json
+```
+
 ### Options
 
 ```

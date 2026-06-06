@@ -10,6 +10,13 @@ Get a single additional-charge by ID
 alegra additional-charges get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra additional-charges get <id>
+  alegra additional-charges get <id> -o json
+```
+
 ### Options
 
 ```

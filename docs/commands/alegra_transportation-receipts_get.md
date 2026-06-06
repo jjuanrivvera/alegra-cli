@@ -10,6 +10,13 @@ Get a single transportation-receipt by ID
 alegra transportation-receipts get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra transportation-receipts get <id>
+  alegra transportation-receipts get <id> -o json
+```
+
 ### Options
 
 ```

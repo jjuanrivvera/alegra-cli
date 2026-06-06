@@ -10,16 +10,28 @@ List custom-fields
 alegra custom-fields list [flags]
 ```
 
+### Examples
+
+```
+  alegra custom-fields list
+  alegra custom-fields list --limit 30 --all -o json
+  alegra custom-fields list --count
+  alegra custom-fields list --name <value>
+  alegra custom-fields list --param <api_param>=<value>
+```
+
 ### Options
 
 ```
       --all                      Fetch all pages
+      --count                    Print only the total number of matching records
       --description string       Filter by text contained in the field description
   -h, --help                     help for list
       --limit int                Max records per page (max 30)
       --name string              Filter by text contained in the field name
       --order-direction string   Sort direction: ASC or DESC
       --order-field string       Field to sort by (id, name)
+      --param stringArray        Arbitrary API query parameter: key=value (repeatable; e.g. --param date_after=2026-01-01)
   -q, --query string             Free-text search
       --resource-type string     Filter by associated resource type (e.g. item)
       --start int                Offset to start from (pagination)

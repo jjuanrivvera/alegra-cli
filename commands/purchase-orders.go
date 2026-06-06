@@ -27,8 +27,8 @@ func init() {
 		},
 		Extra: func(parent *cobra.Command, sp resourceSpec[api.PurchaseOrder]) {
 			parent.AddCommand(NewActionCmd(sp, "void", "void", "Void a purchase order"))
-			parent.AddCommand(NewActionCmd(sp, "email", "email", "Email a purchase order"))
-			parent.AddCommand(NewActionCmd(sp, "comments", "comments", "Add a comment"))
+			parent.AddCommand(NewActionCmd(sp, "email", "email", "Email a purchase order", true))
+			parent.AddCommand(NewActionCmd(sp, "comments", "comments", "Add a comment", true))
 		},
 	})
 }

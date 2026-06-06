@@ -1,22 +1,29 @@
 ---
-title: alegra taxes update
+title: alegra reports sales-by-client-totals
 ---
 
-## alegra taxes update
+## alegra reports sales-by-client-totals
 
-Update a taxe by ID
+Grand totals of the sales-by-client report
 
 ```
-alegra taxes update <id> [flags]
+alegra reports sales-by-client-totals [flags]
+```
+
+### Examples
+
+```
+  alegra reports sales-by-client-totals --from 2026-01-01 --to 2026-03-31
 ```
 
 ### Options
 
 ```
-  -d, --data string       Request body as a JSON string
-  -f, --file string       Read JSON request body from a file (use - for stdin)
-  -h, --help              help for update
-      --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable. For nested documents (e.g. invoice items[]) use --file.
+      --from string   Range start date (YYYY-MM-DD)
+  -h, --help          help for sales-by-client-totals
+      --limit int     Number of rows per page (default 10)
+      --start int     Pagination offset
+      --to string     Range end date (YYYY-MM-DD)
 ```
 
 ### Options inherited from parent commands
@@ -34,5 +41,5 @@ alegra taxes update <id> [flags]
 
 ### SEE ALSO
 
-* [alegra taxes](alegra_taxes.md)	 - Manage taxes (e.g. IVA)
+* [alegra reports](alegra_reports.md)	 - Read-only Alegra reports
 

@@ -10,6 +10,13 @@ Get a single price-list by ID
 alegra price-lists get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra price-lists get <id>
+  alegra price-lists get <id> -o json
+```
+
 ### Options
 
 ```

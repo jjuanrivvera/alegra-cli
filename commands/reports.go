@@ -12,19 +12,22 @@ import (
 func init() {
 	reportsCmd := &cobra.Command{
 		Use:   "reports",
-		Short: "Read-only Alegra sales reports",
-		Long: `reports fetches read-only Alegra sales reports.
+		Short: "Read-only Alegra reports",
+		Long: `reports fetches read-only Alegra reports.
 
-Each subcommand GETs a report subpath under /reports and aggregates sales
-documents over a date range. Use --from / --to to bound the range and
---start / --limit to paginate.`,
+Each subcommand GETs a report subpath under /reports. Use --from / --to to bound
+the date range and --start / --limit to paginate the paginated reports.
+
+Note: some reports (income-statement, account-statement) are only available on
+certain Alegra plans and may return HTTP 403 otherwise.`,
 	}
 
 	reportsCmd.AddCommand(
-		newReportSalesDocumentsCmd(),
-		newReportSalesTotalsCmd(),
 		newReportSalesByClientCmd(),
+		newReportSalesByClientTotalsCmd(),
 		newReportSalesBySellerCmd(),
+		newReportIncomeStatementCmd(),
+		newReportAccountStatementCmd(),
 	)
 
 	rootCmd.AddCommand(reportsCmd)
@@ -38,8 +41,8 @@ type reportFlags struct {
 	limit int
 }
 
-// addRangeFlags registers the date-range and pagination flags common to every
-// report subcommand and returns a pointer to the bound values.
+// addRangeFlags registers the date-range and pagination flags common to report
+// subcommands and returns a pointer to the bound values.
 func addRangeFlags(cmd *cobra.Command) *reportFlags {
 	f := &reportFlags{}
 	fs := cmd.Flags()
@@ -50,9 +53,8 @@ func addRangeFlags(cmd *cobra.Command) *reportFlags {
 	return f
 }
 
-// values builds the url.Values for a report request from the shared flags,
-// applying only the flags the caller actually set.
-func (f *reportFlags) values(cmd *cobra.Command, paginated bool) url.Values {
+// values builds the url.Values for a report request from the shared flags.
+func (f *reportFlags) values(paginated bool) url.Values {
 	q := url.Values{}
 	if f.from != "" {
 		q.Set("from", f.from)
@@ -67,7 +69,8 @@ func (f *reportFlags) values(cmd *cobra.Command, paginated bool) url.Values {
 	return q
 }
 
-// fetchReport GETs a report subpath and renders the resulting rows.
+// fetchReport GETs a report subpath and renders the rows from a {data:[...]}
+// envelope.
 func fetchReport(cmd *cobra.Command, path string, q url.Values, cols []string) error {
 	client, err := getAPIClient()
 	if err != nil {
@@ -83,63 +86,29 @@ func fetchReport(cmd *cobra.Command, path string, q url.Values, cols []string) e
 	return render(cmd, out.Data, cols)
 }
 
-func newReportSalesDocumentsCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "sales-documents",
-		Short: "List individual sales documents (invoices, credit/debit notes) in a range",
-		Args:  cobra.NoArgs,
+// fetchReportRaw GETs a report subpath and renders the whole response object
+// (for reports that are not a {data:[...]} list).
+func fetchReportRaw(cmd *cobra.Command, path string, q url.Values) error {
+	client, err := getAPIClient()
+	if err != nil {
+		return err
 	}
-	f := addRangeFlags(cmd)
-	var docType, docStatus, docNumber string
-	cmd.Flags().StringVar(&docType, "document-types", "", "Comma-separated types: invoice, creditNote, incomeDebitNote")
-	cmd.Flags().StringVar(&docStatus, "document-status", "", "Document status: open, closed, applied")
-	cmd.Flags().StringVar(&docNumber, "document-number", "", "Filter by document number")
-	cmd.RunE = func(cmd *cobra.Command, _ []string) error {
-		q := f.values(cmd, true)
-		if docType != "" {
-			q.Set("documentTypes", docType)
-		}
-		if docStatus != "" {
-			q.Set("documentStatus", docStatus)
-		}
-		if docNumber != "" {
-			q.Set("documentNumber", docNumber)
-		}
-		return fetchReport(cmd, "reports/sales-documents", q,
-			[]string{"id", "documentNumber", "documentType", "date", "status", "total"})
+	var out any
+	if err := client.GetInto(cmd.Context(), path, q, &out); err != nil {
+		return err
 	}
-	return cmd
-}
-
-func newReportSalesTotalsCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "sales-totals",
-		Short: "Sales totals grouped by period (day, month, or year)",
-		Args:  cobra.NoArgs,
+	if flagDryRun {
+		return nil
 	}
-	f := addRangeFlags(cmd)
-	var groupBy, docStatus string
-	cmd.Flags().StringVar(&groupBy, "group-by", "month", "Temporal grouping: day, month, year")
-	cmd.Flags().StringVar(&docStatus, "document-status", "", "Document status: open, closed, applied")
-	cmd.RunE = func(cmd *cobra.Command, _ []string) error {
-		q := f.values(cmd, false)
-		if groupBy != "" {
-			q.Set("groupBy", groupBy)
-		}
-		if docStatus != "" {
-			q.Set("documentStatus", docStatus)
-		}
-		return fetchReport(cmd, "reports/sales-totals", q,
-			[]string{"period", "beforeTaxes", "tax", "discount", "creditNote", "total"})
-	}
-	return cmd
+	return render(cmd, out, nil)
 }
 
 func newReportSalesByClientCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "sales-by-client",
-		Short: "Sales grouped by client over a date range",
-		Args:  cobra.NoArgs,
+		Use:     "sales-by-client",
+		Short:   "Sales grouped by client over a date range",
+		Args:    cobra.NoArgs,
+		Example: "  alegra reports sales-by-client --from 2026-01-01 --to 2026-03-31",
 	}
 	f := addRangeFlags(cmd)
 	var clientName, orderField, orderDirection string
@@ -147,7 +116,7 @@ func newReportSalesByClientCmd() *cobra.Command {
 	cmd.Flags().StringVar(&orderField, "order-field", "", "Order by: totalDocuments, subTotal, total")
 	cmd.Flags().StringVar(&orderDirection, "order-direction", "", "Order direction: ASC or DESC")
 	cmd.RunE = func(cmd *cobra.Command, _ []string) error {
-		q := f.values(cmd, true)
+		q := f.values(true)
 		if clientName != "" {
 			q.Set("clientName", clientName)
 		}
@@ -163,11 +132,26 @@ func newReportSalesByClientCmd() *cobra.Command {
 	return cmd
 }
 
+func newReportSalesByClientTotalsCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:     "sales-by-client-totals",
+		Short:   "Grand totals of the sales-by-client report",
+		Args:    cobra.NoArgs,
+		Example: "  alegra reports sales-by-client-totals --from 2026-01-01 --to 2026-03-31",
+	}
+	f := addRangeFlags(cmd)
+	cmd.RunE = func(cmd *cobra.Command, _ []string) error {
+		return fetchReportRaw(cmd, "reports/sales-by-client-totals", f.values(false))
+	}
+	return cmd
+}
+
 func newReportSalesBySellerCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "sales-by-seller",
-		Short: "Sales grouped by seller over a date range",
-		Args:  cobra.NoArgs,
+		Use:     "sales-by-seller",
+		Short:   "Sales grouped by seller over a date range",
+		Args:    cobra.NoArgs,
+		Example: "  alegra reports sales-by-seller --from 2026-01-01 --to 2026-03-31",
 	}
 	f := addRangeFlags(cmd)
 	var sellerName, orderField, orderDirection string
@@ -175,7 +159,7 @@ func newReportSalesBySellerCmd() *cobra.Command {
 	cmd.Flags().StringVar(&orderField, "order-field", "", "Order by: totalDocuments, totalPayed, beforeTaxes, total")
 	cmd.Flags().StringVar(&orderDirection, "order-direction", "", "Order direction: ASC or DESC")
 	cmd.RunE = func(cmd *cobra.Command, _ []string) error {
-		q := f.values(cmd, true)
+		q := f.values(true)
 		if sellerName != "" {
 			q.Set("sellerName", sellerName)
 		}
@@ -187,6 +171,40 @@ func newReportSalesBySellerCmd() *cobra.Command {
 		}
 		return fetchReport(cmd, "reports/sales-by-seller", q,
 			[]string{"sellerName", "totalDocuments", "totalPayed", "beforeTaxes", "total"})
+	}
+	return cmd
+}
+
+func newReportIncomeStatementCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:     "income-statement",
+		Short:   "Income statement / profit & loss (estado de resultados) — plan-dependent",
+		Args:    cobra.NoArgs,
+		Example: "  alegra reports income-statement --from 2026-01-01 --to 2026-12-31",
+	}
+	f := addRangeFlags(cmd)
+	cmd.RunE = func(cmd *cobra.Command, _ []string) error {
+		return fetchReportRaw(cmd, "reports/income-statement", f.values(false))
+	}
+	return cmd
+}
+
+func newReportAccountStatementCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:     "account-statement",
+		Short:   "Account statement for a contact (estado de cuenta) — plan-dependent",
+		Args:    cobra.NoArgs,
+		Example: "  alegra reports account-statement --client-id 12 --from 2026-01-01 --to 2026-12-31",
+	}
+	f := addRangeFlags(cmd)
+	var clientID string
+	cmd.Flags().StringVar(&clientID, "client-id", "", "Contact (client) ID")
+	cmd.RunE = func(cmd *cobra.Command, _ []string) error {
+		q := f.values(false)
+		if clientID != "" {
+			q.Set("client_id", clientID)
+		}
+		return fetchReportRaw(cmd, "reports/account-statement", q)
 	}
 	return cmd
 }

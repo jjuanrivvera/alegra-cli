@@ -10,6 +10,13 @@ Get a single recurring-invoice by ID
 alegra recurring-invoices get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra recurring-invoices get <id>
+  alegra recurring-invoices get <id> -o json
+```
+
 ### Options
 
 ```

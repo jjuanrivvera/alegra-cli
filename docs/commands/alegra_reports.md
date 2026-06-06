@@ -4,15 +4,17 @@ title: alegra reports
 
 ## alegra reports
 
-Read-only Alegra sales reports
+Read-only Alegra reports
 
 ### Synopsis
 
-reports fetches read-only Alegra sales reports.
+reports fetches read-only Alegra reports.
 
-Each subcommand GETs a report subpath under /reports and aggregates sales
-documents over a date range. Use --from / --to to bound the range and
---start / --limit to paginate.
+Each subcommand GETs a report subpath under /reports. Use --from / --to to bound
+the date range and --start / --limit to paginate the paginated reports.
+
+Note: some reports (income-statement, account-statement) are only available on
+certain Alegra plans and may return HTTP 403 otherwise.
 
 ### Options
 
@@ -36,8 +38,9 @@ documents over a date range. Use --from / --to to bound the range and
 ### SEE ALSO
 
 * [alegra](alegra.md)	 - Alegra accounting system CLI
+* [alegra reports account-statement](alegra_reports_account-statement.md)	 - Account statement for a contact (estado de cuenta) — plan-dependent
+* [alegra reports income-statement](alegra_reports_income-statement.md)	 - Income statement / profit & loss (estado de resultados) — plan-dependent
 * [alegra reports sales-by-client](alegra_reports_sales-by-client.md)	 - Sales grouped by client over a date range
+* [alegra reports sales-by-client-totals](alegra_reports_sales-by-client-totals.md)	 - Grand totals of the sales-by-client report
 * [alegra reports sales-by-seller](alegra_reports_sales-by-seller.md)	 - Sales grouped by seller over a date range
-* [alegra reports sales-documents](alegra_reports_sales-documents.md)	 - List individual sales documents (invoices, credit/debit notes) in a range
-* [alegra reports sales-totals](alegra_reports_sales-totals.md)	 - Sales totals grouped by period (day, month, or year)
 

@@ -10,6 +10,13 @@ Get a single category by ID
 alegra categories get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra categories get <id>
+  alegra categories get <id> -o json
+```
+
 ### Options
 
 ```

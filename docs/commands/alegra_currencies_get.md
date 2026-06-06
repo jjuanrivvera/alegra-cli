@@ -10,6 +10,13 @@ Get a single currency by ID
 alegra currencies get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra currencies get <id>
+  alegra currencies get <id> -o json
+```
+
 ### Options
 
 ```

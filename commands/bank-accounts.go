@@ -19,7 +19,7 @@ func init() {
 			{Flag: "include-balance", Query: "includeBalance", Usage: "Include account balances in the response"},
 		},
 		Extra: func(parent *cobra.Command, sp resourceSpec[api.BankAccount]) {
-			parent.AddCommand(NewActionCmd(sp, "transfer", "transfer", "Transfer funds to another bank account"))
+			parent.AddCommand(NewActionCmd(sp, "transfer", "transfer", "Transfer funds to another bank account", true))
 		},
 	})
 }

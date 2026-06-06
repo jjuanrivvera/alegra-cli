@@ -10,6 +10,13 @@ Get a single user by ID
 alegra users get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra users get <id>
+  alegra users get <id> -o json
+```
+
 ### Options
 
 ```

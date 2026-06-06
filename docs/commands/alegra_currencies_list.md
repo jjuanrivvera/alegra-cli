@@ -10,15 +10,27 @@ List currencies
 alegra currencies list [flags]
 ```
 
+### Examples
+
+```
+  alegra currencies list
+  alegra currencies list --limit 30 --all -o json
+  alegra currencies list --count
+  alegra currencies list --fields <value>
+  alegra currencies list --param <api_param>=<value>
+```
+
 ### Options
 
 ```
       --all                      Fetch all pages
+      --count                    Print only the total number of matching records
       --fields string            Extra fields to include: deletable, canBeInactive, autoUpdate
   -h, --help                     help for list
       --limit int                Max records per page (max 30)
       --order-direction string   Sort direction: ASC or DESC
       --order-field string       Field to sort by
+      --param stringArray        Arbitrary API query parameter: key=value (repeatable; e.g. --param date_after=2026-01-01)
   -q, --query string             Free-text search
       --start int                Offset to start from (pagination)
 ```

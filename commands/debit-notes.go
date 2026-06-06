@@ -22,7 +22,7 @@ func init() {
 			{Flag: "date", Query: "date", Usage: "Filter by date (YYYY-MM-DD)"},
 		},
 		Extra: func(parent *cobra.Command, sp resourceSpec[api.DebitNote]) {
-			parent.AddCommand(NewActionCmd(sp, "comments", "comments", "Add a comment to a debit note"))
+			parent.AddCommand(NewActionCmd(sp, "comments", "comments", "Add a comment to a debit note", true))
 		},
 	})
 }

@@ -6,8 +6,23 @@ title: alegra warehouse-transfers create
 
 Create a warehouse-transfer
 
+### Synopsis
+
+Create a warehouse-transfer.
+
+Provide the body with --file <path> (recommended for nested documents),
+--data '<json>', or one or more --set key=value pairs for flat fields.
+
 ```
 alegra warehouse-transfers create [flags]
+```
+
+### Examples
+
+```
+  alegra warehouse-transfers create -f warehouse-transfer.json
+  alegra warehouse-transfers create --set name="Example"
+  echo '{...}' | alegra warehouse-transfers create -f -
 ```
 
 ### Options
@@ -16,7 +31,7 @@ alegra warehouse-transfers create [flags]
   -d, --data string       Request body as a JSON string
   -f, --file string       Read JSON request body from a file (use - for stdin)
   -h, --help              help for create
-      --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable.
+      --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable. For nested documents (e.g. invoice items[]) use --file.
 ```
 
 ### Options inherited from parent commands

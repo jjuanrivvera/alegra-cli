@@ -6,8 +6,23 @@ title: alegra items create
 
 Create a item
 
+### Synopsis
+
+Create a item.
+
+Provide the body with --file <path> (recommended for nested documents),
+--data '<json>', or one or more --set key=value pairs for flat fields.
+
 ```
 alegra items create [flags]
+```
+
+### Examples
+
+```
+  alegra items create -f item.json
+  alegra items create --set name="Example"
+  echo '{...}' | alegra items create -f -
 ```
 
 ### Options
@@ -16,7 +31,7 @@ alegra items create [flags]
   -d, --data string       Request body as a JSON string
   -f, --file string       Read JSON request body from a file (use - for stdin)
   -h, --help              help for create
-      --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable.
+      --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable. For nested documents (e.g. invoice items[]) use --file.
 ```
 
 ### Options inherited from parent commands

@@ -20,6 +20,7 @@ type JournalEntry struct {
 	ID          ID     `json:"id,omitempty"`
 	Name        string `json:"name,omitempty"`
 	Description string `json:"description,omitempty"`
+	Account     *Ref   `json:"account,omitempty"` // ledger account this line hits
 	Debit       Money  `json:"debit,omitempty"`
 	Credit      Money  `json:"credit,omitempty"`
 	Client      *Ref   `json:"client,omitempty"`

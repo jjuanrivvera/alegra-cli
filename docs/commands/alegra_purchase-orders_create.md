@@ -6,8 +6,23 @@ title: alegra purchase-orders create
 
 Create a purchase-order
 
+### Synopsis
+
+Create a purchase-order.
+
+Provide the body with --file <path> (recommended for nested documents),
+--data '<json>', or one or more --set key=value pairs for flat fields.
+
 ```
 alegra purchase-orders create [flags]
+```
+
+### Examples
+
+```
+  alegra purchase-orders create -f purchase-order.json
+  alegra purchase-orders create --set name="Example"
+  echo '{...}' | alegra purchase-orders create -f -
 ```
 
 ### Options
@@ -16,7 +31,7 @@ alegra purchase-orders create [flags]
   -d, --data string       Request body as a JSON string
   -f, --file string       Read JSON request body from a file (use - for stdin)
   -h, --help              help for create
-      --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable.
+      --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable. For nested documents (e.g. invoice items[]) use --file.
 ```
 
 ### Options inherited from parent commands

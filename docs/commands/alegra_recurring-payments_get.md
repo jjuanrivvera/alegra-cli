@@ -10,6 +10,13 @@ Get a single recurring-payment by ID
 alegra recurring-payments get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra recurring-payments get <id>
+  alegra recurring-payments get <id> -o json
+```
+
 ### Options
 
 ```

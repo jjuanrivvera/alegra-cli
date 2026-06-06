@@ -10,6 +10,13 @@ Get a single contact by ID
 alegra contacts get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra contacts get <id>
+  alegra contacts get <id> -o json
+```
+
 ### Options
 
 ```

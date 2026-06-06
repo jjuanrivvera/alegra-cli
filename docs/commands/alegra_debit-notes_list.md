@@ -10,11 +10,22 @@ List debit-notes
 alegra debit-notes list [flags]
 ```
 
+### Examples
+
+```
+  alegra debit-notes list
+  alegra debit-notes list --limit 30 --all -o json
+  alegra debit-notes list --count
+  alegra debit-notes list --number <value>
+  alegra debit-notes list --param <api_param>=<value>
+```
+
 ### Options
 
 ```
       --all                      Fetch all pages
       --client-id string         Filter by client ID
+      --count                    Print only the total number of matching records
       --date string              Filter by date (YYYY-MM-DD)
   -h, --help                     help for list
       --item-id string           Filter by item ID
@@ -22,6 +33,7 @@ alegra debit-notes list [flags]
       --number string            Filter by document number (prefix and/or number)
       --order-direction string   Sort direction: ASC or DESC
       --order-field string       Field to sort by (id, date, status)
+      --param stringArray        Arbitrary API query parameter: key=value (repeatable; e.g. --param date_after=2026-01-01)
       --provider-name string     Filter by provider name
   -q, --query string             Free-text search
       --start int                Offset to start from (pagination)

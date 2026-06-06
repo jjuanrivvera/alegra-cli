@@ -6,8 +6,23 @@ title: alegra price-lists create
 
 Create a price-list
 
+### Synopsis
+
+Create a price-list.
+
+Provide the body with --file <path> (recommended for nested documents),
+--data '<json>', or one or more --set key=value pairs for flat fields.
+
 ```
 alegra price-lists create [flags]
+```
+
+### Examples
+
+```
+  alegra price-lists create -f price-list.json
+  alegra price-lists create --set name="Example"
+  echo '{...}' | alegra price-lists create -f -
 ```
 
 ### Options
@@ -16,7 +31,7 @@ alegra price-lists create [flags]
   -d, --data string       Request body as a JSON string
   -f, --file string       Read JSON request body from a file (use - for stdin)
   -h, --help              help for create
-      --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable.
+      --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable. For nested documents (e.g. invoice items[]) use --file.
 ```
 
 ### Options inherited from parent commands

@@ -10,6 +10,13 @@ Get a single variant-attribute by ID
 alegra variant-attributes get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra variant-attributes get <id>
+  alegra variant-attributes get <id> -o json
+```
+
 ### Options
 
 ```

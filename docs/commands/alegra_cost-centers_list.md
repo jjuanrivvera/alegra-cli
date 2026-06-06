@@ -10,15 +10,27 @@ List cost-centers
 alegra cost-centers list [flags]
 ```
 
+### Examples
+
+```
+  alegra cost-centers list
+  alegra cost-centers list --limit 30 --all -o json
+  alegra cost-centers list --count
+  alegra cost-centers list --status <value>
+  alegra cost-centers list --param <api_param>=<value>
+```
+
 ### Options
 
 ```
       --all                      Fetch all pages
+      --count                    Print only the total number of matching records
   -h, --help                     help for list
       --limit int                Max records per page (max 30)
       --name string              Filter by name (partial match)
       --order-direction string   Sort direction: ASC or DESC
       --order-field string       Field to sort by (id, name, code, status)
+      --param stringArray        Arbitrary API query parameter: key=value (repeatable; e.g. --param date_after=2026-01-01)
   -q, --query string             Free-text search
       --start int                Offset to start from (pagination)
       --status string            Filter by status: active or inactive

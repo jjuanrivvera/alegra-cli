@@ -6,8 +6,23 @@ title: alegra debit-notes create
 
 Create a debit-note
 
+### Synopsis
+
+Create a debit-note.
+
+Provide the body with --file <path> (recommended for nested documents),
+--data '<json>', or one or more --set key=value pairs for flat fields.
+
 ```
 alegra debit-notes create [flags]
+```
+
+### Examples
+
+```
+  alegra debit-notes create -f debit-note.json
+  alegra debit-notes create --set name="Example"
+  echo '{...}' | alegra debit-notes create -f -
 ```
 
 ### Options
@@ -16,7 +31,7 @@ alegra debit-notes create [flags]
   -d, --data string       Request body as a JSON string
   -f, --file string       Read JSON request body from a file (use - for stdin)
   -h, --help              help for create
-      --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable.
+      --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable. For nested documents (e.g. invoice items[]) use --file.
 ```
 
 ### Options inherited from parent commands

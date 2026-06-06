@@ -10,10 +10,21 @@ List contacts
 alegra contacts list [flags]
 ```
 
+### Examples
+
+```
+  alegra contacts list
+  alegra contacts list --limit 30 --all -o json
+  alegra contacts list --count
+  alegra contacts list --identification <value>
+  alegra contacts list --param <api_param>=<value>
+```
+
 ### Options
 
 ```
       --all                      Fetch all pages
+      --count                    Print only the total number of matching records
       --email string             Filter by email
   -h, --help                     help for list
       --identification string    Filter by identification number
@@ -21,6 +32,7 @@ alegra contacts list [flags]
       --name string              Filter by name
       --order-direction string   Sort direction: ASC or DESC
       --order-field string       Field to sort by (id, name, email)
+      --param stringArray        Arbitrary API query parameter: key=value (repeatable; e.g. --param date_after=2026-01-01)
   -q, --query string             Free-text search
       --start int                Offset to start from (pagination)
       --type string              Filter by type: client or provider

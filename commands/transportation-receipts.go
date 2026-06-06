@@ -22,7 +22,7 @@ func init() {
 		Extra: func(parent *cobra.Command, sp resourceSpec[api.TransportationReceipt]) {
 			parent.AddCommand(NewActionCmd(sp, "void", "void", "Void a receipt"))
 			parent.AddCommand(NewActionCmd(sp, "open", "open", "Open a receipt"))
-			parent.AddCommand(NewActionCmd(sp, "email", "email", "Email a receipt"))
+			parent.AddCommand(NewActionCmd(sp, "email", "email", "Email a receipt", true))
 			parent.AddCommand(NewCollectionActionCmd(sp, "preview", "preview", "Generate a preview PDF URL"))
 		},
 	})

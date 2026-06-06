@@ -23,6 +23,18 @@ type listFilter struct {
 	Usage string
 }
 
+// dateRangeFilters returns the standard Alegra date/dueDate range filters shared
+// by transactional documents (invoices, bills, payments, ...). Append with
+// `append(dateRangeFilters(), ...)` in a resource's ListFilters.
+func dateRangeFilters() []listFilter {
+	return []listFilter{
+		{Flag: "date-after", Query: "date_after", Usage: "On/after this date (YYYY-MM-DD)"},
+		{Flag: "date-before", Query: "date_before", Usage: "On/before this date (YYYY-MM-DD)"},
+		{Flag: "due-after", Query: "dueDate_after", Usage: "Due on/after this date (YYYY-MM-DD)"},
+		{Flag: "due-before", Query: "dueDate_before", Usage: "Due on/before this date (YYYY-MM-DD)"},
+	}
+}
+
 // resourceSpec declares how to expose one CRUD resource. Concrete resource
 // files build one of these and call registerResource in their init().
 //
@@ -90,16 +102,18 @@ func buildResourceCmd[T any](sp resourceSpec[T]) *cobra.Command {
 // resource-specific filters that collide with these are skipped.
 var reservedListFlags = map[string]bool{
 	"start": true, "limit": true, "all": true, "query": true,
-	"order-field": true, "order-direction": true,
+	"order-field": true, "order-direction": true, "count": true, "param": true,
 }
 
 type listFlags struct {
 	start    int
 	limit    int
 	all      bool
+	count    bool
 	query    string
 	orderBy  string
 	orderDir string
+	params   []string
 }
 
 func newListCmd[T any](sp resourceSpec[T]) *cobra.Command {
@@ -107,9 +121,10 @@ func newListCmd[T any](sp resourceSpec[T]) *cobra.Command {
 	filterVals := map[string]*string{}
 
 	cmd := &cobra.Command{
-		Use:   "list",
-		Short: "List " + sp.Use,
-		Args:  cobra.NoArgs,
+		Use:     "list",
+		Short:   "List " + sp.Use,
+		Args:    cobra.NoArgs,
+		Example: listExample(sp),
 		RunE: func(cmd *cobra.Command, _ []string) error {
 			client, err := getAPIClient()
 			if err != nil {
@@ -123,12 +138,31 @@ func newListCmd[T any](sp resourceSpec[T]) *cobra.Command {
 				OrderDirection: lf.orderDir,
 				Extra:          url.Values{},
 			}
+			// Arbitrary raw query params (escape hatch for any Alegra filter
+			// not exposed as a typed flag), applied first so curated filters win.
+			for _, p := range lf.params {
+				k, v, ok := strings.Cut(p, "=")
+				if !ok {
+					return fmt.Errorf("invalid --param %q (expected key=value)", p)
+				}
+				params.Extra.Set(k, v)
+			}
 			for _, f := range sp.ListFilters {
 				if v := filterVals[f.Query]; v != nil && *v != "" {
 					params.Extra.Set(f.Query, *v)
 				}
 			}
+
 			res := sp.New(client)
+			if lf.count {
+				total, err := res.Count(cmd.Context(), params)
+				if err != nil {
+					return err
+				}
+				fmt.Fprintln(cmd.OutOrStdout(), total)
+				return nil
+			}
+
 			var items []T
 			if lf.all {
 				items, err = res.ListAll(cmd.Context(), params, 0)
@@ -146,7 +180,9 @@ func newListCmd[T any](sp resourceSpec[T]) *cobra.Command {
 	fs.IntVar(&lf.start, "start", 0, "Offset to start from (pagination)")
 	fs.IntVar(&lf.limit, "limit", 0, "Max records per page (max 30)")
 	fs.BoolVar(&lf.all, "all", false, "Fetch all pages")
+	fs.BoolVar(&lf.count, "count", false, "Print only the total number of matching records")
 	fs.StringVarP(&lf.query, "query", "q", "", "Free-text search")
+	fs.StringArrayVar(&lf.params, "param", nil, "Arbitrary API query parameter: key=value (repeatable; e.g. --param date_after=2026-01-01)")
 	orderUsage := "Field to sort by"
 	if len(sp.OrderFields) > 0 {
 		orderUsage += " (" + strings.Join(sp.OrderFields, ", ") + ")"
@@ -165,13 +201,26 @@ func newListCmd[T any](sp resourceSpec[T]) *cobra.Command {
 	return cmd
 }
 
+// listExample builds a baseline help example for a resource's list command.
+func listExample[T any](sp resourceSpec[T]) string {
+	ex := "  alegra " + sp.Use + " list\n" +
+		"  alegra " + sp.Use + " list --limit 30 --all -o json\n" +
+		"  alegra " + sp.Use + " list --count"
+	if len(sp.ListFilters) > 0 {
+		ex += "\n  alegra " + sp.Use + " list --" + sp.ListFilters[0].Flag + " <value>"
+	}
+	ex += "\n  alegra " + sp.Use + " list --param <api_param>=<value>"
+	return ex
+}
+
 // --- get ---
 
 func newGetCmd[T any](sp resourceSpec[T]) *cobra.Command {
 	return &cobra.Command{
-		Use:   "get <id>",
-		Short: "Get a single " + singular(sp.Use) + " by ID",
-		Args:  cobra.ExactArgs(1),
+		Use:     "get <id>",
+		Short:   "Get a single " + singular(sp.Use) + " by ID",
+		Args:    cobra.ExactArgs(1),
+		Example: "  alegra " + sp.Use + " get <id>\n  alegra " + sp.Use + " get <id> -o json",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			client, err := getAPIClient()
 			if err != nil {
@@ -181,7 +230,9 @@ func newGetCmd[T any](sp resourceSpec[T]) *cobra.Command {
 			if err != nil {
 				return err
 			}
-			return render(cmd, item, sp.Columns)
+			// Pass nil columns so a single record shows all of its fields, not
+			// just the terse list columns.
+			return render(cmd, item, nil)
 		},
 	}
 }
@@ -193,7 +244,13 @@ func newCreateCmd[T any](sp resourceSpec[T]) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create a " + singular(sp.Use),
-		Args:  cobra.NoArgs,
+		Long: "Create a " + singular(sp.Use) + ".\n\n" +
+			"Provide the body with --file <path> (recommended for nested documents),\n" +
+			"--data '<json>', or one or more --set key=value pairs for flat fields.",
+		Example: "  alegra " + sp.Use + " create -f " + singular(sp.Use) + ".json\n" +
+			"  alegra " + sp.Use + " create --set name=\"Example\"\n" +
+			"  echo '{...}' | alegra " + sp.Use + " create -f -",
+		Args: cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, _ []string) error {
 			body, err := bf.build()
 			if err != nil {
@@ -274,14 +331,27 @@ func newDeleteCmd[T any](sp resourceSpec[T]) *cobra.Command {
 // --- custom actions ---
 
 // NewActionCmd builds a subcommand that POSTs to /<resource>/<id>/<apiAction>.
-func NewActionCmd[T any](sp resourceSpec[T], use, apiAction, short string) *cobra.Command {
+// Pass bodyRequired=true for actions whose API call needs a JSON body (e.g.
+// email, comments, transfer) so the CLI fails fast with a clear message instead
+// of letting the server return an opaque error.
+func NewActionCmd[T any](sp resourceSpec[T], use, apiAction, short string, bodyRequired ...bool) *cobra.Command {
 	var bf bodyFlags
+	required := len(bodyRequired) > 0 && bodyRequired[0]
 	cmd := &cobra.Command{
 		Use:   use + " <id>",
 		Short: short,
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			body, _ := bf.buildOptional()
+			var body json.RawMessage
+			var err error
+			if required {
+				body, err = bf.build()
+			} else {
+				body, err = bf.buildOptional()
+			}
+			if err != nil {
+				return err
+			}
 			client, err := getAPIClient()
 			if err != nil {
 				return err
@@ -342,7 +412,7 @@ func addBodyFlags(cmd *cobra.Command, bf *bodyFlags) {
 	fs := cmd.Flags()
 	fs.StringVarP(&bf.data, "data", "d", "", "Request body as a JSON string")
 	fs.StringVarP(&bf.file, "file", "f", "", "Read JSON request body from a file (use - for stdin)")
-	fs.StringArrayVar(&bf.sets, "set", nil, "Set a top-level field: key=value (value parsed as JSON when valid). Repeatable.")
+	fs.StringArrayVar(&bf.sets, "set", nil, "Set a top-level field: key=value (value parsed as JSON when valid). Repeatable. For nested documents (e.g. invoice items[]) use --file.")
 }
 
 // build returns the JSON body, erroring if nothing was provided.

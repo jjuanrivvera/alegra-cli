@@ -10,16 +10,28 @@ List variant-attributes
 alegra variant-attributes list [flags]
 ```
 
+### Examples
+
+```
+  alegra variant-attributes list
+  alegra variant-attributes list --limit 30 --all -o json
+  alegra variant-attributes list --count
+  alegra variant-attributes list --name <value>
+  alegra variant-attributes list --param <api_param>=<value>
+```
+
 ### Options
 
 ```
       --all                      Fetch all pages
+      --count                    Print only the total number of matching records
   -h, --help                     help for list
       --limit int                Max records per page (max 30)
       --name string              Filter variant attributes by name
       --options string           Filter variant attributes by options
       --order-direction string   Sort direction: ASC or DESC
       --order-field string       Field to sort by (name)
+      --param stringArray        Arbitrary API query parameter: key=value (repeatable; e.g. --param date_after=2026-01-01)
   -q, --query string             Free-text search
       --start int                Offset to start from (pagination)
 ```

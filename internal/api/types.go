@@ -98,6 +98,34 @@ type Ref struct {
 	Name string `json:"name,omitempty"`
 }
 
+// StringOrSlice decodes a JSON value that Alegra serializes as either a single
+// string or an array of strings (e.g. contact "type", which is "client" in
+// simple mode but ["client","provider"] in advanced mode).
+type StringOrSlice []string
+
+// UnmarshalJSON accepts a string, an array of strings, or null.
+func (s *StringOrSlice) UnmarshalJSON(data []byte) error {
+	data = bytes.TrimSpace(data)
+	if len(data) == 0 || string(data) == "null" {
+		*s = nil
+		return nil
+	}
+	if data[0] == '[' {
+		var arr []string
+		if err := json.Unmarshal(data, &arr); err != nil {
+			return err
+		}
+		*s = arr
+		return nil
+	}
+	var one string
+	if err := json.Unmarshal(data, &one); err != nil {
+		return err
+	}
+	*s = []string{one}
+	return nil
+}
+
 // Money is an amount Alegra may serialize as number or numeric string.
 type Money float64
 

@@ -67,6 +67,22 @@ alegra payments stamp 88
 alegra invoices list --status open --dry-run
 ```
 
+### Filtering, counting & pagination
+
+```bash
+# Date ranges on transactional resources (invoices, bills, payments, ...)
+alegra invoices list --status open --date-after 2026-01-01 --date-before 2026-03-31
+
+# Just the count (uses the API's metadata total — no full fetch)
+alegra invoices list --status open --count
+
+# Escape hatch: pass ANY Alegra query parameter the CLI doesn't expose as a flag
+alegra contacts list --param identification=900123456 --param order_field=name
+
+# Fetch every page
+alegra items list --all
+```
+
 ### Output formats
 
 `-o table` (default), `-o json`, `-o yaml`, `-o csv`. Pick columns with

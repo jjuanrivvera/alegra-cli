@@ -10,12 +10,23 @@ List remissions
 alegra remissions list [flags]
 ```
 
+### Examples
+
+```
+  alegra remissions list
+  alegra remissions list --limit 30 --all -o json
+  alegra remissions list --count
+  alegra remissions list --status <value>
+  alegra remissions list --param <api_param>=<value>
+```
+
 ### Options
 
 ```
       --all                      Fetch all pages
       --client-id string         Filter by client ID
       --client-name string       Filter by client name
+      --count                    Print only the total number of matching records
       --date string              Filter by date (YYYY-MM-DD)
       --due-date string          Filter by due date (YYYY-MM-DD)
   -h, --help                     help for list
@@ -24,6 +35,7 @@ alegra remissions list [flags]
       --number string            Filter by remission number (prefix and number)
       --order-direction string   Sort direction: ASC or DESC
       --order-field string       Field to sort by (id, name, date, dueDate)
+      --param stringArray        Arbitrary API query parameter: key=value (repeatable; e.g. --param date_after=2026-01-01)
   -q, --query string             Free-text search
       --start int                Offset to start from (pagination)
       --status string            Filter by status: open, void, closed

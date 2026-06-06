@@ -14,13 +14,13 @@ func init() {
 		New:         func(c *api.Client) *api.Resource[api.CreditNote] { return c.CreditNotes() },
 		Columns:     []string{"id", "date", "status", "total"},
 		OrderFields: []string{"id", "date", "status"},
-		ListFilters: []listFilter{
+		ListFilters: append([]listFilter{
 			{Flag: "status", Query: "status", Usage: "Filter by status: open, closed, void"},
 			{Flag: "client-id", Query: "client_id", Usage: "Filter by client ID"},
-			{Flag: "date", Query: "date", Usage: "Filter by date (YYYY-MM-DD)"},
-		},
+			{Flag: "date", Query: "date", Usage: "Filter by exact date (YYYY-MM-DD)"},
+		}, dateRangeFilters()...),
 		Extra: func(parent *cobra.Command, sp resourceSpec[api.CreditNote]) {
-			parent.AddCommand(NewActionCmd(sp, "email", "email", "Email a credit note"))
+			parent.AddCommand(NewActionCmd(sp, "email", "email", "Email a credit note", true))
 		},
 	})
 }

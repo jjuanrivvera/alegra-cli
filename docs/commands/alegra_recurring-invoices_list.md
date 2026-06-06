@@ -10,17 +10,29 @@ List recurring-invoices
 alegra recurring-invoices list [flags]
 ```
 
+### Examples
+
+```
+  alegra recurring-invoices list
+  alegra recurring-invoices list --limit 30 --all -o json
+  alegra recurring-invoices list --count
+  alegra recurring-invoices list --start-date <value>
+  alegra recurring-invoices list --param <api_param>=<value>
+```
+
 ### Options
 
 ```
       --all                      Fetch all pages
       --client-id string         Filter by client ID
+      --count                    Print only the total number of matching records
       --end-date string          Filter by recurring invoice end date (YYYY-MM-DD)
   -h, --help                     help for list
       --limit int                Max records per page (max 30)
       --name string              Filter by client name
       --order-direction string   Sort direction: ASC or DESC
       --order-field string       Field to sort by (name, startDate, endDate, repeatEvery, term)
+      --param stringArray        Arbitrary API query parameter: key=value (repeatable; e.g. --param date_after=2026-01-01)
   -q, --query string             Free-text search
       --repeat-every string      Filter by recurrence interval
       --start int                Offset to start from (pagination)

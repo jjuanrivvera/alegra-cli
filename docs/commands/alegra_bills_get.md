@@ -10,6 +10,13 @@ Get a single bill by ID
 alegra bills get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra bills get <id>
+  alegra bills get <id> -o json
+```
+
 ### Options
 
 ```

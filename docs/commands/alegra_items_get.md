@@ -10,6 +10,13 @@ Get a single item by ID
 alegra items get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra items get <id>
+  alegra items get <id> -o json
+```
+
 ### Options
 
 ```

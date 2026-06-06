@@ -10,16 +10,28 @@ List bank-accounts
 alegra bank-accounts list [flags]
 ```
 
+### Examples
+
+```
+  alegra bank-accounts list
+  alegra bank-accounts list --limit 30 --all -o json
+  alegra bank-accounts list --count
+  alegra bank-accounts list --include-inactive <value>
+  alegra bank-accounts list --param <api_param>=<value>
+```
+
 ### Options
 
 ```
       --all                       Fetch all pages
+      --count                     Print only the total number of matching records
   -h, --help                      help for list
       --include-balance string    Include account balances in the response
       --include-inactive string   Include inactive bank accounts
       --limit int                 Max records per page (max 30)
       --order-direction string    Sort direction: ASC or DESC
       --order-field string        Field to sort by (id, date)
+      --param stringArray         Arbitrary API query parameter: key=value (repeatable; e.g. --param date_after=2026-01-01)
   -q, --query string              Free-text search
       --start int                 Offset to start from (pagination)
 ```

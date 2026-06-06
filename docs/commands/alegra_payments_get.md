@@ -10,6 +10,13 @@ Get a single payment by ID
 alegra payments get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra payments get <id>
+  alegra payments get <id> -o json
+```
+
 ### Options
 
 ```

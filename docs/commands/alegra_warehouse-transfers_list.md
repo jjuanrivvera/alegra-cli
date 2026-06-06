@@ -10,16 +10,28 @@ List warehouse-transfers
 alegra warehouse-transfers list [flags]
 ```
 
+### Examples
+
+```
+  alegra warehouse-transfers list
+  alegra warehouse-transfers list --limit 30 --all -o json
+  alegra warehouse-transfers list --count
+  alegra warehouse-transfers list --date <value>
+  alegra warehouse-transfers list --param <api_param>=<value>
+```
+
 ### Options
 
 ```
       --all                      Fetch all pages
+      --count                    Print only the total number of matching records
       --date string              Filter by date (YYYY-MM-DD)
   -h, --help                     help for list
       --item-id string           Filter transfers involving a specific item ID
       --limit int                Max records per page (max 30)
       --order-direction string   Sort direction: ASC or DESC
       --order-field string       Field to sort by (id, date)
+      --param stringArray        Arbitrary API query parameter: key=value (repeatable; e.g. --param date_after=2026-01-01)
   -q, --query string             Free-text search
       --start int                Offset to start from (pagination)
 ```

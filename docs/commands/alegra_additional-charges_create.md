@@ -6,8 +6,23 @@ title: alegra additional-charges create
 
 Create a additional-charge
 
+### Synopsis
+
+Create a additional-charge.
+
+Provide the body with --file <path> (recommended for nested documents),
+--data '<json>', or one or more --set key=value pairs for flat fields.
+
 ```
 alegra additional-charges create [flags]
+```
+
+### Examples
+
+```
+  alegra additional-charges create -f additional-charge.json
+  alegra additional-charges create --set name="Example"
+  echo '{...}' | alegra additional-charges create -f -
 ```
 
 ### Options
@@ -16,7 +31,7 @@ alegra additional-charges create [flags]
   -d, --data string       Request body as a JSON string
   -f, --file string       Read JSON request body from a file (use - for stdin)
   -h, --help              help for create
-      --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable.
+      --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable. For nested documents (e.g. invoice items[]) use --file.
 ```
 
 ### Options inherited from parent commands

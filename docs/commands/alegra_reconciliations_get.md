@@ -10,6 +10,13 @@ Get a single reconciliation by ID
 alegra reconciliations get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra reconciliations get <id>
+  alegra reconciliations get <id> -o json
+```
+
 ### Options
 
 ```

@@ -10,16 +10,28 @@ List reconciliations
 alegra reconciliations list [flags]
 ```
 
+### Examples
+
+```
+  alegra reconciliations list
+  alegra reconciliations list --limit 30 --all -o json
+  alegra reconciliations list --count
+  alegra reconciliations list --account-id <value>
+  alegra reconciliations list --param <api_param>=<value>
+```
+
 ### Options
 
 ```
       --account-id string        Filter by bank account ID
       --all                      Fetch all pages
+      --count                    Print only the total number of matching records
       --fields string            Extra fields: deletable, balance, or simple
   -h, --help                     help for list
       --limit int                Max records per page (max 30)
       --order-direction string   Sort direction: ASC or DESC
       --order-field string       Field to sort by (id, date)
+      --param stringArray        Arbitrary API query parameter: key=value (repeatable; e.g. --param date_after=2026-01-01)
   -q, --query string             Free-text search
       --start int                Offset to start from (pagination)
 ```

@@ -46,7 +46,20 @@ func TestContacts_List(t *testing.T) {
 	assert.Equal(t, "Coorporación Alegrate", contacts[0].Name)
 	// Numeric id is normalized to a string.
 	assert.Equal(t, ID("2"), contacts[1].ID)
-	assert.Equal(t, []string{"provider"}, contacts[1].Type)
+	assert.Equal(t, StringOrSlice{"provider"}, contacts[1].Type)
+}
+
+func TestContacts_TypeStringOrArray(t *testing.T) {
+	// Alegra returns "type" as a bare string in simple mode and an array in
+	// advanced mode; both must decode.
+	c := newTestClient(t, func(w http.ResponseWriter, _ *http.Request) {
+		_, _ = w.Write([]byte(`[{"id":"1","type":"client"},{"id":"2","type":["client","provider"]}]`))
+	})
+	contacts, err := c.Contacts().List(context.Background(), ListParams{})
+	require.NoError(t, err)
+	require.Len(t, contacts, 2)
+	assert.Equal(t, StringOrSlice{"client"}, contacts[0].Type)
+	assert.Equal(t, StringOrSlice{"client", "provider"}, contacts[1].Type)
 }
 
 func TestContacts_Get(t *testing.T) {

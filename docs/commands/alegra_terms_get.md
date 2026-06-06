@@ -10,6 +10,13 @@ Get a single term by ID
 alegra terms get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra terms get <id>
+  alegra terms get <id> -o json
+```
+
 ### Options
 
 ```

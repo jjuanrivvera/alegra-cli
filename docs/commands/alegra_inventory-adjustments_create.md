@@ -6,8 +6,23 @@ title: alegra inventory-adjustments create
 
 Create a inventory-adjustment
 
+### Synopsis
+
+Create a inventory-adjustment.
+
+Provide the body with --file <path> (recommended for nested documents),
+--data '<json>', or one or more --set key=value pairs for flat fields.
+
 ```
 alegra inventory-adjustments create [flags]
+```
+
+### Examples
+
+```
+  alegra inventory-adjustments create -f inventory-adjustment.json
+  alegra inventory-adjustments create --set name="Example"
+  echo '{...}' | alegra inventory-adjustments create -f -
 ```
 
 ### Options
@@ -16,7 +31,7 @@ alegra inventory-adjustments create [flags]
   -d, --data string       Request body as a JSON string
   -f, --file string       Read JSON request body from a file (use - for stdin)
   -h, --help              help for create
-      --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable.
+      --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable. For nested documents (e.g. invoice items[]) use --file.
 ```
 
 ### Options inherited from parent commands

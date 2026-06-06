@@ -38,6 +38,25 @@ func TestDecodeList_Empty(t *testing.T) {
 	assert.Empty(t, out)
 }
 
+func TestCount_TotalShapes(t *testing.T) {
+	cases := map[string]string{
+		"metadata.total":  `{"metadata":{"total":42},"data":[{"id":"1"}]}`,
+		"top-level total": `{"total":"7","results":[{"id":"1"}]}`,
+	}
+	want := map[string]int64{"metadata.total": 42, "top-level total": 7}
+	for name, body := range cases {
+		t.Run(name, func(t *testing.T) {
+			c := newTestClient(t, func(w http.ResponseWriter, r *http.Request) {
+				assert.Equal(t, "true", r.URL.Query().Get("metadata"))
+				_, _ = w.Write([]byte(body))
+			})
+			n, err := NewResource[Contact](c, "x").Count(context.Background(), ListParams{})
+			require.NoError(t, err)
+			assert.Equal(t, want[name], n)
+		})
+	}
+}
+
 // TestList_ResultsWrapper exercises List end-to-end against a {total,results}
 // response (the shape /taxes returns).
 func TestList_ResultsWrapper(t *testing.T) {

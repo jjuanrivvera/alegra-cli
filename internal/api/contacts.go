@@ -13,7 +13,7 @@ type Contact struct {
 	Fax            string          `json:"fax,omitempty"`
 	Observations   string          `json:"observations,omitempty"`
 	Status         string          `json:"status,omitempty"`
-	Type           []string        `json:"type,omitempty"` // e.g. ["client"], ["provider"]
+	Type           StringOrSlice   `json:"type,omitempty"` // "client" or ["client","provider"]
 	KindOfPerson   string          `json:"kindOfPerson,omitempty"`
 	Regime         string          `json:"regime,omitempty"`
 	Address        *ContactAddress `json:"address,omitempty"`

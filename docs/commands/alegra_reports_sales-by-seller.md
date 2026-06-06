@@ -10,6 +10,12 @@ Sales grouped by seller over a date range
 alegra reports sales-by-seller [flags]
 ```
 
+### Examples
+
+```
+  alegra reports sales-by-seller --from 2026-01-01 --to 2026-03-31
+```
+
 ### Options
 
 ```
@@ -38,5 +44,5 @@ alegra reports sales-by-seller [flags]
 
 ### SEE ALSO
 
-* [alegra reports](alegra_reports.md)	 - Read-only Alegra sales reports
+* [alegra reports](alegra_reports.md)	 - Read-only Alegra reports
 

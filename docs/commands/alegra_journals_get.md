@@ -10,6 +10,13 @@ Get a single journal by ID
 alegra journals get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra journals get <id>
+  alegra journals get <id> -o json
+```
+
 ### Options
 
 ```

@@ -10,6 +10,13 @@ Get a single credit-note by ID
 alegra credit-notes get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra credit-notes get <id>
+  alegra credit-notes get <id> -o json
+```
+
 ### Options
 
 ```

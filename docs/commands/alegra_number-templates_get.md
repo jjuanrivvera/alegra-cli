@@ -10,6 +10,13 @@ Get a single number-template by ID
 alegra number-templates get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra number-templates get <id>
+  alegra number-templates get <id> -o json
+```
+
 ### Options
 
 ```

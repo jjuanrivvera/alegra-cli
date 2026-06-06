@@ -102,11 +102,56 @@ func (r *Resource[T]) ListAll(ctx context.Context, params ListParams, maxPages i
 		}
 		all = append(all, batch...)
 		if len(batch) < limit {
-			break
+			return all, nil
 		}
 		start += limit
 	}
+	// Reached the page cap with a full final page: more records may exist.
+	r.client.logger.Warn("alegra: --all stopped at the page cap; results may be truncated",
+		"resource", r.path, "fetched", len(all), "max_pages", maxPages)
 	return all, nil
+}
+
+// Count returns the total number of records matching params, using Alegra's
+// metadata=true response wrapper ({"metadata":{"total":N},"data":[...]}).
+// It requests a single record to minimize payload.
+func (r *Resource[T]) Count(ctx context.Context, params ListParams) (int64, error) {
+	p := params
+	if p.Extra == nil {
+		p.Extra = url.Values{}
+	}
+	p.Extra.Set("metadata", "true")
+	p.Limit = 1
+	q := p.values(r.client.defaultLimit)
+	raw, err := r.client.do(ctx, http.MethodGet, r.path, q, nil)
+	if err != nil {
+		if errors.Is(err, errDryRun) {
+			return 0, nil
+		}
+		return 0, err
+	}
+	// Total may live under metadata.total (e.g. contacts) or at the top level
+	// (e.g. taxes: {"total":"4","results":[...]}).
+	var wrapper struct {
+		Total    Int `json:"total"`
+		Metadata struct {
+			Total Int `json:"total"`
+		} `json:"metadata"`
+	}
+	if err := json.Unmarshal(bytes.TrimSpace(raw), &wrapper); err == nil {
+		if wrapper.Metadata.Total > 0 {
+			return int64(wrapper.Metadata.Total), nil
+		}
+		if wrapper.Total > 0 {
+			return int64(wrapper.Total), nil
+		}
+	}
+	// Fallback: the endpoint may not report a total; count the returned array.
+	items, derr := decodeList[T](raw)
+	if derr != nil {
+		return 0, fmt.Errorf("alegra: endpoint does not report a total count")
+	}
+	return int64(len(items)), nil
 }
 
 // Get fetches a single record by ID.

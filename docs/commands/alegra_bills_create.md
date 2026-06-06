@@ -6,8 +6,23 @@ title: alegra bills create
 
 Create a bill
 
+### Synopsis
+
+Create a bill.
+
+Provide the body with --file <path> (recommended for nested documents),
+--data '<json>', or one or more --set key=value pairs for flat fields.
+
 ```
 alegra bills create [flags]
+```
+
+### Examples
+
+```
+  alegra bills create -f bill.json
+  alegra bills create --set name="Example"
+  echo '{...}' | alegra bills create -f -
 ```
 
 ### Options
@@ -16,7 +31,7 @@ alegra bills create [flags]
   -d, --data string       Request body as a JSON string
   -f, --file string       Read JSON request body from a file (use - for stdin)
   -h, --help              help for create
-      --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable.
+      --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable. For nested documents (e.g. invoice items[]) use --file.
 ```
 
 ### Options inherited from parent commands

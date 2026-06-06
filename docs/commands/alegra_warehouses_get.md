@@ -10,6 +10,13 @@ Get a single warehous by ID
 alegra warehouses get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra warehouses get <id>
+  alegra warehouses get <id> -o json
+```
+
 ### Options
 
 ```

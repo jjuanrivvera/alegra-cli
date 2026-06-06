@@ -10,6 +10,13 @@ Get a single retention by ID
 alegra retentions get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra retentions get <id>
+  alegra retentions get <id> -o json
+```
+
 ### Options
 
 ```

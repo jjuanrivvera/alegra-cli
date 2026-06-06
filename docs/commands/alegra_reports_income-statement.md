@@ -1,22 +1,29 @@
 ---
-title: alegra taxes update
+title: alegra reports income-statement
 ---
 
-## alegra taxes update
+## alegra reports income-statement
 
-Update a taxe by ID
+Income statement / profit & loss (estado de resultados) — plan-dependent
 
 ```
-alegra taxes update <id> [flags]
+alegra reports income-statement [flags]
+```
+
+### Examples
+
+```
+  alegra reports income-statement --from 2026-01-01 --to 2026-12-31
 ```
 
 ### Options
 
 ```
-  -d, --data string       Request body as a JSON string
-  -f, --file string       Read JSON request body from a file (use - for stdin)
-  -h, --help              help for update
-      --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable. For nested documents (e.g. invoice items[]) use --file.
+      --from string   Range start date (YYYY-MM-DD)
+  -h, --help          help for income-statement
+      --limit int     Number of rows per page (default 10)
+      --start int     Pagination offset
+      --to string     Range end date (YYYY-MM-DD)
 ```
 
 ### Options inherited from parent commands
@@ -34,5 +41,5 @@ alegra taxes update <id> [flags]
 
 ### SEE ALSO
 
-* [alegra taxes](alegra_taxes.md)	 - Manage taxes (e.g. IVA)
+* [alegra reports](alegra_reports.md)	 - Read-only Alegra reports
 

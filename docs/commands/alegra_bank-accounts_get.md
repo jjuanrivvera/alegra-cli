@@ -10,6 +10,13 @@ Get a single bank-account by ID
 alegra bank-accounts get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra bank-accounts get <id>
+  alegra bank-accounts get <id> -o json
+```
+
 ### Options
 
 ```

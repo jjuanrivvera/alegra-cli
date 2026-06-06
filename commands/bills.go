@@ -14,13 +14,14 @@ func init() {
 		New:         func(c *api.Client) *api.Resource[api.Bill] { return c.Bills() },
 		Columns:     []string{"id", "date", "dueDate", "status", "total", "balance"},
 		OrderFields: []string{"id", "date", "dueDate", "status"},
-		ListFilters: []listFilter{
+		ListFilters: append([]listFilter{
 			{Flag: "status", Query: "status", Usage: "Filter by status"},
 			{Flag: "provider-name", Query: "provider_name", Usage: "Filter by provider name"},
-		},
+			{Flag: "client-id", Query: "client_id", Usage: "Filter by provider ID"},
+		}, dateRangeFilters()...),
 		Extra: func(parent *cobra.Command, sp resourceSpec[api.Bill]) {
-			parent.AddCommand(NewActionCmd(sp, "close", "close", "Close a bill with pending balance"))
-			parent.AddCommand(NewActionCmd(sp, "comments", "comments", "Add a comment to a bill"))
+			parent.AddCommand(NewActionCmd(sp, "close", "close", "Close a bill with pending balance", true))
+			parent.AddCommand(NewActionCmd(sp, "comments", "comments", "Add a comment to a bill", true))
 			parent.AddCommand(NewCollectionActionCmd(sp, "import-by-cufe", "import-by-cufe", "Import a bill by CUFE (Colombia)"))
 		},
 	})

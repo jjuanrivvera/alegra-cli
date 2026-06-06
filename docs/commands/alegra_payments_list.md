@@ -10,15 +10,31 @@ List payments
 alegra payments list [flags]
 ```
 
+### Examples
+
+```
+  alegra payments list
+  alegra payments list --limit 30 --all -o json
+  alegra payments list --count
+  alegra payments list --type <value>
+  alegra payments list --param <api_param>=<value>
+```
+
 ### Options
 
 ```
       --all                      Fetch all pages
       --client-id string         Filter by client ID
+      --count                    Print only the total number of matching records
+      --date-after string        On/after this date (YYYY-MM-DD)
+      --date-before string       On/before this date (YYYY-MM-DD)
+      --due-after string         Due on/after this date (YYYY-MM-DD)
+      --due-before string        Due on/before this date (YYYY-MM-DD)
   -h, --help                     help for list
       --limit int                Max records per page (max 30)
       --order-direction string   Sort direction: ASC or DESC
       --order-field string       Field to sort by (id, date)
+      --param stringArray        Arbitrary API query parameter: key=value (repeatable; e.g. --param date_after=2026-01-01)
   -q, --query string             Free-text search
       --start int                Offset to start from (pagination)
       --status string            Filter by status

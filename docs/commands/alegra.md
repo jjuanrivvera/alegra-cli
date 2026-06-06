@@ -65,7 +65,7 @@ or set ALEGRA_EMAIL and ALEGRA_TOKEN in the environment.
 * [alegra recurring-invoices](alegra_recurring-invoices.md)	 - Manage recurring invoices (facturas recurrentes)
 * [alegra recurring-payments](alegra_recurring-payments.md)	 - View recurring payments (pagos recurrentes)
 * [alegra remissions](alegra_remissions.md)	 - Manage remissions (delivery notes)
-* [alegra reports](alegra_reports.md)	 - Read-only Alegra sales reports
+* [alegra reports](alegra_reports.md)	 - Read-only Alegra reports
 * [alegra retentions](alegra_retentions.md)	 - Manage retentions (withholdings)
 * [alegra taxes](alegra_taxes.md)	 - Manage taxes (e.g. IVA)
 * [alegra terms](alegra_terms.md)	 - Manage payment terms (términos de pago)

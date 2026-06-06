@@ -10,16 +10,28 @@ List inventory-adjustments
 alegra inventory-adjustments list [flags]
 ```
 
+### Examples
+
+```
+  alegra inventory-adjustments list
+  alegra inventory-adjustments list --limit 30 --all -o json
+  alegra inventory-adjustments list --count
+  alegra inventory-adjustments list --number <value>
+  alegra inventory-adjustments list --param <api_param>=<value>
+```
+
 ### Options
 
 ```
       --all                      Fetch all pages
+      --count                    Print only the total number of matching records
       --date string              Filter by date (YYYY-MM-DD)
   -h, --help                     help for list
       --limit int                Max records per page (max 30)
       --number string            Filter by adjustment number/id
       --order-direction string   Sort direction: ASC or DESC
       --order-field string       Field to sort by (id, number, date, observations, warehouse_name)
+      --param stringArray        Arbitrary API query parameter: key=value (repeatable; e.g. --param date_after=2026-01-01)
   -q, --query string             Free-text search
       --start int                Offset to start from (pagination)
       --warehouse-id string      Filter by warehouse ID

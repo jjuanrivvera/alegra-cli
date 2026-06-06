@@ -10,6 +10,13 @@ Get a single taxe by ID
 alegra taxes get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra taxes get <id>
+  alegra taxes get <id> -o json
+```
+
 ### Options
 
 ```

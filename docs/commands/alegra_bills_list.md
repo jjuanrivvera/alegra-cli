@@ -10,14 +10,31 @@ List bills
 alegra bills list [flags]
 ```
 
+### Examples
+
+```
+  alegra bills list
+  alegra bills list --limit 30 --all -o json
+  alegra bills list --count
+  alegra bills list --status <value>
+  alegra bills list --param <api_param>=<value>
+```
+
 ### Options
 
 ```
       --all                      Fetch all pages
+      --client-id string         Filter by provider ID
+      --count                    Print only the total number of matching records
+      --date-after string        On/after this date (YYYY-MM-DD)
+      --date-before string       On/before this date (YYYY-MM-DD)
+      --due-after string         Due on/after this date (YYYY-MM-DD)
+      --due-before string        Due on/before this date (YYYY-MM-DD)
   -h, --help                     help for list
       --limit int                Max records per page (max 30)
       --order-direction string   Sort direction: ASC or DESC
       --order-field string       Field to sort by (id, date, dueDate, status)
+      --param stringArray        Arbitrary API query parameter: key=value (repeatable; e.g. --param date_after=2026-01-01)
       --provider-name string     Filter by provider name
   -q, --query string             Free-text search
       --start int                Offset to start from (pagination)

@@ -10,15 +10,27 @@ List terms
 alegra terms list [flags]
 ```
 
+### Examples
+
+```
+  alegra terms list
+  alegra terms list --limit 30 --all -o json
+  alegra terms list --count
+  alegra terms list --fields <value>
+  alegra terms list --param <api_param>=<value>
+```
+
 ### Options
 
 ```
       --all                      Fetch all pages
+      --count                    Print only the total number of matching records
       --fields string            Extra fields to include (e.g. deletable)
   -h, --help                     help for list
       --limit int                Max records per page (max 30)
       --order-direction string   Sort direction: ASC or DESC
       --order-field string       Field to sort by (id, name, days)
+      --param stringArray        Arbitrary API query parameter: key=value (repeatable; e.g. --param date_after=2026-01-01)
   -q, --query string             Free-text search
       --start int                Offset to start from (pagination)
 ```

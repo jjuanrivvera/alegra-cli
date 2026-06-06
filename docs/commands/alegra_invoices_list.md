@@ -10,16 +10,32 @@ List invoices
 alegra invoices list [flags]
 ```
 
+### Examples
+
+```
+  alegra invoices list
+  alegra invoices list --limit 30 --all -o json
+  alegra invoices list --count
+  alegra invoices list --status <value>
+  alegra invoices list --param <api_param>=<value>
+```
+
 ### Options
 
 ```
       --all                      Fetch all pages
       --client-id string         Filter by client ID
-      --date string              Filter by date YYYY-MM-DD
+      --count                    Print only the total number of matching records
+      --date string              Filter by exact date YYYY-MM-DD
+      --date-after string        On/after this date (YYYY-MM-DD)
+      --date-before string       On/before this date (YYYY-MM-DD)
+      --due-after string         Due on/after this date (YYYY-MM-DD)
+      --due-before string        Due on/before this date (YYYY-MM-DD)
   -h, --help                     help for list
       --limit int                Max records per page (max 30)
       --order-direction string   Sort direction: ASC or DESC
       --order-field string       Field to sort by (id, name, date, dueDate, status)
+      --param stringArray        Arbitrary API query parameter: key=value (repeatable; e.g. --param date_after=2026-01-01)
   -q, --query string             Free-text search
       --start int                Offset to start from (pagination)
       --status string            open,closed,draft,void

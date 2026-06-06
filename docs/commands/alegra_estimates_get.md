@@ -10,6 +10,13 @@ Get a single estimate by ID
 alegra estimates get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra estimates get <id>
+  alegra estimates get <id> -o json
+```
+
 ### Options
 
 ```

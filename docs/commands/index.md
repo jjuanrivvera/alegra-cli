@@ -37,7 +37,7 @@ Auto-generated from the CLI. See [alegra](alegra.md) for the root command.
 - [recurring-invoices](alegra_recurring-invoices.md) — Manage recurring invoices (facturas recurrentes)
 - [recurring-payments](alegra_recurring-payments.md) — View recurring payments (pagos recurrentes)
 - [remissions](alegra_remissions.md) — Manage remissions (delivery notes)
-- [reports](alegra_reports.md) — Read-only Alegra sales reports
+- [reports](alegra_reports.md) — Read-only Alegra reports
 - [retentions](alegra_retentions.md) — Manage retentions (withholdings)
 - [taxes](alegra_taxes.md) — Manage taxes (e.g. IVA)
 - [terms](alegra_terms.md) — Manage payment terms (términos de pago)

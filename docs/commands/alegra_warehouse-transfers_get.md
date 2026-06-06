@@ -10,6 +10,13 @@ Get a single warehouse-transfer by ID
 alegra warehouse-transfers get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra warehouse-transfers get <id>
+  alegra warehouse-transfers get <id> -o json
+```
+
 ### Options
 
 ```

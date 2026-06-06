@@ -10,6 +10,13 @@ Get a single purchase-order by ID
 alegra purchase-orders get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra purchase-orders get <id>
+  alegra purchase-orders get <id> -o json
+```
+
 ### Options
 
 ```

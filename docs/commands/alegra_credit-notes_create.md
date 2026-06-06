@@ -6,8 +6,23 @@ title: alegra credit-notes create
 
 Create a credit-note
 
+### Synopsis
+
+Create a credit-note.
+
+Provide the body with --file <path> (recommended for nested documents),
+--data '<json>', or one or more --set key=value pairs for flat fields.
+
 ```
 alegra credit-notes create [flags]
+```
+
+### Examples
+
+```
+  alegra credit-notes create -f credit-note.json
+  alegra credit-notes create --set name="Example"
+  echo '{...}' | alegra credit-notes create -f -
 ```
 
 ### Options
@@ -16,7 +31,7 @@ alegra credit-notes create [flags]
   -d, --data string       Request body as a JSON string
   -f, --file string       Read JSON request body from a file (use - for stdin)
   -h, --help              help for create
-      --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable.
+      --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable. For nested documents (e.g. invoice items[]) use --file.
 ```
 
 ### Options inherited from parent commands

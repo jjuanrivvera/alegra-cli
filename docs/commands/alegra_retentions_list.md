@@ -10,14 +10,26 @@ List retentions
 alegra retentions list [flags]
 ```
 
+### Examples
+
+```
+  alegra retentions list
+  alegra retentions list --limit 30 --all -o json
+  alegra retentions list --count
+  alegra retentions list --type <value>
+  alegra retentions list --param <api_param>=<value>
+```
+
 ### Options
 
 ```
       --all                      Fetch all pages
+      --count                    Print only the total number of matching records
   -h, --help                     help for list
       --limit int                Max records per page (max 30)
       --order-direction string   Sort direction: ASC or DESC
       --order-field string       Field to sort by (id, name)
+      --param stringArray        Arbitrary API query parameter: key=value (repeatable; e.g. --param date_after=2026-01-01)
   -q, --query string             Free-text search
       --start int                Offset to start from (pagination)
       --status string            Filter by status: active or inactive

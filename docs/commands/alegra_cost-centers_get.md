@@ -10,6 +10,13 @@ Get a single cost-center by ID
 alegra cost-centers get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra cost-centers get <id>
+  alegra cost-centers get <id> -o json
+```
+
 ### Options
 
 ```

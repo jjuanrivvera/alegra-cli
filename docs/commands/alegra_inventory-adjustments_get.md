@@ -10,6 +10,13 @@ Get a single inventory-adjustment by ID
 alegra inventory-adjustments get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra inventory-adjustments get <id>
+  alegra inventory-adjustments get <id> -o json
+```
+
 ### Options
 
 ```

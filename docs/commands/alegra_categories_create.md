@@ -6,8 +6,23 @@ title: alegra categories create
 
 Create a category
 
+### Synopsis
+
+Create a category.
+
+Provide the body with --file <path> (recommended for nested documents),
+--data '<json>', or one or more --set key=value pairs for flat fields.
+
 ```
 alegra categories create [flags]
+```
+
+### Examples
+
+```
+  alegra categories create -f category.json
+  alegra categories create --set name="Example"
+  echo '{...}' | alegra categories create -f -
 ```
 
 ### Options
@@ -16,7 +31,7 @@ alegra categories create [flags]
   -d, --data string       Request body as a JSON string
   -f, --file string       Read JSON request body from a file (use - for stdin)
   -h, --help              help for create
-      --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable.
+      --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable. For nested documents (e.g. invoice items[]) use --file.
 ```
 
 ### Options inherited from parent commands

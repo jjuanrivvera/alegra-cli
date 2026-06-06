@@ -10,6 +10,13 @@ Get a single remission by ID
 alegra remissions get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra remissions get <id>
+  alegra remissions get <id> -o json
+```
+
 ### Options
 
 ```

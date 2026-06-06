@@ -10,6 +10,13 @@ Get a single invoice by ID
 alegra invoices get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra invoices get <id>
+  alegra invoices get <id> -o json
+```
+
 ### Options
 
 ```

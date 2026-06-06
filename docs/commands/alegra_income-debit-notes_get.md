@@ -10,6 +10,13 @@ Get a single income-debit-note by ID
 alegra income-debit-notes get <id> [flags]
 ```
 
+### Examples
+
+```
+  alegra income-debit-notes get <id>
+  alegra income-debit-notes get <id> -o json
+```
+
 ### Options
 
 ```
