@@ -6,6 +6,20 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [0.3.1]
+
+### Security
+- Neutralize CSV formula injection (CWE-1236): `csv` output cells beginning with
+  `=`, `+`, `@`, tab, or CR (and a leading `-` that isn't a real number) are
+  prefixed with a quote so spreadsheets treat them as text.
+- Clamp `Retry-After: 0` so it no longer triggers an immediate zero-delay retry
+  (matching the `X-Rate-Limit-Reset` guard).
+- Warn when the configured base URL is not HTTPS.
+
+### Added
+- Developer `worktree` skill (`wt` CLI) for building/running/testing each branch
+  in an isolated worktree. Dev tooling only — not part of the released binary.
+
 ## [0.3.0]
 
 ### Added
