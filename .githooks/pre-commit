@@ -1,21 +1,42 @@
 #!/usr/bin/env bash
-# alegra-cli pre-commit hook: format, vet, quick tests.
+# alegra-cli pre-commit hook: format, vet, lint (golangci-lint v2), quick tests.
+# Enable with:  make setup-hooks   (sets core.hooksPath = .githooks)
+# CI is the source of truth; this hook is a fast local pre-flight.
 set -euo pipefail
 
-echo "==> gofmt"
-unformatted=$(gofmt -l $(git diff --cached --name-only --diff-filter=ACM | grep '\.go$' || true) 2>/dev/null || true)
-if [ -n "$unformatted" ]; then
-  echo "These files need gofmt -w:"
-  echo "$unformatted"
-  exit 1
+# gofmt: only staged Go files (skip the check entirely when none, so gofmt
+# never blocks reading from stdin).
+go_files=$(git diff --cached --name-only --diff-filter=ACM | grep '\.go$' || true)
+if [ -n "$go_files" ]; then
+  echo "==> gofmt"
+  # shellcheck disable=SC2086 # intentional word-split over the file list
+  unformatted=$(gofmt -l $go_files)
+  if [ -n "$unformatted" ]; then
+    echo "These files need gofmt -w:"
+    echo "$unformatted"
+    exit 1
+  fi
 fi
 
 echo "==> go vet"
 go vet ./...
 
-if command -v golangci-lint >/dev/null 2>&1; then
+# golangci-lint must be v2 — the .golangci.yml is v2 format and v1 binaries
+# refuse to run against it. Prefer a v2 binary on PATH, then GOPATH/bin; if
+# neither is v2, skip (CI enforces lint anyway) rather than fail the commit.
+lint=""
+for cand in golangci-lint "$(go env GOPATH)/bin/golangci-lint"; do
+  if command -v "$cand" >/dev/null 2>&1 && "$cand" version 2>/dev/null | grep -qE 'version v?2\.'; then
+    lint="$cand"
+    break
+  fi
+done
+if [ -n "$lint" ]; then
   echo "==> golangci-lint"
-  golangci-lint run
+  "$lint" run
+else
+  echo "==> golangci-lint v2 not found — skipping (CI enforces it)."
+  echo "    install: go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.1.6"
 fi
 
 echo "==> go test -short"

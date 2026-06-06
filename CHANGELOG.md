@@ -6,6 +6,15 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [0.3.2]
+
+### Changed
+- Pre-commit hook (`.githooks/pre-commit`) now resolves a **golangci-lint v2**
+  binary (PATH or `GOPATH/bin`) — the config is v2 format, which v1 binaries
+  reject — and skips the lint step gracefully when no v2 binary is present.
+  Also fixed a hang when a commit staged no Go files. Enable with
+  `make setup-hooks`.
+
 ## [0.3.1]
 
 ### Fixed
