@@ -23,3 +23,6 @@ credentials.json
 .idea/
 .vscode/
 *.swp
+
+# Worktree checkouts created by the worktree skill
+/.claude/worktrees/

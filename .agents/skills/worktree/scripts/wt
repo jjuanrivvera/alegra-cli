@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+# alegra-cli worktree CLI — dispatch wrapper.
+#
+# Usage:
+#   wt create <branch> [--build]
+#   wt build  [branch]
+#   wt run    <branch> [--] <args...>
+#   wt test   [branch] [go test args...]
+#   wt list
+#   wt remove <branch> [--force]
+#   wt cleanup [base] [--force]
+#   wt help
+
+set -e
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/lib.sh"
+
+show_help() {
+  cat <<EOF
+${BLUE}alegra-cli worktree CLI${NC}
+
+Parallel development on multiple branches, each compiled and tested in
+isolation so a feature build never clobbers the main checkout or the
+installed \`alegra\`.
+
+Usage:
+  wt create <branch> [--build]   Create worktree at .claude/worktrees/<slug>/
+                                 (--build also compiles it right away)
+  wt build  [branch]             Compile <worktree>/bin/alegra (current wt default)
+  wt run    <branch> -- <args>   Build if needed, then run that branch's binary
+  wt test   [branch] [args]      Run \`go test ./...\` inside the worktree
+  wt list                        Show worktrees with branch, HEAD, build status
+  wt remove <branch> [--force]   Remove a worktree (--force discards changes)
+  wt cleanup [base] [--force]    Remove worktrees merged into base (default develop)
+  wt help                        Show this help
+
+Examples:
+  wt create fix/invoice-emit --build
+  wt run fix/invoice-emit -- invoices list --dry-run
+  wt test fix/invoice-emit -run TestEmit
+  wt list
+  wt remove fix/invoice-emit
+
+The CLI works from the main checkout or any worktree. Worktrees live under
+.claude/worktrees/ (gitignored). Credentials are shared (~/.alegra-cli or
+ALEGRA_* env), so nothing secret is symlinked.
+EOF
+}
+
+CMD="${1:-help}"
+shift || true
+
+case "$CMD" in
+  create)            "$SCRIPT_DIR/create.sh" "$@" ;;
+  build)             "$SCRIPT_DIR/build.sh" "$@" ;;
+  run)               "$SCRIPT_DIR/run.sh" "$@" ;;
+  test)              "$SCRIPT_DIR/test.sh" "$@" ;;
+  list|status|ls)    "$SCRIPT_DIR/list.sh" "$@" ;;
+  remove|rm|delete)  "$SCRIPT_DIR/remove.sh" "$@" ;;
+  cleanup|prune)     "$SCRIPT_DIR/cleanup.sh" "$@" ;;
+  help|--help|-h)    show_help ;;
+  *)
+    echo "${RED}Unknown command: $CMD${NC}"
+    echo ""
+    show_help
+    exit 1
+    ;;
+esac
