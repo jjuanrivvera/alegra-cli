@@ -57,8 +57,11 @@ func (p *RetryPolicy) shouldRetry(resp *http.Response, err error) bool {
 func (p *RetryPolicy) backoff(attempt int, resp *http.Response) time.Duration {
 	if resp != nil {
 		if ra := resp.Header.Get("Retry-After"); ra != "" {
-			if secs, err := time.ParseDuration(ra + "s"); err == nil {
-				return secs
+			// Clamp to MaxBackoff: a server (or a proxy/CDN/WAF in front of it)
+			// can send an absurd Retry-After that would otherwise hang the client
+			// for years.
+			if secs, err := time.ParseDuration(ra + "s"); err == nil && secs > 0 {
+				return min(secs, p.MaxBackoff)
 			}
 		}
 		// On a 429, Alegra tells us exactly how long until the window resets.

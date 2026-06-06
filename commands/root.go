@@ -5,7 +5,10 @@ package commands
 
 import (
 	"fmt"
+	"io"
 	"log/slog"
+	"net"
+	"net/url"
 	"os"
 	"strings"
 	"sync"
@@ -121,6 +124,10 @@ func getAPIClient() (*api.Client, error) {
 		return nil, fmt.Errorf("no credentials for profile %q: run `alegra auth login` or set ALEGRA_EMAIL and ALEGRA_TOKEN", r.Profile)
 	}
 
+	if r.Token != "" || r.BearerToken != "" {
+		warnInsecureBaseURL(os.Stderr, r.BaseURL)
+	}
+
 	logger := newLogger(r.LogLevel)
 	opts := []api.Option{
 		api.WithBaseURL(r.BaseURL),
@@ -135,6 +142,24 @@ func getAPIClient() (*api.Client, error) {
 		opts = append(opts, api.WithBasicAuth(r.Email, r.Token))
 	}
 	return api.New(opts...), nil
+}
+
+// warnInsecureBaseURL prints a warning when API credentials would be sent to a
+// non-HTTPS, non-loopback base URL (cleartext credential exposure). Loopback
+// over http is allowed silently for local sandboxes and tests.
+func warnInsecureBaseURL(w io.Writer, baseURL string) {
+	u, err := url.Parse(baseURL)
+	if err != nil || u.Scheme == "" || u.Scheme == "https" {
+		return
+	}
+	host := u.Hostname()
+	if host == "localhost" {
+		return
+	}
+	if ip := net.ParseIP(host); ip != nil && ip.IsLoopback() {
+		return
+	}
+	fmt.Fprintf(w, "warning: base URL %q is not HTTPS — API credentials will be sent in cleartext to %s\n", baseURL, host)
 }
 
 func newLogger(level string) *slog.Logger {

@@ -92,13 +92,33 @@ func renderCSV(w io.Writer, data any, columns []string) error {
 	for _, row := range rows {
 		rec := make([]string, len(cols))
 		for i, c := range cols {
-			rec[i] = scalarString(row[c])
+			rec[i] = csvField(scalarString(row[c]))
 		}
 		if err := cw.Write(rec); err != nil {
 			return err
 		}
 	}
 	return cw.Error()
+}
+
+// csvField neutralizes spreadsheet formula injection (CWE-1236). A cell whose
+// first character is =, +, @, or a leading tab/CR is interpreted as a formula by
+// Excel/LibreOffice/Sheets, so we prefix it with a single quote to force text.
+// A leading '-' is only dangerous when the value is not a real negative number,
+// so numeric cells (e.g. "-42.5") pass through untouched.
+func csvField(s string) string {
+	if s == "" {
+		return s
+	}
+	switch s[0] {
+	case '=', '+', '@', '\t', '\r':
+		return "'" + s
+	case '-':
+		if _, err := strconv.ParseFloat(s, 64); err != nil {
+			return "'" + s
+		}
+	}
+	return s
 }
 
 func renderTable(w io.Writer, data any, columns []string) error {
