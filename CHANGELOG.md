@@ -8,6 +8,11 @@ All notable changes to this project are documented here. The format is based on
 
 ## [0.3.1]
 
+### Fixed
+- `table`/`csv` truncation is now rune-safe: long values with multi-byte UTF-8
+  characters (accented Spanish names) are no longer split mid-character into
+  invalid output.
+
 ### Security
 - Neutralize CSV formula injection (CWE-1236): `csv` output cells beginning with
   `=`, `+`, `@`, tab, or CR (and a leading `-` that isn't a real number) are

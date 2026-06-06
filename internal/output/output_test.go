@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"strings"
 	"testing"
+	"unicode/utf8"
 )
 
 func TestCSVField(t *testing.T) {
@@ -52,5 +53,30 @@ func TestRenderCSVNeutralizesFormulas(t *testing.T) {
 	}
 	if !strings.Contains(out, ",Legitimate Co") {
 		t.Errorf("benign value should pass through untouched:\n%s", out)
+	}
+}
+
+func TestTruncate_RuneSafe(t *testing.T) {
+	// Multi-byte (accented) input must never be split into invalid UTF-8.
+	s := "Panamá Comercializadora Société Ñoño" // contains multi-byte runes
+	for n := 1; n <= len([]rune(s))+2; n++ {
+		got := truncate(s, n)
+		if !utf8.ValidString(got) {
+			t.Fatalf("truncate(%q, %d) produced invalid UTF-8: %q", s, n, got)
+		}
+		if utf8.RuneCountInString(got) > n {
+			t.Fatalf("truncate(%q, %d) = %q exceeds %d runes", s, n, got, n)
+		}
+	}
+	// Short strings pass through unchanged.
+	if got := truncate("José", 10); got != "José" {
+		t.Fatalf("expected passthrough, got %q", got)
+	}
+	// Exactly-at-limit accented string is unchanged (regression: byte len > rune len).
+	if got := truncate("áéí", 3); got != "áéí" {
+		t.Fatalf("expected áéí unchanged, got %q", got)
+	}
+	if got := truncate("", 5); got != "" {
+		t.Fatalf("empty stays empty, got %q", got)
 	}
 }
