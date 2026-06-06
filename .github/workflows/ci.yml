@@ -27,9 +27,12 @@ jobs:
       - name: go vet
         run: go vet ./...
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v7
-        with:
-          version: v2.1.6
+        # Build golangci-lint from source with the repo's Go toolchain. The
+        # prebuilt release binaries are built with an older Go and refuse to run
+        # against a newer go.mod target (the toolchain pinned here).
+        run: |
+          go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.1.6
+          golangci-lint run
 
   security:
     runs-on: ubuntu-latest
