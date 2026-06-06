@@ -1,0 +1,62 @@
+site_name: Alegra CLI
+site_description: Command-line interface for the Alegra accounting API
+site_url: https://jjuanrivvera.github.io/alegra-cli/
+repo_url: https://github.com/jjuanrivvera/alegra-cli
+repo_name: jjuanrivvera/alegra-cli
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tabs
+    - navigation.sections
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+    - toc.follow
+
+plugins:
+  - search
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: timeago
+
+markdown_extensions:
+  - admonition
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: getting-started/installation.md
+      - Authentication: getting-started/authentication.md
+      - Quickstart: getting-started/quickstart.md
+  - User Guide:
+      - Configuration & Profiles: user-guide/configuration.md
+      - Output Formats: user-guide/output-formats.md
+      - Creating & Updating: user-guide/writing-data.md
+      - MCP Server: user-guide/mcp.md
+  - Command Reference: commands/index.md

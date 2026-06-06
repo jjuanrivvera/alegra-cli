@@ -1,0 +1,25 @@
+# Binaries & build output
+/bin/
+/dist/
+/site/
+*.exe
+
+# Test & coverage
+coverage.out
+coverage.html
+*.test
+
+# Local dev scratch (downloaded API docs, generation guide)
+/.dev/
+
+# Secrets / local env — never commit credentials
+.env
+.env.*
+*.env
+credentials.json
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp

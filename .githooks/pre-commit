@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# alegra-cli pre-commit hook: format, vet, quick tests.
+set -euo pipefail
+
+echo "==> gofmt"
+unformatted=$(gofmt -l $(git diff --cached --name-only --diff-filter=ACM | grep '\.go$' || true) 2>/dev/null || true)
+if [ -n "$unformatted" ]; then
+  echo "These files need gofmt -w:"
+  echo "$unformatted"
+  exit 1
+fi
+
+echo "==> go vet"
+go vet ./...
+
+if command -v golangci-lint >/dev/null 2>&1; then
+  echo "==> golangci-lint"
+  golangci-lint run
+fi
+
+echo "==> go test -short"
+go test -short ./...
+
+echo "pre-commit OK"

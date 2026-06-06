@@ -1,0 +1,71 @@
+version: 2
+project_name: alegra-cli
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: alegra
+    main: ./cmd/alegra
+    binary: alegra
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ignore:
+      - goos: windows
+        goarch: arm64
+    ldflags:
+      - -s -w
+      - -X github.com/jjuanrivvera/alegra-cli/internal/version.Version={{ .Version }}
+      - -X github.com/jjuanrivvera/alegra-cli/internal/version.Commit={{ .ShortCommit }}
+      - -X github.com/jjuanrivvera/alegra-cli/internal/version.BuildDate={{ .Date }}
+
+archives:
+  - id: default
+    formats: [tar.gz]
+    name_template: >-
+      {{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+
+checksum:
+  name_template: checksums.txt
+
+changelog:
+  sort: asc
+  use: github
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^chore:'
+      - Merge pull request
+      - Merge branch
+
+release:
+  github:
+    owner: jjuanrivvera
+    name: alegra-cli
+  draft: false
+  prerelease: auto
+
+brews:
+  - name: alegra-cli
+    repository:
+      owner: jjuanrivvera
+      name: homebrew-alegra-cli
+      token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
+    homepage: https://github.com/jjuanrivvera/alegra-cli
+    description: Command-line interface for the Alegra accounting API
+    license: MIT
+    skip_upload: auto
+    test: |
+      system "#{bin}/alegra version"

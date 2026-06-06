@@ -1,0 +1,41 @@
+---
+title: alegra users
+---
+
+## alegra users
+
+Manage account users
+
+### Synopsis
+
+Manage Alegra account users, who are the people with access to the company.
+
+### Options
+
+```
+  -h, --help   help for users
+```
+
+### Options inherited from parent commands
+
+```
+      --base-url string             Override the API base URL (env: ALEGRA_BASE_URL)
+      --columns strings             Comma-separated columns for table/csv output
+      --dry-run                     Print the equivalent curl request without sending it
+  -o, --output string               Output format: table, json, yaml, csv (env: ALEGRA_OUTPUT)
+      --profile string              Configuration profile to use (env: ALEGRA_PROFILE)
+      --requests-per-second float   Client-side rate limit (default from config)
+      --show-token                  In --dry-run, do not redact the Authorization header
+  -v, --verbose                     Enable verbose (debug) logging to stderr
+```
+
+### SEE ALSO
+
+* [alegra](alegra.md)	 - Alegra accounting system CLI
+* [alegra users create](alegra_users_create.md)	 - Create a user
+* [alegra users delete](alegra_users_delete.md)	 - Delete a user by ID
+* [alegra users get](alegra_users_get.md)	 - Get a single user by ID
+* [alegra users list](alegra_users_list.md)	 - List users
+* [alegra users self](alegra_users_self.md)	 - Show the currently authenticated user
+* [alegra users update](alegra_users_update.md)	 - Update a user by ID
+
