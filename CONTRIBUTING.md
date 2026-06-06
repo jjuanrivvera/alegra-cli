@@ -12,7 +12,9 @@ make dev           # fmt + vet + build
 make check         # fmt + vet + lint + test
 ```
 
-Requires Go 1.25+. Linting uses `golangci-lint`.
+Requires Go 1.25+ (the `toolchain` in `go.mod` pins the patched 1.25.x used by
+CI). Linting uses `golangci-lint` **v2** (`go install
+github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.1.6`).
 
 ## Architecture
 
