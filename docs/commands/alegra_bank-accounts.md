@@ -30,7 +30,9 @@ Manage bank accounts (bank, credit card, and cash accounts)
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra bank-accounts create](alegra_bank-accounts_create.md)	 - Create a bank-account
 * [alegra bank-accounts delete](alegra_bank-accounts_delete.md)	 - Delete a bank-account by ID
+* [alegra bank-accounts export](alegra_bank-accounts_export.md)	 - Export all bank-accounts to CSV or JSON
 * [alegra bank-accounts get](alegra_bank-accounts_get.md)	 - Get a single bank-account by ID
+* [alegra bank-accounts import](alegra_bank-accounts_import.md)	 - Bulk-create bank-accounts from a CSV file
 * [alegra bank-accounts list](alegra_bank-accounts_list.md)	 - List bank-accounts
 * [alegra bank-accounts transfer](alegra_bank-accounts_transfer.md)	 - Transfer funds to another bank account
 * [alegra bank-accounts update](alegra_bank-accounts_update.md)	 - Update a bank-account by ID

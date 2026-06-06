@@ -30,6 +30,7 @@ Manage alegra-cli configuration and profiles
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra config list-profiles](alegra_config_list-profiles.md)	 - List configured profiles
 * [alegra config path](alegra_config_path.md)	 - Print the config file path
+* [alegra config set-country](alegra_config_set-country.md)	 - Set the country used for pre-flight validation (e.g. colombia, mexico)
 * [alegra config set-profile](alegra_config_set-profile.md)	 - Create or update a profile (use `alegra auth login` to set the token)
 * [alegra config use](alegra_config_use.md)	 - Set the default profile
 * [alegra config view](alegra_config_view.md)	 - Show the current configuration (tokens redacted)

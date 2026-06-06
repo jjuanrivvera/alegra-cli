@@ -60,24 +60,43 @@ alegra invoices get <id> -o json | jq '{number, status, stamp}'
     alegra invoices create -f invoice.json --dry-run
     ```
 
-## Create as a draft, then emit later
+## Create as a draft, then emit later (recommended)
 
-A safer flow when a human should review first: create **without** the `stamp`
-flag (a draft), inspect it, then stamp.
+The safest flow when a human should review first: create as a **draft**, inspect
+it, then emit with `invoices emit`.
 
 ```bash
-# 1. create draft (omit stamp.generateStamp)
-alegra invoices create -f draft-invoice.json
+# 1. create as a draft (strips any stamp instruction)
+alegra invoices create -f invoice.json --draft
 
 # 2. review
 alegra invoices get <id>
 
-# 3. emit (electronic emission of up to 10 drafts/open invoices at once)
-alegra invoices stamp --set 'invoices=[{"id":<id>}]'
+# 3. emit — sends to the tax authority for stamping
+alegra invoices emit <id>
 ```
 
-The bulk `stamp` endpoint accepts **at most 10 invoices per call** — chunk larger
-batches.
+`invoices emit` is built for this:
+
+```bash
+alegra invoices emit 1234 1235        # specific invoices
+alegra invoices emit --all            # every draft invoice
+alegra invoices emit --all --dry-run  # preview what would emit
+```
+
+It **auto-chunks** into batches of 10 (Alegra's per-call cap) and keeps a local
+**idempotency guard**: an invoice already emitted from this machine is skipped
+unless you pass `--force`. Because emission isn't idempotent server-side, this is
+your safety net against duplicate documents.
+
+!!! tip "Pre-flight validation"
+    `invoices create` validates the body for your country before sending and
+    refuses obvious mistakes (missing client/items, or `stamp` without a
+    `numberTemplate`). Set your country once so it knows the rules:
+    ```bash
+    alegra config set-country colombia
+    ```
+    Bypass a check with `--no-validate`.
 
 ## Other electronic documents
 

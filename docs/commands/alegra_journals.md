@@ -31,7 +31,9 @@ Manage accounting journal entries (comprobantes contables)
 * [alegra journals balance](alegra_journals_balance.md)	 - Retrieve journal balances grouped by month or day
 * [alegra journals create](alegra_journals_create.md)	 - Create a journal
 * [alegra journals delete](alegra_journals_delete.md)	 - Delete a journal by ID
+* [alegra journals export](alegra_journals_export.md)	 - Export all journals to CSV or JSON
 * [alegra journals get](alegra_journals_get.md)	 - Get a single journal by ID
+* [alegra journals import](alegra_journals_import.md)	 - Bulk-create journals from a CSV file
 * [alegra journals list](alegra_journals_list.md)	 - List journals
 * [alegra journals update](alegra_journals_update.md)	 - Update a journal by ID
 

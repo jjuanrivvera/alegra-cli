@@ -12,6 +12,7 @@ Create a retention.
 
 Provide the body with --file <path> (recommended for nested documents),
 --data '<json>', or one or more --set key=value pairs for flat fields.
+The body is pre-flight validated for your country; use --no-validate to skip.
 
 ```
 alegra retentions create [flags]
@@ -28,9 +29,12 @@ alegra retentions create [flags]
 ### Options
 
 ```
+      --country string    Country for pre-flight validation (default: config/company)
   -d, --data string       Request body as a JSON string
+      --draft             Create as a draft (strip any electronic stamp from the body)
   -f, --file string       Read JSON request body from a file (use - for stdin)
   -h, --help              help for create
+      --no-validate       Skip client-side pre-flight validation
       --set stringArray   Set a top-level field: key=value (value parsed as JSON when valid). Repeatable. For nested documents (e.g. invoice items[]) use --file.
 ```
 

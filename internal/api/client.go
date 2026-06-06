@@ -14,6 +14,7 @@ import (
 	"log/slog"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -163,6 +164,12 @@ func New(opts ...Option) *Client {
 // BaseURL returns the configured API root.
 func (c *Client) BaseURL() string { return c.baseURL }
 
+// RateLimit returns the most recent server-reported quota (limit, remaining,
+// reset seconds); values are -1 until a request has been made.
+func (c *Client) RateLimit() (limit, remaining, reset int) {
+	return c.rateLimiter.Snapshot()
+}
+
 // DefaultLimit returns the default page size.
 func (c *Client) DefaultLimit() int { return c.defaultLimit }
 
@@ -223,6 +230,15 @@ func (c *Client) do(ctx context.Context, method, path string, query url.Values, 
 
 		c.logger.Debug("alegra request", "method", method, "url", rawURL, "attempt", attempt)
 		resp, err := c.httpClient.Do(req)
+
+		// Adapt to the server-reported quota on every response.
+		if resp != nil {
+			c.rateLimiter.Observe(
+				headerInt(resp, "X-Rate-Limit-Limit"),
+				headerInt(resp, "X-Rate-Limit-Remaining"),
+				headerInt(resp, "X-Rate-Limit-Reset"),
+			)
+		}
 
 		if c.retryPolicy.shouldRetry(resp, err) && attempt < c.retryPolicy.MaxRetries {
 			if resp != nil && resp.StatusCode == http.StatusTooManyRequests {
@@ -331,4 +347,17 @@ func (c *Client) printCurl(method, rawURL string, body []byte) {
 
 func shellQuote(s string) string {
 	return "'" + strings.ReplaceAll(s, "'", `'\''`) + "'"
+}
+
+// headerInt parses an integer response header, returning -1 when absent/invalid.
+func headerInt(resp *http.Response, name string) int {
+	v := resp.Header.Get(name)
+	if v == "" {
+		return -1
+	}
+	n, err := strconv.Atoi(strings.TrimSpace(v))
+	if err != nil {
+		return -1
+	}
+	return n
 }

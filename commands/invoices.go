@@ -20,10 +20,11 @@ func init() {
 			{Flag: "date", Query: "date", Usage: "Filter by exact date YYYY-MM-DD"},
 		}, dateRangeFilters()...),
 		Extra: func(parent *cobra.Command, sp resourceSpec[api.Invoice]) {
+			parent.AddCommand(newInvoicesEmitCmd(sp))
 			parent.AddCommand(NewActionCmd(sp, "void", "void", "Void an invoice"))
 			parent.AddCommand(NewActionCmd(sp, "open", "open", "Revert a voided invoice"))
 			parent.AddCommand(NewActionCmd(sp, "email", "email", "Email an invoice", true))
-			parent.AddCommand(NewCollectionActionCmd(sp, "stamp", "stamp", "Stamp up to 10 invoices"))
+			parent.AddCommand(NewCollectionActionCmd(sp, "stamp", "stamp", "Stamp up to 10 invoices (low-level; prefer `emit`)"))
 			parent.AddCommand(NewCollectionActionCmd(sp, "preview", "preview", "Generate a preview PDF URL"))
 		},
 	})

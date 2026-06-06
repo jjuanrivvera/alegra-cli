@@ -32,6 +32,7 @@ View Alegra recurring payments, which are automatically registered against a ban
 ### SEE ALSO
 
 * [alegra](alegra.md)	 - Alegra accounting system CLI
+* [alegra recurring-payments export](alegra_recurring-payments_export.md)	 - Export all recurring-payments to CSV or JSON
 * [alegra recurring-payments get](alegra_recurring-payments_get.md)	 - Get a single recurring-payment by ID
 * [alegra recurring-payments list](alegra_recurring-payments_list.md)	 - List recurring-payments
 

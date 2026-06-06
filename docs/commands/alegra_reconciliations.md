@@ -34,6 +34,8 @@ Manage bank reconciliations. Create performs a create-or-update (upsert); there 
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra reconciliations create](alegra_reconciliations_create.md)	 - Create a reconciliation
 * [alegra reconciliations delete](alegra_reconciliations_delete.md)	 - Delete a reconciliation by ID
+* [alegra reconciliations export](alegra_reconciliations_export.md)	 - Export all reconciliations to CSV or JSON
 * [alegra reconciliations get](alegra_reconciliations_get.md)	 - Get a single reconciliation by ID
+* [alegra reconciliations import](alegra_reconciliations_import.md)	 - Bulk-create reconciliations from a CSV file
 * [alegra reconciliations list](alegra_reconciliations_list.md)	 - List reconciliations
 

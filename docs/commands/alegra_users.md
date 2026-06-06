@@ -34,7 +34,9 @@ Manage Alegra account users, who are the people with access to the company.
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra users create](alegra_users_create.md)	 - Create a user
 * [alegra users delete](alegra_users_delete.md)	 - Delete a user by ID
+* [alegra users export](alegra_users_export.md)	 - Export all users to CSV or JSON
 * [alegra users get](alegra_users_get.md)	 - Get a single user by ID
+* [alegra users import](alegra_users_import.md)	 - Bulk-create users from a CSV file
 * [alegra users list](alegra_users_list.md)	 - List users
 * [alegra users self](alegra_users_self.md)	 - Show the currently authenticated user
 * [alegra users update](alegra_users_update.md)	 - Update a user by ID

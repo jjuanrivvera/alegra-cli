@@ -30,7 +30,9 @@ Manage document numberings (numeraciones de facturación)
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra number-templates create](alegra_number-templates_create.md)	 - Create a number-template
 * [alegra number-templates delete](alegra_number-templates_delete.md)	 - Delete a number-template by ID
+* [alegra number-templates export](alegra_number-templates_export.md)	 - Export all number-templates to CSV or JSON
 * [alegra number-templates get](alegra_number-templates_get.md)	 - Get a single number-template by ID
+* [alegra number-templates import](alegra_number-templates_import.md)	 - Bulk-create number-templates from a CSV file
 * [alegra number-templates list](alegra_number-templates_list.md)	 - List number-templates
 * [alegra number-templates update](alegra_number-templates_update.md)	 - Update a number-template by ID
 

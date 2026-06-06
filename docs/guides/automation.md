@@ -21,29 +21,30 @@ alegra auth status
 
 ## Bulk import contacts from a CSV
 
-No native importer yet — a few lines of shell handle it. Given `clients.csv` with
-`name,nit`:
+Use the built-in importer. Given `clients.csv` with a `Name,NIT` header:
 
 ```bash
-tail -n +2 clients.csv | while IFS=, read -r name nit; do
-  alegra contacts create \
-    --set name="$name" \
-    --set "identification={\"type\":\"NIT\",\"number\":\"$nit\"}" \
-    --set 'type=["client"]' --set kindOfPerson="LEGAL_ENTITY" \
-    -o json | jq -r '"created \(.id) \(.name)"'
-done
+alegra contacts import -f clients.csv \
+  --map 'Name=name,NIT=identification.number' \
+  --set 'identification.type=NIT' --set 'type=["client"]' --set kindOfPerson=LEGAL_ENTITY
 ```
 
-The client-side rate limiter paces the loop automatically; add `|| echo "FAILED: $name"`
-to keep going on errors.
+- `--map` renames CSV columns to API fields; dotted paths build nested objects.
+- `--set` applies constant fields to every row.
+- Rows are independent — failures are reported and don't stop the run.
+- Add `--dry-run` to preview the JSON bodies without sending.
+
+Every resource that supports creation has `import`.
 
 ## Export anything to a spreadsheet
 
 ```bash
-alegra items list --all -o csv --columns id,name,reference,price,status > items.csv
-alegra invoices list --status open --all -o csv \
-  --columns number,date,dueDate,status,total,balance > receivables.csv
+alegra items export > items.csv                          # CSV, all pages
+alegra invoices export --param status=open --format json # JSON
+alegra contacts export --out contacts.csv
 ```
+
+`export` auto-paginates and defaults to CSV; narrow columns with `--columns`.
 
 ## Daily snapshot via cron
 

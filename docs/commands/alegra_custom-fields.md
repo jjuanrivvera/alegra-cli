@@ -30,7 +30,9 @@ Manage custom fields (campos adicionales)
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra custom-fields create](alegra_custom-fields_create.md)	 - Create a custom-field
 * [alegra custom-fields delete](alegra_custom-fields_delete.md)	 - Delete a custom-field by ID
+* [alegra custom-fields export](alegra_custom-fields_export.md)	 - Export all custom-fields to CSV or JSON
 * [alegra custom-fields get](alegra_custom-fields_get.md)	 - Get a single custom-field by ID
+* [alegra custom-fields import](alegra_custom-fields_import.md)	 - Bulk-create custom-fields from a CSV file
 * [alegra custom-fields list](alegra_custom-fields_list.md)	 - List custom-fields
 * [alegra custom-fields update](alegra_custom-fields_update.md)	 - Update a custom-field by ID
 

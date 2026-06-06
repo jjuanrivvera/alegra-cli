@@ -30,7 +30,9 @@ Manage items (products and services)
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra items create](alegra_items_create.md)	 - Create a item
 * [alegra items delete](alegra_items_delete.md)	 - Delete a item by ID
+* [alegra items export](alegra_items_export.md)	 - Export all items to CSV or JSON
 * [alegra items get](alegra_items_get.md)	 - Get a single item by ID
+* [alegra items import](alegra_items_import.md)	 - Bulk-create items from a CSV file
 * [alegra items list](alegra_items_list.md)	 - List items
 * [alegra items update](alegra_items_update.md)	 - Update a item by ID
 

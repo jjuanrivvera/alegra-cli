@@ -33,9 +33,11 @@ alegra categories list [flags]
       --order-field string       Field to sort by (id, name, code)
       --param stringArray        Arbitrary API query parameter: key=value (repeatable; e.g. --param date_after=2026-01-01)
   -q, --query string             Free-text search
+      --since string             Start of date range (YYYY-MM-DD, today, this-month, last-month, 7d, 3m, ...)
       --start int                Offset to start from (pagination)
       --status string            Filter by status: active, inactive, deleted
       --type string              Filter by type: income, expense, asset, liability, equity, cost, productionCost, order
+      --until string             End of date range (same formats as --since)
 ```
 
 ### Options inherited from parent commands

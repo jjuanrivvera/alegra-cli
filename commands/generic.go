@@ -2,6 +2,7 @@ package commands
 
 import (
 	"bufio"
+	"encoding/csv"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -9,10 +10,13 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/spf13/cobra"
 
 	"github.com/jjuanrivvera/alegra-cli/internal/api"
+	"github.com/jjuanrivvera/alegra-cli/internal/config"
+	"github.com/jjuanrivvera/alegra-cli/internal/output"
 )
 
 // listFilter declares a resource-specific list filter mapped to an API query
@@ -81,8 +85,10 @@ func buildResourceCmd[T any](sp resourceSpec[T]) *cobra.Command {
 	}
 	cmd.AddCommand(newListCmd(sp))
 	cmd.AddCommand(newGetCmd(sp))
+	cmd.AddCommand(newExportCmd(sp))
 	if !sp.NoCreate {
 		cmd.AddCommand(newCreateCmd(sp))
+		cmd.AddCommand(newImportCmd(sp))
 	}
 	if !sp.NoUpdate {
 		cmd.AddCommand(newUpdateCmd(sp))
@@ -103,6 +109,7 @@ func buildResourceCmd[T any](sp resourceSpec[T]) *cobra.Command {
 var reservedListFlags = map[string]bool{
 	"start": true, "limit": true, "all": true, "query": true,
 	"order-field": true, "order-direction": true, "count": true, "param": true,
+	"since": true, "until": true,
 }
 
 type listFlags struct {
@@ -114,6 +121,8 @@ type listFlags struct {
 	orderBy  string
 	orderDir string
 	params   []string
+	since    string
+	until    string
 }
 
 func newListCmd[T any](sp resourceSpec[T]) *cobra.Command {
@@ -146,6 +155,22 @@ func newListCmd[T any](sp resourceSpec[T]) *cobra.Command {
 					return fmt.Errorf("invalid --param %q (expected key=value)", p)
 				}
 				params.Extra.Set(k, v)
+			}
+			// Natural date range (resolves to Alegra's date_after/date_before).
+			now := time.Now().UTC()
+			if lf.since != "" {
+				d, derr := parseDateExpr(lf.since, now)
+				if derr != nil {
+					return fmt.Errorf("--since: %w", derr)
+				}
+				params.Extra.Set("date_after", d)
+			}
+			if lf.until != "" {
+				d, derr := parseDateExpr(lf.until, now)
+				if derr != nil {
+					return fmt.Errorf("--until: %w", derr)
+				}
+				params.Extra.Set("date_before", d)
 			}
 			for _, f := range sp.ListFilters {
 				if v := filterVals[f.Query]; v != nil && *v != "" {
@@ -182,6 +207,8 @@ func newListCmd[T any](sp resourceSpec[T]) *cobra.Command {
 	fs.BoolVar(&lf.all, "all", false, "Fetch all pages")
 	fs.BoolVar(&lf.count, "count", false, "Print only the total number of matching records")
 	fs.StringVarP(&lf.query, "query", "q", "", "Free-text search")
+	fs.StringVar(&lf.since, "since", "", "Start of date range (YYYY-MM-DD, today, this-month, last-month, 7d, 3m, ...)")
+	fs.StringVar(&lf.until, "until", "", "End of date range (same formats as --since)")
 	fs.StringArrayVar(&lf.params, "param", nil, "Arbitrary API query parameter: key=value (repeatable; e.g. --param date_after=2026-01-01)")
 	orderUsage := "Field to sort by"
 	if len(sp.OrderFields) > 0 {
@@ -213,6 +240,214 @@ func listExample[T any](sp resourceSpec[T]) string {
 	return ex
 }
 
+// --- export (CSV/JSON of all pages) ---
+
+func newExportCmd[T any](sp resourceSpec[T]) *cobra.Command {
+	var (
+		outFile string
+		format  string
+		params  []string
+		query   string
+	)
+	cmd := &cobra.Command{
+		Use:   "export",
+		Short: "Export all " + sp.Use + " to CSV or JSON",
+		Long:  "Fetch every page of " + sp.Use + " and write them to a file (or stdout).",
+		Example: "  alegra " + sp.Use + " export > " + sp.Use + ".csv\n" +
+			"  alegra " + sp.Use + " export --format json --out " + sp.Use + ".json\n" +
+			"  alegra " + sp.Use + " export --param status=open",
+		Args: cobra.NoArgs,
+		RunE: func(cmd *cobra.Command, _ []string) error {
+			client, err := getAPIClient()
+			if err != nil {
+				return err
+			}
+			p := api.ListParams{Query: query, Extra: url.Values{}}
+			for _, kv := range params {
+				k, v, ok := strings.Cut(kv, "=")
+				if !ok {
+					return fmt.Errorf("invalid --param %q (expected key=value)", kv)
+				}
+				p.Extra.Set(k, v)
+			}
+			items, err := sp.New(client).ListAll(cmd.Context(), p, 0)
+			if err != nil {
+				return err
+			}
+			w := cmd.OutOrStdout()
+			if outFile != "" {
+				f, ferr := os.Create(outFile) //nolint:gosec // user-specified path
+				if ferr != nil {
+					return ferr
+				}
+				defer f.Close()
+				w = f
+			}
+			cols := flagColumns
+			if len(cols) == 0 {
+				cols = sp.Columns
+			}
+			if err := output.Render(w, items, output.Format(format), cols); err != nil {
+				return err
+			}
+			if outFile != "" && !flagDryRun {
+				fmt.Fprintf(cmd.ErrOrStderr(), "Exported %d %s to %s\n", len(items), sp.Use, outFile)
+			}
+			return nil
+		},
+	}
+	fs := cmd.Flags()
+	fs.StringVar(&outFile, "out", "", "Write to this file (default: stdout)")
+	fs.StringVar(&format, "format", "csv", "Export format: csv or json")
+	fs.StringArrayVar(&params, "param", nil, "Filter by an API query parameter: key=value (repeatable)")
+	fs.StringVarP(&query, "query", "q", "", "Free-text search")
+	return cmd
+}
+
+// --- import (create from CSV) ---
+
+func newImportCmd[T any](sp resourceSpec[T]) *cobra.Command {
+	var (
+		file    string
+		mapping []string
+		sets    []string
+	)
+	cmd := &cobra.Command{
+		Use:   "import",
+		Short: "Bulk-create " + sp.Use + " from a CSV file",
+		Long: `Create one ` + singular(sp.Use) + ` per CSV row.
+
+The header row names the fields; use --map to rename columns to API fields and
+dotted paths for nested objects (e.g. --map 'NIT=identification.number'). Apply
+constant fields to every row with --set. Rows are processed independently;
+failures are reported and do not stop the run.`,
+		Example: "  alegra " + sp.Use + " import --file rows.csv\n" +
+			"  alegra contacts import -f clients.csv \\\n" +
+			"    --map 'Name=name,NIT=identification.number' \\\n" +
+			"    --set 'identification.type=NIT' --set 'type=[\"client\"]'",
+		Args: cobra.NoArgs,
+		RunE: func(cmd *cobra.Command, _ []string) error {
+			if file == "" {
+				return fmt.Errorf("--file is required")
+			}
+			colMap, err := parseMapping(mapping)
+			if err != nil {
+				return fmt.Errorf("--map: %w", err)
+			}
+			defaults, err := parseKeyVals(sets)
+			if err != nil {
+				return fmt.Errorf("--set: %w", err)
+			}
+			f, err := os.Open(file) //nolint:gosec // user-specified path
+			if err != nil {
+				return err
+			}
+			defer f.Close()
+
+			records, err := csv.NewReader(f).ReadAll()
+			if err != nil {
+				return fmt.Errorf("reading CSV: %w", err)
+			}
+			if len(records) < 2 {
+				return fmt.Errorf("CSV has no data rows")
+			}
+			header := records[0]
+
+			client, err := getAPIClient()
+			if err != nil {
+				return err
+			}
+			res := sp.New(client)
+
+			var created, failed int
+			out := cmd.OutOrStdout()
+			for i, row := range records[1:] {
+				body := map[string]any{}
+				for k, v := range defaults {
+					setDotPath(body, k, inferValue(v))
+				}
+				for j, cell := range row {
+					if j >= len(header) || cell == "" {
+						continue
+					}
+					field := header[j]
+					if mapped, ok := colMap[field]; ok {
+						field = mapped
+					}
+					setDotPath(body, field, inferValue(cell))
+				}
+				if flagDryRun {
+					raw, _ := json.Marshal(body)
+					fmt.Fprintf(out, "[row %d] would create: %s\n", i+1, raw)
+					continue
+				}
+				item, cerr := res.Create(cmd.Context(), body)
+				if cerr != nil {
+					failed++
+					fmt.Fprintf(cmd.ErrOrStderr(), "[row %d] FAILED: %v\n", i+1, cerr)
+					continue
+				}
+				created++
+				_ = item
+				fmt.Fprintf(out, "[row %d] created\n", i+1)
+			}
+			if !flagDryRun {
+				fmt.Fprintf(out, "Imported %d, failed %d\n", created, failed)
+			}
+			if failed > 0 {
+				return fmt.Errorf("%d row(s) failed", failed)
+			}
+			return nil
+		},
+	}
+	fs := cmd.Flags()
+	fs.StringVarP(&file, "file", "f", "", "CSV file to import (required)")
+	fs.StringArrayVar(&mapping, "map", nil, "Map a CSV column to a field path: column=field.path (repeatable)")
+	fs.StringArrayVar(&sets, "set", nil, "Constant field applied to every row: key=value (repeatable)")
+	return cmd
+}
+
+// setDotPath assigns val into a (possibly nested) map following a dotted path.
+func setDotPath(root map[string]any, path string, val any) {
+	parts := strings.Split(path, ".")
+	m := root
+	for i, p := range parts {
+		if i == len(parts)-1 {
+			m[p] = val
+			return
+		}
+		next, ok := m[p].(map[string]any)
+		if !ok {
+			next = map[string]any{}
+			m[p] = next
+		}
+		m = next
+	}
+}
+
+// parseMapping parses --map entries, where each entry may hold several
+// comma-separated `column=field` pairs (field paths never contain commas).
+func parseMapping(entries []string) (map[string]string, error) {
+	var pairs []string
+	for _, e := range entries {
+		pairs = append(pairs, strings.Split(e, ",")...)
+	}
+	return parseKeyVals(pairs)
+}
+
+// parseKeyVals turns ["a=b","c=d"] into a map, erroring on malformed entries.
+func parseKeyVals(pairs []string) (map[string]string, error) {
+	out := map[string]string{}
+	for _, p := range pairs {
+		k, v, ok := strings.Cut(p, "=")
+		if !ok {
+			return nil, fmt.Errorf("invalid %q (expected key=value)", p)
+		}
+		out[k] = v
+	}
+	return out, nil
+}
+
 // --- get ---
 
 func newGetCmd[T any](sp resourceSpec[T]) *cobra.Command {
@@ -241,12 +476,16 @@ func newGetCmd[T any](sp resourceSpec[T]) *cobra.Command {
 
 func newCreateCmd[T any](sp resourceSpec[T]) *cobra.Command {
 	var bf bodyFlags
+	var country string
+	var noValidate bool
+	var draft bool
 	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create a " + singular(sp.Use),
 		Long: "Create a " + singular(sp.Use) + ".\n\n" +
 			"Provide the body with --file <path> (recommended for nested documents),\n" +
-			"--data '<json>', or one or more --set key=value pairs for flat fields.",
+			"--data '<json>', or one or more --set key=value pairs for flat fields.\n" +
+			"The body is pre-flight validated for your country; use --no-validate to skip.",
 		Example: "  alegra " + sp.Use + " create -f " + singular(sp.Use) + ".json\n" +
 			"  alegra " + sp.Use + " create --set name=\"Example\"\n" +
 			"  echo '{...}' | alegra " + sp.Use + " create -f -",
@@ -255,6 +494,20 @@ func newCreateCmd[T any](sp resourceSpec[T]) *cobra.Command {
 			body, err := bf.build()
 			if err != nil {
 				return err
+			}
+			// --draft: never emit electronically — drop any stamp instruction.
+			if draft {
+				if m, ok := bodyToMap(body); ok {
+					delete(m, "stamp")
+					body, _ = json.Marshal(m)
+				}
+			}
+			if !noValidate {
+				if m, ok := bodyToMap(body); ok {
+					if problems := validateForCreate(sp.Use, resolveCountry(country), m); len(problems) > 0 {
+						return formatValidationError(sp.Use, resolveCountry(country), problems)
+					}
+				}
 			}
 			client, err := getAPIClient()
 			if err != nil {
@@ -268,7 +521,21 @@ func newCreateCmd[T any](sp resourceSpec[T]) *cobra.Command {
 		},
 	}
 	addBodyFlags(cmd, &bf)
+	cmd.Flags().StringVar(&country, "country", "", "Country for pre-flight validation (default: config/company)")
+	cmd.Flags().BoolVar(&noValidate, "no-validate", false, "Skip client-side pre-flight validation")
+	cmd.Flags().BoolVar(&draft, "draft", false, "Create as a draft (strip any electronic stamp from the body)")
 	return cmd
+}
+
+// resolveCountry picks the validation country: explicit flag > config setting.
+func resolveCountry(override string) string {
+	if override != "" {
+		return strings.ToLower(override)
+	}
+	if cfg, err := config.Load(); err == nil && cfg.Settings != nil {
+		return strings.ToLower(cfg.Settings.Country)
+	}
+	return ""
 }
 
 // --- update ---

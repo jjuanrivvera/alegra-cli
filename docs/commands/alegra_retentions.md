@@ -30,7 +30,9 @@ Manage retentions (withholdings)
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra retentions create](alegra_retentions_create.md)	 - Create a retention
 * [alegra retentions delete](alegra_retentions_delete.md)	 - Delete a retention by ID
+* [alegra retentions export](alegra_retentions_export.md)	 - Export all retentions to CSV or JSON
 * [alegra retentions get](alegra_retentions_get.md)	 - Get a single retention by ID
+* [alegra retentions import](alegra_retentions_import.md)	 - Bulk-create retentions from a CSV file
 * [alegra retentions list](alegra_retentions_list.md)	 - List retentions
 * [alegra retentions update](alegra_retentions_update.md)	 - Update a retention by ID
 

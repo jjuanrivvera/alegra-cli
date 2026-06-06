@@ -63,6 +63,10 @@ func init() {
 
 // Execute runs the root command. Resources are registered via their init().
 func Execute() error {
+	// Expand a leading user alias (if any) before cobra parses the arguments.
+	if cfg, err := config.Load(); err == nil && len(cfg.Aliases) > 0 {
+		os.Args = expandAliasArgs(os.Args, cfg.Aliases, isBuiltinCommand)
+	}
 	return rootCmd.Execute()
 }
 

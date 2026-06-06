@@ -30,7 +30,9 @@ Manage cost centers
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra cost-centers create](alegra_cost-centers_create.md)	 - Create a cost-center
 * [alegra cost-centers delete](alegra_cost-centers_delete.md)	 - Delete a cost-center by ID
+* [alegra cost-centers export](alegra_cost-centers_export.md)	 - Export all cost-centers to CSV or JSON
 * [alegra cost-centers get](alegra_cost-centers_get.md)	 - Get a single cost-center by ID
+* [alegra cost-centers import](alegra_cost-centers_import.md)	 - Bulk-create cost-centers from a CSV file
 * [alegra cost-centers list](alegra_cost-centers_list.md)	 - List cost-centers
 * [alegra cost-centers update](alegra_cost-centers_update.md)	 - Update a cost-center by ID
 

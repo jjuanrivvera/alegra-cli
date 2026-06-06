@@ -30,7 +30,9 @@ Manage inventory warehouses (bodegas)
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra warehouses create](alegra_warehouses_create.md)	 - Create a warehous
 * [alegra warehouses delete](alegra_warehouses_delete.md)	 - Delete a warehous by ID
+* [alegra warehouses export](alegra_warehouses_export.md)	 - Export all warehouses to CSV or JSON
 * [alegra warehouses get](alegra_warehouses_get.md)	 - Get a single warehous by ID
+* [alegra warehouses import](alegra_warehouses_import.md)	 - Bulk-create warehouses from a CSV file
 * [alegra warehouses list](alegra_warehouses_list.md)	 - List warehouses
 * [alegra warehouses update](alegra_warehouses_update.md)	 - Update a warehous by ID
 

@@ -32,7 +32,9 @@ Manage provider bills (facturas de proveedor)
 * [alegra bills comments](alegra_bills_comments.md)	 - Add a comment to a bill
 * [alegra bills create](alegra_bills_create.md)	 - Create a bill
 * [alegra bills delete](alegra_bills_delete.md)	 - Delete a bill by ID
+* [alegra bills export](alegra_bills_export.md)	 - Export all bills to CSV or JSON
 * [alegra bills get](alegra_bills_get.md)	 - Get a single bill by ID
+* [alegra bills import](alegra_bills_import.md)	 - Bulk-create bills from a CSV file
 * [alegra bills import-by-cufe](alegra_bills_import-by-cufe.md)	 - Import a bill by CUFE (Colombia)
 * [alegra bills list](alegra_bills_list.md)	 - List bills
 * [alegra bills update](alegra_bills_update.md)	 - Update a bill by ID

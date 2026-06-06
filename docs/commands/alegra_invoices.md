@@ -31,11 +31,14 @@ Manage sales invoices
 * [alegra invoices create](alegra_invoices_create.md)	 - Create a invoice
 * [alegra invoices delete](alegra_invoices_delete.md)	 - Delete a invoice by ID
 * [alegra invoices email](alegra_invoices_email.md)	 - Email an invoice
+* [alegra invoices emit](alegra_invoices_emit.md)	 - Emit (stamp) draft/open invoices electronically, in batches of 10
+* [alegra invoices export](alegra_invoices_export.md)	 - Export all invoices to CSV or JSON
 * [alegra invoices get](alegra_invoices_get.md)	 - Get a single invoice by ID
+* [alegra invoices import](alegra_invoices_import.md)	 - Bulk-create invoices from a CSV file
 * [alegra invoices list](alegra_invoices_list.md)	 - List invoices
 * [alegra invoices open](alegra_invoices_open.md)	 - Revert a voided invoice
 * [alegra invoices preview](alegra_invoices_preview.md)	 - Generate a preview PDF URL
-* [alegra invoices stamp](alegra_invoices_stamp.md)	 - Stamp up to 10 invoices
+* [alegra invoices stamp](alegra_invoices_stamp.md)	 - Stamp up to 10 invoices (low-level; prefer `emit`)
 * [alegra invoices update](alegra_invoices_update.md)	 - Update a invoice by ID
 * [alegra invoices void](alegra_invoices_void.md)	 - Void an invoice
 

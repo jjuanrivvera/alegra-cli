@@ -30,7 +30,9 @@ Manage payments (incomes and expenses)
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra payments create](alegra_payments_create.md)	 - Create a payment
 * [alegra payments delete](alegra_payments_delete.md)	 - Delete a payment by ID
+* [alegra payments export](alegra_payments_export.md)	 - Export all payments to CSV or JSON
 * [alegra payments get](alegra_payments_get.md)	 - Get a single payment by ID
+* [alegra payments import](alegra_payments_import.md)	 - Bulk-create payments from a CSV file
 * [alegra payments list](alegra_payments_list.md)	 - List payments
 * [alegra payments open](alegra_payments_open.md)	 - Revert a voided payment
 * [alegra payments stamp](alegra_payments_stamp.md)	 - Emit electronic payment receipt (REP)

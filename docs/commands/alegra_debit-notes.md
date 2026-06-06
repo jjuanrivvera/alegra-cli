@@ -31,7 +31,9 @@ Manage debit notes
 * [alegra debit-notes comments](alegra_debit-notes_comments.md)	 - Add a comment to a debit note
 * [alegra debit-notes create](alegra_debit-notes_create.md)	 - Create a debit-note
 * [alegra debit-notes delete](alegra_debit-notes_delete.md)	 - Delete a debit-note by ID
+* [alegra debit-notes export](alegra_debit-notes_export.md)	 - Export all debit-notes to CSV or JSON
 * [alegra debit-notes get](alegra_debit-notes_get.md)	 - Get a single debit-note by ID
+* [alegra debit-notes import](alegra_debit-notes_import.md)	 - Bulk-create debit-notes from a CSV file
 * [alegra debit-notes list](alegra_debit-notes_list.md)	 - List debit-notes
 * [alegra debit-notes update](alegra_debit-notes_update.md)	 - Update a debit-note by ID
 

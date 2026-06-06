@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"regexp"
+	"strings"
 )
 
 // APIError represents an error returned by the Alegra API.
@@ -24,13 +26,66 @@ type APIError struct {
 }
 
 func (e *APIError) Error() string {
-	if e.Message == "" {
-		return fmt.Sprintf("alegra: HTTP %d (%s)", e.StatusCode, http.StatusText(e.StatusCode))
+	var b strings.Builder
+	b.WriteString("alegra: HTTP ")
+	fmt.Fprintf(&b, "%d", e.StatusCode)
+	if e.Message != "" {
+		b.WriteString(": ")
+		b.WriteString(e.Message)
+	} else {
+		fmt.Fprintf(&b, " (%s)", http.StatusText(e.StatusCode))
 	}
 	if e.Code != "" {
-		return fmt.Sprintf("alegra: HTTP %d: %s (code %s)", e.StatusCode, e.Message, e.Code)
+		fmt.Fprintf(&b, " (code %s)", e.Code)
 	}
-	return fmt.Sprintf("alegra: HTTP %d: %s", e.StatusCode, e.Message)
+	if hint := e.Hint(); hint != "" {
+		b.WriteString("\n  → ")
+		b.WriteString(hint)
+	}
+	return b.String()
+}
+
+// stampCodeRe matches electronic-stamping provider error codes such as AEP1005,
+// EPR503, or D1000 that Alegra surfaces when emission fails.
+var stampCodeRe = regexp.MustCompile(`\b(AEP\d{3,5}|EPR\d{3}|D\d{4})\b`)
+
+// stampHints maps the most common stamping error codes to a plain remedy.
+var stampHints = map[string]string{
+	"AEP1001": "the digital certificate is invalid — re-upload it in Alegra → Electronic invoicing settings",
+	"AEP1003": "no digital certificate configured — upload one in Alegra settings",
+	"AEP1005": "the digital certificate has expired — renew it in Alegra settings",
+	"AEP6008": "this account isn't enabled to emit electronic invoices — complete DIAN habilitación",
+	"AEP6009": "numbering rejected (duplicate/out of range) — use a valid resolution number",
+	"AEP6011": "numbering rejected (duplicate/out of range) — use a valid resolution number",
+	"AEP2011": "the document is already sent/processing — check its status before retrying",
+	"EPR500":  "the tax authority (DIAN) communication failed — verify status, then retry",
+	"EPR503":  "the tax authority (DIAN) timed out — verify status, then retry",
+}
+
+// Hint returns a short, actionable remediation string for the error, or "".
+func (e *APIError) Hint() string {
+	// Stamping codes can appear in the message or raw body.
+	if code := stampCodeRe.FindString(e.Message + " " + e.Body); code != "" {
+		if h, ok := stampHints[code]; ok {
+			return fmt.Sprintf("%s (%s)", h, code)
+		}
+		return fmt.Sprintf("electronic stamping failed (%s) — check status before retrying; emission is not idempotent", code)
+	}
+	switch e.StatusCode {
+	case http.StatusUnauthorized: // 401
+		return "authentication failed — run `alegra auth login` or check ALEGRA_EMAIL/ALEGRA_TOKEN"
+	case http.StatusPaymentRequired: // 402
+		return "your Alegra plan doesn't include this action (or the account is suspended) — upgrade the plan"
+	case http.StatusForbidden: // 403
+		return "this user lacks permission for this action — check the user's role in Alegra"
+	case http.StatusNotFound: // 404
+		return "not found — verify the id with a `list` (or the account may be suspended)"
+	case http.StatusTooManyRequests: // 429
+		return "rate limit hit (150 req/min) — slow down; prefer --count over --all"
+	case http.StatusInternalServerError, http.StatusServiceUnavailable: // 500/503
+		return "Alegra had a server error — this is usually transient, try again shortly"
+	}
+	return ""
 }
 
 // IsNotFound reports whether the error is a 404.

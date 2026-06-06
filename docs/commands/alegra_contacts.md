@@ -34,7 +34,9 @@ Create, list, update, and delete Alegra contacts — your clients and providers.
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra contacts create](alegra_contacts_create.md)	 - Create a contact
 * [alegra contacts delete](alegra_contacts_delete.md)	 - Delete a contact by ID
+* [alegra contacts export](alegra_contacts_export.md)	 - Export all contacts to CSV or JSON
 * [alegra contacts get](alegra_contacts_get.md)	 - Get a single contact by ID
+* [alegra contacts import](alegra_contacts_import.md)	 - Bulk-create contacts from a CSV file
 * [alegra contacts list](alegra_contacts_list.md)	 - List contacts
 * [alegra contacts update](alegra_contacts_update.md)	 - Update a contact by ID
 

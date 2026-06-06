@@ -30,7 +30,9 @@ Manage customer debit notes
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra income-debit-notes create](alegra_income-debit-notes_create.md)	 - Create a income-debit-note
 * [alegra income-debit-notes delete](alegra_income-debit-notes_delete.md)	 - Delete a income-debit-note by ID
+* [alegra income-debit-notes export](alegra_income-debit-notes_export.md)	 - Export all income-debit-notes to CSV or JSON
 * [alegra income-debit-notes get](alegra_income-debit-notes_get.md)	 - Get a single income-debit-note by ID
+* [alegra income-debit-notes import](alegra_income-debit-notes_import.md)	 - Bulk-create income-debit-notes from a CSV file
 * [alegra income-debit-notes list](alegra_income-debit-notes_list.md)	 - List income-debit-notes
 * [alegra income-debit-notes update](alegra_income-debit-notes_update.md)	 - Update a income-debit-note by ID
 

@@ -70,8 +70,9 @@ alegra invoices list --status open --dry-run
 ### Filtering, counting & pagination
 
 ```bash
-# Date ranges on transactional resources (invoices, bills, payments, ...)
-alegra invoices list --status open --date-after 2026-01-01 --date-before 2026-03-31
+# Natural date ranges (this-month, last-month, 7d, 3m, YYYY-MM-DD, ...)
+alegra invoices list --status open --since this-month
+alegra payments list --type in --since 7d
 
 # Just the count (uses the API's metadata total — no full fetch)
 alegra invoices list --status open --count
@@ -81,6 +82,18 @@ alegra contacts list --param identification=900123456 --param order_field=name
 
 # Fetch every page
 alegra items list --all
+```
+
+### Power features
+
+```bash
+alegra doctor                              # diagnose config, auth, plan, rate limit
+alegra alias set unpaid "invoices list --status open --all"
+alegra unpaid --client-id 12               # run the alias (+ extra args)
+alegra contacts import -f clients.csv --map 'Name=name,NIT=identification.number'
+alegra invoices export --param status=open > receivables.csv
+alegra invoices create -f invoice.json --draft   # country pre-flight validated
+alegra invoices emit --all                 # stamp drafts, auto-chunked, idempotent
 ```
 
 ### Output formats
@@ -141,6 +154,7 @@ flag references — it's full of real accounting recipes:
 - **[Electronic Invoicing](https://jjuanrivvera.github.io/alegra-cli/guides/electronic-invoicing/)** — the draft→open→stamp lifecycle, `numberTemplate`/`stamp`, and per-country fields (CO/MX/PE/CR)
 - **[Expenses & Purchases](https://jjuanrivvera.github.io/alegra-cli/guides/expenses-and-purchases/)** — suppliers, bills, purchase orders, outgoing payments
 - **[Reporting & Month-End](https://jjuanrivvera.github.io/alegra-cli/guides/reporting-and-month-end/)** — totals, aging, and closing snapshots
+- **[Productivity Features](https://jjuanrivvera.github.io/alegra-cli/guides/productivity/)** — `doctor`, aliases, date ranges, counts, validation
 - **[Automation & Scripting](https://jjuanrivvera.github.io/alegra-cli/guides/automation/)** — CSV bulk ops, cron, CI, MCP agents
 - **[Errors & Rate Limits](https://jjuanrivvera.github.io/alegra-cli/reference/errors/)** · **[FAQ](https://jjuanrivvera.github.io/alegra-cli/reference/faq/)**
 

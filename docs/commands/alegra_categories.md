@@ -33,7 +33,9 @@ Manage chart-of-accounts accounts (cuentas contables). These are accounting ledg
 
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra categories create](alegra_categories_create.md)	 - Create a category
+* [alegra categories export](alegra_categories_export.md)	 - Export all categories to CSV or JSON
 * [alegra categories get](alegra_categories_get.md)	 - Get a single category by ID
+* [alegra categories import](alegra_categories_import.md)	 - Bulk-create categories from a CSV file
 * [alegra categories list](alegra_categories_list.md)	 - List categories
 * [alegra categories set-settings](alegra_categories_set-settings.md)	 - Update chart-of-accounts settings
 * [alegra categories settings](alegra_categories_settings.md)	 - Show chart-of-accounts settings

@@ -30,7 +30,9 @@ Manage additional charges (tips and parafiscal contributions)
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra additional-charges create](alegra_additional-charges_create.md)	 - Create a additional-charge
 * [alegra additional-charges delete](alegra_additional-charges_delete.md)	 - Delete a additional-charge by ID
+* [alegra additional-charges export](alegra_additional-charges_export.md)	 - Export all additional-charges to CSV or JSON
 * [alegra additional-charges get](alegra_additional-charges_get.md)	 - Get a single additional-charge by ID
+* [alegra additional-charges import](alegra_additional-charges_import.md)	 - Bulk-create additional-charges from a CSV file
 * [alegra additional-charges list](alegra_additional-charges_list.md)	 - List additional-charges
 * [alegra additional-charges update](alegra_additional-charges_update.md)	 - Update a additional-charge by ID
 

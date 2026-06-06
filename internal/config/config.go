@@ -40,6 +40,9 @@ type Settings struct {
 	DefaultOutputFormat string  `yaml:"defaultOutputFormat,omitempty"`
 	RequestsPerSecond   float64 `yaml:"requestsPerSecond,omitempty"`
 	LogLevel            string  `yaml:"logLevel,omitempty"`
+	// Country drives pre-flight validation defaults (e.g. "colombia",
+	// "mexico", "peru", "costa-rica"). Empty = lenient/country-agnostic.
+	Country string `yaml:"country,omitempty"`
 }
 
 // Config is the on-disk configuration.
@@ -47,6 +50,9 @@ type Config struct {
 	DefaultProfile string              `yaml:"defaultProfile,omitempty"`
 	Profiles       map[string]*Profile `yaml:"profiles,omitempty"`
 	Settings       *Settings           `yaml:"settings,omitempty"`
+	// Aliases map a short name to a full command expansion, e.g.
+	// "unpaid" -> "invoices list --status open --all".
+	Aliases map[string]string `yaml:"aliases,omitempty"`
 
 	path string `yaml:"-"`
 }

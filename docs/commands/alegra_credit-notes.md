@@ -31,7 +31,9 @@ Manage credit notes
 * [alegra credit-notes create](alegra_credit-notes_create.md)	 - Create a credit-note
 * [alegra credit-notes delete](alegra_credit-notes_delete.md)	 - Delete a credit-note by ID
 * [alegra credit-notes email](alegra_credit-notes_email.md)	 - Email a credit note
+* [alegra credit-notes export](alegra_credit-notes_export.md)	 - Export all credit-notes to CSV or JSON
 * [alegra credit-notes get](alegra_credit-notes_get.md)	 - Get a single credit-note by ID
+* [alegra credit-notes import](alegra_credit-notes_import.md)	 - Bulk-create credit-notes from a CSV file
 * [alegra credit-notes list](alegra_credit-notes_list.md)	 - List credit-notes
 * [alegra credit-notes update](alegra_credit-notes_update.md)	 - Update a credit-note by ID
 

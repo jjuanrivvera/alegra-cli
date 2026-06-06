@@ -3,6 +3,7 @@ package commands
 import (
 	"fmt"
 	"sort"
+	"strings"
 
 	"github.com/spf13/cobra"
 
@@ -20,6 +21,7 @@ func init() {
 		newConfigSetProfileCmd(),
 		newConfigUseCmd(),
 		newConfigListProfilesCmd(),
+		newConfigSetCountryCmd(),
 	)
 	rootCmd.AddCommand(configCmd)
 }
@@ -126,6 +128,29 @@ func newConfigUseCmd() *cobra.Command {
 				return err
 			}
 			fmt.Fprintf(cmd.OutOrStdout(), "Default profile set to %q\n", args[0])
+			return nil
+		},
+	}
+}
+
+func newConfigSetCountryCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "set-country <country>",
+		Short: "Set the country used for pre-flight validation (e.g. colombia, mexico)",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			cfg, err := config.Load()
+			if err != nil {
+				return err
+			}
+			if cfg.Settings == nil {
+				cfg.Settings = config.New().Settings
+			}
+			cfg.Settings.Country = strings.ToLower(args[0])
+			if err := cfg.Save(); err != nil {
+				return err
+			}
+			fmt.Fprintf(cmd.OutOrStdout(), "Validation country set to %q\n", cfg.Settings.Country)
 			return nil
 		},
 	}

@@ -31,7 +31,9 @@ Manage estimates (cotizaciones / sales quotes)
 * [alegra estimates create](alegra_estimates_create.md)	 - Create a estimate
 * [alegra estimates delete](alegra_estimates_delete.md)	 - Delete a estimate by ID
 * [alegra estimates email](alegra_estimates_email.md)	 - Email an estimate
+* [alegra estimates export](alegra_estimates_export.md)	 - Export all estimates to CSV or JSON
 * [alegra estimates get](alegra_estimates_get.md)	 - Get a single estimate by ID
+* [alegra estimates import](alegra_estimates_import.md)	 - Bulk-create estimates from a CSV file
 * [alegra estimates list](alegra_estimates_list.md)	 - List estimates
 * [alegra estimates update](alegra_estimates_update.md)	 - Update a estimate by ID
 

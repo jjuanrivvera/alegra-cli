@@ -4,7 +4,7 @@ title: alegra invoices stamp
 
 ## alegra invoices stamp
 
-Stamp up to 10 invoices
+Stamp up to 10 invoices (low-level; prefer `emit`)
 
 ```
 alegra invoices stamp [flags]

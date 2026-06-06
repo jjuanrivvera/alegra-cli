@@ -6,6 +6,34 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [0.2.0]
+
+### Added
+- **`alegra doctor`** — read-only diagnostics for config, credentials, auth,
+  company/country, rate-limit budget, numbering resolutions, and plan access.
+- **Aliases** — `alegra alias set/list/remove`; a saved alias expands before
+  parsing and never shadows a built-in command.
+- **Natural date ranges** — `--since`/`--until` on every `list`
+  (`this-month`, `last-month`, `7d`, `3m`, `YYYY-MM-DD`, …).
+- **CSV import/export** — `<resource> import --file --map --set` (per-row,
+  continue-on-error, dotted nested paths) and `<resource> export` (auto-paginated
+  CSV/JSON).
+- **Electronic-invoice emit lifecycle** — `invoices emit` stamps drafts in
+  auto-chunked batches of 10 with a local idempotency guard (`--force` to
+  override); `create --draft` keeps a document internal.
+- **Country-aware pre-flight validation** — `create` checks the body against
+  per-country rules (CO/MX/PE/CR) before sending; `config set-country`,
+  `--country`, and `--no-validate` to control it.
+
+### Changed
+- **Friendlier errors** — every failure now suggests a fix (e.g. `402` → "plan
+  doesn't include this", `429` → rate-limit hint, stamping `AEP*/EPR*` codes →
+  remedies).
+- **Adaptive rate limiting** — the client reads `X-Rate-Limit-*` headers, slows
+  down as the quota drains, and waits the exact reset window on `429`.
+
+## [0.1.0]
+
 ### Added
 - Initial release of `alegra-cli`.
 - Full Alegra v1 resource surface with `list`/`get`/`create`/`update`/`delete`

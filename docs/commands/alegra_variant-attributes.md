@@ -30,7 +30,9 @@ Manage item variant attributes (e.g. Color, Talla)
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra variant-attributes create](alegra_variant-attributes_create.md)	 - Create a variant-attribute
 * [alegra variant-attributes delete](alegra_variant-attributes_delete.md)	 - Delete a variant-attribute by ID
+* [alegra variant-attributes export](alegra_variant-attributes_export.md)	 - Export all variant-attributes to CSV or JSON
 * [alegra variant-attributes get](alegra_variant-attributes_get.md)	 - Get a single variant-attribute by ID
+* [alegra variant-attributes import](alegra_variant-attributes_import.md)	 - Bulk-create variant-attributes from a CSV file
 * [alegra variant-attributes list](alegra_variant-attributes_list.md)	 - List variant-attributes
 * [alegra variant-attributes update](alegra_variant-attributes_update.md)	 - Update a variant-attribute by ID
 

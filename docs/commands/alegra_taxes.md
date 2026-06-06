@@ -30,7 +30,9 @@ Manage taxes (e.g. IVA)
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra taxes create](alegra_taxes_create.md)	 - Create a taxe
 * [alegra taxes delete](alegra_taxes_delete.md)	 - Delete a taxe by ID
+* [alegra taxes export](alegra_taxes_export.md)	 - Export all taxes to CSV or JSON
 * [alegra taxes get](alegra_taxes_get.md)	 - Get a single taxe by ID
+* [alegra taxes import](alegra_taxes_import.md)	 - Bulk-create taxes from a CSV file
 * [alegra taxes list](alegra_taxes_list.md)	 - List taxes
 * [alegra taxes update](alegra_taxes_update.md)	 - Update a taxe by ID
 

@@ -34,7 +34,9 @@ Manage recurring invoices: templates that automatically generate sales invoices 
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra recurring-invoices create](alegra_recurring-invoices_create.md)	 - Create a recurring-invoice
 * [alegra recurring-invoices delete](alegra_recurring-invoices_delete.md)	 - Delete a recurring-invoice by ID
+* [alegra recurring-invoices export](alegra_recurring-invoices_export.md)	 - Export all recurring-invoices to CSV or JSON
 * [alegra recurring-invoices get](alegra_recurring-invoices_get.md)	 - Get a single recurring-invoice by ID
+* [alegra recurring-invoices import](alegra_recurring-invoices_import.md)	 - Bulk-create recurring-invoices from a CSV file
 * [alegra recurring-invoices list](alegra_recurring-invoices_list.md)	 - List recurring-invoices
 * [alegra recurring-invoices update](alegra_recurring-invoices_update.md)	 - Update a recurring-invoice by ID
 

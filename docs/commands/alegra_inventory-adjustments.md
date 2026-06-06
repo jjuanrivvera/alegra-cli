@@ -30,7 +30,9 @@ Manage inventory adjustments (manual stock corrections)
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra inventory-adjustments create](alegra_inventory-adjustments_create.md)	 - Create a inventory-adjustment
 * [alegra inventory-adjustments delete](alegra_inventory-adjustments_delete.md)	 - Delete a inventory-adjustment by ID
+* [alegra inventory-adjustments export](alegra_inventory-adjustments_export.md)	 - Export all inventory-adjustments to CSV or JSON
 * [alegra inventory-adjustments get](alegra_inventory-adjustments_get.md)	 - Get a single inventory-adjustment by ID
+* [alegra inventory-adjustments import](alegra_inventory-adjustments_import.md)	 - Bulk-create inventory-adjustments from a CSV file
 * [alegra inventory-adjustments list](alegra_inventory-adjustments_list.md)	 - List inventory-adjustments
 * [alegra inventory-adjustments update](alegra_inventory-adjustments_update.md)	 - Update a inventory-adjustment by ID
 

@@ -35,6 +35,7 @@ or set ALEGRA_EMAIL and ALEGRA_TOKEN in the environment.
 ### SEE ALSO
 
 * [alegra additional-charges](alegra_additional-charges.md)	 - Manage additional charges (tips and parafiscal contributions)
+* [alegra alias](alegra_alias.md)	 - Save and manage command aliases
 * [alegra auth](alegra_auth.md)	 - Manage Alegra API authentication
 * [alegra bank-accounts](alegra_bank-accounts.md)	 - Manage bank accounts (bank, credit card, and cash accounts)
 * [alegra bills](alegra_bills.md)	 - Manage provider bills (facturas de proveedor)
@@ -47,6 +48,7 @@ or set ALEGRA_EMAIL and ALEGRA_TOKEN in the environment.
 * [alegra currencies](alegra_currencies.md)	 - Manage currencies (monedas)
 * [alegra custom-fields](alegra_custom-fields.md)	 - Manage custom fields (campos adicionales)
 * [alegra debit-notes](alegra_debit-notes.md)	 - Manage debit notes
+* [alegra doctor](alegra_doctor.md)	 - Diagnose configuration, credentials, and account health
 * [alegra estimates](alegra_estimates.md)	 - Manage estimates (cotizaciones / sales quotes)
 * [alegra global-invoices](alegra_global-invoices.md)	 - Manage global invoices (facturas globales)
 * [alegra income-debit-notes](alegra_income-debit-notes.md)	 - Manage customer debit notes

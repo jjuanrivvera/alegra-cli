@@ -32,7 +32,9 @@ Manage purchase orders (órdenes de compra)
 * [alegra purchase-orders create](alegra_purchase-orders_create.md)	 - Create a purchase-order
 * [alegra purchase-orders delete](alegra_purchase-orders_delete.md)	 - Delete a purchase-order by ID
 * [alegra purchase-orders email](alegra_purchase-orders_email.md)	 - Email a purchase order
+* [alegra purchase-orders export](alegra_purchase-orders_export.md)	 - Export all purchase-orders to CSV or JSON
 * [alegra purchase-orders get](alegra_purchase-orders_get.md)	 - Get a single purchase-order by ID
+* [alegra purchase-orders import](alegra_purchase-orders_import.md)	 - Bulk-create purchase-orders from a CSV file
 * [alegra purchase-orders list](alegra_purchase-orders_list.md)	 - List purchase-orders
 * [alegra purchase-orders update](alegra_purchase-orders_update.md)	 - Update a purchase-order by ID
 * [alegra purchase-orders void](alegra_purchase-orders_void.md)	 - Void a purchase order

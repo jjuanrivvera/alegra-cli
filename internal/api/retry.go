@@ -61,6 +61,17 @@ func (p *RetryPolicy) backoff(attempt int, resp *http.Response) time.Duration {
 				return secs
 			}
 		}
+		// On a 429, Alegra tells us exactly how long until the window resets.
+		if resp.StatusCode == http.StatusTooManyRequests {
+			if rs := resp.Header.Get("X-Rate-Limit-Reset"); rs != "" {
+				if secs, err := time.ParseDuration(rs + "s"); err == nil && secs > 0 {
+					if secs > p.MaxBackoff {
+						return p.MaxBackoff
+					}
+					return secs
+				}
+			}
+		}
 	}
 	d := time.Duration(float64(p.InitialBackoff) * math.Pow(2, float64(attempt)))
 	return min(d, p.MaxBackoff)

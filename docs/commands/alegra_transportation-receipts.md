@@ -31,7 +31,9 @@ Manage transportation receipts (documentos de traslado)
 * [alegra transportation-receipts create](alegra_transportation-receipts_create.md)	 - Create a transportation-receipt
 * [alegra transportation-receipts delete](alegra_transportation-receipts_delete.md)	 - Delete a transportation-receipt by ID
 * [alegra transportation-receipts email](alegra_transportation-receipts_email.md)	 - Email a receipt
+* [alegra transportation-receipts export](alegra_transportation-receipts_export.md)	 - Export all transportation-receipts to CSV or JSON
 * [alegra transportation-receipts get](alegra_transportation-receipts_get.md)	 - Get a single transportation-receipt by ID
+* [alegra transportation-receipts import](alegra_transportation-receipts_import.md)	 - Bulk-create transportation-receipts from a CSV file
 * [alegra transportation-receipts list](alegra_transportation-receipts_list.md)	 - List transportation-receipts
 * [alegra transportation-receipts open](alegra_transportation-receipts_open.md)	 - Open a receipt
 * [alegra transportation-receipts preview](alegra_transportation-receipts_preview.md)	 - Generate a preview PDF URL

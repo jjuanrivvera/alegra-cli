@@ -60,6 +60,7 @@ nav:
       - Expenses & Purchases: guides/expenses-and-purchases.md
       - Electronic Invoicing: guides/electronic-invoicing.md
       - Reporting & Month-End: guides/reporting-and-month-end.md
+      - Productivity Features: guides/productivity.md
       - Automation & Scripting: guides/automation.md
   - User Guide:
       - Configuration & Profiles: user-guide/configuration.md

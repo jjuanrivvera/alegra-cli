@@ -34,7 +34,9 @@ Manage currencies. Currencies are identified by their ISO code (e.g. USD), not a
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra currencies create](alegra_currencies_create.md)	 - Create a currency
 * [alegra currencies delete](alegra_currencies_delete.md)	 - Delete a currency by ID
+* [alegra currencies export](alegra_currencies_export.md)	 - Export all currencies to CSV or JSON
 * [alegra currencies get](alegra_currencies_get.md)	 - Get a single currency by ID
+* [alegra currencies import](alegra_currencies_import.md)	 - Bulk-create currencies from a CSV file
 * [alegra currencies list](alegra_currencies_list.md)	 - List currencies
 * [alegra currencies update](alegra_currencies_update.md)	 - Update a currency by ID
 

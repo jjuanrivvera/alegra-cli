@@ -7,6 +7,7 @@ title: Command Reference
 Auto-generated from the CLI. See [alegra](alegra.md) for the root command.
 
 - [additional-charges](alegra_additional-charges.md) — Manage additional charges (tips and parafiscal contributions)
+- [alias](alegra_alias.md) — Save and manage command aliases
 - [auth](alegra_auth.md) — Manage Alegra API authentication
 - [bank-accounts](alegra_bank-accounts.md) — Manage bank accounts (bank, credit card, and cash accounts)
 - [bills](alegra_bills.md) — Manage provider bills (facturas de proveedor)
@@ -19,6 +20,7 @@ Auto-generated from the CLI. See [alegra](alegra.md) for the root command.
 - [currencies](alegra_currencies.md) — Manage currencies (monedas)
 - [custom-fields](alegra_custom-fields.md) — Manage custom fields (campos adicionales)
 - [debit-notes](alegra_debit-notes.md) — Manage debit notes
+- [doctor](alegra_doctor.md) — Diagnose configuration, credentials, and account health
 - [estimates](alegra_estimates.md) — Manage estimates (cotizaciones / sales quotes)
 - [global-invoices](alegra_global-invoices.md) — Manage global invoices (facturas globales)
 - [income-debit-notes](alegra_income-debit-notes.md) — Manage customer debit notes

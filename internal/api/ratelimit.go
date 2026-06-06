@@ -17,6 +17,17 @@ type RateLimiter struct {
 	base    float64
 	current float64
 	logger  *slog.Logger
+
+	// Last quota reported by the server (-1 = unknown).
+	lastLimit, lastRemaining, lastReset int
+}
+
+// Snapshot returns the most recent server-reported quota (limit, remaining,
+// reset seconds). Values are -1 until a response has been observed.
+func (r *RateLimiter) Snapshot() (limit, remaining, reset int) {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	return r.lastLimit, r.lastRemaining, r.lastReset
 }
 
 // NewRateLimiter creates a limiter allowing requestsPerSecond, with a small
@@ -30,10 +41,13 @@ func NewRateLimiter(requestsPerSecond float64, logger *slog.Logger) *RateLimiter
 	}
 	burst := max(int(requestsPerSecond), 1)
 	return &RateLimiter{
-		limiter: rate.NewLimiter(rate.Limit(requestsPerSecond), burst),
-		base:    requestsPerSecond,
-		current: requestsPerSecond,
-		logger:  logger,
+		limiter:       rate.NewLimiter(rate.Limit(requestsPerSecond), burst),
+		base:          requestsPerSecond,
+		current:       requestsPerSecond,
+		logger:        logger,
+		lastLimit:     -1,
+		lastRemaining: -1,
+		lastReset:     -1,
 	}
 }
 
@@ -55,6 +69,32 @@ func (r *RateLimiter) Throttle() {
 		r.current = next
 		r.limiter.SetLimit(rate.Limit(next))
 		r.logger.Debug("rate limiter throttled", "requests_per_second", next)
+	}
+}
+
+// Observe adapts the limiter to Alegra's reported quota from the
+// X-Rate-Limit-* response headers. While plenty of budget remains it runs at the
+// configured baseline; in the final fifth of the quota it spreads the remaining
+// calls across the reset window so we glide to the limit instead of slamming it.
+func (r *RateLimiter) Observe(limit, remaining, resetSeconds int) {
+	if limit <= 0 {
+		return
+	}
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	r.lastLimit, r.lastRemaining, r.lastReset = limit, remaining, resetSeconds
+	var next float64
+	if float64(remaining) > 0.2*float64(limit) {
+		next = r.base
+	} else {
+		secs := max(resetSeconds, 1)
+		next = min(max(float64(remaining)/float64(secs), 0.2), r.base)
+	}
+	if next != r.current {
+		r.current = next
+		r.limiter.SetLimit(rate.Limit(next))
+		r.logger.Debug("rate limiter adjusted from headers",
+			"remaining", remaining, "limit", limit, "reset_s", resetSeconds, "rps", next)
 	}
 }
 

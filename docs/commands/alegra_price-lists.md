@@ -30,7 +30,9 @@ Manage price lists
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra price-lists create](alegra_price-lists_create.md)	 - Create a price-list
 * [alegra price-lists delete](alegra_price-lists_delete.md)	 - Delete a price-list by ID
+* [alegra price-lists export](alegra_price-lists_export.md)	 - Export all price-lists to CSV or JSON
 * [alegra price-lists get](alegra_price-lists_get.md)	 - Get a single price-list by ID
+* [alegra price-lists import](alegra_price-lists_import.md)	 - Bulk-create price-lists from a CSV file
 * [alegra price-lists list](alegra_price-lists_list.md)	 - List price-lists
 * [alegra price-lists update](alegra_price-lists_update.md)	 - Update a price-list by ID
 

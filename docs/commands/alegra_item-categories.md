@@ -34,7 +34,9 @@ Create, list, update, and delete Alegra item categories used to group products a
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra item-categories create](alegra_item-categories_create.md)	 - Create a item-category
 * [alegra item-categories delete](alegra_item-categories_delete.md)	 - Delete a item-category by ID
+* [alegra item-categories export](alegra_item-categories_export.md)	 - Export all item-categories to CSV or JSON
 * [alegra item-categories get](alegra_item-categories_get.md)	 - Get a single item-category by ID
+* [alegra item-categories import](alegra_item-categories_import.md)	 - Bulk-create item-categories from a CSV file
 * [alegra item-categories list](alegra_item-categories_list.md)	 - List item-categories
 * [alegra item-categories update](alegra_item-categories_update.md)	 - Update a item-category by ID
 

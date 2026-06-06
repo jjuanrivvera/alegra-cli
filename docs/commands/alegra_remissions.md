@@ -30,7 +30,9 @@ Manage remissions (delivery notes)
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra remissions create](alegra_remissions_create.md)	 - Create a remission
 * [alegra remissions delete](alegra_remissions_delete.md)	 - Delete a remission by ID
+* [alegra remissions export](alegra_remissions_export.md)	 - Export all remissions to CSV or JSON
 * [alegra remissions get](alegra_remissions_get.md)	 - Get a single remission by ID
+* [alegra remissions import](alegra_remissions_import.md)	 - Bulk-create remissions from a CSV file
 * [alegra remissions list](alegra_remissions_list.md)	 - List remissions
 * [alegra remissions open](alegra_remissions_open.md)	 - Open a remission
 * [alegra remissions update](alegra_remissions_update.md)	 - Update a remission by ID

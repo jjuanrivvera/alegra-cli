@@ -30,7 +30,9 @@ Manage payment terms (términos de pago)
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra terms create](alegra_terms_create.md)	 - Create a term
 * [alegra terms delete](alegra_terms_delete.md)	 - Delete a term by ID
+* [alegra terms export](alegra_terms_export.md)	 - Export all terms to CSV or JSON
 * [alegra terms get](alegra_terms_get.md)	 - Get a single term by ID
+* [alegra terms import](alegra_terms_import.md)	 - Bulk-create terms from a CSV file
 * [alegra terms list](alegra_terms_list.md)	 - List terms
 * [alegra terms update](alegra_terms_update.md)	 - Update a term by ID
 

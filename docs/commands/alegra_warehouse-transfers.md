@@ -30,7 +30,9 @@ Manage inventory transfers between warehouses
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra warehouse-transfers create](alegra_warehouse-transfers_create.md)	 - Create a warehouse-transfer
 * [alegra warehouse-transfers delete](alegra_warehouse-transfers_delete.md)	 - Delete a warehouse-transfer by ID
+* [alegra warehouse-transfers export](alegra_warehouse-transfers_export.md)	 - Export all warehouse-transfers to CSV or JSON
 * [alegra warehouse-transfers get](alegra_warehouse-transfers_get.md)	 - Get a single warehouse-transfer by ID
+* [alegra warehouse-transfers import](alegra_warehouse-transfers_import.md)	 - Bulk-create warehouse-transfers from a CSV file
 * [alegra warehouse-transfers list](alegra_warehouse-transfers_list.md)	 - List warehouse-transfers
 * [alegra warehouse-transfers update](alegra_warehouse-transfers_update.md)	 - Update a warehouse-transfer by ID
 

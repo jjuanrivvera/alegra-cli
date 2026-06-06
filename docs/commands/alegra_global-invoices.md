@@ -34,7 +34,9 @@ Manage Alegra global invoices, which group sale tickets into a single CFDI for t
 * [alegra](alegra.md)	 - Alegra accounting system CLI
 * [alegra global-invoices create](alegra_global-invoices_create.md)	 - Create a global-invoice
 * [alegra global-invoices delete](alegra_global-invoices_delete.md)	 - Delete a global-invoice by ID
+* [alegra global-invoices export](alegra_global-invoices_export.md)	 - Export all global-invoices to CSV or JSON
 * [alegra global-invoices get](alegra_global-invoices_get.md)	 - Get a single global-invoice by ID
+* [alegra global-invoices import](alegra_global-invoices_import.md)	 - Bulk-create global-invoices from a CSV file
 * [alegra global-invoices list](alegra_global-invoices_list.md)	 - List global-invoices
 * [alegra global-invoices update](alegra_global-invoices_update.md)	 - Update a global-invoice by ID
 
