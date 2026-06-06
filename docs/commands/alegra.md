@@ -69,6 +69,7 @@ or set ALEGRA_EMAIL and ALEGRA_TOKEN in the environment.
 * [alegra remissions](alegra_remissions.md)	 - Manage remissions (delivery notes)
 * [alegra reports](alegra_reports.md)	 - Read-only Alegra reports
 * [alegra retentions](alegra_retentions.md)	 - Manage retentions (withholdings)
+* [alegra skills](alegra_skills.md)	 - Install this CLI's AI-agent skill into Claude, Cursor, and other agents
 * [alegra taxes](alegra_taxes.md)	 - Manage taxes (e.g. IVA)
 * [alegra terms](alegra_terms.md)	 - Manage payment terms (términos de pago)
 * [alegra transportation-receipts](alegra_transportation-receipts.md)	 - Manage transportation receipts (documentos de traslado)

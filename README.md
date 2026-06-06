@@ -144,6 +144,31 @@ Full Alegra v1 surface, each with `list`/`get`/`create`/`update`/`delete`
 
 Run `alegra <resource> --help` for actions and filters.
 
+## Use it from your AI agent (skill)
+
+alegra-cli ships an **agent skill** that teaches AI coding agents (Claude Code,
+Cursor, Codex, Gemini CLI, Windsurf, Copilot, …) how to drive it. Install the
+skill across every agent you have with one command:
+
+```bash
+npx skills add jjuanrivvera/alegra-cli
+```
+
+Or use one of the built-in / native paths:
+
+```bash
+alegra skills install --global              # write the bundled skill (no Node needed)
+alegra skills install --agent cursor        # target a specific agent
+
+# Native Claude Code plugin:
+#   /plugin marketplace add jjuanrivvera/alegra-cli
+#   /plugin install alegra-cli@alegra
+```
+
+The skill wraps this binary, so install the CLI (above) and authenticate first.
+For structured tool access (Claude Desktop, etc.) the CLI is also an MCP server:
+`claude mcp add alegra -- alegra mcp`.
+
 ## Guides & recipes
 
 The [documentation site](https://jjuanrivvera.github.io/alegra-cli/) has more than

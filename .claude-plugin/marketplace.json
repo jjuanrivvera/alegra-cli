@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "alegra",
+  "owner": {
+    "name": "Juan Rivera",
+    "url": "https://github.com/jjuanrivvera"
+  },
+  "plugins": [
+    {
+      "name": "alegra-cli",
+      "source": "./",
+      "version": "0.3.0",
+      "description": "Manage the Alegra accounting API from the terminal — invoices, contacts, payments, items, taxes, reports, and electronic invoicing.",
+      "homepage": "https://github.com/jjuanrivvera/alegra-cli",
+      "keywords": ["alegra", "accounting", "invoicing", "finance", "cli"]
+    }
+  ]
+}

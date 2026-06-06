@@ -6,6 +6,21 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [0.3.0]
+
+### Added
+- **Agent skill** — alegra-cli now ships a `SKILL.md` (at the repo root) that
+  teaches AI agents how to drive the CLI. Install across agents with
+  `npx skills add jjuanrivvera/alegra-cli`.
+- **`alegra skills install`** — write the bundled skill (embedded via `go:embed`)
+  into an agent's skills directory, with `--global`, `--agent`
+  (claude/cursor/windsurf/codex/gemini/copilot/opencode), `--dir`, and
+  `--dry-run`; plus `alegra skills path` and `alegra skills print`.
+- **Claude Code plugin** — `.claude-plugin/plugin.json` + `marketplace.json` so
+  the skill installs via `/plugin marketplace add jjuanrivvera/alegra-cli`.
+- `references/alegra-commands.md` — a condensed command cheatsheet bundled with
+  the skill.
+
 ## [0.2.0]
 
 ### Added

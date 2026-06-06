@@ -41,6 +41,7 @@ Auto-generated from the CLI. See [alegra](alegra.md) for the root command.
 - [remissions](alegra_remissions.md) — Manage remissions (delivery notes)
 - [reports](alegra_reports.md) — Read-only Alegra reports
 - [retentions](alegra_retentions.md) — Manage retentions (withholdings)
+- [skills](alegra_skills.md) — Install this CLI's AI-agent skill into Claude, Cursor, and other agents
 - [taxes](alegra_taxes.md) — Manage taxes (e.g. IVA)
 - [terms](alegra_terms.md) — Manage payment terms (términos de pago)
 - [transportation-receipts](alegra_transportation-receipts.md) — Manage transportation receipts (documentos de traslado)

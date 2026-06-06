@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "alegra-cli",
+  "version": "0.3.0",
+  "description": "Manage the Alegra accounting API from the terminal — contacts, invoices, payments, items, taxes, reports, and DIAN/SAT electronic invoicing.",
+  "author": {
+    "name": "Juan Rivera",
+    "url": "https://github.com/jjuanrivvera"
+  },
+  "homepage": "https://github.com/jjuanrivvera/alegra-cli",
+  "repository": "https://github.com/jjuanrivvera/alegra-cli",
+  "license": "MIT",
+  "skills": ["./"],
+  "keywords": [
+    "alegra",
+    "accounting",
+    "invoicing",
+    "facturacion-electronica",
+    "finance",
+    "cli",
+    "ai-agent"
+  ]
+}
