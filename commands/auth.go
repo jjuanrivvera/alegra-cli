@@ -81,6 +81,9 @@ Find your API token in Alegra: Configuración → Integraciones → API.`,
 				p.BaseURL = baseURL
 			}
 			p.Token = "" // ensure no plaintext token lingers in config
+			// Cache the account's localization (applicationVersion) so later
+			// commands know the country/version without re-fetching. Best effort.
+			p.Country = detectCountry(cmd.Context(), client)
 			cfg.SetProfile(p)
 			if cfg.DefaultProfile == "" {
 				cfg.DefaultProfile = profile
@@ -93,6 +96,9 @@ Find your API token in Alegra: Configuración → Integraciones → API.`,
 			}
 
 			fmt.Fprintf(cmd.OutOrStdout(), "Logged in as %s (profile %q)\n", email, profile)
+			if p.Country != "" {
+				fmt.Fprintf(cmd.OutOrStdout(), "Detected country (version): %s\n", p.Country)
+			}
 			return nil
 		},
 	}

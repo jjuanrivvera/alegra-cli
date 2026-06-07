@@ -29,7 +29,7 @@ alegra contacts create [flags]
 ### Options
 
 ```
-      --country string    Country for pre-flight validation (default: config/company)
+      --country string    Country for pre-flight validation (default: auto-detected from the account)
   -d, --data string       Request body as a JSON string
       --draft             Create as a draft (strip any electronic stamp from the body)
   -f, --file string       Read JSON request body from a file (use - for stdin)

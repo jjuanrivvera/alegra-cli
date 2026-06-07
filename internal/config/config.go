@@ -33,6 +33,11 @@ type Profile struct {
 	Token       string `yaml:"token,omitempty"`       // optional; prefer keyring
 	BearerToken string `yaml:"bearerToken,omitempty"` // optional OAuth
 	Description string `yaml:"description,omitempty"`
+	// Country caches the account's detected localization (the company's
+	// applicationVersion, lowercased — e.g. "colombia", "mexico", "costarica").
+	// Auto-populated on `auth login` / refreshed by `doctor`; the platform is the
+	// source of truth, so this is a cache, not a user setting.
+	Country string `yaml:"country,omitempty"`
 }
 
 // Settings holds global, profile-independent options.
@@ -40,8 +45,9 @@ type Settings struct {
 	DefaultOutputFormat string  `yaml:"defaultOutputFormat,omitempty"`
 	RequestsPerSecond   float64 `yaml:"requestsPerSecond,omitempty"`
 	LogLevel            string  `yaml:"logLevel,omitempty"`
-	// Country drives pre-flight validation defaults (e.g. "colombia",
-	// "mexico", "peru", "costa-rica"). Empty = lenient/country-agnostic.
+	// Country is a global, offline fallback hint for pre-flight validation
+	// (e.g. "colombia"). The account's real country is auto-detected per profile
+	// (Profile.Country); this only applies when nothing has been detected yet.
 	Country string `yaml:"country,omitempty"`
 }
 
