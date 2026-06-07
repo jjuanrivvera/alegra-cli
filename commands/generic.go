@@ -521,18 +521,28 @@ func newCreateCmd[T any](sp resourceSpec[T]) *cobra.Command {
 		},
 	}
 	addBodyFlags(cmd, &bf)
-	cmd.Flags().StringVar(&country, "country", "", "Country for pre-flight validation (default: config/company)")
+	cmd.Flags().StringVar(&country, "country", "", "Country for pre-flight validation (default: auto-detected from the account)")
 	cmd.Flags().BoolVar(&noValidate, "no-validate", false, "Skip client-side pre-flight validation")
 	cmd.Flags().BoolVar(&draft, "draft", false, "Create as a draft (strip any electronic stamp from the body)")
 	return cmd
 }
 
-// resolveCountry picks the validation country: explicit flag > config setting.
+// resolveCountry picks the validation country. The platform is the source of
+// truth, so precedence is: explicit --country flag > the account's auto-detected
+// country (cached per profile by `auth login`/`doctor`) > the global offline
+// hint (`config set-country`).
 func resolveCountry(override string) string {
 	if override != "" {
 		return strings.ToLower(override)
 	}
-	if cfg, err := config.Load(); err == nil && cfg.Settings != nil {
+	cfg, err := config.Load()
+	if err != nil {
+		return ""
+	}
+	if p := cfg.Profile(cfg.ActiveProfileName(flagProfile)); p.Country != "" {
+		return strings.ToLower(p.Country)
+	}
+	if cfg.Settings != nil {
 		return strings.ToLower(cfg.Settings.Country)
 	}
 	return ""

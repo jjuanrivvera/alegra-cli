@@ -136,8 +136,15 @@ func newConfigUseCmd() *cobra.Command {
 func newConfigSetCountryCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "set-country <country>",
-		Short: "Set the country used for pre-flight validation (e.g. colombia, mexico)",
-		Args:  cobra.ExactArgs(1),
+		Short: "Set an offline fallback country hint for pre-flight validation",
+		Long: `Set a global, offline fallback country hint for client-side pre-flight
+validation (e.g. colombia, mexico).
+
+The account's real country is the source of truth and is auto-detected per
+profile on 'auth login' (refreshed by 'doctor'); that detected value takes
+precedence over this hint. Use set-country only when you need validation to know
+the country before logging in (e.g. offline '--dry-run').`,
+		Args: cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cfg, err := config.Load()
 			if err != nil {
@@ -150,7 +157,7 @@ func newConfigSetCountryCmd() *cobra.Command {
 			if err := cfg.Save(); err != nil {
 				return err
 			}
-			fmt.Fprintf(cmd.OutOrStdout(), "Validation country set to %q\n", cfg.Settings.Country)
+			fmt.Fprintf(cmd.OutOrStdout(), "Offline validation country hint set to %q\n", cfg.Settings.Country)
 			return nil
 		},
 	}

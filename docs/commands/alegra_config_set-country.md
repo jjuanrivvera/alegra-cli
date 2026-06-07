@@ -4,7 +4,17 @@ title: alegra config set-country
 
 ## alegra config set-country
 
-Set the country used for pre-flight validation (e.g. colombia, mexico)
+Set an offline fallback country hint for pre-flight validation
+
+### Synopsis
+
+Set a global, offline fallback country hint for client-side pre-flight
+validation (e.g. colombia, mexico).
+
+The account's real country is the source of truth and is auto-detected per
+profile on 'auth login' (refreshed by 'doctor'); that detected value takes
+precedence over this hint. Use set-country only when you need validation to know
+the country before logging in (e.g. offline '--dry-run').
 
 ```
 alegra config set-country <country> [flags]

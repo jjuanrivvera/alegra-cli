@@ -2,6 +2,7 @@ package commands
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/spf13/cobra"
 
@@ -77,6 +78,10 @@ func runDoctor(cmd *cobra.Command) error {
 	} else {
 		ok("company", fmt.Sprintf("%v · country: %v · regime: %v",
 			strOr(company, "name", "?"), strOr(company, "applicationVersion", "?"), strOr(company, "regime", "—")))
+		// Refresh the cached per-profile country used for pre-flight validation.
+		if v, isStr := company["applicationVersion"].(string); isStr {
+			cacheCountry(cfg, profile, strings.ToLower(strings.TrimSpace(v)))
+		}
 	}
 
 	// 5. Rate-limit budget (populated by the calls above)

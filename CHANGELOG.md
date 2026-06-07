@@ -6,6 +6,22 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+### Added
+- **Auto-detect the account's country (version).** Alegra is one API whose
+  required fields, enums, and electronic-invoicing flow are localized per country
+  (exposed as the company's `applicationVersion`). `auth login` now detects it
+  and caches it on the profile (`profiles.<name>.country`); `doctor` refreshes
+  it. Pre-flight validation reads this detected value, so it stays in sync with
+  the actual account instead of a hand-set string.
+
+### Changed
+- `config set-country` is now an **offline fallback hint** only — the detected
+  per-profile country takes precedence. Pre-flight validation country resolution
+  is now: `--country` flag > detected profile country > `set-country` hint.
+- Skill (`skills/alegra-cli`) documents the per-country API differences and
+  instructs detecting the connected version with `alegra company get` before any
+  country-specific write (skill `0.4.0`).
+
 ## [0.3.2]
 
 ### Changed
