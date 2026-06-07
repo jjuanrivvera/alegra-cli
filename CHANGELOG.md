@@ -6,6 +6,8 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-06-07
+
 ### Added
 - **Auto-detect the account's country (version).** Alegra is one API whose
   required fields, enums, and electronic-invoicing flow are localized per country
