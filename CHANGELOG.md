@@ -6,6 +6,15 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [0.4.3] - 2026-06-08
+
+Test/CI accuracy release — no functional changes to the CLI.
+
+### Added
+- Test covering the docs generator's `run()` (raises statement coverage to ~82%).
+- `codecov.yml`: ignore the binary entry point (`cmd/alegra`) and keep coverage
+  status checks informational, so the Codecov badge reflects the testable surface.
+
 ## [0.4.2] - 2026-06-08
 
 Documentation/CI polish — no functional changes to the CLI.
