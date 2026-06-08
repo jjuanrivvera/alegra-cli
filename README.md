@@ -6,6 +6,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/jjuanrivvera/alegra-cli)](https://goreportcard.com/report/github.com/jjuanrivvera/alegra-cli)
 [![Go version](https://img.shields.io/github/go-mod/go-version/jjuanrivvera/alegra-cli)](go.mod)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/jjuanrivvera/alegra-cli)
 
 A fast, scriptable command-line interface for the [Alegra](https://www.alegra.com/)
 accounting API — manage contacts, invoices, items, payments, taxes, and the full
@@ -21,7 +22,7 @@ Built in Go, mirroring the architecture of
 ## Install
 
 ```bash
-# Homebrew (once the tap is published)
+# Homebrew
 brew install jjuanrivvera/alegra-cli/alegra-cli
 
 # From source

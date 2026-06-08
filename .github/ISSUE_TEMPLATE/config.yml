@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation & recipes
+    url: https://jjuanrivvera.github.io/alegra-cli/
+    about: Guides, the command reference, and the cookbook.
+  - name: Report a security vulnerability
+    url: https://github.com/jjuanrivvera/alegra-cli/security/advisories/new
+    about: Please report security issues privately, not as public issues.
