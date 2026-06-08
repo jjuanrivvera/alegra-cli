@@ -6,6 +6,23 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-06-08
+
+Documentation, repository, and test-quality release — no functional changes to
+the CLI.
+
+### Added
+- README badges (CI, release, pkg.go.dev, Go Report Card, Go version, license,
+  Ask DeepWiki).
+- Community-health files: `SECURITY.md`, `CODE_OF_CONDUCT.md`, issue forms
+  (bug/feature), a pull request template, and Dependabot config (weekly gomod +
+  github-actions updates).
+
+### Changed
+- `CONTRIBUTING.md` aligned with the repo's Conventional Commits / `develop`
+  workflow and a bug/security reporting section.
+- Test coverage raised from 39.8% to 80.6% across the testable packages.
+
 ## [0.4.0] - 2026-06-07
 
 ### Added
