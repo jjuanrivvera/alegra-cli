@@ -20,6 +20,34 @@ func TestAPIError_Predicates(t *testing.T) {
 	assert.False(t, (&APIError{StatusCode: 200}).IsRateLimited())
 }
 
+func TestAPIError_HintByStatus(t *testing.T) {
+	cases := map[int]string{
+		401: "authentication failed",
+		402: "plan",
+		403: "permission",
+		404: "not found",
+		429: "rate limit",
+		500: "server error",
+		503: "server error",
+	}
+	for code, want := range cases {
+		got := (&APIError{StatusCode: code}).Hint()
+		assert.Contains(t, got, want, "status %d", code)
+	}
+	// An unmapped status has no hint.
+	assert.Empty(t, (&APIError{StatusCode: 418}).Hint())
+}
+
+func TestAPIError_HintStampCodes(t *testing.T) {
+	// Known stamping code → mapped remedy.
+	assert.Contains(t, (&APIError{StatusCode: 400, Message: "rejected EPR503"}).Hint(),
+		"timed out")
+	// Unknown stamping code → generic non-idempotent warning with the code.
+	got := (&APIError{StatusCode: 400, Body: `{"code":"D1234"}`}).Hint()
+	assert.Contains(t, got, "not idempotent")
+	assert.Contains(t, got, "D1234")
+}
+
 func TestAsAPIError(t *testing.T) {
 	wrapped := fmt.Errorf("context: %w", &APIError{StatusCode: 402, Message: "plan required"})
 	ae, ok := AsAPIError(wrapped)

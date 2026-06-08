@@ -18,6 +18,8 @@ LDFLAGS := -ldflags "\
 
 GO ?= go
 
+COVERAGE_MIN ?= 80
+
 .PHONY: help
 help: ## Show this help
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
@@ -53,6 +55,12 @@ test-coverage: ## Run tests with a coverage report (coverage.html)
 	$(GO) test -coverprofile=coverage.out ./...
 	$(GO) tool cover -html=coverage.out -o coverage.html
 	@echo "coverage report: coverage.html"
+
+.PHONY: cover-check
+cover-check: ## Fail if total statement coverage is below COVERAGE_MIN (default 80)
+	$(GO) test ./... -coverprofile=coverage.out -covermode=atomic
+	@total=$$($(GO) tool cover -func=coverage.out | awk '/^total:/ {print substr($$3, 1, length($$3)-1)}'); \
+	awk -v c="$$total" -v min="$(COVERAGE_MIN)" 'BEGIN { if (c+0 < min+0) { printf "FAIL: total coverage %s%% is below %s%%\n", c, min; exit 1 } printf "OK: total coverage %s%% (>= %s%%)\n", c, min }'
 
 .PHONY: fmt
 fmt: ## Format the code
