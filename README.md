@@ -1,12 +1,17 @@
+<div align="center">
+
 # alegra-cli
 
 [![CI](https://github.com/jjuanrivvera/alegra-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/jjuanrivvera/alegra-cli/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/jjuanrivvera/alegra-cli)](https://github.com/jjuanrivvera/alegra-cli/releases/latest)
+[![codecov](https://codecov.io/gh/jjuanrivvera/alegra-cli/branch/main/graph/badge.svg)](https://codecov.io/gh/jjuanrivvera/alegra-cli)
 [![Go Reference](https://pkg.go.dev/badge/github.com/jjuanrivvera/alegra-cli.svg)](https://pkg.go.dev/github.com/jjuanrivvera/alegra-cli)
 [![Go Report Card](https://goreportcard.com/badge/github.com/jjuanrivvera/alegra-cli)](https://goreportcard.com/report/github.com/jjuanrivvera/alegra-cli)
 [![Go version](https://img.shields.io/github/go-mod/go-version/jjuanrivvera/alegra-cli)](go.mod)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/jjuanrivvera/alegra-cli)
+
+</div>
 
 A fast, scriptable command-line interface for the [Alegra](https://www.alegra.com/)
 accounting API — manage contacts, invoices, items, payments, taxes, and the full
