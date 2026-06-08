@@ -1,0 +1,21 @@
+# Codecov measures coverage per line; `go tool cover` measures per statement, so
+# the two numbers differ slightly. We exclude the binary entry point (a tiny
+# `func main`) since it isn't unit-testable, and keep status checks informational
+# so coverage never blocks a PR.
+coverage:
+  precision: 1
+  round: nearest
+  status:
+    project:
+      default:
+        informational: true
+    patch:
+      default:
+        informational: true
+
+ignore:
+  - "cmd/alegra"        # binary entry point (func main) — not unit-testable
+
+comment:
+  layout: "reach, diff, files"
+  require_changes: true
