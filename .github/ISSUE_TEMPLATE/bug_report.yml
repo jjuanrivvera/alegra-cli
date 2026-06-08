@@ -1,0 +1,55 @@
+name: Bug report
+description: Report a problem with the alegra CLI
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report! Please **redact any API tokens or credentials**
+        from logs and output. For security vulnerabilities, do not file a public
+        issue — see [SECURITY.md](https://github.com/jjuanrivvera/alegra-cli/blob/main/SECURITY.md).
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the bug and its impact.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: The exact commands you ran (use `--dry-run` output where helpful).
+      placeholder: |
+        1. alegra ...
+        2. ...
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Output of `alegra version`.
+      placeholder: "alegra v0.4.0 (...)"
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: OS / arch
+      placeholder: "macOS 14 arm64 / Ubuntu 22.04 amd64 / Windows 11"
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / output
+      description: Relevant output (run with `-v` for debug). Redact tokens.
+      render: shell

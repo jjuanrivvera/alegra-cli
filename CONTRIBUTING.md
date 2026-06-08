@@ -66,11 +66,26 @@ reports) build a plain cobra command using `client.GetInto/PostInto/PutInto`.
 
 ## Commits & branches
 
-- Branch from `develop`: `feature/...` or `fix/...`.
-- Keep commit messages clear and descriptive.
+- **Branch from `develop`** (not `main`) and open PRs against `develop`. Use a
+  type-prefixed branch name matching the change: `feat/...`, `fix/...`,
+  `docs/...`, `test/...`, `chore/...`.
+- Write [Conventional Commits](https://www.conventionalcommits.org/), e.g.
+  `feat(invoices): add emit --all` or `fix(output): rune-safe truncation`. The
+  [CHANGELOG](CHANGELOG.md) follows [Keep a Changelog](https://keepachangelog.com/).
+- If you change the command tree (new resource, flag, or help text), regenerate
+  the command reference with `make docs-gen` and commit the result.
 - Run `make check` before pushing; CI must be green.
 
 ## Tests
 
-- Service tests use `httptest.NewServer`.
+- Service tests use `httptest.NewServer` (see the `newTestClient` helper in
+  `internal/api`).
 - Prefer `require` for fatal assertions, `assert` for the rest.
+- Keep coverage healthy — the suite sits above 80%; new code should ship tests.
+
+## Reporting bugs & security issues
+
+- Bugs and feature requests: open an issue (templates guide the details we need).
+- **Security vulnerabilities**: do **not** open a public issue — see
+  [SECURITY.md](SECURITY.md).
+- By participating you agree to our [Code of Conduct](CODE_OF_CONDUCT.md).
