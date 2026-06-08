@@ -6,6 +6,14 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [0.4.4] - 2026-06-08
+
+Test-quality release — no functional changes to the CLI.
+
+### Changed
+- Cover every resource accessor and the custom record/collection actions; total
+  statement coverage rises to ~84% (Codecov line coverage clears 80%).
+
 ## [0.4.3] - 2026-06-08
 
 Test/CI accuracy release — no functional changes to the CLI.
