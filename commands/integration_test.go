@@ -8,11 +8,34 @@ import (
 	"sync"
 	"testing"
 
+	"github.com/spf13/cobra"
+	"github.com/spf13/pflag"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
 	"github.com/jjuanrivvera/alegra-cli/internal/config"
 )
+
+// resetFlags restores every flag in the command tree to its default and clears
+// its Changed bit, so reusing the global rootCmd across runRoot calls can't leak
+// state (slice flags accumulate, bools stay toggled) between independent cases.
+func resetFlags(c *cobra.Command) {
+	reset := func(fs *pflag.FlagSet) {
+		fs.VisitAll(func(f *pflag.Flag) {
+			if sv, ok := f.Value.(pflag.SliceValue); ok {
+				_ = sv.Replace(nil)
+			} else {
+				_ = f.Value.Set(f.DefValue)
+			}
+			f.Changed = false
+		})
+	}
+	reset(c.PersistentFlags())
+	reset(c.Flags())
+	for _, sub := range c.Commands() {
+		resetFlags(sub)
+	}
+}
 
 // runRoot executes the real command tree with args against a clean global state,
 // returning combined stdout+stderr. It resets the once-cached resolution and the
@@ -23,6 +46,7 @@ func runRoot(t *testing.T, args ...string) (string, error) {
 	cfg, resolved, cfgErr = nil, nil, nil
 	flagProfile, flagOutput, flagBaseURL, flagColumns = "", "", "", nil
 	flagDryRun, flagShowToken, flagVerbose, flagRPS = false, false, false, 0
+	resetFlags(rootCmd)
 
 	var buf bytes.Buffer
 	rootCmd.SetOut(&buf)
