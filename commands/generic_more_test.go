@@ -1,0 +1,89 @@
+package commands
+
+import (
+	"bytes"
+	"encoding/json"
+	"os"
+	"path/filepath"
+	"testing"
+
+	"github.com/spf13/cobra"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+)
+
+func TestParseMapping(t *testing.T) {
+	got, err := parseMapping([]string{"Name=name,NIT=identification.number", "Email=email"})
+	require.NoError(t, err)
+	assert.Equal(t, map[string]string{
+		"Name":  "name",
+		"NIT":   "identification.number",
+		"Email": "email",
+	}, got)
+
+	_, err = parseMapping([]string{"bogus"})
+	assert.Error(t, err)
+}
+
+func TestInferValue(t *testing.T) {
+	assert.Equal(t, "", inferValue(""))
+	assert.Equal(t, true, inferValue("true"))
+	assert.Equal(t, false, inferValue("false"))
+	assert.Nil(t, inferValue("null"))
+	assert.Equal(t, 42.0, inferValue("42"))
+	assert.Equal(t, "plain", inferValue("plain"))
+	assert.Equal(t, "quoted", inferValue(`"quoted"`))
+	assert.Equal(t, []any{1.0, 2.0}, inferValue(`[1,2]`))
+	assert.Equal(t, map[string]any{"id": 1.0}, inferValue(`{"id":1}`))
+}
+
+func TestBodyFlags_Build(t *testing.T) {
+	// --set fields, values JSON-inferred.
+	raw, err := bodyFlags{sets: []string{"name=Acme", `type=["client"]`}}.build()
+	require.NoError(t, err)
+	var m map[string]any
+	require.NoError(t, json.Unmarshal(raw, &m))
+	assert.Equal(t, "Acme", m["name"])
+	assert.Equal(t, []any{"client"}, m["type"])
+
+	// --data JSON.
+	raw, err = bodyFlags{data: `{"a":1}`}.build()
+	require.NoError(t, err)
+	assert.JSONEq(t, `{"a":1}`, string(raw))
+
+	// --file.
+	f := filepath.Join(t.TempDir(), "body.json")
+	require.NoError(t, os.WriteFile(f, []byte(`{"from":"file"}`), 0o600))
+	raw, err = bodyFlags{file: f}.build()
+	require.NoError(t, err)
+	assert.JSONEq(t, `{"from":"file"}`, string(raw))
+
+	// Nothing provided → error.
+	_, err = bodyFlags{}.build()
+	assert.Error(t, err)
+
+	// Invalid --set → error.
+	_, err = bodyFlags{sets: []string{"noequals"}}.build()
+	assert.Error(t, err)
+}
+
+func TestBodyFlags_BuildOptional_Empty(t *testing.T) {
+	raw, err := bodyFlags{}.buildOptional()
+	require.NoError(t, err)
+	assert.Nil(t, raw)
+}
+
+func TestConfirm(t *testing.T) {
+	for _, in := range []string{"y\n", "yes\n", "Y\n"} {
+		cmd := &cobra.Command{}
+		cmd.SetIn(bytes.NewBufferString(in))
+		cmd.SetOut(&bytes.Buffer{})
+		assert.True(t, confirm(cmd, "proceed"), "input %q", in)
+	}
+	for _, in := range []string{"n\n", "\n", "whatever\n"} {
+		cmd := &cobra.Command{}
+		cmd.SetIn(bytes.NewBufferString(in))
+		cmd.SetOut(&bytes.Buffer{})
+		assert.False(t, confirm(cmd, "proceed"), "input %q", in)
+	}
+}
