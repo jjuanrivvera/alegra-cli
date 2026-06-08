@@ -74,3 +74,10 @@ jobs:
           cache: true
       - name: Test (race + coverage)
         run: go test -race -coverprofile=coverage.out ./...
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          files: coverage.out
+          slug: jjuanrivvera/alegra-cli
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false

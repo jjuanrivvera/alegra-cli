@@ -2,8 +2,8 @@
 
 Everything in this repo is ready. This checklist covers the steps that must be
 done **outside the codebase** (GitHub, Homebrew, secrets) to ship `alegra-cli`
-exactly like [canvas-cli](https://github.com/jjuanrivvera/canvas-cli) — installable
-via `go install`, Homebrew, and Docker, with CI, releases, and a docs site.
+as a polished CLI — installable via `go install`, Homebrew, and Docker, with CI,
+releases, and a docs site.
 
 Boxes are ordered. Commands assume you're in the repo root and authenticated
 with `gh` (`gh auth login`).
@@ -18,7 +18,7 @@ with `gh` (`gh auth login`).
     --description "Command-line interface for the Alegra accounting API" \
     --source . --remote origin --push
   ```
-- [ ] Set topics/homepage (optional, matches canvas-cli polish):
+- [ ] Set topics/homepage (optional):
   ```bash
   gh repo edit jjuanrivvera/alegra-cli \
     --add-topic alegra --add-topic cli --add-topic accounting --add-topic golang \
@@ -80,7 +80,7 @@ Releases are automated by `.github/workflows/release.yml` + GoReleaser on any
   (amd64/arm64) binaries, creates the GitHub Release with changelog, and updates
   the Homebrew formula.
 
-## 5. Branch protection (optional, matches canvas-cli)
+## 5. Branch protection (optional)
 
 - [ ] Protect `main` (require PRs + green CI):
   ```bash
@@ -93,17 +93,17 @@ Releases are automated by `.github/workflows/release.yml` + GoReleaser on any
     -F restrictions=null
   ```
 
-## 6. (Optional) Code coverage
+## 6. Code coverage (Codecov)
 
-CI already produces `coverage.out`. To mirror canvas-cli's Codecov badge, add an
-upload step to `.github/workflows/ci.yml` after the test step and set a
-`CODECOV_TOKEN` secret:
-```yaml
-      - uses: codecov/codecov-action@v4
-        with:
-          files: coverage.out
-          token: ${{ secrets.CODECOV_TOKEN }}
-```
+CI already uploads `coverage.out` to Codecov from the `race` job in
+`.github/workflows/ci.yml`. To light up the README badge:
+
+- [ ] Connect the repo at <https://codecov.io/gh/jjuanrivvera/alegra-cli>
+  (public repos usually work tokenless).
+- [ ] If uploads are rejected, add a `CODECOV_TOKEN` secret:
+  ```bash
+  gh secret set CODECOV_TOKEN --repo jjuanrivvera/alegra-cli
+  ```
 
 ## 7. Verify after publishing
 
