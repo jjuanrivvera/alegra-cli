@@ -18,8 +18,8 @@ accounting API — manage contacts, invoices, items, payments, taxes, and the fu
 Alegra resource surface from your terminal, with `table`/`json`/`yaml`/`csv`
 output, named profiles, a dry-run mode, and a built-in MCP server.
 
-Built in Go, mirroring the architecture of
-[canvas-cli](https://github.com/jjuanrivvera/canvas-cli).
+Built in Go with a small generic core: a typed API client plus one thin file
+per resource.
 
 > Unofficial. Not affiliated with Alegra. Uses the public API at
 > `https://api.alegra.com/api/v1`.

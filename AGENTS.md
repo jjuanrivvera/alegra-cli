@@ -5,8 +5,8 @@ Guidance for AI agents (Claude Code, Cursor, Copilot, …) working in this repo.
 ## What this is
 
 `alegra-cli` is a Go CLI for the Alegra accounting API
-(`https://api.alegra.com/api/v1`), built with Cobra. It mirrors the architecture
-of canvas-cli: a generic typed client plus one thin file per resource.
+(`https://api.alegra.com/api/v1`), built with Cobra. The architecture is a
+generic typed client plus one thin file per resource.
 
 ## Commands
 
