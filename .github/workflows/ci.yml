@@ -74,6 +74,11 @@ jobs:
           cache: true
       - name: Test (race + coverage)
         run: go test -race -coverprofile=coverage.out ./...
+      - name: Coverage gate (>= 80%)
+        run: |
+          total=$(go tool cover -func=coverage.out | awk '/^total:/ {print substr($3, 1, length($3)-1)}')
+          echo "Total coverage: ${total}%"
+          awk -v c="$total" 'BEGIN { if (c+0 < 80.0) { print "FAIL: total coverage below 80%"; exit 1 } }'
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
         with:
