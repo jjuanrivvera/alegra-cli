@@ -6,6 +6,19 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [0.4.2] - 2026-06-08
+
+Documentation/CI polish — no functional changes to the CLI.
+
+### Added
+- Codecov coverage badge, backed by a Codecov upload step in the CI coverage job.
+
+### Changed
+- README: center the title and badge row.
+
+### Removed
+- All `canvas-cli` references across the README, AGENTS.md, and RELEASING.md.
+
 ## [0.4.1] - 2026-06-08
 
 Documentation, repository, and test-quality release — no functional changes to
