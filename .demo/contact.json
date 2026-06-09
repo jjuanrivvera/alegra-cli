@@ -1,0 +1,6 @@
+{
+  "name": "ACME Studios SAS",
+  "identification": { "type": "NIT", "number": "901234567" },
+  "type": ["client"],
+  "kindOfPerson": "LEGAL_ENTITY"
+}
