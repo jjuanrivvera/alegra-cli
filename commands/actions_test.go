@@ -89,12 +89,47 @@ func TestIntegration_ResourceActions(t *testing.T) {
 		{"bank-accounts", "transfer", "1", "-d", "{}"},
 		{"bills", "close", "1", "-d", "{}"},
 		{"bills", "comments", "1", "-d", "{}"},
+		{"bills", "advances", "1", "-d", `{"advances":[]}`},
+		{"bills", "attach", "1", "-d", `{"file":"Zm9v","name":"x.pdf"}`},
+		{"bills", "perceptions", "1", "-d", `{"perceptions":[]}`},
+		{"bills", "retentions", "1", "-d", `{"retentions":[]}`},
+		{"bills", "comment-update", "1", "10", "-d", `{"comment":"edited"}`},
+		{"bills", "comment-delete", "1", "10", "--yes"},
+		{"bills", "attachment-delete", "5", "--yes"},
 		{"bills", "import-by-cufe", "-d", "{}"},
 	}
 	for _, args := range cases {
 		_, err := runRoot(t, args...)
 		require.NoError(t, err, "args %v", args)
 	}
+}
+
+// TestItemStock covers `items stock`: the per-warehouse breakdown and the
+// not-inventariable (service item) branch. It needs a server that returns an
+// item object for GET /items/{id} (the shared actionServer returns [] for GET).
+func TestItemStock(t *testing.T) {
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		switch r.URL.Path {
+		case "/items/5":
+			_, _ = w.Write([]byte(`{"id":"5","name":"Widget","inventory":{"unit":"unit","availableQuantity":12,"warehouses":[{"id":"1","name":"Main","availableQuantity":10},{"id":"2","name":"Backup","availableQuantity":2}]}}`))
+		case "/items/9":
+			_, _ = w.Write([]byte(`{"id":"9","name":"Consulting"}`))
+		default:
+			_, _ = w.Write([]byte(`{}`))
+		}
+	}))
+	t.Cleanup(srv.Close)
+	setActionEnv(t, srv)
+
+	out, err := runRoot(t, "items", "stock", "5", "-o", "json")
+	require.NoError(t, err)
+	require.Contains(t, out, "Main")
+	require.Contains(t, out, "Backup")
+
+	out, err = runRoot(t, "items", "stock", "9")
+	require.NoError(t, err)
+	require.Contains(t, out, "not inventariable")
 }
 
 // TestIntegration_MiscPaths covers a few remaining branches: report dry-run,

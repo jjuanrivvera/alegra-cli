@@ -39,5 +39,6 @@ Manage items (products and services) — your catalog. Items carry price, taxes,
 * [alegra items get](alegra_items_get.md)	 - Get a single item by ID
 * [alegra items import](alegra_items_import.md)	 - Bulk-create items from a CSV file
 * [alegra items list](alegra_items_list.md)	 - List items
+* [alegra items stock](alegra_items_stock.md)	 - Show an item's stock, broken down by warehouse
 * [alegra items update](alegra_items_update.md)	 - Update a item by ID
 

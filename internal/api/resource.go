@@ -226,5 +226,11 @@ func (c *Client) PutInto(ctx context.Context, path string, body, out any) error 
 	return c.doJSON(ctx, http.MethodPut, path, nil, body, out)
 }
 
+// DeleteInto sends an arbitrary DELETE to a path under the API root, decoding any
+// response body into out (out may be nil for endpoints that return no content).
+func (c *Client) DeleteInto(ctx context.Context, path string, out any) error {
+	return c.doJSON(ctx, http.MethodDelete, path, nil, nil, out)
+}
+
 // RawMessage is re-exported for resource files that accept opaque JSON bodies.
 type RawMessage = json.RawMessage

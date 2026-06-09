@@ -695,6 +695,43 @@ func NewActionCmd[T any](sp resourceSpec[T], use, apiAction, short string, bodyR
 	return cmd
 }
 
+// NewPutActionCmd builds a subcommand that PUTs a body to
+// /<resource>/<id>/<apiAction> (e.g. replacing a bill's perceptions or
+// retentions). A request body is required.
+func NewPutActionCmd[T any](sp resourceSpec[T], use, apiAction, short string) *cobra.Command {
+	var bf bodyFlags
+	cmd := &cobra.Command{
+		Use:               use + " <id>",
+		Short:             short,
+		Args:              cobra.ExactArgs(1),
+		ValidArgsFunction: resourceIDCompleter(sp),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			body, err := bf.build()
+			if err != nil {
+				return err
+			}
+			client, err := getAPIClient()
+			if err != nil {
+				return err
+			}
+			path := sp.New(client).Path() + "/" + url.PathEscape(args[0]) + "/" + apiAction
+			var out map[string]any
+			if err := client.PutInto(cmd.Context(), path, body, &out); err != nil {
+				return err
+			}
+			if len(out) == 0 {
+				if !flagDryRun {
+					fmt.Fprintf(cmd.OutOrStdout(), "OK: %s %s\n", apiAction, args[0])
+				}
+				return nil
+			}
+			return render(cmd, out, nil)
+		},
+	}
+	addBodyFlags(cmd, &bf)
+	return cmd
+}
+
 // NewCollectionActionCmd builds a subcommand that POSTs to /<resource>/<apiAction>.
 func NewCollectionActionCmd[T any](sp resourceSpec[T], use, apiAction, short string) *cobra.Command {
 	var bf bodyFlags
