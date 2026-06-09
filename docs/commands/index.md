@@ -24,6 +24,7 @@ Auto-generated from the CLI. See [alegra](alegra.md) for the root command.
 - [estimates](alegra_estimates.md) — Manage estimates (cotizaciones / sales quotes)
 - [global-invoices](alegra_global-invoices.md) — Manage global invoices (facturas globales)
 - [income-debit-notes](alegra_income-debit-notes.md) — Manage customer debit notes
+- [init](alegra_init.md) — Guided setup: authenticate, detect your country, and save a profile
 - [inventory-adjustment-numerations](alegra_inventory-adjustment-numerations.md) — Manage inventory adjustment numerations
 - [inventory-adjustments](alegra_inventory-adjustments.md) — Manage inventory adjustments (manual stock corrections)
 - [invoices](alegra_invoices.md) — Manage sales invoices
