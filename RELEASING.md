@@ -24,6 +24,9 @@ with `gh` (`gh auth login`).
     --add-topic alegra --add-topic cli --add-topic accounting --add-topic golang \
     --homepage https://jjuanrivvera.github.io/alegra-cli/
   ```
+- [ ] Upload the **social preview** image (one-time, UI only — not in the API):
+  Settings → General → Social preview → upload `assets/social-preview.png`
+  (regenerate it from `.demo/social-card.html`; see the comment in that file).
 - [ ] Create the `develop` integration branch (the CI + branch model expect it):
   ```bash
   git checkout -b develop && git push -u origin develop && git checkout main
