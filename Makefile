@@ -70,6 +70,10 @@ spec-sync: ## Refresh the API manifest from the official docs index (network)
 spec-check: ## Verify CLI resources match the committed API manifest (network-free)
 	$(GO) test ./commands/ -run TestSpecManifest
 
+.PHONY: smoke
+smoke: ## Live smoke tests vs a real account (ALEGRA_SMOKE_EMAIL/TOKEN; ALEGRA_SMOKE_WRITE=1 for the write cycle)
+	$(GO) test -tags smoke ./internal/api/ -run Smoke -v
+
 .PHONY: fmt
 fmt: ## Format the code
 	$(GO) fmt ./...

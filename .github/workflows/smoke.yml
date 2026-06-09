@@ -1,0 +1,38 @@
+name: Smoke (live API)
+
+# Live smoke tests against a real Alegra account (issue #27): validate the Go
+# structs against what the API returns at runtime, not just what the docs say.
+# Needs credentials and hits the real API, so it runs weekly / on demand — never
+# on every PR. Read-only (no ALEGRA_SMOKE_WRITE), so it's safe to run repeatedly.
+on:
+  schedule:
+    - cron: "0 7 * * 1" # Mondays 07:00 UTC (after spec-sync at 06:00)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+      - name: Read-only smoke tests
+        env:
+          ALEGRA_SMOKE_EMAIL: ${{ secrets.ALEGRA_SMOKE_EMAIL }}
+          ALEGRA_SMOKE_TOKEN: ${{ secrets.ALEGRA_SMOKE_TOKEN }}
+        run: go test -tags smoke ./internal/api/ -run TestSmokeReadOnly -v
+      - name: Open an issue on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "$(gh issue list --state open --search 'Live smoke tests failed in:title' --json number --jq 'length')" = "0" ]; then
+            gh issue create --title "Live smoke tests failed" --body \
+              "The scheduled live smoke run failed — Alegra may have changed the API or the structs drifted. Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          fi
