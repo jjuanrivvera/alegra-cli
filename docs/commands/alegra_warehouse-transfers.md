@@ -6,6 +6,10 @@ title: alegra warehouse-transfers
 
 Manage inventory transfers between warehouses
 
+### Synopsis
+
+Manage warehouse transfers — movements of item stock from one warehouse (bodega) to another.
+
 ### Options
 
 ```

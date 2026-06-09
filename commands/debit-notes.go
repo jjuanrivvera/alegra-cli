@@ -11,6 +11,7 @@ func init() {
 		Use:         "debit-notes",
 		Aliases:     []string{"debit-note"},
 		Short:       "Manage debit notes",
+		Long:        "Manage supplier debit notes (notas débito de gasto) — adjustments that increase what you owe a provider, tied to bills. For customer-side notes use `alegra income-debit-notes`.",
 		New:         func(c *api.Client) *api.Resource[api.DebitNote] { return c.DebitNotes() },
 		Columns:     []string{"id", "date", "status", "total"},
 		OrderFields: []string{"id", "date", "status"},

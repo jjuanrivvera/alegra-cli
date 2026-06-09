@@ -6,6 +6,10 @@ title: alegra estimates
 
 Manage estimates (cotizaciones / sales quotes)
 
+### Synopsis
+
+Manage estimates (cotizaciones / sales quotes) — proposed sales you can email to a client and later convert into an invoice.
+
 ### Options
 
 ```

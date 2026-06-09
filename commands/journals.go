@@ -11,6 +11,7 @@ func init() {
 		Use:         "journals",
 		Aliases:     []string{"journal"},
 		Short:       "Manage accounting journal entries (comprobantes contables)",
+		Long:        "Manage manual accounting journal entries (comprobantes contables) — direct debit/credit postings to ledger accounts. Use `alegra journals balance` for balances grouped by period.",
 		New:         func(c *api.Client) *api.Resource[api.Journal] { return c.Journals() },
 		Columns:     []string{"id", "date", "number", "status"},
 		OrderFields: []string{"date", "name", "reference", "observations"},

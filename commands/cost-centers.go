@@ -7,6 +7,7 @@ func init() {
 		Use:         "cost-centers",
 		Aliases:     []string{"cost-center"},
 		Short:       "Manage cost centers",
+		Long:        "Manage cost centers (centros de costo) — labels for grouping income and expenses by project, branch, or area in accounting reports.",
 		New:         func(c *api.Client) *api.Resource[api.CostCenter] { return c.CostCenters() },
 		Columns:     []string{"id", "name", "code", "status"},
 		OrderFields: []string{"id", "name", "code", "status"},

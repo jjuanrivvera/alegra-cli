@@ -7,6 +7,7 @@ func init() {
 		Use:         "additional-charges",
 		Aliases:     []string{"additional-charge"},
 		Short:       "Manage additional charges (tips and parafiscal contributions)",
+		Long:        "Manage additional charges (cargos adicionales) — tips and parafiscal contributions attached to sales documents as extra charges beyond the item lines.",
 		New:         func(c *api.Client) *api.Resource[api.AdditionalCharge] { return c.AdditionalCharges() },
 		Columns:     []string{"id", "name", "percentage", "status"},
 		OrderFields: []string{"id", "name", "status"},

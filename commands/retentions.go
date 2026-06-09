@@ -7,6 +7,7 @@ func init() {
 		Use:         "retentions",
 		Aliases:     []string{"retention"},
 		Short:       "Manage retentions (withholdings)",
+		Long:        "Manage retentions (retenciones / withholdings) — tax withholdings such as retefuente or reteICA applied to documents; definitions are country-specific.",
 		New:         func(c *api.Client) *api.Resource[api.Retention] { return c.Retentions() },
 		Columns:     []string{"id", "name", "percentage", "status"},
 		OrderFields: []string{"id", "name"},

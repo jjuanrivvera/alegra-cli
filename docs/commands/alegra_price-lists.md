@@ -6,6 +6,10 @@ title: alegra price-lists
 
 Manage price lists
 
+### Synopsis
+
+Manage price lists (listas de precios) — named pricing tiers (e.g. wholesale, retail) that items carry and documents apply.
+
 ### Options
 
 ```

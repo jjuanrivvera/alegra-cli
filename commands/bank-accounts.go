@@ -11,6 +11,7 @@ func init() {
 		Use:         "bank-accounts",
 		Aliases:     []string{"bank-account"},
 		Short:       "Manage bank accounts (bank, credit card, and cash accounts)",
+		Long:        "Manage bank accounts — the bank, credit-card, and cash accounts money flows through. Payments settle into them and `alegra conciliations` reconciles them.",
 		New:         func(c *api.Client) *api.Resource[api.BankAccount] { return c.BankAccounts() },
 		Columns:     []string{"id", "name", "type", "status"},
 		OrderFields: []string{"id", "date"},

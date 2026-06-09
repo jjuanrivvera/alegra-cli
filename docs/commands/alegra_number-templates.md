@@ -6,6 +6,10 @@ title: alegra number-templates
 
 Manage document numberings (numeraciones de facturación)
 
+### Synopsis
+
+Manage document numberings (numeraciones de facturación) — the prefixes, ranges, and DIAN/SAT resolutions that number invoices and other documents.
+
 ### Options
 
 ```

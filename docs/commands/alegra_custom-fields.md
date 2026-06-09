@@ -6,6 +6,10 @@ title: alegra custom-fields
 
 Manage custom fields (campos adicionales)
 
+### Synopsis
+
+Manage custom fields (campos adicionales) — user-defined fields attached to contacts, items, and documents to capture data Alegra does not model natively.
+
 ### Options
 
 ```

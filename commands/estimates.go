@@ -11,6 +11,7 @@ func init() {
 		Use:         "estimates",
 		Aliases:     []string{"estimate", "quote"},
 		Short:       "Manage estimates (cotizaciones / sales quotes)",
+		Long:        "Manage estimates (cotizaciones / sales quotes) — proposed sales you can email to a client and later convert into an invoice.",
 		New:         func(c *api.Client) *api.Resource[api.Estimate] { return c.Estimates() },
 		Columns:     []string{"id", "date", "status", "total"},
 		OrderFields: []string{"id", "name", "date", "dueDate"},

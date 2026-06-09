@@ -6,6 +6,10 @@ title: alegra items
 
 Manage items (products and services)
 
+### Synopsis
+
+Manage items (products and services) — your catalog. Items carry price, taxes, reference codes, and inventory settings, and become the line items on invoices and bills.
+
 ### Options
 
 ```

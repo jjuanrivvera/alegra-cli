@@ -11,6 +11,7 @@ func init() {
 		Use:         "transportation-receipts",
 		Aliases:     []string{"transportation-receipt"},
 		Short:       "Manage transportation receipts (documentos de traslado)",
+		Long:        "Manage transportation receipts (documentos de traslado) — documents covering the movement of goods, used for electronic carriage documents.",
 		New:         func(c *api.Client) *api.Resource[api.TransportationReceipt] { return c.TransportationReceipts() },
 		Columns:     []string{"id", "date", "status"},
 		OrderFields: []string{"id", "date", "status"},

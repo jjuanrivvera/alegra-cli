@@ -6,6 +6,10 @@ title: alegra bank-accounts
 
 Manage bank accounts (bank, credit card, and cash accounts)
 
+### Synopsis
+
+Manage bank accounts — the bank, credit-card, and cash accounts money flows through. Payments settle into them and `alegra conciliations` reconciles them.
+
 ### Options
 
 ```

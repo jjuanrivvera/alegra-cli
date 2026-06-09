@@ -11,6 +11,7 @@ func init() {
 		Use:         "bills",
 		Aliases:     []string{"bill"},
 		Short:       "Manage provider bills (facturas de proveedor)",
+		Long:        "Manage provider bills (facturas de proveedor) — purchases you owe. Supports attachments, comments, advance application, and importing received Colombian e-invoices by CUFE.",
 		New:         func(c *api.Client) *api.Resource[api.Bill] { return c.Bills() },
 		Columns:     []string{"id", "date", "dueDate", "status", "total", "balance"},
 		OrderFields: []string{"id", "date", "dueDate", "status"},

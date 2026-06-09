@@ -6,6 +6,10 @@ title: alegra terms
 
 Manage payment terms (términos de pago)
 
+### Synopsis
+
+Manage payment terms (términos de pago) — named due-date rules (e.g. net 30) applied to invoices and bills.
+
 ### Options
 
 ```

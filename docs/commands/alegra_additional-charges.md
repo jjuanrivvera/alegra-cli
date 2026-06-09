@@ -6,6 +6,10 @@ title: alegra additional-charges
 
 Manage additional charges (tips and parafiscal contributions)
 
+### Synopsis
+
+Manage additional charges (cargos adicionales) — tips and parafiscal contributions attached to sales documents as extra charges beyond the item lines.
+
 ### Options
 
 ```

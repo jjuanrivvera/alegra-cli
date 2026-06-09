@@ -6,6 +6,10 @@ title: alegra warehouses
 
 Manage inventory warehouses (bodegas)
 
+### Synopsis
+
+Manage inventory warehouses (bodegas) — the physical or logical locations where item stock is held and tracked.
+
 ### Options
 
 ```

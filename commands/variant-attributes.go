@@ -7,6 +7,7 @@ func init() {
 		Use:         "variant-attributes",
 		Aliases:     []string{"variant-attribute"},
 		Short:       "Manage item variant attributes (e.g. Color, Talla)",
+		Long:        "Manage item variant attributes (e.g. Color, Talla) — the dimensions Alegra combines to build product variants.",
 		New:         func(c *api.Client) *api.Resource[api.VariantAttribute] { return c.VariantAttributes() },
 		Columns:     []string{"id", "name", "status"},
 		OrderFields: []string{"name"},
