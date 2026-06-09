@@ -48,25 +48,24 @@ typing commands. The rationale is laid out in the post
 Both wrap the same Alegra v1 API but expose different slices of it.
 
 ### Covered by both
-Contacts; items and the inventory family (item categories, variant attributes,
-warehouses, transfers, price lists, adjustments and numerations, custom fields); bank
-accounts; reconciliations; journals; cost centers; taxes; retentions; currencies;
-sellers; invoices (read/write); bills; supplier debit notes; purchase orders; payments;
-and sales reports.
+Contacts; items (with per-warehouse stock via `items stock`) and the inventory family
+(item categories, variant attributes, warehouses, transfers, price lists, adjustments and
+numerations, custom fields); bank accounts; reconciliations; journals; cost centers;
+taxes; retentions; currencies; sellers; invoices (read/write); bills (with attachments,
+comments, advances, and perceptions/retentions); supplier debit notes; purchase orders;
+payments; and sales reports.
 
 ### Only in alegra-cli
 Estimates, credit notes, customer debit notes, remissions, transportation receipts,
 global invoices (CFDI), recurring invoices and payments, document numberings, payment
-terms, additional charges, and webhook subscriptions.
+terms, additional charges, and webhook subscriptions — plus electronic invoice emission
+(see below).
 
 ### Only in the official MCP
-- **Item stock queries** (`get_item_stock` / `get_item_stock_summary`).
-- **Richer bill sub-actions** — applying advances, attachments, comment edit/delete, and
-  updating perceptions/retentions.
-- **Catalog/reference lookups** — bank lists, product keys, units, and reference enums.
+- **Catalog/reference lookups** — product keys, units, and reference enums
+  (Mexico/country catalogs). These map only to the MCP's own endpoint with no documented
+  public REST path, so the CLI does not expose them yet.
 - **Support Center** help-desk tickets (out of scope for an accounting CLI).
-
-> The first three are tracked for `alegra-cli`.
 
 ## Capability differences that matter
 
