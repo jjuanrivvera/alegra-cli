@@ -9,6 +9,7 @@ import (
 	"github.com/jjuanrivvera/alegra-cli/internal/api"
 	"github.com/jjuanrivvera/alegra-cli/internal/auth"
 	"github.com/jjuanrivvera/alegra-cli/internal/config"
+	"github.com/jjuanrivvera/alegra-cli/internal/ui"
 )
 
 func init() {
@@ -27,9 +28,10 @@ plan probe. Use it first whenever something isn't working.`,
 
 func runDoctor(cmd *cobra.Command) error {
 	out := cmd.OutOrStdout()
-	ok := func(label, detail string) { fmt.Fprintf(out, "✔ %-13s %s\n", label, detail) }
-	warn := func(label, detail string) { fmt.Fprintf(out, "⚠ %-13s %s\n", label, detail) }
-	bad := func(label, detail string) { fmt.Fprintf(out, "✘ %-13s %s\n", label, detail) }
+	c := ui.For(out)
+	ok := func(label, detail string) { fmt.Fprintf(out, "%s %-13s %s\n", c.Green("✔"), label, detail) }
+	warn := func(label, detail string) { fmt.Fprintf(out, "%s %-13s %s\n", c.Yellow("⚠"), label, detail) }
+	bad := func(label, detail string) { fmt.Fprintf(out, "%s %-13s %s\n", c.Red("✘"), label, detail) }
 
 	// 1. Config
 	cfg, err := config.Load()
@@ -109,7 +111,7 @@ func runDoctor(cmd *cobra.Command) error {
 		ok("plan", "reconciliations accessible")
 	}
 
-	fmt.Fprintln(out, "\nAll critical checks passed.")
+	fmt.Fprintln(out, "\n"+c.Green("All critical checks passed."))
 	return nil
 }
 

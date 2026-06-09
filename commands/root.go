@@ -19,6 +19,7 @@ import (
 	"github.com/jjuanrivvera/alegra-cli/internal/auth"
 	"github.com/jjuanrivvera/alegra-cli/internal/config"
 	"github.com/jjuanrivvera/alegra-cli/internal/output"
+	"github.com/jjuanrivvera/alegra-cli/internal/ui"
 	"github.com/jjuanrivvera/alegra-cli/internal/version"
 )
 
@@ -32,6 +33,7 @@ var (
 	flagShowToken bool
 	flagVerbose   bool
 	flagColumns   []string
+	flagNoColor   bool
 )
 
 // rootCmd is the top-level command. It is a package var so resource files can
@@ -62,6 +64,12 @@ func init() {
 	pf.BoolVar(&flagShowToken, "show-token", false, "In --dry-run, do not redact the Authorization header")
 	pf.BoolVarP(&flagVerbose, "verbose", "v", false, "Enable verbose (debug) logging to stderr")
 	pf.StringSliceVar(&flagColumns, "columns", nil, "Comma-separated columns for table/csv output")
+	pf.BoolVar(&flagNoColor, "no-color", false, "Disable colored output (also respects the NO_COLOR env var)")
+
+	// Apply the color preference before any command renders output.
+	rootCmd.PersistentPreRun = func(_ *cobra.Command, _ []string) {
+		ui.SetNoColor(flagNoColor)
+	}
 }
 
 // Execute runs the root command. Resources are registered via their init().

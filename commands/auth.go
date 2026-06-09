@@ -60,44 +60,14 @@ Find your API token in Alegra: Configuración → Integraciones → API.`,
 				return fmt.Errorf("email and token are required")
 			}
 
-			// Verify the credentials against /users/self before saving.
-			base := baseURL
-			if base == "" {
-				base = cfg.Resolve(profile).BaseURL
-			}
-			client := api.New(
-				api.WithBaseURL(base),
-				api.WithBasicAuth(email, token),
-				api.WithUserAgent(version.UserAgent()),
-			)
-			if err := verifyCredentials(cmd.Context(), client); err != nil {
-				return fmt.Errorf("credential check failed: %w", err)
-			}
-
-			// Persist: email + base URL in config, token in keyring.
-			p := cfg.Profile(profile)
-			p.Email = email
-			if baseURL != "" {
-				p.BaseURL = baseURL
-			}
-			p.Token = "" // ensure no plaintext token lingers in config
-			// Cache the account's localization (applicationVersion) so later
-			// commands know the country/version without re-fetching. Best effort.
-			p.Country = detectCountry(cmd.Context(), client)
-			cfg.SetProfile(p)
-			if cfg.DefaultProfile == "" {
-				cfg.DefaultProfile = profile
-			}
-			if err := cfg.Save(); err != nil {
+			country, err := loginAndSave(cmd.Context(), cfg, profile, email, token, baseURL)
+			if err != nil {
 				return err
-			}
-			if err := auth.NewKeyringStore().Set(profile, token); err != nil {
-				return fmt.Errorf("storing token in keyring: %w", err)
 			}
 
 			fmt.Fprintf(cmd.OutOrStdout(), "Logged in as %s (profile %q)\n", email, profile)
-			if p.Country != "" {
-				fmt.Fprintf(cmd.OutOrStdout(), "Detected country (version): %s\n", p.Country)
+			if country != "" {
+				fmt.Fprintf(cmd.OutOrStdout(), "Detected country (version): %s\n", country)
 			}
 			return nil
 		},
@@ -159,6 +129,44 @@ func newAuthStatusCmd() *cobra.Command {
 			return nil
 		},
 	}
+}
+
+// loginAndSave verifies credentials against /users/self, detects and caches the
+// account's country (applicationVersion), and persists the profile (email +
+// base URL to config, token to the keyring). It returns the detected country.
+// Shared by `auth login` and `init`.
+func loginAndSave(ctx context.Context, cfg *config.Config, profile, email, token, baseURL string) (string, error) {
+	base := baseURL
+	if base == "" {
+		base = cfg.Resolve(profile).BaseURL
+	}
+	client := api.New(
+		api.WithBaseURL(base),
+		api.WithBasicAuth(email, token),
+		api.WithUserAgent(version.UserAgent()),
+	)
+	if err := verifyCredentials(ctx, client); err != nil {
+		return "", fmt.Errorf("credential check failed: %w", err)
+	}
+
+	p := cfg.Profile(profile)
+	p.Email = email
+	if baseURL != "" {
+		p.BaseURL = baseURL
+	}
+	p.Token = "" // ensure no plaintext token lingers in config
+	p.Country = detectCountry(ctx, client)
+	cfg.SetProfile(p)
+	if cfg.DefaultProfile == "" {
+		cfg.DefaultProfile = profile
+	}
+	if err := cfg.Save(); err != nil {
+		return "", err
+	}
+	if err := auth.NewKeyringStore().Set(profile, token); err != nil {
+		return "", fmt.Errorf("storing token in keyring: %w", err)
+	}
+	return p.Country, nil
 }
 
 func verifyCredentials(ctx context.Context, client *api.Client) error {

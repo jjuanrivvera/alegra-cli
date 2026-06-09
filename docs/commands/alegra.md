@@ -25,6 +25,7 @@ or set ALEGRA_EMAIL and ALEGRA_TOKEN in the environment.
       --columns strings             Comma-separated columns for table/csv output
       --dry-run                     Print the equivalent curl request without sending it
   -h, --help                        help for alegra
+      --no-color                    Disable colored output (also respects the NO_COLOR env var)
   -o, --output string               Output format: table, json, yaml, csv (env: ALEGRA_OUTPUT)
       --profile string              Configuration profile to use (env: ALEGRA_PROFILE)
       --requests-per-second float   Client-side rate limit (default from config)
@@ -52,6 +53,7 @@ or set ALEGRA_EMAIL and ALEGRA_TOKEN in the environment.
 * [alegra estimates](alegra_estimates.md)	 - Manage estimates (cotizaciones / sales quotes)
 * [alegra global-invoices](alegra_global-invoices.md)	 - Manage global invoices (facturas globales)
 * [alegra income-debit-notes](alegra_income-debit-notes.md)	 - Manage customer debit notes
+* [alegra init](alegra_init.md)	 - Guided setup: authenticate, detect your country, and save a profile
 * [alegra inventory-adjustment-numerations](alegra_inventory-adjustment-numerations.md)	 - Manage inventory adjustment numerations
 * [alegra inventory-adjustments](alegra_inventory-adjustments.md)	 - Manage inventory adjustments (manual stock corrections)
 * [alegra invoices](alegra_invoices.md)	 - Manage sales invoices
