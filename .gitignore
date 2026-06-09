@@ -2,6 +2,7 @@
 /bin/
 /dist/
 /site/
+/completions/
 *.exe
 
 # Test & coverage

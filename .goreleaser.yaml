@@ -4,6 +4,10 @@ project_name: alegra-cli
 before:
   hooks:
     - go mod tidy
+    - mkdir -p completions
+    - sh -c "go run ./cmd/alegra completion bash > completions/alegra.bash"
+    - sh -c "go run ./cmd/alegra completion zsh  > completions/alegra.zsh"
+    - sh -c "go run ./cmd/alegra completion fish > completions/alegra.fish"
 
 builds:
   - id: alegra
@@ -35,9 +39,72 @@ archives:
     format_overrides:
       - goos: windows
         formats: [zip]
+    files:
+      - LICENSE
+      - README.md
+      - completions/*
+
+nfpms:
+  - id: packages
+    package_name: alegra-cli
+    vendor: jjuanrivvera
+    homepage: https://github.com/jjuanrivvera/alegra-cli
+    maintainer: Juan Rivera <jjuanrivvera@users.noreply.github.com>
+    description: Command-line interface for the Alegra accounting API
+    license: MIT
+    formats: [deb, rpm, apk]
+    bindir: /usr/bin
+    contents:
+      - src: ./completions/alegra.bash
+        dst: /usr/share/bash-completion/completions/alegra
+        file_info: { mode: 0644 }
+      - src: ./completions/alegra.fish
+        dst: /usr/share/fish/vendor_completions.d/alegra.fish
+        file_info: { mode: 0644 }
+      - src: ./completions/alegra.zsh
+        dst: /usr/share/zsh/site-functions/_alegra
+        file_info: { mode: 0644 }
+
+dockers:
+  - id: alegra
+    goos: linux
+    goarch: amd64
+    dockerfile: Dockerfile.goreleaser
+    image_templates:
+      - "ghcr.io/jjuanrivvera/alegra-cli:{{ .Version }}"
+      - "ghcr.io/jjuanrivvera/alegra-cli:v{{ .Major }}"
+      - "ghcr.io/jjuanrivvera/alegra-cli:latest"
+    build_flag_templates:
+      - "--label=org.opencontainers.image.title=alegra-cli"
+      - "--label=org.opencontainers.image.description=Command-line interface for the Alegra accounting API"
+      - "--label=org.opencontainers.image.source=https://github.com/jjuanrivvera/alegra-cli"
+      - "--label=org.opencontainers.image.version={{ .Version }}"
+      - "--label=org.opencontainers.image.licenses=MIT"
 
 checksum:
   name_template: checksums.txt
+
+sboms:
+  - id: archive
+    artifacts: archive
+
+# Keyless signing of the checksums file (Sigstore/Fulcio/Rekor). Verify with:
+#   cosign verify-blob --certificate checksums.txt.pem \
+#     --signature checksums.txt.sig \
+#     --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+#     --certificate-identity-regexp 'https://github.com/jjuanrivvera/alegra-cli.*' \
+#     checksums.txt
+signs:
+  - cmd: cosign
+    certificate: "${artifact}.pem"
+    args:
+      - sign-blob
+      - "--output-certificate=${certificate}"
+      - "--output-signature=${signature}"
+      - "${artifact}"
+      - "--yes"
+    artifacts: checksum
+    output: true
 
 changelog:
   sort: asc
@@ -67,5 +134,19 @@ brews:
     description: Command-line interface for the Alegra accounting API
     license: MIT
     skip_upload: auto
+    # Install the shell completions bundled in the archive.
+    extra_install: |
+      bash_completion.install "completions/alegra.bash" => "alegra"
+      zsh_completion.install "completions/alegra.zsh" => "_alegra"
+      fish_completion.install "completions/alegra.fish"
     test: |
       system "#{bin}/alegra version"
+
+scoops:
+  - repository:
+      owner: jjuanrivvera
+      name: scoop-alegra-cli
+      token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
+    homepage: https://github.com/jjuanrivvera/alegra-cli
+    description: Command-line interface for the Alegra accounting API
+    license: MIT

@@ -1,0 +1,6 @@
+# Minimal runtime image for the prebuilt (static, CGO_ENABLED=0) binary that
+# GoReleaser drops into the build context. Distroless keeps the image tiny and
+# attack surface small.
+FROM gcr.io/distroless/static-debian12:nonroot
+COPY alegra /usr/bin/alegra
+ENTRYPOINT ["/usr/bin/alegra"]

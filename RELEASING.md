@@ -39,15 +39,39 @@ points at `jjuanrivvera/homebrew-alegra-cli`.
   gh repo create jjuanrivvera/homebrew-alegra-cli --public \
     --description "Homebrew tap for alegra-cli"
   ```
-- [ ] Create a **Personal Access Token** with `repo` scope on the tap, and add it
-  as a secret on the `alegra-cli` repo named `HOMEBREW_TAP_TOKEN`
-  (the release workflow reads `secrets.HOMEBREW_TAP_TOKEN`):
+- [ ] Create a **Personal Access Token** with `repo` scope (covering **both** the
+  Homebrew tap **and** the Scoop bucket below), and add it as a secret on the
+  `alegra-cli` repo named `HOMEBREW_TAP_TOKEN` (the release workflow reads
+  `secrets.HOMEBREW_TAP_TOKEN` for `brews` and `scoops`):
   ```bash
   gh secret set HOMEBREW_TAP_TOKEN --repo jjuanrivvera/alegra-cli
   ```
   > If you want to cut a release **before** setting this up, tag a prerelease
   > (e.g. `v0.1.0-rc.1`) — `brews.skip_upload: auto` skips the tap push on
   > prereleases. The first stable `vX.Y.Z` tag requires the tap + token.
+
+### 2b. Scoop bucket (Windows)
+
+- [ ] Create the bucket repo (the `scoops` config points at it):
+  ```bash
+  gh repo create jjuanrivvera/scoop-alegra-cli --public \
+    --description "Scoop bucket for alegra-cli"
+  ```
+  The `HOMEBREW_TAP_TOKEN` above must be able to push here too.
+
+### 2c. Container image (GHCR) & supply chain — no setup needed
+
+The release workflow already: logs in to **GHCR** with the built-in
+`GITHUB_TOKEN` and pushes `ghcr.io/jjuanrivvera/alegra-cli`; generates an **SBOM**
+(syft); and **signs the checksums** keyless with **cosign** (Sigstore, via the
+`id-token` permission). No extra secrets required. Verify a release:
+```bash
+cosign verify-blob \
+  --certificate checksums.txt.pem --signature checksums.txt.sig \
+  --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+  --certificate-identity-regexp 'https://github.com/jjuanrivvera/alegra-cli.*' \
+  checksums.txt
+```
 
 ## 3. Documentation site (GitHub Pages)
 
