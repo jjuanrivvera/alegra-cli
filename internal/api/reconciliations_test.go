@@ -11,7 +11,7 @@ import (
 
 func TestReconciliations_List(t *testing.T) {
 	c := newTestClient(t, func(w http.ResponseWriter, r *http.Request) {
-		assert.Equal(t, "/reconciliations", r.URL.Path)
+		assert.Equal(t, "/conciliations", r.URL.Path)
 		_, _ = w.Write([]byte(`[{"id":"1","account":{"id":"2","name":"Banco 1","type":"bank"},"realBalance":-1999,"date":"2020-07-01","status":"open","transactions":[]}]`))
 	})
 	items, err := c.Reconciliations().List(context.Background(), ListParams{})
@@ -27,7 +27,7 @@ func TestReconciliations_List(t *testing.T) {
 
 func TestReconciliations_Get(t *testing.T) {
 	c := newTestClient(t, func(w http.ResponseWriter, r *http.Request) {
-		assert.Equal(t, "/reconciliations/74", r.URL.Path)
+		assert.Equal(t, "/conciliations/74", r.URL.Path)
 		_, _ = w.Write([]byte(`{"id":"74","account":{"id":"1","name":"Caja general","type":"cash"},"realBalance":100,"bankExpenses":10,"bankInterests":0,"date":"2020-07-02","status":"open","transactions":[{"id":"4","date":"2020-07-02","amount":100,"type":"in","status":"open","associations":[{"id":"5073","name":"Descuentos financieros","price":100,"quantity":"1.00","total":100,"type":"category"}]}]}`))
 	})
 	rec, err := c.Reconciliations().Get(context.Background(), "74")
