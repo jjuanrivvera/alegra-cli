@@ -71,6 +71,7 @@ or set ALEGRA_EMAIL and ALEGRA_TOKEN in the environment.
 * [alegra remissions](alegra_remissions.md)	 - Manage remissions (delivery notes)
 * [alegra reports](alegra_reports.md)	 - Read-only Alegra reports
 * [alegra retentions](alegra_retentions.md)	 - Manage retentions (withholdings)
+* [alegra sellers](alegra_sellers.md)	 - Manage sellers (vendedores)
 * [alegra skills](alegra_skills.md)	 - Install this CLI's AI-agent skill into Claude, Cursor, and other agents
 * [alegra taxes](alegra_taxes.md)	 - Manage taxes (e.g. IVA)
 * [alegra terms](alegra_terms.md)	 - Manage payment terms (términos de pago)
@@ -80,4 +81,5 @@ or set ALEGRA_EMAIL and ALEGRA_TOKEN in the environment.
 * [alegra version](alegra_version.md)	 - Print version information
 * [alegra warehouse-transfers](alegra_warehouse-transfers.md)	 - Manage inventory transfers between warehouses
 * [alegra warehouses](alegra_warehouses.md)	 - Manage inventory warehouses (bodegas)
+* [alegra webhook-subscriptions](alegra_webhook-subscriptions.md)	 - Manage webhook subscriptions (event notifications)
 
