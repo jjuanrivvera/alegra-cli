@@ -6,7 +6,9 @@ on:
       - 'v*'
 
 permissions:
-  contents: write
+  contents: write   # create the GitHub Release
+  packages: write   # push the Docker image to GHCR
+  id-token: write   # cosign keyless signing (Sigstore OIDC)
 
 jobs:
   goreleaser:
@@ -19,6 +21,15 @@ jobs:
         with:
           go-version-file: go.mod
           cache: true
+      - uses: docker/setup-buildx-action@v3
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: sigstore/cosign-installer@v3
+      - uses: anchore/sbom-action/download-syft@v0
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
         with:

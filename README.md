@@ -27,8 +27,15 @@ per resource.
 ## Install
 
 ```bash
-# Homebrew
+# Homebrew (macOS/Linux)
 brew install jjuanrivvera/alegra-cli/alegra-cli
+
+# Scoop (Windows)
+scoop bucket add alegra-cli https://github.com/jjuanrivvera/scoop-alegra-cli
+scoop install alegra-cli
+
+# Docker
+docker run --rm ghcr.io/jjuanrivvera/alegra-cli:latest version
 
 # From source
 go install github.com/jjuanrivvera/alegra-cli/cmd/alegra@latest
@@ -36,6 +43,13 @@ go install github.com/jjuanrivvera/alegra-cli/cmd/alegra@latest
 # Or build locally
 make build && ./bin/alegra --help
 ```
+
+Linux `.deb`/`.rpm`/`.apk` packages are attached to each
+[release](https://github.com/jjuanrivvera/alegra-cli/releases/latest). Release
+archives, packages, and the Homebrew/Scoop installs all ship **shell
+completions** (bash/zsh/fish). Releases are also **SBOM-attested and the
+checksums are signed** with [cosign](https://github.com/sigstore/cosign)
+(keyless); see [RELEASING.md](RELEASING.md) for verification.
 
 ## Authenticate
 
