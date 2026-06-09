@@ -7,6 +7,7 @@ func init() {
 		Use:         "custom-fields",
 		Aliases:     []string{"custom-field"},
 		Short:       "Manage custom fields (campos adicionales)",
+		Long:        "Manage custom fields (campos adicionales) — user-defined fields attached to contacts, items, and documents to capture data Alegra does not model natively.",
 		New:         func(c *api.Client) *api.Resource[api.CustomField] { return c.CustomFields() },
 		Columns:     []string{"id", "name", "type", "status"},
 		OrderFields: []string{"id", "name"},

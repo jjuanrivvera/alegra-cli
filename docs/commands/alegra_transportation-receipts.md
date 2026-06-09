@@ -6,6 +6,10 @@ title: alegra transportation-receipts
 
 Manage transportation receipts (documentos de traslado)
 
+### Synopsis
+
+Manage transportation receipts (documentos de traslado) — documents covering the movement of goods, used for electronic carriage documents.
+
 ### Options
 
 ```

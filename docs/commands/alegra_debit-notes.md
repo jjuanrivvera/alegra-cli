@@ -6,6 +6,10 @@ title: alegra debit-notes
 
 Manage debit notes
 
+### Synopsis
+
+Manage supplier debit notes (notas débito de gasto) — adjustments that increase what you owe a provider, tied to bills. For customer-side notes use `alegra income-debit-notes`.
+
 ### Options
 
 ```

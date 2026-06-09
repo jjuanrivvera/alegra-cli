@@ -11,6 +11,7 @@ func init() {
 		Use:         "remissions",
 		Aliases:     []string{"remission"},
 		Short:       "Manage remissions (delivery notes)",
+		Long:        "Manage remissions (remisiones / delivery notes) — records of goods sent to a client before invoicing them.",
 		New:         func(c *api.Client) *api.Resource[api.Remission] { return c.Remissions() },
 		Columns:     []string{"id", "date", "status"},
 		OrderFields: []string{"id", "name", "date", "dueDate"},

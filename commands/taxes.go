@@ -7,6 +7,7 @@ func init() {
 		Use:         "taxes",
 		Aliases:     []string{"tax"},
 		Short:       "Manage taxes (e.g. IVA)",
+		Long:        "Manage taxes (impuestos) — tax definitions such as IVA, INC, or exemptions applied to item and document lines.",
 		New:         func(c *api.Client) *api.Resource[api.Tax] { return c.Taxes() },
 		Columns:     []string{"id", "name", "percentage", "status", "type"},
 		OrderFields: []string{"id", "name", "percentage"},

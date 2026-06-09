@@ -6,6 +6,10 @@ title: alegra cost-centers
 
 Manage cost centers
 
+### Synopsis
+
+Manage cost centers (centros de costo) — labels for grouping income and expenses by project, branch, or area in accounting reports.
+
 ### Options
 
 ```

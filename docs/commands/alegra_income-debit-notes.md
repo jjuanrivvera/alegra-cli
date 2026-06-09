@@ -6,6 +6,10 @@ title: alegra income-debit-notes
 
 Manage customer debit notes
 
+### Synopsis
+
+Manage customer debit notes (notas débito de cliente) — adjustments that increase what a customer owes, issued against income documents. For supplier-side notes use `alegra debit-notes`.
+
 ### Options
 
 ```

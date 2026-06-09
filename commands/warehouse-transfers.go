@@ -7,6 +7,7 @@ func init() {
 		Use:         "warehouse-transfers",
 		Aliases:     []string{"warehouse-transfer"},
 		Short:       "Manage inventory transfers between warehouses",
+		Long:        "Manage warehouse transfers — movements of item stock from one warehouse (bodega) to another.",
 		New:         func(c *api.Client) *api.Resource[api.WarehouseTransfer] { return c.WarehouseTransfers() },
 		Columns:     []string{"id", "date", "observations"},
 		OrderFields: []string{"id", "date"},

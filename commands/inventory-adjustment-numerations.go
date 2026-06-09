@@ -7,6 +7,7 @@ func init() {
 		Use:     "inventory-adjustment-numerations",
 		Aliases: []string{"inventory-adjustment-numeration"},
 		Short:   "Manage inventory adjustment numerations",
+		Long:    "Manage inventory-adjustment numerations — the numbering templates Alegra applies to inventory adjustment documents.",
 		New: func(c *api.Client) *api.Resource[api.InventoryAdjustmentNumeration] {
 			return c.InventoryAdjustmentNumerations()
 		},

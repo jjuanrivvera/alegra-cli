@@ -6,6 +6,10 @@ title: alegra inventory-adjustment-numerations
 
 Manage inventory adjustment numerations
 
+### Synopsis
+
+Manage inventory-adjustment numerations — the numbering templates Alegra applies to inventory adjustment documents.
+
 ### Options
 
 ```

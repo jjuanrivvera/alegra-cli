@@ -6,6 +6,10 @@ title: alegra purchase-orders
 
 Manage purchase orders (órdenes de compra)
 
+### Synopsis
+
+Manage purchase orders (órdenes de compra) — requests for goods or services from a provider that can be emailed, voided, and later turned into bills.
+
 ### Options
 
 ```

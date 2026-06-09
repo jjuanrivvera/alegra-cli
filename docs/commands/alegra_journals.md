@@ -6,6 +6,10 @@ title: alegra journals
 
 Manage accounting journal entries (comprobantes contables)
 
+### Synopsis
+
+Manage manual accounting journal entries (comprobantes contables) — direct debit/credit postings to ledger accounts. Use `alegra journals balance` for balances grouped by period.
+
 ### Options
 
 ```

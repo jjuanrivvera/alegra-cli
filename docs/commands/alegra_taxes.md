@@ -6,6 +6,10 @@ title: alegra taxes
 
 Manage taxes (e.g. IVA)
 
+### Synopsis
+
+Manage taxes (impuestos) — tax definitions such as IVA, INC, or exemptions applied to item and document lines.
+
 ### Options
 
 ```

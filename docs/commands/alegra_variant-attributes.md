@@ -6,6 +6,10 @@ title: alegra variant-attributes
 
 Manage item variant attributes (e.g. Color, Talla)
 
+### Synopsis
+
+Manage item variant attributes (e.g. Color, Talla) — the dimensions Alegra combines to build product variants.
+
 ### Options
 
 ```

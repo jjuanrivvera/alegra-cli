@@ -6,6 +6,10 @@ title: alegra remissions
 
 Manage remissions (delivery notes)
 
+### Synopsis
+
+Manage remissions (remisiones / delivery notes) — records of goods sent to a client before invoicing them.
+
 ### Options
 
 ```

@@ -6,6 +6,10 @@ title: alegra inventory-adjustments
 
 Manage inventory adjustments (manual stock corrections)
 
+### Synopsis
+
+Manage inventory adjustments — manual stock corrections that raise or lower item quantities in a warehouse, each with a date and reason.
+
 ### Options
 
 ```

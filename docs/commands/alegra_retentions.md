@@ -6,6 +6,10 @@ title: alegra retentions
 
 Manage retentions (withholdings)
 
+### Synopsis
+
+Manage retentions (retenciones / withholdings) — tax withholdings such as retefuente or reteICA applied to documents; definitions are country-specific.
+
 ### Options
 
 ```

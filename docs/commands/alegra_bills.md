@@ -6,6 +6,10 @@ title: alegra bills
 
 Manage provider bills (facturas de proveedor)
 
+### Synopsis
+
+Manage provider bills (facturas de proveedor) — purchases you owe. Supports attachments, comments, advance application, and importing received Colombian e-invoices by CUFE.
+
 ### Options
 
 ```

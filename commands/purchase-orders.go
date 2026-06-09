@@ -11,6 +11,7 @@ func init() {
 		Use:         "purchase-orders",
 		Aliases:     []string{"purchase-order"},
 		Short:       "Manage purchase orders (órdenes de compra)",
+		Long:        "Manage purchase orders (órdenes de compra) — requests for goods or services from a provider that can be emailed, voided, and later turned into bills.",
 		New:         func(c *api.Client) *api.Resource[api.PurchaseOrder] { return c.PurchaseOrders() },
 		Columns:     []string{"id", "date", "status", "total"},
 		OrderFields: []string{"id", "name", "date", "deliveryDate", "status"},
