@@ -107,6 +107,21 @@ Releases are automated by `.github/workflows/release.yml` + GoReleaser on any
   (amd64/arm64) binaries, creates the GitHub Release with changelog, and updates
   the Homebrew formula.
 
+### Ongoing releases
+
+The repo integrates on `develop` and ships from `main`. To cut a release:
+
+1. Land changes on `develop` (PRs, green CI).
+2. Add the `chore(release): vX.Y.Z` commit (CHANGELOG) on `develop`; push.
+3. Tag that commit and push the tag:
+   ```bash
+   git tag -a vX.Y.Z -m "vX.Y.Z" && git push origin vX.Y.Z
+   ```
+4. `release.yml` publishes via GoReleaser **and fast-forwards `main`** to the
+   released commit automatically (skipped for pre-release tags like `vX.Y.Z-rc1`).
+   No manual `main` promotion needed; if `main` ever diverged from the tag, the
+   step fails loudly so you can resolve it.
+
 ## 5. Branch protection (optional)
 
 - [ ] Protect `main` (require PRs + green CI):
