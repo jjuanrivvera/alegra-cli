@@ -1,0 +1,7701 @@
+{
+  "country": "peru",
+  "label": "Perú",
+  "source": "https://developer.alegra.com/reference/perú.md",
+  "categories": [
+    {
+      "key": "tipos-de-operaciones",
+      "title": "Tipos de operaciones",
+      "entries": [
+        {
+          "code": "INTERNAL_SALE",
+          "name": "Venta interna"
+        },
+        {
+          "code": "INTERNAL_SALE_NATURAL_PERSON",
+          "name": "Venta Interna - Sustenta Gastos Deducibles Persona Natural"
+        },
+        {
+          "code": "INTERNAL_SALE_NRUS",
+          "name": "Venta Interna-NRUS"
+        },
+        {
+          "code": "NON_DOMICILED_SALES",
+          "name": "Ventas no domiciliados que no califican como exportación"
+        },
+        {
+          "code": "EXPORT_OF_GOODS",
+          "name": "Exportación de bienes"
+        }
+      ]
+    },
+    {
+      "key": "regimenes",
+      "title": "Regímenes",
+      "entries": [
+        {
+          "code": "SPECIAL_REGIME",
+          "name": "Régimen especial"
+        },
+        {
+          "code": "GENERAL_REGIME",
+          "name": "Régimen general"
+        },
+        {
+          "code": "MYPE_TRIBUTARY_REGIME",
+          "name": "Régimen MYPE tributario"
+        },
+        {
+          "code": "NEW_RUS",
+          "name": "Nuevo RUS"
+        }
+      ]
+    },
+    {
+      "key": "tipos-de-nota-credito",
+      "title": "Tipos de Nota Crédito",
+      "entries": [
+        {
+          "code": "VOID_OPERATION",
+          "name": "Anulación de la operación"
+        },
+        {
+          "code": "VOID_OPERATION_BY_ERROR_IN_RUC",
+          "name": "Anulación por error en el RUC"
+        },
+        {
+          "code": "CORRECTION_BY_ERROR_ON_DESCRIPTION",
+          "name": "Corrección por error en la descripción"
+        },
+        {
+          "code": "GLOBAL_DISCOUNT",
+          "name": "Descuento global"
+        },
+        {
+          "code": "DISCOUNT_BY_ITEM",
+          "name": "Descuento por ítem"
+        },
+        {
+          "code": "TOTAL_DEVOLUTION",
+          "name": "Devolución total"
+        },
+        {
+          "code": "DEVOLUTION_BY_ITEM",
+          "name": "Devolución por ítem"
+        },
+        {
+          "code": "BONIFICATION",
+          "name": "Bonificación"
+        },
+        {
+          "code": "DECREASE_IN_VALUE",
+          "name": "Disminución en el valor"
+        },
+        {
+          "code": "OTHER_CONCEPTS",
+          "name": "Otros Conceptos"
+        },
+        {
+          "code": "EXPORT_OPERATIONS_SETTINGS",
+          "name": "Ajustes de operaciones de exportación"
+        }
+      ]
+    },
+    {
+      "key": "tipos-de-identificacion",
+      "title": "Tipos de identificación",
+      "entries": [
+        {
+          "code": "NOT_DOMICILIED_WITHOUT_RUC",
+          "name": "No domiciliado sin RUC"
+        },
+        {
+          "code": "DNI",
+          "name": "Documento nacional de identidad"
+        },
+        {
+          "code": "CE",
+          "name": "Carnet de extranjería"
+        },
+        {
+          "code": "RUC",
+          "name": "Registro único de contribuyente"
+        },
+        {
+          "code": "PP",
+          "name": "Pasaporte"
+        },
+        {
+          "code": "CDI",
+          "name": "Cédula diplomática de identidad"
+        },
+        {
+          "code": "NOT_DOMICILIED_WITHOUT_RUC",
+          "name": "No domiciliado sin RUC"
+        },
+        {
+          "code": "DIP",
+          "name": "Documento de identidad país residencia - no domiciliado"
+        },
+        {
+          "code": "TIN",
+          "name": "Tax Identification Number - Doc Trib PP.NN"
+        },
+        {
+          "code": "IN",
+          "name": "Identification Number - Doc Trib PP. JJ"
+        },
+        {
+          "code": "PTP",
+          "name": "Permiso temporal de permanencia"
+        }
+      ]
+    },
+    {
+      "key": "estado-de-emision",
+      "title": "Estado de emisión (emission_status)",
+      "entries": [
+        {
+          "code": "PENDING",
+          "name": "Para documentos electrónicos que no se han emitido."
+        },
+        {
+          "code": "STAMPED_AND_WAITING_RESPONSE",
+          "name": "Para documentos electrónicos que fueron emitidos y están a la espera de respuesta."
+        },
+        {
+          "code": "STAMPED_AND_ACCEPTED",
+          "name": "Para documentos electrónicos que fueron emitidos y aceptados."
+        },
+        {
+          "code": "STAMPED_AND_REJECTED",
+          "name": "Para documentos electrónicos que fueron emitidos y rechazados."
+        }
+      ]
+    },
+    {
+      "key": "unidades-de-medida",
+      "title": "Unidades de medida",
+      "entries": [
+        {
+          "code": "notApplicable",
+          "name": "No aplica"
+        },
+        {
+          "code": "unit",
+          "name": "Unidad"
+        },
+        {
+          "code": "service",
+          "name": "Servicio"
+        },
+        {
+          "code": "piece",
+          "name": "Pieza"
+        },
+        {
+          "code": "thousand",
+          "name": "Millar"
+        },
+        {
+          "code": "kit",
+          "name": "Kit"
+        },
+        {
+          "code": "centimeter",
+          "name": "Centímetro"
+        },
+        {
+          "code": "meter",
+          "name": "Metro"
+        },
+        {
+          "code": "inch",
+          "name": "Pulgada"
+        },
+        {
+          "code": "centimeterSquared",
+          "name": "Centímetro cuadrado"
+        },
+        {
+          "code": "meterSquared",
+          "name": "Metro cuadrado"
+        },
+        {
+          "code": "inchSquared",
+          "name": "Pulgada cuadrada"
+        },
+        {
+          "code": "mililiter",
+          "name": "Mililitro"
+        },
+        {
+          "code": "liter",
+          "name": "Litro"
+        },
+        {
+          "code": "gallon",
+          "name": "Galón"
+        },
+        {
+          "code": "gram",
+          "name": "Gramo"
+        },
+        {
+          "code": "kilogram",
+          "name": "Kilogramo"
+        },
+        {
+          "code": "ton",
+          "name": "Tonelada"
+        },
+        {
+          "code": "pound",
+          "name": "Libra"
+        },
+        {
+          "code": "cubicMeter",
+          "name": "Metro cúbico"
+        },
+        {
+          "code": "pair",
+          "name": "Par"
+        },
+        {
+          "code": "box",
+          "name": "Caja"
+        }
+      ]
+    },
+    {
+      "key": "ubicaciones",
+      "title": "Ubicaciones",
+      "entries": [
+        {
+          "code": "Chachapoyas",
+          "name": "Chachapoyas"
+        },
+        {
+          "code": "Asunción",
+          "name": "Chachapoyas"
+        },
+        {
+          "code": "Balsas",
+          "name": "Chachapoyas"
+        },
+        {
+          "code": "Cheto",
+          "name": "Chachapoyas"
+        },
+        {
+          "code": "Chiliquin",
+          "name": "Chachapoyas"
+        },
+        {
+          "code": "Chuquibamba",
+          "name": "Chachapoyas"
+        },
+        {
+          "code": "Granada",
+          "name": "Chachapoyas"
+        },
+        {
+          "code": "Huancas",
+          "name": "Chachapoyas"
+        },
+        {
+          "code": "La Jalca",
+          "name": "Chachapoyas"
+        },
+        {
+          "code": "Leimebamba",
+          "name": "Chachapoyas"
+        },
+        {
+          "code": "Levanto",
+          "name": "Chachapoyas"
+        },
+        {
+          "code": "Magdalena",
+          "name": "Chachapoyas"
+        },
+        {
+          "code": "Mariscal Castilla",
+          "name": "Chachapoyas"
+        },
+        {
+          "code": "Molinopampa",
+          "name": "Chachapoyas"
+        },
+        {
+          "code": "Montevideo",
+          "name": "Chachapoyas"
+        },
+        {
+          "code": "Olleros",
+          "name": "Chachapoyas"
+        },
+        {
+          "code": "Quinjalca",
+          "name": "Chachapoyas"
+        },
+        {
+          "code": "San Francisco de Daguas",
+          "name": "Chachapoyas"
+        },
+        {
+          "code": "San Isidro de Maino",
+          "name": "Chachapoyas"
+        },
+        {
+          "code": "Soloco",
+          "name": "Chachapoyas"
+        },
+        {
+          "code": "Sonche",
+          "name": "Chachapoyas"
+        },
+        {
+          "code": "Bagua",
+          "name": "Bagua"
+        },
+        {
+          "code": "Aramango",
+          "name": "Bagua"
+        },
+        {
+          "code": "Copallin",
+          "name": "Bagua"
+        },
+        {
+          "code": "El Parco",
+          "name": "Bagua"
+        },
+        {
+          "code": "Imaza",
+          "name": "Bagua"
+        },
+        {
+          "code": "La Peca",
+          "name": "Bagua"
+        },
+        {
+          "code": "Jumbilla",
+          "name": "Bongará"
+        },
+        {
+          "code": "Chisquilla",
+          "name": "Bongará"
+        },
+        {
+          "code": "Churuja",
+          "name": "Bongará"
+        },
+        {
+          "code": "Corosha",
+          "name": "Bongará"
+        },
+        {
+          "code": "Cuispes",
+          "name": "Bongará"
+        },
+        {
+          "code": "Florida",
+          "name": "Bongará"
+        },
+        {
+          "code": "Jazan",
+          "name": "Bongará"
+        },
+        {
+          "code": "Recta",
+          "name": "Bongará"
+        },
+        {
+          "code": "San Carlos",
+          "name": "Bongará"
+        },
+        {
+          "code": "Shipasbamba",
+          "name": "Bongará"
+        },
+        {
+          "code": "Valera",
+          "name": "Bongará"
+        },
+        {
+          "code": "Yambrasbamba",
+          "name": "Bongará"
+        },
+        {
+          "code": "Nieva",
+          "name": "Condorcanqui"
+        },
+        {
+          "code": "El Cenepa",
+          "name": "Condorcanqui"
+        },
+        {
+          "code": "Río Santiago",
+          "name": "Condorcanqui"
+        },
+        {
+          "code": "Lamud",
+          "name": "Luya"
+        },
+        {
+          "code": "Camporredondo",
+          "name": "Luya"
+        },
+        {
+          "code": "Cocabamba",
+          "name": "Luya"
+        },
+        {
+          "code": "Colcamar",
+          "name": "Luya"
+        },
+        {
+          "code": "Conila",
+          "name": "Luya"
+        },
+        {
+          "code": "Inguilpata",
+          "name": "Luya"
+        },
+        {
+          "code": "Longuita",
+          "name": "Luya"
+        },
+        {
+          "code": "Lonya Chico",
+          "name": "Luya"
+        },
+        {
+          "code": "Luya",
+          "name": "Luya"
+        },
+        {
+          "code": "Luya Viejo",
+          "name": "Luya"
+        },
+        {
+          "code": "María",
+          "name": "Luya"
+        },
+        {
+          "code": "Ocalli",
+          "name": "Luya"
+        },
+        {
+          "code": "Ocumal",
+          "name": "Luya"
+        },
+        {
+          "code": "Pisuquia",
+          "name": "Luya"
+        },
+        {
+          "code": "Providencia",
+          "name": "Luya"
+        },
+        {
+          "code": "San Cristóbal",
+          "name": "Luya"
+        },
+        {
+          "code": "San Francisco de Yeso",
+          "name": "Luya"
+        },
+        {
+          "code": "San Jerónimo",
+          "name": "Luya"
+        },
+        {
+          "code": "San Juan de Lopecancha",
+          "name": "Luya"
+        },
+        {
+          "code": "Santa Catalina",
+          "name": "Luya"
+        },
+        {
+          "code": "Santo Tomas",
+          "name": "Luya"
+        },
+        {
+          "code": "Tingo",
+          "name": "Luya"
+        },
+        {
+          "code": "Trita",
+          "name": "Luya"
+        },
+        {
+          "code": "San Nicolás",
+          "name": "Rodríguez de Mendoza"
+        },
+        {
+          "code": "Chirimoto",
+          "name": "Rodríguez de Mendoza"
+        },
+        {
+          "code": "Cochamal",
+          "name": "Rodríguez de Mendoza"
+        },
+        {
+          "code": "Huambo",
+          "name": "Rodríguez de Mendoza"
+        },
+        {
+          "code": "Limabamba",
+          "name": "Rodríguez de Mendoza"
+        },
+        {
+          "code": "Longar",
+          "name": "Rodríguez de Mendoza"
+        },
+        {
+          "code": "Mariscal Benavides",
+          "name": "Rodríguez de Mendoza"
+        },
+        {
+          "code": "Milpuc",
+          "name": "Rodríguez de Mendoza"
+        },
+        {
+          "code": "Omia",
+          "name": "Rodríguez de Mendoza"
+        },
+        {
+          "code": "Santa Rosa",
+          "name": "Rodríguez de Mendoza"
+        },
+        {
+          "code": "Totora",
+          "name": "Rodríguez de Mendoza"
+        },
+        {
+          "code": "Vista Alegre",
+          "name": "Rodríguez de Mendoza"
+        },
+        {
+          "code": "Bagua Grande",
+          "name": "Utcubamba"
+        },
+        {
+          "code": "Cajaruro",
+          "name": "Utcubamba"
+        },
+        {
+          "code": "Cumba",
+          "name": "Utcubamba"
+        },
+        {
+          "code": "El Milagro",
+          "name": "Utcubamba"
+        },
+        {
+          "code": "Jamalca",
+          "name": "Utcubamba"
+        },
+        {
+          "code": "Lonya Grande",
+          "name": "Utcubamba"
+        },
+        {
+          "code": "Yamon",
+          "name": "Utcubamba"
+        },
+        {
+          "code": "Huaraz",
+          "name": "Huaraz"
+        },
+        {
+          "code": "Cochabamba",
+          "name": "Huaraz"
+        },
+        {
+          "code": "Colcabamba",
+          "name": "Huaraz"
+        },
+        {
+          "code": "Huanchay",
+          "name": "Huaraz"
+        },
+        {
+          "code": "Independencia",
+          "name": "Huaraz"
+        },
+        {
+          "code": "Jangas",
+          "name": "Huaraz"
+        },
+        {
+          "code": "La Libertad",
+          "name": "Huaraz"
+        },
+        {
+          "code": "Olleros",
+          "name": "Huaraz"
+        },
+        {
+          "code": "Pampas Grande",
+          "name": "Huaraz"
+        },
+        {
+          "code": "Pariacoto",
+          "name": "Huaraz"
+        },
+        {
+          "code": "Pira",
+          "name": "Huaraz"
+        },
+        {
+          "code": "Tarica",
+          "name": "Huaraz"
+        },
+        {
+          "code": "Aija",
+          "name": "Aija"
+        },
+        {
+          "code": "Coris",
+          "name": "Aija"
+        },
+        {
+          "code": "Huacllan",
+          "name": "Aija"
+        },
+        {
+          "code": "La Merced",
+          "name": "Aija"
+        },
+        {
+          "code": "Succha",
+          "name": "Aija"
+        },
+        {
+          "code": "Llamellin",
+          "name": "Antonio Raymondi"
+        },
+        {
+          "code": "Aczo",
+          "name": "Antonio Raymondi"
+        },
+        {
+          "code": "Chaccho",
+          "name": "Antonio Raymondi"
+        },
+        {
+          "code": "Chingas",
+          "name": "Antonio Raymondi"
+        },
+        {
+          "code": "Mirgas",
+          "name": "Antonio Raymondi"
+        },
+        {
+          "code": "San Juan de Rontoy",
+          "name": "Antonio Raymondi"
+        },
+        {
+          "code": "Chacas",
+          "name": "Asunción"
+        },
+        {
+          "code": "Acochaca",
+          "name": "Asunción"
+        },
+        {
+          "code": "Chiquian",
+          "name": "Bolognesi"
+        },
+        {
+          "code": "Abelardo Pardo Lezameta",
+          "name": "Bolognesi"
+        },
+        {
+          "code": "Antonio Raymondi",
+          "name": "Bolognesi"
+        },
+        {
+          "code": "Aquia",
+          "name": "Bolognesi"
+        },
+        {
+          "code": "Cajacay",
+          "name": "Bolognesi"
+        },
+        {
+          "code": "Canis",
+          "name": "Bolognesi"
+        },
+        {
+          "code": "Colquioc",
+          "name": "Bolognesi"
+        },
+        {
+          "code": "Huallanca",
+          "name": "Bolognesi"
+        },
+        {
+          "code": "Huasta",
+          "name": "Bolognesi"
+        },
+        {
+          "code": "Huayllacayan",
+          "name": "Bolognesi"
+        },
+        {
+          "code": "La Primavera",
+          "name": "Bolognesi"
+        },
+        {
+          "code": "Mangas",
+          "name": "Bolognesi"
+        },
+        {
+          "code": "Pacllon",
+          "name": "Bolognesi"
+        },
+        {
+          "code": "San Miguel de Corpanqui",
+          "name": "Bolognesi"
+        },
+        {
+          "code": "Ticllos",
+          "name": "Bolognesi"
+        },
+        {
+          "code": "Carhuaz",
+          "name": "Carhuaz"
+        },
+        {
+          "code": "Acopampa",
+          "name": "Carhuaz"
+        },
+        {
+          "code": "Amashca",
+          "name": "Carhuaz"
+        },
+        {
+          "code": "Anta",
+          "name": "Carhuaz"
+        },
+        {
+          "code": "Ataquero",
+          "name": "Carhuaz"
+        },
+        {
+          "code": "Marcara",
+          "name": "Carhuaz"
+        },
+        {
+          "code": "Pariahuanca",
+          "name": "Carhuaz"
+        },
+        {
+          "code": "San Miguel de Aco",
+          "name": "Carhuaz"
+        },
+        {
+          "code": "Shilla",
+          "name": "Carhuaz"
+        },
+        {
+          "code": "Tinco",
+          "name": "Carhuaz"
+        },
+        {
+          "code": "Yungar",
+          "name": "Carhuaz"
+        },
+        {
+          "code": "San Luis",
+          "name": "Carlos Fermín Fitzcarrald"
+        },
+        {
+          "code": "San Nicolás",
+          "name": "Carlos Fermín Fitzcarrald"
+        },
+        {
+          "code": "Yauya",
+          "name": "Carlos Fermín Fitzcarrald"
+        },
+        {
+          "code": "Casma",
+          "name": "Casma"
+        },
+        {
+          "code": "Buena Vista Alta",
+          "name": "Casma"
+        },
+        {
+          "code": "Comandante Noel",
+          "name": "Casma"
+        },
+        {
+          "code": "Yautan",
+          "name": "Casma"
+        },
+        {
+          "code": "Corongo",
+          "name": "Corongo"
+        },
+        {
+          "code": "Aco",
+          "name": "Corongo"
+        },
+        {
+          "code": "Bambas",
+          "name": "Corongo"
+        },
+        {
+          "code": "Cusca",
+          "name": "Corongo"
+        },
+        {
+          "code": "La Pampa",
+          "name": "Corongo"
+        },
+        {
+          "code": "Yanac",
+          "name": "Corongo"
+        },
+        {
+          "code": "Yupan",
+          "name": "Corongo"
+        },
+        {
+          "code": "Huari",
+          "name": "Huari"
+        },
+        {
+          "code": "Anra",
+          "name": "Huari"
+        },
+        {
+          "code": "Cajay",
+          "name": "Huari"
+        },
+        {
+          "code": "Chavin de Huantar",
+          "name": "Huari"
+        },
+        {
+          "code": "Huacachi",
+          "name": "Huari"
+        },
+        {
+          "code": "Huacchis",
+          "name": "Huari"
+        },
+        {
+          "code": "Huachis",
+          "name": "Huari"
+        },
+        {
+          "code": "Huantar",
+          "name": "Huari"
+        },
+        {
+          "code": "Masin",
+          "name": "Huari"
+        },
+        {
+          "code": "Paucas",
+          "name": "Huari"
+        },
+        {
+          "code": "Ponto",
+          "name": "Huari"
+        },
+        {
+          "code": "Rahuapampa",
+          "name": "Huari"
+        },
+        {
+          "code": "Rapayan",
+          "name": "Huari"
+        },
+        {
+          "code": "San Marcos",
+          "name": "Huari"
+        },
+        {
+          "code": "San Pedro de Chana",
+          "name": "Huari"
+        },
+        {
+          "code": "Uco",
+          "name": "Huari"
+        },
+        {
+          "code": "Huarmey",
+          "name": "Huarmey"
+        },
+        {
+          "code": "Cochapeti",
+          "name": "Huarmey"
+        },
+        {
+          "code": "Culebras",
+          "name": "Huarmey"
+        },
+        {
+          "code": "Huayan",
+          "name": "Huarmey"
+        },
+        {
+          "code": "Malvas",
+          "name": "Huarmey"
+        },
+        {
+          "code": "Caraz",
+          "name": "Huaylas"
+        },
+        {
+          "code": "Huallanca",
+          "name": "Huaylas"
+        },
+        {
+          "code": "Huata",
+          "name": "Huaylas"
+        },
+        {
+          "code": "Huaylas",
+          "name": "Huaylas"
+        },
+        {
+          "code": "Mato",
+          "name": "Huaylas"
+        },
+        {
+          "code": "Pamparomas",
+          "name": "Huaylas"
+        },
+        {
+          "code": "Pueblo Libre",
+          "name": "Huaylas"
+        },
+        {
+          "code": "Santa Cruz",
+          "name": "Huaylas"
+        },
+        {
+          "code": "Santo Toribio",
+          "name": "Huaylas"
+        },
+        {
+          "code": "Yuracmarca",
+          "name": "Huaylas"
+        },
+        {
+          "code": "Piscobamba",
+          "name": "Mariscal Luzuriaga"
+        },
+        {
+          "code": "Casca",
+          "name": "Mariscal Luzuriaga"
+        },
+        {
+          "code": "Eleazar Guzmán Barron",
+          "name": "Mariscal Luzuriaga"
+        },
+        {
+          "code": "Fidel Olivas Escudero",
+          "name": "Mariscal Luzuriaga"
+        },
+        {
+          "code": "Llama",
+          "name": "Mariscal Luzuriaga"
+        },
+        {
+          "code": "Llumpa",
+          "name": "Mariscal Luzuriaga"
+        },
+        {
+          "code": "Lucma",
+          "name": "Mariscal Luzuriaga"
+        },
+        {
+          "code": "Musga",
+          "name": "Mariscal Luzuriaga"
+        },
+        {
+          "code": "Ocros",
+          "name": "Ocros"
+        },
+        {
+          "code": "Acas",
+          "name": "Ocros"
+        },
+        {
+          "code": "Cajamarquilla",
+          "name": "Ocros"
+        },
+        {
+          "code": "Carhuapampa",
+          "name": "Ocros"
+        },
+        {
+          "code": "Cochas",
+          "name": "Ocros"
+        },
+        {
+          "code": "Congas",
+          "name": "Ocros"
+        },
+        {
+          "code": "Llipa",
+          "name": "Ocros"
+        },
+        {
+          "code": "San Cristóbal de Rajan",
+          "name": "Ocros"
+        },
+        {
+          "code": "San Pedro",
+          "name": "Ocros"
+        },
+        {
+          "code": "Santiago de Chilcas",
+          "name": "Ocros"
+        },
+        {
+          "code": "Cabana",
+          "name": "Pallasca"
+        },
+        {
+          "code": "Bolognesi",
+          "name": "Pallasca"
+        },
+        {
+          "code": "Conchucos",
+          "name": "Pallasca"
+        },
+        {
+          "code": "Huacaschuque",
+          "name": "Pallasca"
+        },
+        {
+          "code": "Huandoval",
+          "name": "Pallasca"
+        },
+        {
+          "code": "Lacabamba",
+          "name": "Pallasca"
+        },
+        {
+          "code": "Llapo",
+          "name": "Pallasca"
+        },
+        {
+          "code": "Pallasca",
+          "name": "Pallasca"
+        },
+        {
+          "code": "Pampas",
+          "name": "Pallasca"
+        },
+        {
+          "code": "Santa Rosa",
+          "name": "Pallasca"
+        },
+        {
+          "code": "Tauca",
+          "name": "Pallasca"
+        },
+        {
+          "code": "Pomabamba",
+          "name": "Pomabamba"
+        },
+        {
+          "code": "Huayllan",
+          "name": "Pomabamba"
+        },
+        {
+          "code": "Parobamba",
+          "name": "Pomabamba"
+        },
+        {
+          "code": "Quinuabamba",
+          "name": "Pomabamba"
+        },
+        {
+          "code": "Recuay",
+          "name": "Recuay"
+        },
+        {
+          "code": "Catac",
+          "name": "Recuay"
+        },
+        {
+          "code": "Cotaparaco",
+          "name": "Recuay"
+        },
+        {
+          "code": "Huayllapampa",
+          "name": "Recuay"
+        },
+        {
+          "code": "Llacllin",
+          "name": "Recuay"
+        },
+        {
+          "code": "Marca",
+          "name": "Recuay"
+        },
+        {
+          "code": "Pampas Chico",
+          "name": "Recuay"
+        },
+        {
+          "code": "Pararin",
+          "name": "Recuay"
+        },
+        {
+          "code": "Tapacocha",
+          "name": "Recuay"
+        },
+        {
+          "code": "Ticapampa",
+          "name": "Recuay"
+        },
+        {
+          "code": "Chimbote",
+          "name": "Santa"
+        },
+        {
+          "code": "Cáceres del Perú",
+          "name": "Santa"
+        },
+        {
+          "code": "Coishco",
+          "name": "Santa"
+        },
+        {
+          "code": "Macate",
+          "name": "Santa"
+        },
+        {
+          "code": "Moro",
+          "name": "Santa"
+        },
+        {
+          "code": "Nepeña",
+          "name": "Santa"
+        },
+        {
+          "code": "Samanco",
+          "name": "Santa"
+        },
+        {
+          "code": "Santa",
+          "name": "Santa"
+        },
+        {
+          "code": "Nuevo Chimbote",
+          "name": "Santa"
+        },
+        {
+          "code": "Sihuas",
+          "name": "Sihuas"
+        },
+        {
+          "code": "Acobamba",
+          "name": "Sihuas"
+        },
+        {
+          "code": "Alfonso Ugarte",
+          "name": "Sihuas"
+        },
+        {
+          "code": "Cashapampa",
+          "name": "Sihuas"
+        },
+        {
+          "code": "Chingalpo",
+          "name": "Sihuas"
+        },
+        {
+          "code": "Huayllabamba",
+          "name": "Sihuas"
+        },
+        {
+          "code": "Quiches",
+          "name": "Sihuas"
+        },
+        {
+          "code": "Ragash",
+          "name": "Sihuas"
+        },
+        {
+          "code": "San Juan",
+          "name": "Sihuas"
+        },
+        {
+          "code": "Sicsibamba",
+          "name": "Sihuas"
+        },
+        {
+          "code": "Yungay",
+          "name": "Yungay"
+        },
+        {
+          "code": "Cascapara",
+          "name": "Yungay"
+        },
+        {
+          "code": "Mancos",
+          "name": "Yungay"
+        },
+        {
+          "code": "Matacoto",
+          "name": "Yungay"
+        },
+        {
+          "code": "Quillo",
+          "name": "Yungay"
+        },
+        {
+          "code": "Ranrahirca",
+          "name": "Yungay"
+        },
+        {
+          "code": "Shupluy",
+          "name": "Yungay"
+        },
+        {
+          "code": "Yanama",
+          "name": "Yungay"
+        },
+        {
+          "code": "Abancay",
+          "name": "Abancay"
+        },
+        {
+          "code": "Chacoche",
+          "name": "Abancay"
+        },
+        {
+          "code": "Circa",
+          "name": "Abancay"
+        },
+        {
+          "code": "Curahuasi",
+          "name": "Abancay"
+        },
+        {
+          "code": "Huanipaca",
+          "name": "Abancay"
+        },
+        {
+          "code": "Lambrama",
+          "name": "Abancay"
+        },
+        {
+          "code": "Pichirhua",
+          "name": "Abancay"
+        },
+        {
+          "code": "San Pedro de Cachora",
+          "name": "Abancay"
+        },
+        {
+          "code": "Tamburco",
+          "name": "Abancay"
+        },
+        {
+          "code": "Andahuaylas",
+          "name": "Andahuaylas"
+        },
+        {
+          "code": "Andarapa",
+          "name": "Andahuaylas"
+        },
+        {
+          "code": "Chiara",
+          "name": "Andahuaylas"
+        },
+        {
+          "code": "Huancarama",
+          "name": "Andahuaylas"
+        },
+        {
+          "code": "Huancaray",
+          "name": "Andahuaylas"
+        },
+        {
+          "code": "Huayana",
+          "name": "Andahuaylas"
+        },
+        {
+          "code": "Kishuara",
+          "name": "Andahuaylas"
+        },
+        {
+          "code": "Pacobamba",
+          "name": "Andahuaylas"
+        },
+        {
+          "code": "Pacucha",
+          "name": "Andahuaylas"
+        },
+        {
+          "code": "Pampachiri",
+          "name": "Andahuaylas"
+        },
+        {
+          "code": "Pomacocha",
+          "name": "Andahuaylas"
+        },
+        {
+          "code": "San Antonio de Cachi",
+          "name": "Andahuaylas"
+        },
+        {
+          "code": "San Jerónimo",
+          "name": "Andahuaylas"
+        },
+        {
+          "code": "San Miguel de Chaccrampa",
+          "name": "Andahuaylas"
+        },
+        {
+          "code": "Santa María de Chicmo",
+          "name": "Andahuaylas"
+        },
+        {
+          "code": "Talavera",
+          "name": "Andahuaylas"
+        },
+        {
+          "code": "Tumay Huaraca",
+          "name": "Andahuaylas"
+        },
+        {
+          "code": "Turpo",
+          "name": "Andahuaylas"
+        },
+        {
+          "code": "Kaquiabamba",
+          "name": "Andahuaylas"
+        },
+        {
+          "code": "José María Arguedas",
+          "name": "Andahuaylas"
+        },
+        {
+          "code": "Antabamba",
+          "name": "Antabamba"
+        },
+        {
+          "code": "El Oro",
+          "name": "Antabamba"
+        },
+        {
+          "code": "Huaquirca",
+          "name": "Antabamba"
+        },
+        {
+          "code": "Juan Espinoza Medrano",
+          "name": "Antabamba"
+        },
+        {
+          "code": "Oropesa",
+          "name": "Antabamba"
+        },
+        {
+          "code": "Pachaconas",
+          "name": "Antabamba"
+        },
+        {
+          "code": "Sabaino",
+          "name": "Antabamba"
+        },
+        {
+          "code": "Chalhuanca",
+          "name": "Aymaraes"
+        },
+        {
+          "code": "Capaya",
+          "name": "Aymaraes"
+        },
+        {
+          "code": "Caraybamba",
+          "name": "Aymaraes"
+        },
+        {
+          "code": "Chapimarca",
+          "name": "Aymaraes"
+        },
+        {
+          "code": "Colcabamba",
+          "name": "Aymaraes"
+        },
+        {
+          "code": "Cotaruse",
+          "name": "Aymaraes"
+        },
+        {
+          "code": "Huayllo",
+          "name": "Aymaraes"
+        },
+        {
+          "code": "Justo Apu Sahuaraura",
+          "name": "Aymaraes"
+        },
+        {
+          "code": "Lucre",
+          "name": "Aymaraes"
+        },
+        {
+          "code": "Pocohuanca",
+          "name": "Aymaraes"
+        },
+        {
+          "code": "San Juan de Chacña",
+          "name": "Aymaraes"
+        },
+        {
+          "code": "Sañayca",
+          "name": "Aymaraes"
+        },
+        {
+          "code": "Soraya",
+          "name": "Aymaraes"
+        },
+        {
+          "code": "Tapairihua",
+          "name": "Aymaraes"
+        },
+        {
+          "code": "Tintay",
+          "name": "Aymaraes"
+        },
+        {
+          "code": "Toraya",
+          "name": "Aymaraes"
+        },
+        {
+          "code": "Yanaca",
+          "name": "Aymaraes"
+        },
+        {
+          "code": "Tambobamba",
+          "name": "Cotabambas"
+        },
+        {
+          "code": "Cotabambas",
+          "name": "Cotabambas"
+        },
+        {
+          "code": "Coyllurqui",
+          "name": "Cotabambas"
+        },
+        {
+          "code": "Haquira",
+          "name": "Cotabambas"
+        },
+        {
+          "code": "Mara",
+          "name": "Cotabambas"
+        },
+        {
+          "code": "Challhuahuacho",
+          "name": "Cotabambas"
+        },
+        {
+          "code": "Chincheros",
+          "name": "Chincheros"
+        },
+        {
+          "code": "Anco_Huallo",
+          "name": "Chincheros"
+        },
+        {
+          "code": "Cocharcas",
+          "name": "Chincheros"
+        },
+        {
+          "code": "Huaccana",
+          "name": "Chincheros"
+        },
+        {
+          "code": "Ocobamba",
+          "name": "Chincheros"
+        },
+        {
+          "code": "Ongoy",
+          "name": "Chincheros"
+        },
+        {
+          "code": "Uranmarca",
+          "name": "Chincheros"
+        },
+        {
+          "code": "Ranracancha",
+          "name": "Chincheros"
+        },
+        {
+          "code": "Chuquibambilla",
+          "name": "Grau"
+        },
+        {
+          "code": "Curpahuasi",
+          "name": "Grau"
+        },
+        {
+          "code": "Gamarra",
+          "name": "Grau"
+        },
+        {
+          "code": "Huayllati",
+          "name": "Grau"
+        },
+        {
+          "code": "Mamara",
+          "name": "Grau"
+        },
+        {
+          "code": "Micaela Bastidas",
+          "name": "Grau"
+        },
+        {
+          "code": "Pataypampa",
+          "name": "Grau"
+        },
+        {
+          "code": "Progreso",
+          "name": "Grau"
+        },
+        {
+          "code": "San Antonio",
+          "name": "Grau"
+        },
+        {
+          "code": "Santa Rosa",
+          "name": "Grau"
+        },
+        {
+          "code": "Turpay",
+          "name": "Grau"
+        },
+        {
+          "code": "Vilcabamba",
+          "name": "Grau"
+        },
+        {
+          "code": "Virundo",
+          "name": "Grau"
+        },
+        {
+          "code": "Curasco",
+          "name": "Grau"
+        },
+        {
+          "code": "Arequipa",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Alto Selva Alegre",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Cayma",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Cerro Colorado",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Characato",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Chiguata",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Jacobo Hunter",
+          "name": "Arequipa"
+        },
+        {
+          "code": "La Joya",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Mariano Melgar",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Miraflores",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Mollebaya",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Paucarpata",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Pocsi",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Polobaya",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Quequeña",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Sabandia",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Sachaca",
+          "name": "Arequipa"
+        },
+        {
+          "code": "San Juan de Siguas",
+          "name": "Arequipa"
+        },
+        {
+          "code": "San Juan de Tarucani",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Santa Isabel de Siguas",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Santa Rita de Siguas",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Socabaya",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Tiabaya",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Uchumayo",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Vitor",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Yanahuara",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Yarabamba",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Yura",
+          "name": "Arequipa"
+        },
+        {
+          "code": "José Luis Bustamante Y Rivero",
+          "name": "Arequipa"
+        },
+        {
+          "code": "Camaná",
+          "name": "Camaná"
+        },
+        {
+          "code": "José María Quimper",
+          "name": "Camaná"
+        },
+        {
+          "code": "Mariano Nicolás Valcárcel",
+          "name": "Camaná"
+        },
+        {
+          "code": "Mariscal Cáceres",
+          "name": "Camaná"
+        },
+        {
+          "code": "Nicolás de Pierola",
+          "name": "Camaná"
+        },
+        {
+          "code": "Ocoña",
+          "name": "Camaná"
+        },
+        {
+          "code": "Quilca",
+          "name": "Camaná"
+        },
+        {
+          "code": "Samuel Pastor",
+          "name": "Camaná"
+        },
+        {
+          "code": "Caravelí",
+          "name": "Caravelí"
+        },
+        {
+          "code": "Acarí",
+          "name": "Caravelí"
+        },
+        {
+          "code": "Atico",
+          "name": "Caravelí"
+        },
+        {
+          "code": "Atiquipa",
+          "name": "Caravelí"
+        },
+        {
+          "code": "Bella Unión",
+          "name": "Caravelí"
+        },
+        {
+          "code": "Cahuacho",
+          "name": "Caravelí"
+        },
+        {
+          "code": "Chala",
+          "name": "Caravelí"
+        },
+        {
+          "code": "Chaparra",
+          "name": "Caravelí"
+        },
+        {
+          "code": "Huanuhuanu",
+          "name": "Caravelí"
+        },
+        {
+          "code": "Jaqui",
+          "name": "Caravelí"
+        },
+        {
+          "code": "Lomas",
+          "name": "Caravelí"
+        },
+        {
+          "code": "Quicacha",
+          "name": "Caravelí"
+        },
+        {
+          "code": "Yauca",
+          "name": "Caravelí"
+        },
+        {
+          "code": "Aplao",
+          "name": "Castilla"
+        },
+        {
+          "code": "Andagua",
+          "name": "Castilla"
+        },
+        {
+          "code": "Ayo",
+          "name": "Castilla"
+        },
+        {
+          "code": "Chachas",
+          "name": "Castilla"
+        },
+        {
+          "code": "Chilcaymarca",
+          "name": "Castilla"
+        },
+        {
+          "code": "Choco",
+          "name": "Castilla"
+        },
+        {
+          "code": "Huancarqui",
+          "name": "Castilla"
+        },
+        {
+          "code": "Machaguay",
+          "name": "Castilla"
+        },
+        {
+          "code": "Orcopampa",
+          "name": "Castilla"
+        },
+        {
+          "code": "Pampacolca",
+          "name": "Castilla"
+        },
+        {
+          "code": "Tipan",
+          "name": "Castilla"
+        },
+        {
+          "code": "Uñon",
+          "name": "Castilla"
+        },
+        {
+          "code": "Uraca",
+          "name": "Castilla"
+        },
+        {
+          "code": "Viraco",
+          "name": "Castilla"
+        },
+        {
+          "code": "Chivay",
+          "name": "Caylloma"
+        },
+        {
+          "code": "Achoma",
+          "name": "Caylloma"
+        },
+        {
+          "code": "Cabanaconde",
+          "name": "Caylloma"
+        },
+        {
+          "code": "Callalli",
+          "name": "Caylloma"
+        },
+        {
+          "code": "Caylloma",
+          "name": "Caylloma"
+        },
+        {
+          "code": "Coporaque",
+          "name": "Caylloma"
+        },
+        {
+          "code": "Huambo",
+          "name": "Caylloma"
+        },
+        {
+          "code": "Huanca",
+          "name": "Caylloma"
+        },
+        {
+          "code": "Ichupampa",
+          "name": "Caylloma"
+        },
+        {
+          "code": "Lari",
+          "name": "Caylloma"
+        },
+        {
+          "code": "Lluta",
+          "name": "Caylloma"
+        },
+        {
+          "code": "Maca",
+          "name": "Caylloma"
+        },
+        {
+          "code": "Madrigal",
+          "name": "Caylloma"
+        },
+        {
+          "code": "San Antonio de Chuca",
+          "name": "Caylloma"
+        },
+        {
+          "code": "Sibayo",
+          "name": "Caylloma"
+        },
+        {
+          "code": "Tapay",
+          "name": "Caylloma"
+        },
+        {
+          "code": "Tisco",
+          "name": "Caylloma"
+        },
+        {
+          "code": "Tuti",
+          "name": "Caylloma"
+        },
+        {
+          "code": "Yanque",
+          "name": "Caylloma"
+        },
+        {
+          "code": "Majes",
+          "name": "Caylloma"
+        },
+        {
+          "code": "Chuquibamba",
+          "name": "Condesuyos"
+        },
+        {
+          "code": "Andaray",
+          "name": "Condesuyos"
+        },
+        {
+          "code": "Cayarani",
+          "name": "Condesuyos"
+        },
+        {
+          "code": "Chichas",
+          "name": "Condesuyos"
+        },
+        {
+          "code": "Iray",
+          "name": "Condesuyos"
+        },
+        {
+          "code": "Río Grande",
+          "name": "Condesuyos"
+        },
+        {
+          "code": "Salamanca",
+          "name": "Condesuyos"
+        },
+        {
+          "code": "Yanaquihua",
+          "name": "Condesuyos"
+        },
+        {
+          "code": "Mollendo",
+          "name": "Islay"
+        },
+        {
+          "code": "Cocachacra",
+          "name": "Islay"
+        },
+        {
+          "code": "Dean Valdivia",
+          "name": "Islay"
+        },
+        {
+          "code": "Islay",
+          "name": "Islay"
+        },
+        {
+          "code": "Mejia",
+          "name": "Islay"
+        },
+        {
+          "code": "Punta de Bombón",
+          "name": "Islay"
+        },
+        {
+          "code": "Cotahuasi",
+          "name": "La Uniòn"
+        },
+        {
+          "code": "Alca",
+          "name": "La Uniòn"
+        },
+        {
+          "code": "Charcana",
+          "name": "La Uniòn"
+        },
+        {
+          "code": "Huaynacotas",
+          "name": "La Uniòn"
+        },
+        {
+          "code": "Pampamarca",
+          "name": "La Uniòn"
+        },
+        {
+          "code": "Puyca",
+          "name": "La Uniòn"
+        },
+        {
+          "code": "Quechualla",
+          "name": "La Uniòn"
+        },
+        {
+          "code": "Sayla",
+          "name": "La Uniòn"
+        },
+        {
+          "code": "Tauria",
+          "name": "La Uniòn"
+        },
+        {
+          "code": "Tomepampa",
+          "name": "La Uniòn"
+        },
+        {
+          "code": "Toro",
+          "name": "La Uniòn"
+        },
+        {
+          "code": "Ayacucho",
+          "name": "Huamanga"
+        },
+        {
+          "code": "Acocro",
+          "name": "Huamanga"
+        },
+        {
+          "code": "Acos Vinchos",
+          "name": "Huamanga"
+        },
+        {
+          "code": "Carmen Alto",
+          "name": "Huamanga"
+        },
+        {
+          "code": "Chiara",
+          "name": "Huamanga"
+        },
+        {
+          "code": "Ocros",
+          "name": "Huamanga"
+        },
+        {
+          "code": "Pacaycasa",
+          "name": "Huamanga"
+        },
+        {
+          "code": "Quinua",
+          "name": "Huamanga"
+        },
+        {
+          "code": "San José de Ticllas",
+          "name": "Huamanga"
+        },
+        {
+          "code": "San Juan Bautista",
+          "name": "Huamanga"
+        },
+        {
+          "code": "Santiago de Pischa",
+          "name": "Huamanga"
+        },
+        {
+          "code": "Socos",
+          "name": "Huamanga"
+        },
+        {
+          "code": "Tambillo",
+          "name": "Huamanga"
+        },
+        {
+          "code": "Vinchos",
+          "name": "Huamanga"
+        },
+        {
+          "code": "Jesús Nazareno",
+          "name": "Huamanga"
+        },
+        {
+          "code": "Andrés Avelino Cáceres Dorregaray",
+          "name": "Huamanga"
+        },
+        {
+          "code": "Cangallo",
+          "name": "Cangallo"
+        },
+        {
+          "code": "Chuschi",
+          "name": "Cangallo"
+        },
+        {
+          "code": "Los Morochucos",
+          "name": "Cangallo"
+        },
+        {
+          "code": "María Parado de Bellido",
+          "name": "Cangallo"
+        },
+        {
+          "code": "Paras",
+          "name": "Cangallo"
+        },
+        {
+          "code": "Totos",
+          "name": "Cangallo"
+        },
+        {
+          "code": "Sancos",
+          "name": "Huanca Sancos"
+        },
+        {
+          "code": "Carapo",
+          "name": "Huanca Sancos"
+        },
+        {
+          "code": "Sacsamarca",
+          "name": "Huanca Sancos"
+        },
+        {
+          "code": "Santiago de Lucanamarca",
+          "name": "Huanca Sancos"
+        },
+        {
+          "code": "Huanta",
+          "name": "Huanta"
+        },
+        {
+          "code": "Ayahuanco",
+          "name": "Huanta"
+        },
+        {
+          "code": "Huamanguilla",
+          "name": "Huanta"
+        },
+        {
+          "code": "Iguain",
+          "name": "Huanta"
+        },
+        {
+          "code": "Luricocha",
+          "name": "Huanta"
+        },
+        {
+          "code": "Santillana",
+          "name": "Huanta"
+        },
+        {
+          "code": "Sivia",
+          "name": "Huanta"
+        },
+        {
+          "code": "Llochegua",
+          "name": "Huanta"
+        },
+        {
+          "code": "Canayre",
+          "name": "Huanta"
+        },
+        {
+          "code": "Uchuraccay",
+          "name": "Huanta"
+        },
+        {
+          "code": "Pucacolpa",
+          "name": "Huanta"
+        },
+        {
+          "code": "San Miguel",
+          "name": "La Mar"
+        },
+        {
+          "code": "Anco",
+          "name": "La Mar"
+        },
+        {
+          "code": "Ayna",
+          "name": "La Mar"
+        },
+        {
+          "code": "Chilcas",
+          "name": "La Mar"
+        },
+        {
+          "code": "Chungui",
+          "name": "La Mar"
+        },
+        {
+          "code": "Luis Carranza",
+          "name": "La Mar"
+        },
+        {
+          "code": "Santa Rosa",
+          "name": "La Mar"
+        },
+        {
+          "code": "Tambo",
+          "name": "La Mar"
+        },
+        {
+          "code": "Samugari",
+          "name": "La Mar"
+        },
+        {
+          "code": "Anchihuay",
+          "name": "La Mar"
+        },
+        {
+          "code": "Puquio",
+          "name": "Lucanas"
+        },
+        {
+          "code": "Aucara",
+          "name": "Lucanas"
+        },
+        {
+          "code": "Cabana",
+          "name": "Lucanas"
+        },
+        {
+          "code": "Carmen Salcedo",
+          "name": "Lucanas"
+        },
+        {
+          "code": "Chaviña",
+          "name": "Lucanas"
+        },
+        {
+          "code": "Chipao",
+          "name": "Lucanas"
+        },
+        {
+          "code": "Huac-Huas",
+          "name": "Lucanas"
+        },
+        {
+          "code": "Laramate",
+          "name": "Lucanas"
+        },
+        {
+          "code": "Leoncio Prado",
+          "name": "Lucanas"
+        },
+        {
+          "code": "Llauta",
+          "name": "Lucanas"
+        },
+        {
+          "code": "Lucanas",
+          "name": "Lucanas"
+        },
+        {
+          "code": "Ocaña",
+          "name": "Lucanas"
+        },
+        {
+          "code": "Otoca",
+          "name": "Lucanas"
+        },
+        {
+          "code": "Saisa",
+          "name": "Lucanas"
+        },
+        {
+          "code": "San Cristóbal",
+          "name": "Lucanas"
+        },
+        {
+          "code": "San Juan",
+          "name": "Lucanas"
+        },
+        {
+          "code": "San Pedro",
+          "name": "Lucanas"
+        },
+        {
+          "code": "San Pedro de Palco",
+          "name": "Lucanas"
+        },
+        {
+          "code": "Sancos",
+          "name": "Lucanas"
+        },
+        {
+          "code": "Santa Ana de Huaycahuacho",
+          "name": "Lucanas"
+        },
+        {
+          "code": "Santa Lucia",
+          "name": "Lucanas"
+        },
+        {
+          "code": "Coracora",
+          "name": "Parinacochas"
+        },
+        {
+          "code": "Chumpi",
+          "name": "Parinacochas"
+        },
+        {
+          "code": "Coronel Castañeda",
+          "name": "Parinacochas"
+        },
+        {
+          "code": "Pacapausa",
+          "name": "Parinacochas"
+        },
+        {
+          "code": "Pullo",
+          "name": "Parinacochas"
+        },
+        {
+          "code": "Puyusca",
+          "name": "Parinacochas"
+        },
+        {
+          "code": "San Francisco de Ravacayco",
+          "name": "Parinacochas"
+        },
+        {
+          "code": "Upahuacho",
+          "name": "Parinacochas"
+        },
+        {
+          "code": "Pausa",
+          "name": "Pàucar del Sara Sara"
+        },
+        {
+          "code": "Colta",
+          "name": "Pàucar del Sara Sara"
+        },
+        {
+          "code": "Corculla",
+          "name": "Pàucar del Sara Sara"
+        },
+        {
+          "code": "Lampa",
+          "name": "Pàucar del Sara Sara"
+        },
+        {
+          "code": "Marcabamba",
+          "name": "Pàucar del Sara Sara"
+        },
+        {
+          "code": "Oyolo",
+          "name": "Pàucar del Sara Sara"
+        },
+        {
+          "code": "Pararca",
+          "name": "Pàucar del Sara Sara"
+        },
+        {
+          "code": "San Javier de Alpabamba",
+          "name": "Pàucar del Sara Sara"
+        },
+        {
+          "code": "San José de Ushua",
+          "name": "Pàucar del Sara Sara"
+        },
+        {
+          "code": "Sara Sara",
+          "name": "Pàucar del Sara Sara"
+        },
+        {
+          "code": "Querobamba",
+          "name": "Sucre"
+        },
+        {
+          "code": "Belén",
+          "name": "Sucre"
+        },
+        {
+          "code": "Chalcos",
+          "name": "Sucre"
+        },
+        {
+          "code": "Chilcayoc",
+          "name": "Sucre"
+        },
+        {
+          "code": "Huacaña",
+          "name": "Sucre"
+        },
+        {
+          "code": "Morcolla",
+          "name": "Sucre"
+        },
+        {
+          "code": "Paico",
+          "name": "Sucre"
+        },
+        {
+          "code": "San Pedro de Larcay",
+          "name": "Sucre"
+        },
+        {
+          "code": "San Salvador de Quije",
+          "name": "Sucre"
+        },
+        {
+          "code": "Santiago de Paucaray",
+          "name": "Sucre"
+        },
+        {
+          "code": "Soras",
+          "name": "Sucre"
+        },
+        {
+          "code": "Huancapi",
+          "name": "Víctor Fajardo"
+        },
+        {
+          "code": "Alcamenca",
+          "name": "Víctor Fajardo"
+        },
+        {
+          "code": "Apongo",
+          "name": "Víctor Fajardo"
+        },
+        {
+          "code": "Asquipata",
+          "name": "Víctor Fajardo"
+        },
+        {
+          "code": "Canaria",
+          "name": "Víctor Fajardo"
+        },
+        {
+          "code": "Cayara",
+          "name": "Víctor Fajardo"
+        },
+        {
+          "code": "Colca",
+          "name": "Víctor Fajardo"
+        },
+        {
+          "code": "Huamanquiquia",
+          "name": "Víctor Fajardo"
+        },
+        {
+          "code": "Huancaraylla",
+          "name": "Víctor Fajardo"
+        },
+        {
+          "code": "Huaya",
+          "name": "Víctor Fajardo"
+        },
+        {
+          "code": "Sarhua",
+          "name": "Víctor Fajardo"
+        },
+        {
+          "code": "Vilcanchos",
+          "name": "Víctor Fajardo"
+        },
+        {
+          "code": "Vilcas Huaman",
+          "name": "Vilcas Huamán"
+        },
+        {
+          "code": "Accomarca",
+          "name": "Vilcas Huamán"
+        },
+        {
+          "code": "Carhuanca",
+          "name": "Vilcas Huamán"
+        },
+        {
+          "code": "Concepción",
+          "name": "Vilcas Huamán"
+        },
+        {
+          "code": "Huambalpa",
+          "name": "Vilcas Huamán"
+        },
+        {
+          "code": "Independencia",
+          "name": "Vilcas Huamán"
+        },
+        {
+          "code": "Saurama",
+          "name": "Vilcas Huamán"
+        },
+        {
+          "code": "Vischongo",
+          "name": "Vilcas Huamán"
+        },
+        {
+          "code": "Cajamarca",
+          "name": "Cajamarca"
+        },
+        {
+          "code": "Asunción",
+          "name": "Cajamarca"
+        },
+        {
+          "code": "Chetilla",
+          "name": "Cajamarca"
+        },
+        {
+          "code": "Cospan",
+          "name": "Cajamarca"
+        },
+        {
+          "code": "Encañada",
+          "name": "Cajamarca"
+        },
+        {
+          "code": "Jesús",
+          "name": "Cajamarca"
+        },
+        {
+          "code": "Llacanora",
+          "name": "Cajamarca"
+        },
+        {
+          "code": "Los Baños del Inca",
+          "name": "Cajamarca"
+        },
+        {
+          "code": "Magdalena",
+          "name": "Cajamarca"
+        },
+        {
+          "code": "Matara",
+          "name": "Cajamarca"
+        },
+        {
+          "code": "Namora",
+          "name": "Cajamarca"
+        },
+        {
+          "code": "San Juan",
+          "name": "Cajamarca"
+        },
+        {
+          "code": "Cajabamba",
+          "name": "Cajabamba"
+        },
+        {
+          "code": "Cachachi",
+          "name": "Cajabamba"
+        },
+        {
+          "code": "Condebamba",
+          "name": "Cajabamba"
+        },
+        {
+          "code": "Sitacocha",
+          "name": "Cajabamba"
+        },
+        {
+          "code": "Celendín",
+          "name": "Celendín"
+        },
+        {
+          "code": "Chumuch",
+          "name": "Celendín"
+        },
+        {
+          "code": "Cortegana",
+          "name": "Celendín"
+        },
+        {
+          "code": "Huasmin",
+          "name": "Celendín"
+        },
+        {
+          "code": "Jorge Chávez",
+          "name": "Celendín"
+        },
+        {
+          "code": "José Gálvez",
+          "name": "Celendín"
+        },
+        {
+          "code": "Miguel Iglesias",
+          "name": "Celendín"
+        },
+        {
+          "code": "Oxamarca",
+          "name": "Celendín"
+        },
+        {
+          "code": "Sorochuco",
+          "name": "Celendín"
+        },
+        {
+          "code": "Sucre",
+          "name": "Celendín"
+        },
+        {
+          "code": "Utco",
+          "name": "Celendín"
+        },
+        {
+          "code": "La Libertad de Pallan",
+          "name": "Celendín"
+        },
+        {
+          "code": "Chota",
+          "name": "Chota"
+        },
+        {
+          "code": "Anguia",
+          "name": "Chota"
+        },
+        {
+          "code": "Chadin",
+          "name": "Chota"
+        },
+        {
+          "code": "Chiguirip",
+          "name": "Chota"
+        },
+        {
+          "code": "Chimban",
+          "name": "Chota"
+        },
+        {
+          "code": "Choropampa",
+          "name": "Chota"
+        },
+        {
+          "code": "Cochabamba",
+          "name": "Chota"
+        },
+        {
+          "code": "Conchan",
+          "name": "Chota"
+        },
+        {
+          "code": "Huambos",
+          "name": "Chota"
+        },
+        {
+          "code": "Lajas",
+          "name": "Chota"
+        },
+        {
+          "code": "Llama",
+          "name": "Chota"
+        },
+        {
+          "code": "Miracosta",
+          "name": "Chota"
+        },
+        {
+          "code": "Paccha",
+          "name": "Chota"
+        },
+        {
+          "code": "Pion",
+          "name": "Chota"
+        },
+        {
+          "code": "Querocoto",
+          "name": "Chota"
+        },
+        {
+          "code": "San Juan de Licupis",
+          "name": "Chota"
+        },
+        {
+          "code": "Tacabamba",
+          "name": "Chota"
+        },
+        {
+          "code": "Tocmoche",
+          "name": "Chota"
+        },
+        {
+          "code": "Chalamarca",
+          "name": "Chota"
+        },
+        {
+          "code": "Contumaza",
+          "name": "Contumazá"
+        },
+        {
+          "code": "Chilete",
+          "name": "Contumazá"
+        },
+        {
+          "code": "Cupisnique",
+          "name": "Contumazá"
+        },
+        {
+          "code": "Guzmango",
+          "name": "Contumazá"
+        },
+        {
+          "code": "San Benito",
+          "name": "Contumazá"
+        },
+        {
+          "code": "Santa Cruz de Toledo",
+          "name": "Contumazá"
+        },
+        {
+          "code": "Tantarica",
+          "name": "Contumazá"
+        },
+        {
+          "code": "Yonan",
+          "name": "Contumazá"
+        },
+        {
+          "code": "Cutervo",
+          "name": "Cutervo"
+        },
+        {
+          "code": "Callayuc",
+          "name": "Cutervo"
+        },
+        {
+          "code": "Choros",
+          "name": "Cutervo"
+        },
+        {
+          "code": "Cujillo",
+          "name": "Cutervo"
+        },
+        {
+          "code": "La Ramada",
+          "name": "Cutervo"
+        },
+        {
+          "code": "Pimpingos",
+          "name": "Cutervo"
+        },
+        {
+          "code": "Querocotillo",
+          "name": "Cutervo"
+        },
+        {
+          "code": "San Andrés de Cutervo",
+          "name": "Cutervo"
+        },
+        {
+          "code": "San Juan de Cutervo",
+          "name": "Cutervo"
+        },
+        {
+          "code": "San Luis de Lucma",
+          "name": "Cutervo"
+        },
+        {
+          "code": "Santa Cruz",
+          "name": "Cutervo"
+        },
+        {
+          "code": "Santo Domingo de la Capilla",
+          "name": "Cutervo"
+        },
+        {
+          "code": "Santo Tomas",
+          "name": "Cutervo"
+        },
+        {
+          "code": "Socota",
+          "name": "Cutervo"
+        },
+        {
+          "code": "Toribio Casanova",
+          "name": "Cutervo"
+        },
+        {
+          "code": "Bambamarca",
+          "name": "Hualgayoc"
+        },
+        {
+          "code": "Chugur",
+          "name": "Hualgayoc"
+        },
+        {
+          "code": "Hualgayoc",
+          "name": "Hualgayoc"
+        },
+        {
+          "code": "Jaén",
+          "name": "Jaén"
+        },
+        {
+          "code": "Bellavista",
+          "name": "Jaén"
+        },
+        {
+          "code": "Chontali",
+          "name": "Jaén"
+        },
+        {
+          "code": "Colasay",
+          "name": "Jaén"
+        },
+        {
+          "code": "Huabal",
+          "name": "Jaén"
+        },
+        {
+          "code": "Las Pirias",
+          "name": "Jaén"
+        },
+        {
+          "code": "Pomahuaca",
+          "name": "Jaén"
+        },
+        {
+          "code": "Pucara",
+          "name": "Jaén"
+        },
+        {
+          "code": "Sallique",
+          "name": "Jaén"
+        },
+        {
+          "code": "San Felipe",
+          "name": "Jaén"
+        },
+        {
+          "code": "San José del Alto",
+          "name": "Jaén"
+        },
+        {
+          "code": "Santa Rosa",
+          "name": "Jaén"
+        },
+        {
+          "code": "San Ignacio",
+          "name": "San Ignacio"
+        },
+        {
+          "code": "Chirinos",
+          "name": "San Ignacio"
+        },
+        {
+          "code": "Huarango",
+          "name": "San Ignacio"
+        },
+        {
+          "code": "La Coipa",
+          "name": "San Ignacio"
+        },
+        {
+          "code": "Namballe",
+          "name": "San Ignacio"
+        },
+        {
+          "code": "San José de Lourdes",
+          "name": "San Ignacio"
+        },
+        {
+          "code": "Tabaconas",
+          "name": "San Ignacio"
+        },
+        {
+          "code": "Pedro Gálvez",
+          "name": "San Marcos"
+        },
+        {
+          "code": "Chancay",
+          "name": "San Marcos"
+        },
+        {
+          "code": "Eduardo Villanueva",
+          "name": "San Marcos"
+        },
+        {
+          "code": "Gregorio Pita",
+          "name": "San Marcos"
+        },
+        {
+          "code": "Ichocan",
+          "name": "San Marcos"
+        },
+        {
+          "code": "José Manuel Quiroz",
+          "name": "San Marcos"
+        },
+        {
+          "code": "José Sabogal",
+          "name": "San Marcos"
+        },
+        {
+          "code": "San Miguel",
+          "name": "San Miguel"
+        },
+        {
+          "code": "Bolívar",
+          "name": "San Miguel"
+        },
+        {
+          "code": "Calquis",
+          "name": "San Miguel"
+        },
+        {
+          "code": "Catilluc",
+          "name": "San Miguel"
+        },
+        {
+          "code": "El Prado",
+          "name": "San Miguel"
+        },
+        {
+          "code": "La Florida",
+          "name": "San Miguel"
+        },
+        {
+          "code": "Llapa",
+          "name": "San Miguel"
+        },
+        {
+          "code": "Nanchoc",
+          "name": "San Miguel"
+        },
+        {
+          "code": "Niepos",
+          "name": "San Miguel"
+        },
+        {
+          "code": "San Gregorio",
+          "name": "San Miguel"
+        },
+        {
+          "code": "San Silvestre de Cochan",
+          "name": "San Miguel"
+        },
+        {
+          "code": "Tongod",
+          "name": "San Miguel"
+        },
+        {
+          "code": "Unión Agua Blanca",
+          "name": "San Miguel"
+        },
+        {
+          "code": "San Pablo",
+          "name": "San Pablo"
+        },
+        {
+          "code": "San Bernardino",
+          "name": "San Pablo"
+        },
+        {
+          "code": "San Luis",
+          "name": "San Pablo"
+        },
+        {
+          "code": "Tumbaden",
+          "name": "San Pablo"
+        },
+        {
+          "code": "Santa Cruz",
+          "name": "Santa Cruz"
+        },
+        {
+          "code": "Andabamba",
+          "name": "Santa Cruz"
+        },
+        {
+          "code": "Catache",
+          "name": "Santa Cruz"
+        },
+        {
+          "code": "Chancaybaños",
+          "name": "Santa Cruz"
+        },
+        {
+          "code": "La Esperanza",
+          "name": "Santa Cruz"
+        },
+        {
+          "code": "Ninabamba",
+          "name": "Santa Cruz"
+        },
+        {
+          "code": "Pulan",
+          "name": "Santa Cruz"
+        },
+        {
+          "code": "Saucepampa",
+          "name": "Santa Cruz"
+        },
+        {
+          "code": "Sexi",
+          "name": "Santa Cruz"
+        },
+        {
+          "code": "Uticyacu",
+          "name": "Santa Cruz"
+        },
+        {
+          "code": "Yauyucan",
+          "name": "Santa Cruz"
+        },
+        {
+          "code": "Callao",
+          "name": "Prov. Const. del Callao"
+        },
+        {
+          "code": "Bellavista",
+          "name": "Prov. Const. del Callao"
+        },
+        {
+          "code": "Carmen de la Legua Reynoso",
+          "name": "Prov. Const. del Callao"
+        },
+        {
+          "code": "La Perla",
+          "name": "Prov. Const. del Callao"
+        },
+        {
+          "code": "La Punta",
+          "name": "Prov. Const. del Callao"
+        },
+        {
+          "code": "Ventanilla",
+          "name": "Prov. Const. del Callao"
+        },
+        {
+          "code": "Mi Perú",
+          "name": "Prov. Const. del Callao"
+        },
+        {
+          "code": "Cusco",
+          "name": "Cusco"
+        },
+        {
+          "code": "Ccorca",
+          "name": "Cusco"
+        },
+        {
+          "code": "Poroy",
+          "name": "Cusco"
+        },
+        {
+          "code": "San Jerónimo",
+          "name": "Cusco"
+        },
+        {
+          "code": "San Sebastian",
+          "name": "Cusco"
+        },
+        {
+          "code": "Santiago",
+          "name": "Cusco"
+        },
+        {
+          "code": "Saylla",
+          "name": "Cusco"
+        },
+        {
+          "code": "Wanchaq",
+          "name": "Cusco"
+        },
+        {
+          "code": "Acomayo",
+          "name": "Acomayo"
+        },
+        {
+          "code": "Acopia",
+          "name": "Acomayo"
+        },
+        {
+          "code": "Acos",
+          "name": "Acomayo"
+        },
+        {
+          "code": "Mosoc Llacta",
+          "name": "Acomayo"
+        },
+        {
+          "code": "Pomacanchi",
+          "name": "Acomayo"
+        },
+        {
+          "code": "Rondocan",
+          "name": "Acomayo"
+        },
+        {
+          "code": "Sangarara",
+          "name": "Acomayo"
+        },
+        {
+          "code": "Anta",
+          "name": "Anta"
+        },
+        {
+          "code": "Ancahuasi",
+          "name": "Anta"
+        },
+        {
+          "code": "Cachimayo",
+          "name": "Anta"
+        },
+        {
+          "code": "Chinchaypujio",
+          "name": "Anta"
+        },
+        {
+          "code": "Huarocondo",
+          "name": "Anta"
+        },
+        {
+          "code": "Limatambo",
+          "name": "Anta"
+        },
+        {
+          "code": "Mollepata",
+          "name": "Anta"
+        },
+        {
+          "code": "Pucyura",
+          "name": "Anta"
+        },
+        {
+          "code": "Zurite",
+          "name": "Anta"
+        },
+        {
+          "code": "Calca",
+          "name": "Calca"
+        },
+        {
+          "code": "Coya",
+          "name": "Calca"
+        },
+        {
+          "code": "Lamay",
+          "name": "Calca"
+        },
+        {
+          "code": "Lares",
+          "name": "Calca"
+        },
+        {
+          "code": "Pisac",
+          "name": "Calca"
+        },
+        {
+          "code": "San Salvador",
+          "name": "Calca"
+        },
+        {
+          "code": "Taray",
+          "name": "Calca"
+        },
+        {
+          "code": "Yanatile",
+          "name": "Calca"
+        },
+        {
+          "code": "Yanaoca",
+          "name": "Canas"
+        },
+        {
+          "code": "Checca",
+          "name": "Canas"
+        },
+        {
+          "code": "Kunturkanki",
+          "name": "Canas"
+        },
+        {
+          "code": "Langui",
+          "name": "Canas"
+        },
+        {
+          "code": "Layo",
+          "name": "Canas"
+        },
+        {
+          "code": "Pampamarca",
+          "name": "Canas"
+        },
+        {
+          "code": "Quehue",
+          "name": "Canas"
+        },
+        {
+          "code": "Tupac Amaru",
+          "name": "Canas"
+        },
+        {
+          "code": "Sicuani",
+          "name": "Canchis"
+        },
+        {
+          "code": "Checacupe",
+          "name": "Canchis"
+        },
+        {
+          "code": "Combapata",
+          "name": "Canchis"
+        },
+        {
+          "code": "Marangani",
+          "name": "Canchis"
+        },
+        {
+          "code": "Pitumarca",
+          "name": "Canchis"
+        },
+        {
+          "code": "San Pablo",
+          "name": "Canchis"
+        },
+        {
+          "code": "San Pedro",
+          "name": "Canchis"
+        },
+        {
+          "code": "Tinta",
+          "name": "Canchis"
+        },
+        {
+          "code": "Santo Tomas",
+          "name": "Chumbivilcas"
+        },
+        {
+          "code": "Capacmarca",
+          "name": "Chumbivilcas"
+        },
+        {
+          "code": "Chamaca",
+          "name": "Chumbivilcas"
+        },
+        {
+          "code": "Colquemarca",
+          "name": "Chumbivilcas"
+        },
+        {
+          "code": "Livitaca",
+          "name": "Chumbivilcas"
+        },
+        {
+          "code": "Llusco",
+          "name": "Chumbivilcas"
+        },
+        {
+          "code": "Quiñota",
+          "name": "Chumbivilcas"
+        },
+        {
+          "code": "Velille",
+          "name": "Chumbivilcas"
+        },
+        {
+          "code": "Espinar",
+          "name": "Espinar"
+        },
+        {
+          "code": "Condoroma",
+          "name": "Espinar"
+        },
+        {
+          "code": "Coporaque",
+          "name": "Espinar"
+        },
+        {
+          "code": "Ocoruro",
+          "name": "Espinar"
+        },
+        {
+          "code": "Pallpata",
+          "name": "Espinar"
+        },
+        {
+          "code": "Pichigua",
+          "name": "Espinar"
+        },
+        {
+          "code": "Suyckutambo",
+          "name": "Espinar"
+        },
+        {
+          "code": "Alto Pichigua",
+          "name": "Espinar"
+        },
+        {
+          "code": "Santa Ana",
+          "name": "La Convención"
+        },
+        {
+          "code": "Echarate",
+          "name": "La Convención"
+        },
+        {
+          "code": "Huayopata",
+          "name": "La Convención"
+        },
+        {
+          "code": "Maranura",
+          "name": "La Convención"
+        },
+        {
+          "code": "Ocobamba",
+          "name": "La Convención"
+        },
+        {
+          "code": "Quellouno",
+          "name": "La Convención"
+        },
+        {
+          "code": "Kimbiri",
+          "name": "La Convención"
+        },
+        {
+          "code": "Santa Teresa",
+          "name": "La Convención"
+        },
+        {
+          "code": "Vilcabamba",
+          "name": "La Convención"
+        },
+        {
+          "code": "Pichari",
+          "name": "La Convención"
+        },
+        {
+          "code": "Inkawasi",
+          "name": "La Convención"
+        },
+        {
+          "code": "Villa Virgen",
+          "name": "La Convención"
+        },
+        {
+          "code": "Villa Kintiarina",
+          "name": "La Convención"
+        },
+        {
+          "code": "Paruro",
+          "name": "Paruro"
+        },
+        {
+          "code": "Accha",
+          "name": "Paruro"
+        },
+        {
+          "code": "Ccapi",
+          "name": "Paruro"
+        },
+        {
+          "code": "Colcha",
+          "name": "Paruro"
+        },
+        {
+          "code": "Huanoquite",
+          "name": "Paruro"
+        },
+        {
+          "code": "Omacha",
+          "name": "Paruro"
+        },
+        {
+          "code": "Paccaritambo",
+          "name": "Paruro"
+        },
+        {
+          "code": "Pillpinto",
+          "name": "Paruro"
+        },
+        {
+          "code": "Yaurisque",
+          "name": "Paruro"
+        },
+        {
+          "code": "Paucartambo",
+          "name": "Paucartambo"
+        },
+        {
+          "code": "Caicay",
+          "name": "Paucartambo"
+        },
+        {
+          "code": "Challabamba",
+          "name": "Paucartambo"
+        },
+        {
+          "code": "Colquepata",
+          "name": "Paucartambo"
+        },
+        {
+          "code": "Huancarani",
+          "name": "Paucartambo"
+        },
+        {
+          "code": "Kosñipata",
+          "name": "Paucartambo"
+        },
+        {
+          "code": "Urcos",
+          "name": "Quispicanchi"
+        },
+        {
+          "code": "Andahuaylillas",
+          "name": "Quispicanchi"
+        },
+        {
+          "code": "Camanti",
+          "name": "Quispicanchi"
+        },
+        {
+          "code": "Ccarhuayo",
+          "name": "Quispicanchi"
+        },
+        {
+          "code": "Ccatca",
+          "name": "Quispicanchi"
+        },
+        {
+          "code": "Cusipata",
+          "name": "Quispicanchi"
+        },
+        {
+          "code": "Huaro",
+          "name": "Quispicanchi"
+        },
+        {
+          "code": "Lucre",
+          "name": "Quispicanchi"
+        },
+        {
+          "code": "Marcapata",
+          "name": "Quispicanchi"
+        },
+        {
+          "code": "Ocongate",
+          "name": "Quispicanchi"
+        },
+        {
+          "code": "Oropesa",
+          "name": "Quispicanchi"
+        },
+        {
+          "code": "Quiquijana",
+          "name": "Quispicanchi"
+        },
+        {
+          "code": "Urubamba",
+          "name": "Urubamba"
+        },
+        {
+          "code": "Chinchero",
+          "name": "Urubamba"
+        },
+        {
+          "code": "Huayllabamba",
+          "name": "Urubamba"
+        },
+        {
+          "code": "Machupicchu",
+          "name": "Urubamba"
+        },
+        {
+          "code": "Maras",
+          "name": "Urubamba"
+        },
+        {
+          "code": "Ollantaytambo",
+          "name": "Urubamba"
+        },
+        {
+          "code": "Yucay",
+          "name": "Urubamba"
+        },
+        {
+          "code": "Huancavelica",
+          "name": "Huancavelica"
+        },
+        {
+          "code": "Acobambilla",
+          "name": "Huancavelica"
+        },
+        {
+          "code": "Acoria",
+          "name": "Huancavelica"
+        },
+        {
+          "code": "Conayca",
+          "name": "Huancavelica"
+        },
+        {
+          "code": "Cuenca",
+          "name": "Huancavelica"
+        },
+        {
+          "code": "Huachocolpa",
+          "name": "Huancavelica"
+        },
+        {
+          "code": "Huayllahuara",
+          "name": "Huancavelica"
+        },
+        {
+          "code": "Izcuchaca",
+          "name": "Huancavelica"
+        },
+        {
+          "code": "Laria",
+          "name": "Huancavelica"
+        },
+        {
+          "code": "Manta",
+          "name": "Huancavelica"
+        },
+        {
+          "code": "Mariscal Cáceres",
+          "name": "Huancavelica"
+        },
+        {
+          "code": "Moya",
+          "name": "Huancavelica"
+        },
+        {
+          "code": "Nuevo Occoro",
+          "name": "Huancavelica"
+        },
+        {
+          "code": "Palca",
+          "name": "Huancavelica"
+        },
+        {
+          "code": "Pilchaca",
+          "name": "Huancavelica"
+        },
+        {
+          "code": "Vilca",
+          "name": "Huancavelica"
+        },
+        {
+          "code": "Yauli",
+          "name": "Huancavelica"
+        },
+        {
+          "code": "Ascensión",
+          "name": "Huancavelica"
+        },
+        {
+          "code": "Huando",
+          "name": "Huancavelica"
+        },
+        {
+          "code": "Acobamba",
+          "name": "Acobamba"
+        },
+        {
+          "code": "Andabamba",
+          "name": "Acobamba"
+        },
+        {
+          "code": "Anta",
+          "name": "Acobamba"
+        },
+        {
+          "code": "Caja",
+          "name": "Acobamba"
+        },
+        {
+          "code": "Marcas",
+          "name": "Acobamba"
+        },
+        {
+          "code": "Paucara",
+          "name": "Acobamba"
+        },
+        {
+          "code": "Pomacocha",
+          "name": "Acobamba"
+        },
+        {
+          "code": "Rosario",
+          "name": "Acobamba"
+        },
+        {
+          "code": "Lircay",
+          "name": "Angaraes"
+        },
+        {
+          "code": "Anchonga",
+          "name": "Angaraes"
+        },
+        {
+          "code": "Callanmarca",
+          "name": "Angaraes"
+        },
+        {
+          "code": "Ccochaccasa",
+          "name": "Angaraes"
+        },
+        {
+          "code": "Chincho",
+          "name": "Angaraes"
+        },
+        {
+          "code": "Congalla",
+          "name": "Angaraes"
+        },
+        {
+          "code": "Huanca-Huanca",
+          "name": "Angaraes"
+        },
+        {
+          "code": "Huayllay Grande",
+          "name": "Angaraes"
+        },
+        {
+          "code": "Julcamarca",
+          "name": "Angaraes"
+        },
+        {
+          "code": "San Antonio de Antaparco",
+          "name": "Angaraes"
+        },
+        {
+          "code": "Santo Tomas de Pata",
+          "name": "Angaraes"
+        },
+        {
+          "code": "Secclla",
+          "name": "Angaraes"
+        },
+        {
+          "code": "Castrovirreyna",
+          "name": "Castrovirreyna"
+        },
+        {
+          "code": "Arma",
+          "name": "Castrovirreyna"
+        },
+        {
+          "code": "Aurahua",
+          "name": "Castrovirreyna"
+        },
+        {
+          "code": "Capillas",
+          "name": "Castrovirreyna"
+        },
+        {
+          "code": "Chupamarca",
+          "name": "Castrovirreyna"
+        },
+        {
+          "code": "Cocas",
+          "name": "Castrovirreyna"
+        },
+        {
+          "code": "Huachos",
+          "name": "Castrovirreyna"
+        },
+        {
+          "code": "Huamatambo",
+          "name": "Castrovirreyna"
+        },
+        {
+          "code": "Mollepampa",
+          "name": "Castrovirreyna"
+        },
+        {
+          "code": "San Juan",
+          "name": "Castrovirreyna"
+        },
+        {
+          "code": "Santa Ana",
+          "name": "Castrovirreyna"
+        },
+        {
+          "code": "Tantara",
+          "name": "Castrovirreyna"
+        },
+        {
+          "code": "Ticrapo",
+          "name": "Castrovirreyna"
+        },
+        {
+          "code": "Churcampa",
+          "name": "Churcampa"
+        },
+        {
+          "code": "Anco",
+          "name": "Churcampa"
+        },
+        {
+          "code": "Chinchihuasi",
+          "name": "Churcampa"
+        },
+        {
+          "code": "El Carmen",
+          "name": "Churcampa"
+        },
+        {
+          "code": "La Merced",
+          "name": "Churcampa"
+        },
+        {
+          "code": "Locroja",
+          "name": "Churcampa"
+        },
+        {
+          "code": "Paucarbamba",
+          "name": "Churcampa"
+        },
+        {
+          "code": "San Miguel de Mayocc",
+          "name": "Churcampa"
+        },
+        {
+          "code": "San Pedro de Coris",
+          "name": "Churcampa"
+        },
+        {
+          "code": "Pachamarca",
+          "name": "Churcampa"
+        },
+        {
+          "code": "Cosme",
+          "name": "Churcampa"
+        },
+        {
+          "code": "Huaytara",
+          "name": "Huaytará"
+        },
+        {
+          "code": "Ayavi",
+          "name": "Huaytará"
+        },
+        {
+          "code": "Córdova",
+          "name": "Huaytará"
+        },
+        {
+          "code": "Huayacundo Arma",
+          "name": "Huaytará"
+        },
+        {
+          "code": "Laramarca",
+          "name": "Huaytará"
+        },
+        {
+          "code": "Ocoyo",
+          "name": "Huaytará"
+        },
+        {
+          "code": "Pilpichaca",
+          "name": "Huaytará"
+        },
+        {
+          "code": "Querco",
+          "name": "Huaytará"
+        },
+        {
+          "code": "Quito-Arma",
+          "name": "Huaytará"
+        },
+        {
+          "code": "San Antonio de Cusicancha",
+          "name": "Huaytará"
+        },
+        {
+          "code": "San Francisco de Sangayaico",
+          "name": "Huaytará"
+        },
+        {
+          "code": "San Isidro",
+          "name": "Huaytará"
+        },
+        {
+          "code": "Santiago de Chocorvos",
+          "name": "Huaytará"
+        },
+        {
+          "code": "Santiago de Quirahuara",
+          "name": "Huaytará"
+        },
+        {
+          "code": "Santo Domingo de Capillas",
+          "name": "Huaytará"
+        },
+        {
+          "code": "Tambo",
+          "name": "Huaytará"
+        },
+        {
+          "code": "Pampas",
+          "name": "Tayacaja"
+        },
+        {
+          "code": "Acostambo",
+          "name": "Tayacaja"
+        },
+        {
+          "code": "Acraquia",
+          "name": "Tayacaja"
+        },
+        {
+          "code": "Ahuaycha",
+          "name": "Tayacaja"
+        },
+        {
+          "code": "Colcabamba",
+          "name": "Tayacaja"
+        },
+        {
+          "code": "Daniel Hernández",
+          "name": "Tayacaja"
+        },
+        {
+          "code": "Huachocolpa",
+          "name": "Tayacaja"
+        },
+        {
+          "code": "Huaribamba",
+          "name": "Tayacaja"
+        },
+        {
+          "code": "Ñahuimpuquio",
+          "name": "Tayacaja"
+        },
+        {
+          "code": "Pazos",
+          "name": "Tayacaja"
+        },
+        {
+          "code": "Quishuar",
+          "name": "Tayacaja"
+        },
+        {
+          "code": "Salcabamba",
+          "name": "Tayacaja"
+        },
+        {
+          "code": "Salcahuasi",
+          "name": "Tayacaja"
+        },
+        {
+          "code": "San Marcos de Rocchac",
+          "name": "Tayacaja"
+        },
+        {
+          "code": "Surcubamba",
+          "name": "Tayacaja"
+        },
+        {
+          "code": "Tintay Puncu",
+          "name": "Tayacaja"
+        },
+        {
+          "code": "Quichuas",
+          "name": "Tayacaja"
+        },
+        {
+          "code": "Andaymarca",
+          "name": "Tayacaja"
+        },
+        {
+          "code": "Huanuco",
+          "name": "Huánuco"
+        },
+        {
+          "code": "Amarilis",
+          "name": "Huánuco"
+        },
+        {
+          "code": "Chinchao",
+          "name": "Huánuco"
+        },
+        {
+          "code": "Churubamba",
+          "name": "Huánuco"
+        },
+        {
+          "code": "Margos",
+          "name": "Huánuco"
+        },
+        {
+          "code": "Quisqui (Kichki)",
+          "name": "Huánuco"
+        },
+        {
+          "code": "San Francisco de Cayran",
+          "name": "Huánuco"
+        },
+        {
+          "code": "San Pedro de Chaulan",
+          "name": "Huánuco"
+        },
+        {
+          "code": "Santa María del Valle",
+          "name": "Huánuco"
+        },
+        {
+          "code": "Yarumayo",
+          "name": "Huánuco"
+        },
+        {
+          "code": "Pillco Marca",
+          "name": "Huánuco"
+        },
+        {
+          "code": "Yacus",
+          "name": "Huánuco"
+        },
+        {
+          "code": "Ambo",
+          "name": "Ambo"
+        },
+        {
+          "code": "Cayna",
+          "name": "Ambo"
+        },
+        {
+          "code": "Colpas",
+          "name": "Ambo"
+        },
+        {
+          "code": "Conchamarca",
+          "name": "Ambo"
+        },
+        {
+          "code": "Huacar",
+          "name": "Ambo"
+        },
+        {
+          "code": "San Francisco",
+          "name": "Ambo"
+        },
+        {
+          "code": "San Rafael",
+          "name": "Ambo"
+        },
+        {
+          "code": "Tomay Kichwa",
+          "name": "Ambo"
+        },
+        {
+          "code": "La Unión",
+          "name": "Dos de Mayo"
+        },
+        {
+          "code": "Chuquis",
+          "name": "Dos de Mayo"
+        },
+        {
+          "code": "Marías",
+          "name": "Dos de Mayo"
+        },
+        {
+          "code": "Pachas",
+          "name": "Dos de Mayo"
+        },
+        {
+          "code": "Quivilla",
+          "name": "Dos de Mayo"
+        },
+        {
+          "code": "Ripan",
+          "name": "Dos de Mayo"
+        },
+        {
+          "code": "Shunqui",
+          "name": "Dos de Mayo"
+        },
+        {
+          "code": "Sillapata",
+          "name": "Dos de Mayo"
+        },
+        {
+          "code": "Yanas",
+          "name": "Dos de Mayo"
+        },
+        {
+          "code": "Huacaybamba",
+          "name": "Huacaybamba"
+        },
+        {
+          "code": "Canchabamba",
+          "name": "Huacaybamba"
+        },
+        {
+          "code": "Cochabamba",
+          "name": "Huacaybamba"
+        },
+        {
+          "code": "Pinra",
+          "name": "Huacaybamba"
+        },
+        {
+          "code": "Llata",
+          "name": "Huamalíes"
+        },
+        {
+          "code": "Arancay",
+          "name": "Huamalíes"
+        },
+        {
+          "code": "Chavín de Pariarca",
+          "name": "Huamalíes"
+        },
+        {
+          "code": "Jacas Grande",
+          "name": "Huamalíes"
+        },
+        {
+          "code": "Jircan",
+          "name": "Huamalíes"
+        },
+        {
+          "code": "Miraflores",
+          "name": "Huamalíes"
+        },
+        {
+          "code": "Monzón",
+          "name": "Huamalíes"
+        },
+        {
+          "code": "Punchao",
+          "name": "Huamalíes"
+        },
+        {
+          "code": "Puños",
+          "name": "Huamalíes"
+        },
+        {
+          "code": "Singa",
+          "name": "Huamalíes"
+        },
+        {
+          "code": "Tantamayo",
+          "name": "Huamalíes"
+        },
+        {
+          "code": "Rupa-Rupa",
+          "name": "Leoncio Prado"
+        },
+        {
+          "code": "Daniel Alomía Robles",
+          "name": "Leoncio Prado"
+        },
+        {
+          "code": "Hermílio Valdizan",
+          "name": "Leoncio Prado"
+        },
+        {
+          "code": "José Crespo y Castillo",
+          "name": "Leoncio Prado"
+        },
+        {
+          "code": "Luyando",
+          "name": "Leoncio Prado"
+        },
+        {
+          "code": "Mariano Damaso Beraun",
+          "name": "Leoncio Prado"
+        },
+        {
+          "code": "Huacrachuco",
+          "name": "Marañón"
+        },
+        {
+          "code": "Cholon",
+          "name": "Marañón"
+        },
+        {
+          "code": "San Buenaventura",
+          "name": "Marañón"
+        },
+        {
+          "code": "Panao",
+          "name": "Pachitea"
+        },
+        {
+          "code": "Chaglla",
+          "name": "Pachitea"
+        },
+        {
+          "code": "Molino",
+          "name": "Pachitea"
+        },
+        {
+          "code": "Umari",
+          "name": "Pachitea"
+        },
+        {
+          "code": "Puerto Inca",
+          "name": "Puerto Inca"
+        },
+        {
+          "code": "Codo del Pozuzo",
+          "name": "Puerto Inca"
+        },
+        {
+          "code": "Honoria",
+          "name": "Puerto Inca"
+        },
+        {
+          "code": "Tournavista",
+          "name": "Puerto Inca"
+        },
+        {
+          "code": "Yuyapichis",
+          "name": "Puerto Inca"
+        },
+        {
+          "code": "Jesús",
+          "name": "Lauricocha"
+        },
+        {
+          "code": "Baños",
+          "name": "Lauricocha"
+        },
+        {
+          "code": "Jivia",
+          "name": "Lauricocha"
+        },
+        {
+          "code": "Queropalca",
+          "name": "Lauricocha"
+        },
+        {
+          "code": "Rondos",
+          "name": "Lauricocha"
+        },
+        {
+          "code": "San Francisco de Asís",
+          "name": "Lauricocha"
+        },
+        {
+          "code": "San Miguel de Cauri",
+          "name": "Lauricocha"
+        },
+        {
+          "code": "Chavinillo",
+          "name": "Yarowilca"
+        },
+        {
+          "code": "Cahuac",
+          "name": "Yarowilca"
+        },
+        {
+          "code": "Chacabamba",
+          "name": "Yarowilca"
+        },
+        {
+          "code": "Aparicio Pomares",
+          "name": "Yarowilca"
+        },
+        {
+          "code": "Jacas Chico",
+          "name": "Yarowilca"
+        },
+        {
+          "code": "Obas",
+          "name": "Yarowilca"
+        },
+        {
+          "code": "Pampamarca",
+          "name": "Yarowilca"
+        },
+        {
+          "code": "Choras",
+          "name": "Yarowilca"
+        },
+        {
+          "code": "Ica",
+          "name": "Ica"
+        },
+        {
+          "code": "La Tinguiña",
+          "name": "Ica"
+        },
+        {
+          "code": "Los Aquijes",
+          "name": "Ica"
+        },
+        {
+          "code": "Ocucaje",
+          "name": "Ica"
+        },
+        {
+          "code": "Pachacutec",
+          "name": "Ica"
+        },
+        {
+          "code": "Parcona",
+          "name": "Ica"
+        },
+        {
+          "code": "Pueblo Nuevo",
+          "name": "Ica"
+        },
+        {
+          "code": "Salas",
+          "name": "Ica"
+        },
+        {
+          "code": "San José de Los Molinos",
+          "name": "Ica"
+        },
+        {
+          "code": "San Juan Bautista",
+          "name": "Ica"
+        },
+        {
+          "code": "Santiago",
+          "name": "Ica"
+        },
+        {
+          "code": "Subtanjalla",
+          "name": "Ica"
+        },
+        {
+          "code": "Tate",
+          "name": "Ica"
+        },
+        {
+          "code": "Yauca del Rosario",
+          "name": "Ica"
+        },
+        {
+          "code": "Chincha Alta",
+          "name": "Chincha"
+        },
+        {
+          "code": "Alto Laran",
+          "name": "Chincha"
+        },
+        {
+          "code": "Chavin",
+          "name": "Chincha"
+        },
+        {
+          "code": "Chincha Baja",
+          "name": "Chincha"
+        },
+        {
+          "code": "El Carmen",
+          "name": "Chincha"
+        },
+        {
+          "code": "Grocio Prado",
+          "name": "Chincha"
+        },
+        {
+          "code": "Pueblo Nuevo",
+          "name": "Chincha"
+        },
+        {
+          "code": "San Juan de Yanac",
+          "name": "Chincha"
+        },
+        {
+          "code": "San Pedro de Huacarpana",
+          "name": "Chincha"
+        },
+        {
+          "code": "Sunampe",
+          "name": "Chincha"
+        },
+        {
+          "code": "Tambo de Mora",
+          "name": "Chincha"
+        },
+        {
+          "code": "Nasca",
+          "name": "Nazca"
+        },
+        {
+          "code": "Changuillo",
+          "name": "Nazca"
+        },
+        {
+          "code": "El Ingenio",
+          "name": "Nazca"
+        },
+        {
+          "code": "Marcona",
+          "name": "Nazca"
+        },
+        {
+          "code": "Vista Alegre",
+          "name": "Nazca"
+        },
+        {
+          "code": "Palpa",
+          "name": "Palpa"
+        },
+        {
+          "code": "Llipata",
+          "name": "Palpa"
+        },
+        {
+          "code": "Río Grande",
+          "name": "Palpa"
+        },
+        {
+          "code": "Santa Cruz",
+          "name": "Palpa"
+        },
+        {
+          "code": "Tibillo",
+          "name": "Palpa"
+        },
+        {
+          "code": "Pisco",
+          "name": "Pisco"
+        },
+        {
+          "code": "Huancano",
+          "name": "Pisco"
+        },
+        {
+          "code": "Humay",
+          "name": "Pisco"
+        },
+        {
+          "code": "Independencia",
+          "name": "Pisco"
+        },
+        {
+          "code": "Paracas",
+          "name": "Pisco"
+        },
+        {
+          "code": "San Andrés",
+          "name": "Pisco"
+        },
+        {
+          "code": "San Clemente",
+          "name": "Pisco"
+        },
+        {
+          "code": "Tupac Amaru Inca",
+          "name": "Pisco"
+        },
+        {
+          "code": "Huancayo",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Carhuacallanga",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Chacapampa",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Chicche",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Chilca",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Chongos Alto",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Chupuro",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Colca",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Cullhuas",
+          "name": "Huancayo"
+        },
+        {
+          "code": "El Tambo",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Huacrapuquio",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Hualhuas",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Huancan",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Huasicancha",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Huayucachi",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Ingenio",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Pariahuanca",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Pilcomayo",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Pucara",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Quichuay",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Quilcas",
+          "name": "Huancayo"
+        },
+        {
+          "code": "San Agustín",
+          "name": "Huancayo"
+        },
+        {
+          "code": "San Jerónimo de Tunan",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Saño",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Sapallanga",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Sicaya",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Santo Domingo de Acobamba",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Viques",
+          "name": "Huancayo"
+        },
+        {
+          "code": "Concepción",
+          "name": "Concepción"
+        },
+        {
+          "code": "Aco",
+          "name": "Concepción"
+        },
+        {
+          "code": "Andamarca",
+          "name": "Concepción"
+        },
+        {
+          "code": "Chambara",
+          "name": "Concepción"
+        },
+        {
+          "code": "Cochas",
+          "name": "Concepción"
+        },
+        {
+          "code": "Comas",
+          "name": "Concepción"
+        },
+        {
+          "code": "Heroínas Toledo",
+          "name": "Concepción"
+        },
+        {
+          "code": "Manzanares",
+          "name": "Concepción"
+        },
+        {
+          "code": "Mariscal Castilla",
+          "name": "Concepción"
+        },
+        {
+          "code": "Matahuasi",
+          "name": "Concepción"
+        },
+        {
+          "code": "Mito",
+          "name": "Concepción"
+        },
+        {
+          "code": "Nueve de Julio",
+          "name": "Concepción"
+        },
+        {
+          "code": "Orcotuna",
+          "name": "Concepción"
+        },
+        {
+          "code": "San José de Quero",
+          "name": "Concepción"
+        },
+        {
+          "code": "Santa Rosa de Ocopa",
+          "name": "Concepción"
+        },
+        {
+          "code": "Chanchamayo",
+          "name": "Chanchamayo"
+        },
+        {
+          "code": "Perene",
+          "name": "Chanchamayo"
+        },
+        {
+          "code": "Pichanaqui",
+          "name": "Chanchamayo"
+        },
+        {
+          "code": "San Luis de Shuaro",
+          "name": "Chanchamayo"
+        },
+        {
+          "code": "San Ramón",
+          "name": "Chanchamayo"
+        },
+        {
+          "code": "Vitoc",
+          "name": "Chanchamayo"
+        },
+        {
+          "code": "Jauja",
+          "name": "Jauja"
+        },
+        {
+          "code": "Acolla",
+          "name": "Jauja"
+        },
+        {
+          "code": "Apata",
+          "name": "Jauja"
+        },
+        {
+          "code": "Ataura",
+          "name": "Jauja"
+        },
+        {
+          "code": "Canchayllo",
+          "name": "Jauja"
+        },
+        {
+          "code": "Curicaca",
+          "name": "Jauja"
+        },
+        {
+          "code": "El Mantaro",
+          "name": "Jauja"
+        },
+        {
+          "code": "Huamali",
+          "name": "Jauja"
+        },
+        {
+          "code": "Huaripampa",
+          "name": "Jauja"
+        },
+        {
+          "code": "Huertas",
+          "name": "Jauja"
+        },
+        {
+          "code": "Janjaillo",
+          "name": "Jauja"
+        },
+        {
+          "code": "Julcán",
+          "name": "Jauja"
+        },
+        {
+          "code": "Leonor Ordóñez",
+          "name": "Jauja"
+        },
+        {
+          "code": "Llocllapampa",
+          "name": "Jauja"
+        },
+        {
+          "code": "Marco",
+          "name": "Jauja"
+        },
+        {
+          "code": "Masma",
+          "name": "Jauja"
+        },
+        {
+          "code": "Masma Chicche",
+          "name": "Jauja"
+        },
+        {
+          "code": "Molinos",
+          "name": "Jauja"
+        },
+        {
+          "code": "Monobamba",
+          "name": "Jauja"
+        },
+        {
+          "code": "Muqui",
+          "name": "Jauja"
+        },
+        {
+          "code": "Muquiyauyo",
+          "name": "Jauja"
+        },
+        {
+          "code": "Paca",
+          "name": "Jauja"
+        },
+        {
+          "code": "Paccha",
+          "name": "Jauja"
+        },
+        {
+          "code": "Pancan",
+          "name": "Jauja"
+        },
+        {
+          "code": "Parco",
+          "name": "Jauja"
+        },
+        {
+          "code": "Pomacancha",
+          "name": "Jauja"
+        },
+        {
+          "code": "Ricran",
+          "name": "Jauja"
+        },
+        {
+          "code": "San Lorenzo",
+          "name": "Jauja"
+        },
+        {
+          "code": "San Pedro de Chunan",
+          "name": "Jauja"
+        },
+        {
+          "code": "Sausa",
+          "name": "Jauja"
+        },
+        {
+          "code": "Sincos",
+          "name": "Jauja"
+        },
+        {
+          "code": "Tunan Marca",
+          "name": "Jauja"
+        },
+        {
+          "code": "Yauli",
+          "name": "Jauja"
+        },
+        {
+          "code": "Yauyos",
+          "name": "Jauja"
+        },
+        {
+          "code": "Junin",
+          "name": "Junín"
+        },
+        {
+          "code": "Carhuamayo",
+          "name": "Junín"
+        },
+        {
+          "code": "Ondores",
+          "name": "Junín"
+        },
+        {
+          "code": "Ulcumayo",
+          "name": "Junín"
+        },
+        {
+          "code": "Satipo",
+          "name": "Satipo"
+        },
+        {
+          "code": "Coviriali",
+          "name": "Satipo"
+        },
+        {
+          "code": "Llaylla",
+          "name": "Satipo"
+        },
+        {
+          "code": "Mazamari",
+          "name": "Satipo"
+        },
+        {
+          "code": "Pampa Hermosa",
+          "name": "Satipo"
+        },
+        {
+          "code": "Pangoa",
+          "name": "Satipo"
+        },
+        {
+          "code": "Río Negro",
+          "name": "Satipo"
+        },
+        {
+          "code": "Río Tambo",
+          "name": "Satipo"
+        },
+        {
+          "code": "Vizcatan del Ene",
+          "name": "Satipo"
+        },
+        {
+          "code": "Tarma",
+          "name": "Tarma"
+        },
+        {
+          "code": "Acobamba",
+          "name": "Tarma"
+        },
+        {
+          "code": "Huaricolca",
+          "name": "Tarma"
+        },
+        {
+          "code": "Huasahuasi",
+          "name": "Tarma"
+        },
+        {
+          "code": "La Unión",
+          "name": "Tarma"
+        },
+        {
+          "code": "Palca",
+          "name": "Tarma"
+        },
+        {
+          "code": "Palcamayo",
+          "name": "Tarma"
+        },
+        {
+          "code": "San Pedro de Cajas",
+          "name": "Tarma"
+        },
+        {
+          "code": "Tapo",
+          "name": "Tarma"
+        },
+        {
+          "code": "La Oroya",
+          "name": "Yauli"
+        },
+        {
+          "code": "Chacapalpa",
+          "name": "Yauli"
+        },
+        {
+          "code": "Huay-Huay",
+          "name": "Yauli"
+        },
+        {
+          "code": "Marcapomacocha",
+          "name": "Yauli"
+        },
+        {
+          "code": "Morococha",
+          "name": "Yauli"
+        },
+        {
+          "code": "Paccha",
+          "name": "Yauli"
+        },
+        {
+          "code": "Santa Bárbara de Carhuacayan",
+          "name": "Yauli"
+        },
+        {
+          "code": "Santa Rosa de Sacco",
+          "name": "Yauli"
+        },
+        {
+          "code": "Suitucancha",
+          "name": "Yauli"
+        },
+        {
+          "code": "Yauli",
+          "name": "Yauli"
+        },
+        {
+          "code": "Chupaca",
+          "name": "Chupaca"
+        },
+        {
+          "code": "Ahuac",
+          "name": "Chupaca"
+        },
+        {
+          "code": "Chongos Bajo",
+          "name": "Chupaca"
+        },
+        {
+          "code": "Huachac",
+          "name": "Chupaca"
+        },
+        {
+          "code": "Huamancaca Chico",
+          "name": "Chupaca"
+        },
+        {
+          "code": "San Juan de Iscos",
+          "name": "Chupaca"
+        },
+        {
+          "code": "San Juan de Jarpa",
+          "name": "Chupaca"
+        },
+        {
+          "code": "Tres de Diciembre",
+          "name": "Chupaca"
+        },
+        {
+          "code": "Yanacancha",
+          "name": "Chupaca"
+        },
+        {
+          "code": "Trujillo",
+          "name": "Trujillo"
+        },
+        {
+          "code": "El Porvenir",
+          "name": "Trujillo"
+        },
+        {
+          "code": "Florencia de Mora",
+          "name": "Trujillo"
+        },
+        {
+          "code": "Huanchaco",
+          "name": "Trujillo"
+        },
+        {
+          "code": "La Esperanza",
+          "name": "Trujillo"
+        },
+        {
+          "code": "Laredo",
+          "name": "Trujillo"
+        },
+        {
+          "code": "Moche",
+          "name": "Trujillo"
+        },
+        {
+          "code": "Poroto",
+          "name": "Trujillo"
+        },
+        {
+          "code": "Salaverry",
+          "name": "Trujillo"
+        },
+        {
+          "code": "Simbal",
+          "name": "Trujillo"
+        },
+        {
+          "code": "Victor Larco Herrera",
+          "name": "Trujillo"
+        },
+        {
+          "code": "Ascope",
+          "name": "Ascope"
+        },
+        {
+          "code": "Chicama",
+          "name": "Ascope"
+        },
+        {
+          "code": "Chocope",
+          "name": "Ascope"
+        },
+        {
+          "code": "Magdalena de Cao",
+          "name": "Ascope"
+        },
+        {
+          "code": "Paijan",
+          "name": "Ascope"
+        },
+        {
+          "code": "Rázuri",
+          "name": "Ascope"
+        },
+        {
+          "code": "Santiago de Cao",
+          "name": "Ascope"
+        },
+        {
+          "code": "Casa Grande",
+          "name": "Ascope"
+        },
+        {
+          "code": "Bolívar",
+          "name": "Bolívar"
+        },
+        {
+          "code": "Bambamarca",
+          "name": "Bolívar"
+        },
+        {
+          "code": "Condormarca",
+          "name": "Bolívar"
+        },
+        {
+          "code": "Longotea",
+          "name": "Bolívar"
+        },
+        {
+          "code": "Uchumarca",
+          "name": "Bolívar"
+        },
+        {
+          "code": "Ucuncha",
+          "name": "Bolívar"
+        },
+        {
+          "code": "Chepen",
+          "name": "Chepén"
+        },
+        {
+          "code": "Pacanga",
+          "name": "Chepén"
+        },
+        {
+          "code": "Pueblo Nuevo",
+          "name": "Chepén"
+        },
+        {
+          "code": "Julcan",
+          "name": "Julcán"
+        },
+        {
+          "code": "Calamarca",
+          "name": "Julcán"
+        },
+        {
+          "code": "Carabamba",
+          "name": "Julcán"
+        },
+        {
+          "code": "Huaso",
+          "name": "Julcán"
+        },
+        {
+          "code": "Otuzco",
+          "name": "Otuzco"
+        },
+        {
+          "code": "Agallpampa",
+          "name": "Otuzco"
+        },
+        {
+          "code": "Charat",
+          "name": "Otuzco"
+        },
+        {
+          "code": "Huaranchal",
+          "name": "Otuzco"
+        },
+        {
+          "code": "La Cuesta",
+          "name": "Otuzco"
+        },
+        {
+          "code": "Mache",
+          "name": "Otuzco"
+        },
+        {
+          "code": "Paranday",
+          "name": "Otuzco"
+        },
+        {
+          "code": "Salpo",
+          "name": "Otuzco"
+        },
+        {
+          "code": "Sinsicap",
+          "name": "Otuzco"
+        },
+        {
+          "code": "Usquil",
+          "name": "Otuzco"
+        },
+        {
+          "code": "San Pedro de Lloc",
+          "name": "Pacasmayo"
+        },
+        {
+          "code": "Guadalupe",
+          "name": "Pacasmayo"
+        },
+        {
+          "code": "Jequetepeque",
+          "name": "Pacasmayo"
+        },
+        {
+          "code": "Pacasmayo",
+          "name": "Pacasmayo"
+        },
+        {
+          "code": "San José",
+          "name": "Pacasmayo"
+        },
+        {
+          "code": "Tayabamba",
+          "name": "Pataz"
+        },
+        {
+          "code": "Buldibuyo",
+          "name": "Pataz"
+        },
+        {
+          "code": "Chillia",
+          "name": "Pataz"
+        },
+        {
+          "code": "Huancaspata",
+          "name": "Pataz"
+        },
+        {
+          "code": "Huaylillas",
+          "name": "Pataz"
+        },
+        {
+          "code": "Huayo",
+          "name": "Pataz"
+        },
+        {
+          "code": "Ongon",
+          "name": "Pataz"
+        },
+        {
+          "code": "Parcoy",
+          "name": "Pataz"
+        },
+        {
+          "code": "Pataz",
+          "name": "Pataz"
+        },
+        {
+          "code": "Pias",
+          "name": "Pataz"
+        },
+        {
+          "code": "Santiago de Challas",
+          "name": "Pataz"
+        },
+        {
+          "code": "Taurija",
+          "name": "Pataz"
+        },
+        {
+          "code": "Urpay",
+          "name": "Pataz"
+        },
+        {
+          "code": "Huamachuco",
+          "name": "Sánchez Carrión"
+        },
+        {
+          "code": "Chugay",
+          "name": "Sánchez Carrión"
+        },
+        {
+          "code": "Cochorco",
+          "name": "Sánchez Carrión"
+        },
+        {
+          "code": "Curgos",
+          "name": "Sánchez Carrión"
+        },
+        {
+          "code": "Marcabal",
+          "name": "Sánchez Carrión"
+        },
+        {
+          "code": "Sanagoran",
+          "name": "Sánchez Carrión"
+        },
+        {
+          "code": "Sarin",
+          "name": "Sánchez Carrión"
+        },
+        {
+          "code": "Sartimbamba",
+          "name": "Sánchez Carrión"
+        },
+        {
+          "code": "Santiago de Chuco",
+          "name": "Santiago de Chuco"
+        },
+        {
+          "code": "Angasmarca",
+          "name": "Santiago de Chuco"
+        },
+        {
+          "code": "Cachicadan",
+          "name": "Santiago de Chuco"
+        },
+        {
+          "code": "Mollebamba",
+          "name": "Santiago de Chuco"
+        },
+        {
+          "code": "Mollepata",
+          "name": "Santiago de Chuco"
+        },
+        {
+          "code": "Quiruvilca",
+          "name": "Santiago de Chuco"
+        },
+        {
+          "code": "Santa Cruz de Chuca",
+          "name": "Santiago de Chuco"
+        },
+        {
+          "code": "Sitabamba",
+          "name": "Santiago de Chuco"
+        },
+        {
+          "code": "Cascas",
+          "name": "Gran Chimú"
+        },
+        {
+          "code": "Lucma",
+          "name": "Gran Chimú"
+        },
+        {
+          "code": "Marmot",
+          "name": "Gran Chimú"
+        },
+        {
+          "code": "Sayapullo",
+          "name": "Gran Chimú"
+        },
+        {
+          "code": "Viru",
+          "name": "Virú"
+        },
+        {
+          "code": "Chao",
+          "name": "Virú"
+        },
+        {
+          "code": "Guadalupito",
+          "name": "Virú"
+        },
+        {
+          "code": "Chiclayo",
+          "name": "Chiclayo"
+        },
+        {
+          "code": "Chongoyape",
+          "name": "Chiclayo"
+        },
+        {
+          "code": "Eten",
+          "name": "Chiclayo"
+        },
+        {
+          "code": "Eten Puerto",
+          "name": "Chiclayo"
+        },
+        {
+          "code": "José Leonardo Ortiz",
+          "name": "Chiclayo"
+        },
+        {
+          "code": "La Victoria",
+          "name": "Chiclayo"
+        },
+        {
+          "code": "Lagunas",
+          "name": "Chiclayo"
+        },
+        {
+          "code": "Monsefu",
+          "name": "Chiclayo"
+        },
+        {
+          "code": "Nueva Arica",
+          "name": "Chiclayo"
+        },
+        {
+          "code": "Oyotun",
+          "name": "Chiclayo"
+        },
+        {
+          "code": "Picsi",
+          "name": "Chiclayo"
+        },
+        {
+          "code": "Pimentel",
+          "name": "Chiclayo"
+        },
+        {
+          "code": "Reque",
+          "name": "Chiclayo"
+        },
+        {
+          "code": "Santa Rosa",
+          "name": "Chiclayo"
+        },
+        {
+          "code": "Saña",
+          "name": "Chiclayo"
+        },
+        {
+          "code": "Cayalti",
+          "name": "Chiclayo"
+        },
+        {
+          "code": "Patapo",
+          "name": "Chiclayo"
+        },
+        {
+          "code": "Pomalca",
+          "name": "Chiclayo"
+        },
+        {
+          "code": "Pucala",
+          "name": "Chiclayo"
+        },
+        {
+          "code": "Tuman",
+          "name": "Chiclayo"
+        },
+        {
+          "code": "Ferreñafe",
+          "name": "Ferreñafe"
+        },
+        {
+          "code": "Cañaris",
+          "name": "Ferreñafe"
+        },
+        {
+          "code": "Incahuasi",
+          "name": "Ferreñafe"
+        },
+        {
+          "code": "Manuel Antonio Mesones Muro",
+          "name": "Ferreñafe"
+        },
+        {
+          "code": "Pitipo",
+          "name": "Ferreñafe"
+        },
+        {
+          "code": "Pueblo Nuevo",
+          "name": "Ferreñafe"
+        },
+        {
+          "code": "Lambayeque",
+          "name": "Lambayeque"
+        },
+        {
+          "code": "Chochope",
+          "name": "Lambayeque"
+        },
+        {
+          "code": "Illimo",
+          "name": "Lambayeque"
+        },
+        {
+          "code": "Jayanca",
+          "name": "Lambayeque"
+        },
+        {
+          "code": "Mochumi",
+          "name": "Lambayeque"
+        },
+        {
+          "code": "Morrope",
+          "name": "Lambayeque"
+        },
+        {
+          "code": "Motupe",
+          "name": "Lambayeque"
+        },
+        {
+          "code": "Olmos",
+          "name": "Lambayeque"
+        },
+        {
+          "code": "Pacora",
+          "name": "Lambayeque"
+        },
+        {
+          "code": "Salas",
+          "name": "Lambayeque"
+        },
+        {
+          "code": "San José",
+          "name": "Lambayeque"
+        },
+        {
+          "code": "Tucume",
+          "name": "Lambayeque"
+        },
+        {
+          "code": "Lima",
+          "name": "Lima"
+        },
+        {
+          "code": "Ancón",
+          "name": "Lima"
+        },
+        {
+          "code": "Ate",
+          "name": "Lima"
+        },
+        {
+          "code": "Barranco",
+          "name": "Lima"
+        },
+        {
+          "code": "Breña",
+          "name": "Lima"
+        },
+        {
+          "code": "Carabayllo",
+          "name": "Lima"
+        },
+        {
+          "code": "Chaclacayo",
+          "name": "Lima"
+        },
+        {
+          "code": "Chorrillos",
+          "name": "Lima"
+        },
+        {
+          "code": "Cieneguilla",
+          "name": "Lima"
+        },
+        {
+          "code": "Comas",
+          "name": "Lima"
+        },
+        {
+          "code": "El Agustino",
+          "name": "Lima"
+        },
+        {
+          "code": "Independencia",
+          "name": "Lima"
+        },
+        {
+          "code": "Jesús María",
+          "name": "Lima"
+        },
+        {
+          "code": "La Molina",
+          "name": "Lima"
+        },
+        {
+          "code": "La Victoria",
+          "name": "Lima"
+        },
+        {
+          "code": "Lince",
+          "name": "Lima"
+        },
+        {
+          "code": "Los Olivos",
+          "name": "Lima"
+        },
+        {
+          "code": "Lurigancho",
+          "name": "Lima"
+        },
+        {
+          "code": "Lurin",
+          "name": "Lima"
+        },
+        {
+          "code": "Magdalena del Mar",
+          "name": "Lima"
+        },
+        {
+          "code": "Pueblo Libre",
+          "name": "Lima"
+        },
+        {
+          "code": "Miraflores",
+          "name": "Lima"
+        },
+        {
+          "code": "Pachacamac",
+          "name": "Lima"
+        },
+        {
+          "code": "Pucusana",
+          "name": "Lima"
+        },
+        {
+          "code": "Puente Piedra",
+          "name": "Lima"
+        },
+        {
+          "code": "Punta Hermosa",
+          "name": "Lima"
+        },
+        {
+          "code": "Punta Negra",
+          "name": "Lima"
+        },
+        {
+          "code": "Rímac",
+          "name": "Lima"
+        },
+        {
+          "code": "San Bartolo",
+          "name": "Lima"
+        },
+        {
+          "code": "San Borja",
+          "name": "Lima"
+        },
+        {
+          "code": "San Isidro",
+          "name": "Lima"
+        },
+        {
+          "code": "San Juan de Lurigancho",
+          "name": "Lima"
+        },
+        {
+          "code": "San Juan de Miraflores",
+          "name": "Lima"
+        },
+        {
+          "code": "San Luis",
+          "name": "Lima"
+        },
+        {
+          "code": "San Martín de Porres",
+          "name": "Lima"
+        },
+        {
+          "code": "San Miguel",
+          "name": "Lima"
+        },
+        {
+          "code": "Santa Anita",
+          "name": "Lima"
+        },
+        {
+          "code": "Santa María del Mar",
+          "name": "Lima"
+        },
+        {
+          "code": "Santa Rosa",
+          "name": "Lima"
+        },
+        {
+          "code": "Santiago de Surco",
+          "name": "Lima"
+        },
+        {
+          "code": "Surquillo",
+          "name": "Lima"
+        },
+        {
+          "code": "Villa El Salvador",
+          "name": "Lima"
+        },
+        {
+          "code": "Villa María del Triunfo",
+          "name": "Lima"
+        },
+        {
+          "code": "Barranca",
+          "name": "Barranca"
+        },
+        {
+          "code": "Paramonga",
+          "name": "Barranca"
+        },
+        {
+          "code": "Pativilca",
+          "name": "Barranca"
+        },
+        {
+          "code": "Supe",
+          "name": "Barranca"
+        },
+        {
+          "code": "Supe Puerto",
+          "name": "Barranca"
+        },
+        {
+          "code": "Cajatambo",
+          "name": "Cajatambo"
+        },
+        {
+          "code": "Copa",
+          "name": "Cajatambo"
+        },
+        {
+          "code": "Gorgor",
+          "name": "Cajatambo"
+        },
+        {
+          "code": "Huancapon",
+          "name": "Cajatambo"
+        },
+        {
+          "code": "Manas",
+          "name": "Cajatambo"
+        },
+        {
+          "code": "Canta",
+          "name": "Canta"
+        },
+        {
+          "code": "Arahuay",
+          "name": "Canta"
+        },
+        {
+          "code": "Huamantanga",
+          "name": "Canta"
+        },
+        {
+          "code": "Huaros",
+          "name": "Canta"
+        },
+        {
+          "code": "Lachaqui",
+          "name": "Canta"
+        },
+        {
+          "code": "San Buenaventura",
+          "name": "Canta"
+        },
+        {
+          "code": "Santa Rosa de Quives",
+          "name": "Canta"
+        },
+        {
+          "code": "San Vicente de Cañete",
+          "name": "Cañete"
+        },
+        {
+          "code": "Asia",
+          "name": "Cañete"
+        },
+        {
+          "code": "Calango",
+          "name": "Cañete"
+        },
+        {
+          "code": "Cerro Azul",
+          "name": "Cañete"
+        },
+        {
+          "code": "Chilca",
+          "name": "Cañete"
+        },
+        {
+          "code": "Coayllo",
+          "name": "Cañete"
+        },
+        {
+          "code": "Imperial",
+          "name": "Cañete"
+        },
+        {
+          "code": "Lunahuana",
+          "name": "Cañete"
+        },
+        {
+          "code": "Mala",
+          "name": "Cañete"
+        },
+        {
+          "code": "Nuevo Imperial",
+          "name": "Cañete"
+        },
+        {
+          "code": "Pacaran",
+          "name": "Cañete"
+        },
+        {
+          "code": "Quilmana",
+          "name": "Cañete"
+        },
+        {
+          "code": "San Antonio",
+          "name": "Cañete"
+        },
+        {
+          "code": "San Luis",
+          "name": "Cañete"
+        },
+        {
+          "code": "Santa Cruz de Flores",
+          "name": "Cañete"
+        },
+        {
+          "code": "Zúñiga",
+          "name": "Cañete"
+        },
+        {
+          "code": "Huaral",
+          "name": "Huaral"
+        },
+        {
+          "code": "Atavillos Alto",
+          "name": "Huaral"
+        },
+        {
+          "code": "Atavillos Bajo",
+          "name": "Huaral"
+        },
+        {
+          "code": "Aucallama",
+          "name": "Huaral"
+        },
+        {
+          "code": "Chancay",
+          "name": "Huaral"
+        },
+        {
+          "code": "Ihuari",
+          "name": "Huaral"
+        },
+        {
+          "code": "Lampian",
+          "name": "Huaral"
+        },
+        {
+          "code": "Pacaraos",
+          "name": "Huaral"
+        },
+        {
+          "code": "San Miguel de Acos",
+          "name": "Huaral"
+        },
+        {
+          "code": "Santa Cruz de Andamarca",
+          "name": "Huaral"
+        },
+        {
+          "code": "Sumbilca",
+          "name": "Huaral"
+        },
+        {
+          "code": "Veintisiete de Noviembre",
+          "name": "Huaral"
+        },
+        {
+          "code": "Matucana",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "Antioquia",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "Callahuanca",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "Carampoma",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "Chicla",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "Cuenca",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "Huachupampa",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "Huanza",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "Huarochiri",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "Lahuaytambo",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "Langa",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "Laraos",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "Mariatana",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "Ricardo Palma",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "San Andrés de Tupicocha",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "San Antonio",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "San Bartolomé",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "San Damian",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "San Juan de Iris",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "San Juan de Tantaranche",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "San Lorenzo de Quinti",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "San Mateo",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "San Mateo de Otao",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "San Pedro de Casta",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "San Pedro de Huancayre",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "Sangallaya",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "Santa Cruz de Cocachacra",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "Santa Eulalia",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "Santiago de Anchucaya",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "Santiago de Tuna",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "Santo Domingo de Los Olleros",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "Surco",
+          "name": "Huarochirí"
+        },
+        {
+          "code": "Huacho",
+          "name": "Huaura"
+        },
+        {
+          "code": "Ambar",
+          "name": "Huaura"
+        },
+        {
+          "code": "Caleta de Carquin",
+          "name": "Huaura"
+        },
+        {
+          "code": "Checras",
+          "name": "Huaura"
+        },
+        {
+          "code": "Hualmay",
+          "name": "Huaura"
+        },
+        {
+          "code": "Huaura",
+          "name": "Huaura"
+        },
+        {
+          "code": "Leoncio Prado",
+          "name": "Huaura"
+        },
+        {
+          "code": "Paccho",
+          "name": "Huaura"
+        },
+        {
+          "code": "Santa Leonor",
+          "name": "Huaura"
+        },
+        {
+          "code": "Santa María",
+          "name": "Huaura"
+        },
+        {
+          "code": "Sayan",
+          "name": "Huaura"
+        },
+        {
+          "code": "Vegueta",
+          "name": "Huaura"
+        },
+        {
+          "code": "Oyon",
+          "name": "Oyón"
+        },
+        {
+          "code": "Andajes",
+          "name": "Oyón"
+        },
+        {
+          "code": "Caujul",
+          "name": "Oyón"
+        },
+        {
+          "code": "Cochamarca",
+          "name": "Oyón"
+        },
+        {
+          "code": "Navan",
+          "name": "Oyón"
+        },
+        {
+          "code": "Pachangara",
+          "name": "Oyón"
+        },
+        {
+          "code": "Yauyos",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Alis",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Allauca",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Ayaviri",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Azángaro",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Cacra",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Carania",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Catahuasi",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Chocos",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Cochas",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Colonia",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Hongos",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Huampara",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Huancaya",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Huangascar",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Huantan",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Huañec",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Laraos",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Lincha",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Madean",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Miraflores",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Omas",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Putinza",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Quinches",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Quinocay",
+          "name": "Yauyos"
+        },
+        {
+          "code": "San Joaquín",
+          "name": "Yauyos"
+        },
+        {
+          "code": "San Pedro de Pilas",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Tanta",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Tauripampa",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Tomas",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Tupe",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Viñac",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Vitis",
+          "name": "Yauyos"
+        },
+        {
+          "code": "Iquitos",
+          "name": "Maynas"
+        },
+        {
+          "code": "Alto Nanay",
+          "name": "Maynas"
+        },
+        {
+          "code": "Fernando Lores",
+          "name": "Maynas"
+        },
+        {
+          "code": "Indiana",
+          "name": "Maynas"
+        },
+        {
+          "code": "Las Amazonas",
+          "name": "Maynas"
+        },
+        {
+          "code": "Mazan",
+          "name": "Maynas"
+        },
+        {
+          "code": "Napo",
+          "name": "Maynas"
+        },
+        {
+          "code": "Punchana",
+          "name": "Maynas"
+        },
+        {
+          "code": "Torres Causana",
+          "name": "Maynas"
+        },
+        {
+          "code": "Belén",
+          "name": "Maynas"
+        },
+        {
+          "code": "San Juan Bautista",
+          "name": "Maynas"
+        },
+        {
+          "code": "Yurimaguas",
+          "name": "Alto Amazonas"
+        },
+        {
+          "code": "Balsapuerto",
+          "name": "Alto Amazonas"
+        },
+        {
+          "code": "Jeberos",
+          "name": "Alto Amazonas"
+        },
+        {
+          "code": "Lagunas",
+          "name": "Alto Amazonas"
+        },
+        {
+          "code": "Santa Cruz",
+          "name": "Alto Amazonas"
+        },
+        {
+          "code": "Teniente Cesar López Rojas",
+          "name": "Alto Amazonas"
+        },
+        {
+          "code": "Nauta",
+          "name": "Loreto"
+        },
+        {
+          "code": "Parinari",
+          "name": "Loreto"
+        },
+        {
+          "code": "Tigre",
+          "name": "Loreto"
+        },
+        {
+          "code": "Trompeteros",
+          "name": "Loreto"
+        },
+        {
+          "code": "Urarinas",
+          "name": "Loreto"
+        },
+        {
+          "code": "Ramón Castilla",
+          "name": "Mariscal Ramón Castilla"
+        },
+        {
+          "code": "Pebas",
+          "name": "Mariscal Ramón Castilla"
+        },
+        {
+          "code": "Yavari",
+          "name": "Mariscal Ramón Castilla"
+        },
+        {
+          "code": "San Pablo",
+          "name": "Mariscal Ramón Castilla"
+        },
+        {
+          "code": "Requena",
+          "name": "Requena"
+        },
+        {
+          "code": "Alto Tapiche",
+          "name": "Requena"
+        },
+        {
+          "code": "Capelo",
+          "name": "Requena"
+        },
+        {
+          "code": "Emilio San Martín",
+          "name": "Requena"
+        },
+        {
+          "code": "Maquia",
+          "name": "Requena"
+        },
+        {
+          "code": "Puinahua",
+          "name": "Requena"
+        },
+        {
+          "code": "Saquena",
+          "name": "Requena"
+        },
+        {
+          "code": "Soplin",
+          "name": "Requena"
+        },
+        {
+          "code": "Tapiche",
+          "name": "Requena"
+        },
+        {
+          "code": "Jenaro Herrera",
+          "name": "Requena"
+        },
+        {
+          "code": "Yaquerana",
+          "name": "Requena"
+        },
+        {
+          "code": "Contamana",
+          "name": "Ucayali"
+        },
+        {
+          "code": "Inahuaya",
+          "name": "Ucayali"
+        },
+        {
+          "code": "Padre Márquez",
+          "name": "Ucayali"
+        },
+        {
+          "code": "Pampa Hermosa",
+          "name": "Ucayali"
+        },
+        {
+          "code": "Sarayacu",
+          "name": "Ucayali"
+        },
+        {
+          "code": "Vargas Guerra",
+          "name": "Ucayali"
+        },
+        {
+          "code": "Barranca",
+          "name": "Datem del Marañón"
+        },
+        {
+          "code": "Cahuapanas",
+          "name": "Datem del Marañón"
+        },
+        {
+          "code": "Manseriche",
+          "name": "Datem del Marañón"
+        },
+        {
+          "code": "Morona",
+          "name": "Datem del Marañón"
+        },
+        {
+          "code": "Pastaza",
+          "name": "Datem del Marañón"
+        },
+        {
+          "code": "Andoas",
+          "name": "Datem del Marañón"
+        },
+        {
+          "code": "Putumayo",
+          "name": "Putumayo"
+        },
+        {
+          "code": "Rosa Panduro",
+          "name": "Putumayo"
+        },
+        {
+          "code": "Teniente Manuel Clavero",
+          "name": "Putumayo"
+        },
+        {
+          "code": "Yaguas",
+          "name": "Putumayo"
+        },
+        {
+          "code": "Tambopata",
+          "name": "Tambopata"
+        },
+        {
+          "code": "Inambari",
+          "name": "Tambopata"
+        },
+        {
+          "code": "Las Piedras",
+          "name": "Tambopata"
+        },
+        {
+          "code": "Laberinto",
+          "name": "Tambopata"
+        },
+        {
+          "code": "Manu",
+          "name": "Manu"
+        },
+        {
+          "code": "Fitzcarrald",
+          "name": "Manu"
+        },
+        {
+          "code": "Madre de Dios",
+          "name": "Manu"
+        },
+        {
+          "code": "Huepetuhe",
+          "name": "Manu"
+        },
+        {
+          "code": "Iñapari",
+          "name": "Tahuamanu"
+        },
+        {
+          "code": "Iberia",
+          "name": "Tahuamanu"
+        },
+        {
+          "code": "Tahuamanu",
+          "name": "Tahuamanu"
+        },
+        {
+          "code": "Moquegua",
+          "name": "Mariscal Nieto"
+        },
+        {
+          "code": "Carumas",
+          "name": "Mariscal Nieto"
+        },
+        {
+          "code": "Cuchumbaya",
+          "name": "Mariscal Nieto"
+        },
+        {
+          "code": "Samegua",
+          "name": "Mariscal Nieto"
+        },
+        {
+          "code": "San Cristóbal",
+          "name": "Mariscal Nieto"
+        },
+        {
+          "code": "Torata",
+          "name": "Mariscal Nieto"
+        },
+        {
+          "code": "Omate",
+          "name": "General Sánchez Cerro"
+        },
+        {
+          "code": "Chojata",
+          "name": "General Sánchez Cerro"
+        },
+        {
+          "code": "Coalaque",
+          "name": "General Sánchez Cerro"
+        },
+        {
+          "code": "Ichuña",
+          "name": "General Sánchez Cerro"
+        },
+        {
+          "code": "La Capilla",
+          "name": "General Sánchez Cerro"
+        },
+        {
+          "code": "Lloque",
+          "name": "General Sánchez Cerro"
+        },
+        {
+          "code": "Matalaque",
+          "name": "General Sánchez Cerro"
+        },
+        {
+          "code": "Puquina",
+          "name": "General Sánchez Cerro"
+        },
+        {
+          "code": "Quinistaquillas",
+          "name": "General Sánchez Cerro"
+        },
+        {
+          "code": "Ubinas",
+          "name": "General Sánchez Cerro"
+        },
+        {
+          "code": "Yunga",
+          "name": "General Sánchez Cerro"
+        },
+        {
+          "code": "Ilo",
+          "name": "Ilo"
+        },
+        {
+          "code": "El Algarrobal",
+          "name": "Ilo"
+        },
+        {
+          "code": "Pacocha",
+          "name": "Ilo"
+        },
+        {
+          "code": "Chaupimarca",
+          "name": "Pasco"
+        },
+        {
+          "code": "Huachon",
+          "name": "Pasco"
+        },
+        {
+          "code": "Huariaca",
+          "name": "Pasco"
+        },
+        {
+          "code": "Huayllay",
+          "name": "Pasco"
+        },
+        {
+          "code": "Ninacaca",
+          "name": "Pasco"
+        },
+        {
+          "code": "Pallanchacra",
+          "name": "Pasco"
+        },
+        {
+          "code": "Paucartambo",
+          "name": "Pasco"
+        },
+        {
+          "code": "San Francisco de Asís de Yarusyacan",
+          "name": "Pasco"
+        },
+        {
+          "code": "Simon Bolívar",
+          "name": "Pasco"
+        },
+        {
+          "code": "Ticlacayan",
+          "name": "Pasco"
+        },
+        {
+          "code": "Tinyahuarco",
+          "name": "Pasco"
+        },
+        {
+          "code": "Vicco",
+          "name": "Pasco"
+        },
+        {
+          "code": "Yanacancha",
+          "name": "Pasco"
+        },
+        {
+          "code": "Yanahuanca",
+          "name": "Daniel Alcides Carrión"
+        },
+        {
+          "code": "Chacayan",
+          "name": "Daniel Alcides Carrión"
+        },
+        {
+          "code": "Goyllarisquizga",
+          "name": "Daniel Alcides Carrión"
+        },
+        {
+          "code": "Paucar",
+          "name": "Daniel Alcides Carrión"
+        },
+        {
+          "code": "San Pedro de Pillao",
+          "name": "Daniel Alcides Carrión"
+        },
+        {
+          "code": "Santa Ana de Tusi",
+          "name": "Daniel Alcides Carrión"
+        },
+        {
+          "code": "Tapuc",
+          "name": "Daniel Alcides Carrión"
+        },
+        {
+          "code": "Vilcabamba",
+          "name": "Daniel Alcides Carrión"
+        },
+        {
+          "code": "Oxapampa",
+          "name": "Oxapampa"
+        },
+        {
+          "code": "Chontabamba",
+          "name": "Oxapampa"
+        },
+        {
+          "code": "Huancabamba",
+          "name": "Oxapampa"
+        },
+        {
+          "code": "Palcazu",
+          "name": "Oxapampa"
+        },
+        {
+          "code": "Pozuzo",
+          "name": "Oxapampa"
+        },
+        {
+          "code": "Puerto Bermúdez",
+          "name": "Oxapampa"
+        },
+        {
+          "code": "Villa Rica",
+          "name": "Oxapampa"
+        },
+        {
+          "code": "Constitución",
+          "name": "Oxapampa"
+        },
+        {
+          "code": "Piura",
+          "name": "Piura"
+        },
+        {
+          "code": "Castilla",
+          "name": "Piura"
+        },
+        {
+          "code": "Catacaos",
+          "name": "Piura"
+        },
+        {
+          "code": "Cura Mori",
+          "name": "Piura"
+        },
+        {
+          "code": "El Tallan",
+          "name": "Piura"
+        },
+        {
+          "code": "La Arena",
+          "name": "Piura"
+        },
+        {
+          "code": "La Unión",
+          "name": "Piura"
+        },
+        {
+          "code": "Las Lomas",
+          "name": "Piura"
+        },
+        {
+          "code": "Tambo Grande",
+          "name": "Piura"
+        },
+        {
+          "code": "Veintiseis de Octubre",
+          "name": "Piura"
+        },
+        {
+          "code": "Ayabaca",
+          "name": "Ayabaca"
+        },
+        {
+          "code": "Frias",
+          "name": "Ayabaca"
+        },
+        {
+          "code": "Jilili",
+          "name": "Ayabaca"
+        },
+        {
+          "code": "Lagunas",
+          "name": "Ayabaca"
+        },
+        {
+          "code": "Montero",
+          "name": "Ayabaca"
+        },
+        {
+          "code": "Pacaipampa",
+          "name": "Ayabaca"
+        },
+        {
+          "code": "Paimas",
+          "name": "Ayabaca"
+        },
+        {
+          "code": "Sapillica",
+          "name": "Ayabaca"
+        },
+        {
+          "code": "Sicchez",
+          "name": "Ayabaca"
+        },
+        {
+          "code": "Suyo",
+          "name": "Ayabaca"
+        },
+        {
+          "code": "Huancabamba",
+          "name": "Huancabamba"
+        },
+        {
+          "code": "Canchaque",
+          "name": "Huancabamba"
+        },
+        {
+          "code": "El Carmen de la Frontera",
+          "name": "Huancabamba"
+        },
+        {
+          "code": "Huarmaca",
+          "name": "Huancabamba"
+        },
+        {
+          "code": "Lalaquiz",
+          "name": "Huancabamba"
+        },
+        {
+          "code": "San Miguel de El Faique",
+          "name": "Huancabamba"
+        },
+        {
+          "code": "Sondor",
+          "name": "Huancabamba"
+        },
+        {
+          "code": "Sondorillo",
+          "name": "Huancabamba"
+        },
+        {
+          "code": "Chulucanas",
+          "name": "Morropón"
+        },
+        {
+          "code": "Buenos Aires",
+          "name": "Morropón"
+        },
+        {
+          "code": "Chalaco",
+          "name": "Morropón"
+        },
+        {
+          "code": "La Matanza",
+          "name": "Morropón"
+        },
+        {
+          "code": "Morropon",
+          "name": "Morropón"
+        },
+        {
+          "code": "Salitral",
+          "name": "Morropón"
+        },
+        {
+          "code": "San Juan de Bigote",
+          "name": "Morropón"
+        },
+        {
+          "code": "Santa Catalina de Mossa",
+          "name": "Morropón"
+        },
+        {
+          "code": "Santo Domingo",
+          "name": "Morropón"
+        },
+        {
+          "code": "Yamango",
+          "name": "Morropón"
+        },
+        {
+          "code": "Paita",
+          "name": "Paita"
+        },
+        {
+          "code": "Amotape",
+          "name": "Paita"
+        },
+        {
+          "code": "Arenal",
+          "name": "Paita"
+        },
+        {
+          "code": "Colan",
+          "name": "Paita"
+        },
+        {
+          "code": "La Huaca",
+          "name": "Paita"
+        },
+        {
+          "code": "Tamarindo",
+          "name": "Paita"
+        },
+        {
+          "code": "Vichayal",
+          "name": "Paita"
+        },
+        {
+          "code": "Sullana",
+          "name": "Sullana"
+        },
+        {
+          "code": "Bellavista",
+          "name": "Sullana"
+        },
+        {
+          "code": "Ignacio Escudero",
+          "name": "Sullana"
+        },
+        {
+          "code": "Lancones",
+          "name": "Sullana"
+        },
+        {
+          "code": "Marcavelica",
+          "name": "Sullana"
+        },
+        {
+          "code": "Miguel Checa",
+          "name": "Sullana"
+        },
+        {
+          "code": "Querecotillo",
+          "name": "Sullana"
+        },
+        {
+          "code": "Salitral",
+          "name": "Sullana"
+        },
+        {
+          "code": "Pariñas",
+          "name": "Talara"
+        },
+        {
+          "code": "El Alto",
+          "name": "Talara"
+        },
+        {
+          "code": "La Brea",
+          "name": "Talara"
+        },
+        {
+          "code": "Lobitos",
+          "name": "Talara"
+        },
+        {
+          "code": "Los Organos",
+          "name": "Talara"
+        },
+        {
+          "code": "Mancora",
+          "name": "Talara"
+        },
+        {
+          "code": "Sechura",
+          "name": "Sechura"
+        },
+        {
+          "code": "Bellavista de la Unión",
+          "name": "Sechura"
+        },
+        {
+          "code": "Bernal",
+          "name": "Sechura"
+        },
+        {
+          "code": "Cristo Nos Valga",
+          "name": "Sechura"
+        },
+        {
+          "code": "Vice",
+          "name": "Sechura"
+        },
+        {
+          "code": "Rinconada Llicuar",
+          "name": "Sechura"
+        },
+        {
+          "code": "Puno",
+          "name": "Puno"
+        },
+        {
+          "code": "Acora",
+          "name": "Puno"
+        },
+        {
+          "code": "Amantani",
+          "name": "Puno"
+        },
+        {
+          "code": "Atuncolla",
+          "name": "Puno"
+        },
+        {
+          "code": "Capachica",
+          "name": "Puno"
+        },
+        {
+          "code": "Chucuito",
+          "name": "Puno"
+        },
+        {
+          "code": "Coata",
+          "name": "Puno"
+        },
+        {
+          "code": "Huata",
+          "name": "Puno"
+        },
+        {
+          "code": "Mañazo",
+          "name": "Puno"
+        },
+        {
+          "code": "Paucarcolla",
+          "name": "Puno"
+        },
+        {
+          "code": "Pichacani",
+          "name": "Puno"
+        },
+        {
+          "code": "Plateria",
+          "name": "Puno"
+        },
+        {
+          "code": "San Antonio",
+          "name": "Puno"
+        },
+        {
+          "code": "Tiquillaca",
+          "name": "Puno"
+        },
+        {
+          "code": "Vilque",
+          "name": "Puno"
+        },
+        {
+          "code": "Azángaro",
+          "name": "Azángaro"
+        },
+        {
+          "code": "Achaya",
+          "name": "Azángaro"
+        },
+        {
+          "code": "Arapa",
+          "name": "Azángaro"
+        },
+        {
+          "code": "Asillo",
+          "name": "Azángaro"
+        },
+        {
+          "code": "Caminaca",
+          "name": "Azángaro"
+        },
+        {
+          "code": "Chupa",
+          "name": "Azángaro"
+        },
+        {
+          "code": "José Domingo Choquehuanca",
+          "name": "Azángaro"
+        },
+        {
+          "code": "Muñani",
+          "name": "Azángaro"
+        },
+        {
+          "code": "Potoni",
+          "name": "Azángaro"
+        },
+        {
+          "code": "Saman",
+          "name": "Azángaro"
+        },
+        {
+          "code": "San Anton",
+          "name": "Azángaro"
+        },
+        {
+          "code": "San José",
+          "name": "Azángaro"
+        },
+        {
+          "code": "San Juan de Salinas",
+          "name": "Azángaro"
+        },
+        {
+          "code": "Santiago de Pupuja",
+          "name": "Azángaro"
+        },
+        {
+          "code": "Tirapata",
+          "name": "Azángaro"
+        },
+        {
+          "code": "Macusani",
+          "name": "Carabaya"
+        },
+        {
+          "code": "Ajoyani",
+          "name": "Carabaya"
+        },
+        {
+          "code": "Ayapata",
+          "name": "Carabaya"
+        },
+        {
+          "code": "Coasa",
+          "name": "Carabaya"
+        },
+        {
+          "code": "Corani",
+          "name": "Carabaya"
+        },
+        {
+          "code": "Crucero",
+          "name": "Carabaya"
+        },
+        {
+          "code": "Ituata",
+          "name": "Carabaya"
+        },
+        {
+          "code": "Ollachea",
+          "name": "Carabaya"
+        },
+        {
+          "code": "San Gaban",
+          "name": "Carabaya"
+        },
+        {
+          "code": "Usicayos",
+          "name": "Carabaya"
+        },
+        {
+          "code": "Juli",
+          "name": "Chucuito"
+        },
+        {
+          "code": "Desaguadero",
+          "name": "Chucuito"
+        },
+        {
+          "code": "Huacullani",
+          "name": "Chucuito"
+        },
+        {
+          "code": "Kelluyo",
+          "name": "Chucuito"
+        },
+        {
+          "code": "Pisacoma",
+          "name": "Chucuito"
+        },
+        {
+          "code": "Pomata",
+          "name": "Chucuito"
+        },
+        {
+          "code": "Zepita",
+          "name": "Chucuito"
+        },
+        {
+          "code": "Ilave",
+          "name": "El Collao"
+        },
+        {
+          "code": "Capazo",
+          "name": "El Collao"
+        },
+        {
+          "code": "Pilcuyo",
+          "name": "El Collao"
+        },
+        {
+          "code": "Santa Rosa",
+          "name": "El Collao"
+        },
+        {
+          "code": "Conduriri",
+          "name": "El Collao"
+        },
+        {
+          "code": "Huancane",
+          "name": "Huancané"
+        },
+        {
+          "code": "Cojata",
+          "name": "Huancané"
+        },
+        {
+          "code": "Huatasani",
+          "name": "Huancané"
+        },
+        {
+          "code": "Inchupalla",
+          "name": "Huancané"
+        },
+        {
+          "code": "Pusi",
+          "name": "Huancané"
+        },
+        {
+          "code": "Rosaspata",
+          "name": "Huancané"
+        },
+        {
+          "code": "Taraco",
+          "name": "Huancané"
+        },
+        {
+          "code": "Vilque Chico",
+          "name": "Huancané"
+        },
+        {
+          "code": "Lampa",
+          "name": "Lampa"
+        },
+        {
+          "code": "Cabanilla",
+          "name": "Lampa"
+        },
+        {
+          "code": "Calapuja",
+          "name": "Lampa"
+        },
+        {
+          "code": "Nicasio",
+          "name": "Lampa"
+        },
+        {
+          "code": "Ocuviri",
+          "name": "Lampa"
+        },
+        {
+          "code": "Palca",
+          "name": "Lampa"
+        },
+        {
+          "code": "Paratia",
+          "name": "Lampa"
+        },
+        {
+          "code": "Pucara",
+          "name": "Lampa"
+        },
+        {
+          "code": "Santa Lucia",
+          "name": "Lampa"
+        },
+        {
+          "code": "Vilavila",
+          "name": "Lampa"
+        },
+        {
+          "code": "Ayaviri",
+          "name": "Melgar"
+        },
+        {
+          "code": "Antauta",
+          "name": "Melgar"
+        },
+        {
+          "code": "Cupi",
+          "name": "Melgar"
+        },
+        {
+          "code": "Llalli",
+          "name": "Melgar"
+        },
+        {
+          "code": "Macari",
+          "name": "Melgar"
+        },
+        {
+          "code": "Nuñoa",
+          "name": "Melgar"
+        },
+        {
+          "code": "Orurillo",
+          "name": "Melgar"
+        },
+        {
+          "code": "Santa Rosa",
+          "name": "Melgar"
+        },
+        {
+          "code": "Umachiri",
+          "name": "Melgar"
+        },
+        {
+          "code": "Moho",
+          "name": "Moho"
+        },
+        {
+          "code": "Conima",
+          "name": "Moho"
+        },
+        {
+          "code": "Huayrapata",
+          "name": "Moho"
+        },
+        {
+          "code": "Tilali",
+          "name": "Moho"
+        },
+        {
+          "code": "Putina",
+          "name": "San Antonio de Putina"
+        },
+        {
+          "code": "Ananea",
+          "name": "San Antonio de Putina"
+        },
+        {
+          "code": "Pedro Vilca Apaza",
+          "name": "San Antonio de Putina"
+        },
+        {
+          "code": "Quilcapuncu",
+          "name": "San Antonio de Putina"
+        },
+        {
+          "code": "Sina",
+          "name": "San Antonio de Putina"
+        },
+        {
+          "code": "Juliaca",
+          "name": "San Román"
+        },
+        {
+          "code": "Cabana",
+          "name": "San Román"
+        },
+        {
+          "code": "Cabanillas",
+          "name": "San Román"
+        },
+        {
+          "code": "Caracoto",
+          "name": "San Román"
+        },
+        {
+          "code": "Sandia",
+          "name": "Sandia"
+        },
+        {
+          "code": "Cuyocuyo",
+          "name": "Sandia"
+        },
+        {
+          "code": "Limbani",
+          "name": "Sandia"
+        },
+        {
+          "code": "Patambuco",
+          "name": "Sandia"
+        },
+        {
+          "code": "Phara",
+          "name": "Sandia"
+        },
+        {
+          "code": "Quiaca",
+          "name": "Sandia"
+        },
+        {
+          "code": "San Juan del Oro",
+          "name": "Sandia"
+        },
+        {
+          "code": "Yanahuaya",
+          "name": "Sandia"
+        },
+        {
+          "code": "Alto Inambari",
+          "name": "Sandia"
+        },
+        {
+          "code": "San Pedro de Putina Punco",
+          "name": "Sandia"
+        },
+        {
+          "code": "Yunguyo",
+          "name": "Yunguyo"
+        },
+        {
+          "code": "Anapia",
+          "name": "Yunguyo"
+        },
+        {
+          "code": "Copani",
+          "name": "Yunguyo"
+        },
+        {
+          "code": "Cuturapi",
+          "name": "Yunguyo"
+        },
+        {
+          "code": "Ollaraya",
+          "name": "Yunguyo"
+        },
+        {
+          "code": "Tinicachi",
+          "name": "Yunguyo"
+        },
+        {
+          "code": "Unicachi",
+          "name": "Yunguyo"
+        },
+        {
+          "code": "Moyobamba",
+          "name": "Moyobamba"
+        },
+        {
+          "code": "Calzada",
+          "name": "Moyobamba"
+        },
+        {
+          "code": "Habana",
+          "name": "Moyobamba"
+        },
+        {
+          "code": "Jepelacio",
+          "name": "Moyobamba"
+        },
+        {
+          "code": "Soritor",
+          "name": "Moyobamba"
+        },
+        {
+          "code": "Yantalo",
+          "name": "Moyobamba"
+        },
+        {
+          "code": "Bellavista",
+          "name": "Bellavista"
+        },
+        {
+          "code": "Alto Biavo",
+          "name": "Bellavista"
+        },
+        {
+          "code": "Bajo Biavo",
+          "name": "Bellavista"
+        },
+        {
+          "code": "Huallaga",
+          "name": "Bellavista"
+        },
+        {
+          "code": "San Pablo",
+          "name": "Bellavista"
+        },
+        {
+          "code": "San Rafael",
+          "name": "Bellavista"
+        },
+        {
+          "code": "San José de Sisa",
+          "name": "El Dorado"
+        },
+        {
+          "code": "Agua Blanca",
+          "name": "El Dorado"
+        },
+        {
+          "code": "San Martín",
+          "name": "El Dorado"
+        },
+        {
+          "code": "Santa Rosa",
+          "name": "El Dorado"
+        },
+        {
+          "code": "Shatoja",
+          "name": "El Dorado"
+        },
+        {
+          "code": "Saposoa",
+          "name": "Huallaga"
+        },
+        {
+          "code": "Alto Saposoa",
+          "name": "Huallaga"
+        },
+        {
+          "code": "El Eslabón",
+          "name": "Huallaga"
+        },
+        {
+          "code": "Piscoyacu",
+          "name": "Huallaga"
+        },
+        {
+          "code": "Sacanche",
+          "name": "Huallaga"
+        },
+        {
+          "code": "Tingo de Saposoa",
+          "name": "Huallaga"
+        },
+        {
+          "code": "Lamas",
+          "name": "Lamas"
+        },
+        {
+          "code": "Alonso de Alvarado",
+          "name": "Lamas"
+        },
+        {
+          "code": "Barranquita",
+          "name": "Lamas"
+        },
+        {
+          "code": "Caynarachi",
+          "name": "Lamas"
+        },
+        {
+          "code": "Cuñumbuqui",
+          "name": "Lamas"
+        },
+        {
+          "code": "Pinto Recodo",
+          "name": "Lamas"
+        },
+        {
+          "code": "Rumisapa",
+          "name": "Lamas"
+        },
+        {
+          "code": "San Roque de Cumbaza",
+          "name": "Lamas"
+        },
+        {
+          "code": "Shanao",
+          "name": "Lamas"
+        },
+        {
+          "code": "Tabalosos",
+          "name": "Lamas"
+        },
+        {
+          "code": "Zapatero",
+          "name": "Lamas"
+        },
+        {
+          "code": "Juanjuí",
+          "name": "Mariscal Cáceres"
+        },
+        {
+          "code": "Campanilla",
+          "name": "Mariscal Cáceres"
+        },
+        {
+          "code": "Huicungo",
+          "name": "Mariscal Cáceres"
+        },
+        {
+          "code": "Pachiza",
+          "name": "Mariscal Cáceres"
+        },
+        {
+          "code": "Pajarillo",
+          "name": "Mariscal Cáceres"
+        },
+        {
+          "code": "Picota",
+          "name": "Picota"
+        },
+        {
+          "code": "Buenos Aires",
+          "name": "Picota"
+        },
+        {
+          "code": "Caspisapa",
+          "name": "Picota"
+        },
+        {
+          "code": "Pilluana",
+          "name": "Picota"
+        },
+        {
+          "code": "Pucacaca",
+          "name": "Picota"
+        },
+        {
+          "code": "San Cristóbal",
+          "name": "Picota"
+        },
+        {
+          "code": "San Hilarión",
+          "name": "Picota"
+        },
+        {
+          "code": "Shamboyacu",
+          "name": "Picota"
+        },
+        {
+          "code": "Tingo de Ponasa",
+          "name": "Picota"
+        },
+        {
+          "code": "Tres Unidos",
+          "name": "Picota"
+        },
+        {
+          "code": "Rioja",
+          "name": "Rioja"
+        },
+        {
+          "code": "Awajun",
+          "name": "Rioja"
+        },
+        {
+          "code": "Elías Soplin Vargas",
+          "name": "Rioja"
+        },
+        {
+          "code": "Nueva Cajamarca",
+          "name": "Rioja"
+        },
+        {
+          "code": "Pardo Miguel",
+          "name": "Rioja"
+        },
+        {
+          "code": "Posic",
+          "name": "Rioja"
+        },
+        {
+          "code": "San Fernando",
+          "name": "Rioja"
+        },
+        {
+          "code": "Yorongos",
+          "name": "Rioja"
+        },
+        {
+          "code": "Yuracyacu",
+          "name": "Rioja"
+        },
+        {
+          "code": "Tarapoto",
+          "name": "San Martín"
+        },
+        {
+          "code": "Alberto Leveau",
+          "name": "San Martín"
+        },
+        {
+          "code": "Cacatachi",
+          "name": "San Martín"
+        },
+        {
+          "code": "Chazuta",
+          "name": "San Martín"
+        },
+        {
+          "code": "Chipurana",
+          "name": "San Martín"
+        },
+        {
+          "code": "El Porvenir",
+          "name": "San Martín"
+        },
+        {
+          "code": "Huimbayoc",
+          "name": "San Martín"
+        },
+        {
+          "code": "Juan Guerra",
+          "name": "San Martín"
+        },
+        {
+          "code": "La Banda de Shilcayo",
+          "name": "San Martín"
+        },
+        {
+          "code": "Morales",
+          "name": "San Martín"
+        },
+        {
+          "code": "Papaplaya",
+          "name": "San Martín"
+        },
+        {
+          "code": "San Antonio",
+          "name": "San Martín"
+        },
+        {
+          "code": "Sauce",
+          "name": "San Martín"
+        },
+        {
+          "code": "Shapaja",
+          "name": "San Martín"
+        },
+        {
+          "code": "Tocache",
+          "name": "Tocache"
+        },
+        {
+          "code": "Nuevo Progreso",
+          "name": "Tocache"
+        },
+        {
+          "code": "Polvora",
+          "name": "Tocache"
+        },
+        {
+          "code": "Shunte",
+          "name": "Tocache"
+        },
+        {
+          "code": "Uchiza",
+          "name": "Tocache"
+        },
+        {
+          "code": "Tacna",
+          "name": "Tacna"
+        },
+        {
+          "code": "Alto de la Alianza",
+          "name": "Tacna"
+        },
+        {
+          "code": "Calana",
+          "name": "Tacna"
+        },
+        {
+          "code": "Ciudad Nueva",
+          "name": "Tacna"
+        },
+        {
+          "code": "Inclan",
+          "name": "Tacna"
+        },
+        {
+          "code": "Pachia",
+          "name": "Tacna"
+        },
+        {
+          "code": "Palca",
+          "name": "Tacna"
+        },
+        {
+          "code": "Pocollay",
+          "name": "Tacna"
+        },
+        {
+          "code": "Sama",
+          "name": "Tacna"
+        },
+        {
+          "code": "Coronel G. Albarracín Lanchipa",
+          "name": "Tacna"
+        },
+        {
+          "code": "Candarave",
+          "name": "Candarave"
+        },
+        {
+          "code": "Cairani",
+          "name": "Candarave"
+        },
+        {
+          "code": "Camilaca",
+          "name": "Candarave"
+        },
+        {
+          "code": "Curibaya",
+          "name": "Candarave"
+        },
+        {
+          "code": "Huanuara",
+          "name": "Candarave"
+        },
+        {
+          "code": "Quilahuani",
+          "name": "Candarave"
+        },
+        {
+          "code": "Locumba",
+          "name": "Jorge Basadre"
+        },
+        {
+          "code": "Ilabaya",
+          "name": "Jorge Basadre"
+        },
+        {
+          "code": "Ite",
+          "name": "Jorge Basadre"
+        },
+        {
+          "code": "Tarata",
+          "name": "Tarata"
+        },
+        {
+          "code": "Héroes Albarracín",
+          "name": "Tarata"
+        },
+        {
+          "code": "Estique",
+          "name": "Tarata"
+        },
+        {
+          "code": "Estique-Pampa",
+          "name": "Tarata"
+        },
+        {
+          "code": "Sitajara",
+          "name": "Tarata"
+        },
+        {
+          "code": "Susapaya",
+          "name": "Tarata"
+        },
+        {
+          "code": "Tarucachi",
+          "name": "Tarata"
+        },
+        {
+          "code": "Ticaco",
+          "name": "Tarata"
+        },
+        {
+          "code": "Tumbes",
+          "name": "Tumbes"
+        },
+        {
+          "code": "Corrales",
+          "name": "Tumbes"
+        },
+        {
+          "code": "La Cruz",
+          "name": "Tumbes"
+        },
+        {
+          "code": "Pampas de Hospital",
+          "name": "Tumbes"
+        },
+        {
+          "code": "San Jacinto",
+          "name": "Tumbes"
+        },
+        {
+          "code": "San Juan de la Virgen",
+          "name": "Tumbes"
+        },
+        {
+          "code": "Zorritos",
+          "name": "Contralmirante Villar"
+        },
+        {
+          "code": "Casitas",
+          "name": "Contralmirante Villar"
+        },
+        {
+          "code": "Canoas de Punta Sal",
+          "name": "Contralmirante Villar"
+        },
+        {
+          "code": "Zarumilla",
+          "name": "Zarumilla"
+        },
+        {
+          "code": "Aguas Verdes",
+          "name": "Zarumilla"
+        },
+        {
+          "code": "Matapalo",
+          "name": "Zarumilla"
+        },
+        {
+          "code": "Papayal",
+          "name": "Zarumilla"
+        },
+        {
+          "code": "Calleria",
+          "name": "Coronel Portillo"
+        },
+        {
+          "code": "Campoverde",
+          "name": "Coronel Portillo"
+        },
+        {
+          "code": "Iparia",
+          "name": "Coronel Portillo"
+        },
+        {
+          "code": "Masisea",
+          "name": "Coronel Portillo"
+        },
+        {
+          "code": "Yarinacocha",
+          "name": "Coronel Portillo"
+        },
+        {
+          "code": "Nueva Requena",
+          "name": "Coronel Portillo"
+        },
+        {
+          "code": "Manantay",
+          "name": "Coronel Portillo"
+        },
+        {
+          "code": "Raymondi",
+          "name": "Atalaya"
+        },
+        {
+          "code": "Sepahua",
+          "name": "Atalaya"
+        },
+        {
+          "code": "Tahuania",
+          "name": "Atalaya"
+        },
+        {
+          "code": "Yurua",
+          "name": "Atalaya"
+        },
+        {
+          "code": "Padre Abad",
+          "name": "Padre Abad"
+        },
+        {
+          "code": "Irazola",
+          "name": "Padre Abad"
+        },
+        {
+          "code": "Curimana",
+          "name": "Padre Abad"
+        },
+        {
+          "code": "Neshuya",
+          "name": "Padre Abad"
+        },
+        {
+          "code": "Alexander Von Humboldt",
+          "name": "Padre Abad"
+        },
+        {
+          "code": "Purus",
+          "name": "Purús"
+        }
+      ]
+    }
+  ]
+}

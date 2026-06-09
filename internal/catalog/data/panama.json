@@ -1,0 +1,3243 @@
+{
+  "country": "panama",
+  "label": "Panamá",
+  "source": "https://developer.alegra.com/reference/panamá.md",
+  "categories": [
+    {
+      "key": "tipo-de-persona",
+      "title": "Tipo de Persona (kindOfPerson)",
+      "entries": [
+        {
+          "code": "LEGAL_ENTITY",
+          "name": "Persona Jurídica"
+        },
+        {
+          "code": "PERSON_ENTITY",
+          "name": "Persona Natural"
+        }
+      ]
+    },
+    {
+      "key": "tipo-de-receptor",
+      "title": "Tipo de Receptor (thirdType)",
+      "entries": [
+        {
+          "code": "FINAL_CONSUMER",
+          "name": "Consumidor Final"
+        },
+        {
+          "code": "GOVERNMENT",
+          "name": "Gobierno"
+        },
+        {
+          "code": "TAXPAYER",
+          "name": "Contribuyente"
+        },
+        {
+          "code": "FOREIGN",
+          "name": "Extranjero"
+        }
+      ]
+    },
+    {
+      "key": "forma-de-pago",
+      "title": "Forma de Pago (saleCondition)",
+      "entries": [
+        {
+          "code": "CREDIT",
+          "name": "Crédito"
+        },
+        {
+          "code": "CASH",
+          "name": "Contado"
+        },
+        {
+          "code": "CREDIT_CARD",
+          "name": "Tarjeta Crédito"
+        },
+        {
+          "code": "DEBIT_CARD",
+          "name": "Tarjeta Débito"
+        },
+        {
+          "code": "LOYALTY",
+          "name": "Tarjeta de Fidelizaciónm"
+        },
+        {
+          "code": "VOUCHER",
+          "name": "Vale"
+        },
+        {
+          "code": "GIFT_CARD",
+          "name": "Tarjeta de Regalo"
+        },
+        {
+          "code": "OTHER",
+          "name": "Otra"
+        }
+      ]
+    },
+    {
+      "key": "tipo-de-factura",
+      "title": "Tipo de Factura (type)",
+      "entries": [
+        {
+          "code": "INTERNAL_OPERATION",
+          "name": "Operación Interna"
+        },
+        {
+          "code": "EXPORT",
+          "name": "Exportación"
+        },
+        {
+          "code": "FREE_ZONE",
+          "name": "Zona Franca"
+        }
+      ]
+    },
+    {
+      "key": "tipo-de-nota-credito",
+      "title": "Tipo de Nota Crédito (type)",
+      "entries": [
+        {
+          "code": "CREDIT_NOTE_FE",
+          "name": "Nota de crédito referente a una FE"
+        },
+        {
+          "code": "CREDIT_NOTE",
+          "name": "Nota de crédito genérica"
+        }
+      ]
+    },
+    {
+      "key": "tipo-de-operacion",
+      "title": "Tipo de Operación (operationType)",
+      "entries": [
+        {
+          "code": "SALE",
+          "name": "Venta"
+        },
+        {
+          "code": "EXPORTATION (Exportación)",
+          "name": "Exportación"
+        },
+        {
+          "code": "TRANSFER (Transferencia)",
+          "name": "Transferencia"
+        },
+        {
+          "code": "CONSIGNMENT (Consignación)",
+          "name": "Consignación"
+        },
+        {
+          "code": "REMITTANCE (Remisa)",
+          "name": "Remisa"
+        },
+        {
+          "code": "FREE_DELIVERY (Entrega gratuita)",
+          "name": "Entrega gratuita"
+        }
+      ]
+    },
+    {
+      "key": "tipo-de-venta",
+      "title": "Tipo de Venta (saleType)",
+      "entries": [
+        {
+          "code": "ORDER",
+          "name": "Giro del negocio"
+        },
+        {
+          "code": "FIXED_ASSET",
+          "name": "Activo fijo"
+        },
+        {
+          "code": "REAL_ASSET",
+          "name": "Bienes raíces"
+        },
+        {
+          "code": "SERVICE",
+          "name": "Prestación de servicios"
+        }
+      ]
+    },
+    {
+      "key": "estado-de-emision",
+      "title": "Estado de emisión (emission_status)",
+      "entries": [
+        {
+          "code": "PENDING",
+          "name": "Para documentos electrónicos que no se han emitido."
+        },
+        {
+          "code": "STAMPED_AND_WAITING_RESPONSE",
+          "name": "Para documentos electrónicos que fueron emitidos y están a la espera de respuesta."
+        },
+        {
+          "code": "STAMPED_AND_ACCEPTED",
+          "name": "Para documentos electrónicos que fueron emitidos y aceptados."
+        },
+        {
+          "code": "STAMPED_AND_REJECTED",
+          "name": "Para documentos electrónicos que fueron emitidos y rechazados."
+        }
+      ]
+    },
+    {
+      "key": "unidades-de-medida",
+      "title": "Unidades de medida",
+      "entries": [
+        {
+          "code": "micrometer",
+          "name": "Micrómetro"
+        },
+        {
+          "code": "millimeter",
+          "name": "Milímetro"
+        },
+        {
+          "code": "centimeter",
+          "name": "Centímetro"
+        },
+        {
+          "code": "decimeter",
+          "name": "Decímetro"
+        },
+        {
+          "code": "meter",
+          "name": "Metro"
+        },
+        {
+          "code": "decameter",
+          "name": "Decámetro"
+        },
+        {
+          "code": "hectometer",
+          "name": "Hectómetro"
+        },
+        {
+          "code": "kilometer",
+          "name": "Kilómetro"
+        },
+        {
+          "code": "internationalMile",
+          "name": "Milla internacional"
+        },
+        {
+          "code": "nauticalMile",
+          "name": "Milla náutica"
+        },
+        {
+          "code": "inch",
+          "name": "Pulgada"
+        },
+        {
+          "code": "foot",
+          "name": "Pie"
+        },
+        {
+          "code": "yard",
+          "name": "Yarda"
+        },
+        {
+          "code": "millimeterSquared",
+          "name": "Milímetro cuadrado"
+        },
+        {
+          "code": "centimeterSquared",
+          "name": "Centímetro cuadrado"
+        },
+        {
+          "code": "decimeterSquared",
+          "name": "Decímetro cuadrado"
+        },
+        {
+          "code": "meterSquared",
+          "name": "Metro cuadrado"
+        },
+        {
+          "code": "hectare",
+          "name": "Hectárea"
+        },
+        {
+          "code": "kilometerSquared",
+          "name": "Kilómetro cuadrado"
+        },
+        {
+          "code": "acre",
+          "name": "Acre"
+        },
+        {
+          "code": "mileSquared",
+          "name": "Milla cuadrada"
+        },
+        {
+          "code": "inchSquared",
+          "name": "Pulgada cuadrada"
+        },
+        {
+          "code": "footSquared",
+          "name": "Pie cuadrado"
+        },
+        {
+          "code": "yardSquared",
+          "name": "Yarda cuadrada"
+        },
+        {
+          "code": "microliter",
+          "name": "Micro litro"
+        },
+        {
+          "code": "milliliter",
+          "name": "Mililitro"
+        },
+        {
+          "code": "centiliter",
+          "name": "Centilitro"
+        },
+        {
+          "code": "deciliter",
+          "name": "Decilitro"
+        },
+        {
+          "code": "liter",
+          "name": "Litro"
+        },
+        {
+          "code": "decaliter",
+          "name": "Decalitro"
+        },
+        {
+          "code": "hectoliter",
+          "name": "Hectolitro"
+        },
+        {
+          "code": "kiloliter",
+          "name": "Kilolitro"
+        },
+        {
+          "code": "millimeterCubic",
+          "name": "Milímetro cúbico"
+        },
+        {
+          "code": "centimeterCubic",
+          "name": "Centímetro cúbico"
+        },
+        {
+          "code": "decimeterCubic",
+          "name": "Decímetro cúbico"
+        },
+        {
+          "code": "meterCubic",
+          "name": "Metro cúbico"
+        },
+        {
+          "code": "liquidOunce",
+          "name": "Onza líquida EUA"
+        },
+        {
+          "code": "gallon",
+          "name": "Galón"
+        },
+        {
+          "code": "inchCubic",
+          "name": "Pulgada cúbica"
+        },
+        {
+          "code": "footCubic",
+          "name": "Pie cúbico"
+        },
+        {
+          "code": "yardCubic",
+          "name": "Yarda cúbica"
+        },
+        {
+          "code": "microgram",
+          "name": "Microgramo"
+        },
+        {
+          "code": "milligram",
+          "name": "Miligramo"
+        },
+        {
+          "code": "centigram",
+          "name": "Centígramo"
+        },
+        {
+          "code": "decigram",
+          "name": "Decigramo"
+        },
+        {
+          "code": "gram",
+          "name": "Gramo"
+        },
+        {
+          "code": "decagram",
+          "name": "Decagramo"
+        },
+        {
+          "code": "hectogram",
+          "name": "Héctogramo"
+        },
+        {
+          "code": "kilogram",
+          "name": "Kilogramo"
+        },
+        {
+          "code": "ton",
+          "name": "Tonelada"
+        },
+        {
+          "code": "shortTon",
+          "name": "Tonelada curta"
+        },
+        {
+          "code": "longTon",
+          "name": "Tonelada longa"
+        },
+        {
+          "code": "tonOfCargo",
+          "name": "Tonelada de carga"
+        },
+        {
+          "code": "ounce",
+          "name": "Onza"
+        },
+        {
+          "code": "pound",
+          "name": "Libra"
+        },
+        {
+          "code": "ounceTroy",
+          "name": "Onza troy"
+        },
+        {
+          "code": "poundTroy",
+          "name": "Libra troy"
+        },
+        {
+          "code": "pennyweight",
+          "name": "Pennyweight"
+        },
+        {
+          "code": "metricCarat",
+          "name": "Quilate métrico"
+        },
+        {
+          "code": "unit",
+          "name": "Unidad"
+        },
+        {
+          "code": "kit",
+          "name": "Kit"
+        },
+        {
+          "code": "package",
+          "name": "Paquete"
+        },
+        {
+          "code": "person",
+          "name": "Persona"
+        },
+        {
+          "code": "head",
+          "name": "Cabeza Animal"
+        },
+        {
+          "code": "group",
+          "name": "Grupo"
+        },
+        {
+          "code": "ten",
+          "name": "Decena"
+        },
+        {
+          "code": "dozen",
+          "name": "Docena"
+        },
+        {
+          "code": "hundred",
+          "name": "Ciento"
+        },
+        {
+          "code": "travel",
+          "name": "Viaje"
+        },
+        {
+          "code": "visit",
+          "name": "Visita"
+        },
+        {
+          "code": "cask",
+          "name": "Barrica"
+        },
+        {
+          "code": "barrel",
+          "name": "Barril"
+        },
+        {
+          "code": "white",
+          "name": "Blanco"
+        },
+        {
+          "code": "handbag",
+          "name": "Bolso"
+        },
+        {
+          "code": "box",
+          "name": "Caja"
+        },
+        {
+          "code": "basket",
+          "name": "Cesta"
+        },
+        {
+          "code": "accessLines",
+          "name": "Línea de acceso"
+        },
+        {
+          "code": "serviceLines",
+          "name": "Línea de servicio"
+        },
+        {
+          "code": "call",
+          "name": "Llamada"
+        },
+        {
+          "code": "port",
+          "name": "Puerto de telecomunicaciones"
+        },
+        {
+          "code": "watt",
+          "name": "Watt"
+        },
+        {
+          "code": "kilowatt",
+          "name": "Kilowatt"
+        },
+        {
+          "code": "megawatt",
+          "name": "Megawatt"
+        },
+        {
+          "code": "gigawatt",
+          "name": "Gigawatt"
+        },
+        {
+          "code": "terawatt",
+          "name": "Terawatt"
+        },
+        {
+          "code": "wattHour",
+          "name": "Watt hora"
+        },
+        {
+          "code": "kilowattHour",
+          "name": "Kilowatt hora"
+        },
+        {
+          "code": "megawattHour",
+          "name": "Megawatt hora"
+        },
+        {
+          "code": "gigawattHour",
+          "name": "Gigawatt hora"
+        },
+        {
+          "code": "terawattHour",
+          "name": "Terawatt hora"
+        },
+        {
+          "code": "voltAmp",
+          "name": "Voltio-amperio"
+        },
+        {
+          "code": "kilovoltAmp",
+          "name": "Kilovoltio-amperio"
+        },
+        {
+          "code": "megavoltAmp",
+          "name": "Megavoltio-amperio"
+        },
+        {
+          "code": "denier",
+          "name": "Denier"
+        },
+        {
+          "code": "battingPound",
+          "name": "Libra de bateo"
+        },
+        {
+          "code": "skein",
+          "name": "Madeja"
+        },
+        {
+          "code": "year",
+          "name": "Año"
+        },
+        {
+          "code": "commonYear",
+          "name": "Año común"
+        },
+        {
+          "code": "month",
+          "name": "Mes"
+        },
+        {
+          "code": "day",
+          "name": "Día"
+        },
+        {
+          "code": "hour",
+          "name": "Hora"
+        },
+        {
+          "code": "minute",
+          "name": "Minuto"
+        },
+        {
+          "code": "second",
+          "name": "Segundo"
+        },
+        {
+          "code": "week",
+          "name": "Semana"
+        },
+        {
+          "code": "activity",
+          "name": "Actividad"
+        },
+        {
+          "code": "workHour",
+          "name": "Hora de trabajo"
+        },
+        {
+          "code": "overtime",
+          "name": "Hora extra"
+        },
+        {
+          "code": "workMonth",
+          "name": "Mes de trabajo"
+        },
+        {
+          "code": "persons",
+          "name": "Personas"
+        },
+        {
+          "code": "post",
+          "name": "Puestos"
+        }
+      ]
+    },
+    {
+      "key": "ubicaciones",
+      "title": "Ubicaciones",
+      "entries": [
+        {
+          "code": "Bocas del Toro",
+          "name": "Bocas del Toro"
+        },
+        {
+          "code": "Bocas del Toro",
+          "name": "Bocas del Toro"
+        },
+        {
+          "code": "Bocas del Toro",
+          "name": "Bocas del Toro"
+        },
+        {
+          "code": "Bocas del Toro",
+          "name": "Bocas del Toro"
+        },
+        {
+          "code": "Bocas del Toro",
+          "name": "Bocas del Toro"
+        },
+        {
+          "code": "Bocas del Toro",
+          "name": "Changuinola"
+        },
+        {
+          "code": "Bocas del Toro",
+          "name": "Changuinola"
+        },
+        {
+          "code": "Bocas del Toro",
+          "name": "Changuinola"
+        },
+        {
+          "code": "Bocas del Toro",
+          "name": "Changuinola"
+        },
+        {
+          "code": "Bocas del Toro",
+          "name": "Changuinola"
+        },
+        {
+          "code": "Bocas del Toro",
+          "name": "Changuinola"
+        },
+        {
+          "code": "Bocas del Toro",
+          "name": "Chiriquí Grande"
+        },
+        {
+          "code": "Bocas del Toro",
+          "name": "Chiriquí Grande"
+        },
+        {
+          "code": "Bocas del Toro",
+          "name": "Chiriquí Grande"
+        },
+        {
+          "code": "Bocas del Toro",
+          "name": "Chiriquí Grande"
+        },
+        {
+          "code": "Bocas del Toro",
+          "name": "Chiriquí Grande"
+        },
+        {
+          "code": "Bocas del Toro",
+          "name": "Chiriquí Grande"
+        },
+        {
+          "code": "Bocas del Toro",
+          "name": "Almirante"
+        },
+        {
+          "code": "Bocas del Toro",
+          "name": "Almirante"
+        },
+        {
+          "code": "Bocas del Toro",
+          "name": "Almirante"
+        },
+        {
+          "code": "Bocas del Toro",
+          "name": "Almirante"
+        },
+        {
+          "code": "Bocas del Toro",
+          "name": "Almirante"
+        },
+        {
+          "code": "Bocas del Toro",
+          "name": "Almirante"
+        },
+        {
+          "code": "Coclé",
+          "name": "Aguadulce"
+        },
+        {
+          "code": "Coclé",
+          "name": "Aguadulce"
+        },
+        {
+          "code": "Coclé",
+          "name": "Aguadulce"
+        },
+        {
+          "code": "Coclé",
+          "name": "Aguadulce"
+        },
+        {
+          "code": "Coclé",
+          "name": "Aguadulce"
+        },
+        {
+          "code": "Coclé",
+          "name": "Anton"
+        },
+        {
+          "code": "Coclé",
+          "name": "Anton"
+        },
+        {
+          "code": "Coclé",
+          "name": "Anton"
+        },
+        {
+          "code": "Coclé",
+          "name": "Anton"
+        },
+        {
+          "code": "Coclé",
+          "name": "Anton"
+        },
+        {
+          "code": "Coclé",
+          "name": "Anton"
+        },
+        {
+          "code": "Coclé",
+          "name": "Anton"
+        },
+        {
+          "code": "Coclé",
+          "name": "Anton"
+        },
+        {
+          "code": "Coclé",
+          "name": "Anton"
+        },
+        {
+          "code": "Coclé",
+          "name": "Anton"
+        },
+        {
+          "code": "Coclé",
+          "name": "La Pintada"
+        },
+        {
+          "code": "Coclé",
+          "name": "La Pintada"
+        },
+        {
+          "code": "Coclé",
+          "name": "La Pintada"
+        },
+        {
+          "code": "Coclé",
+          "name": "La Pintada"
+        },
+        {
+          "code": "Coclé",
+          "name": "La Pintada"
+        },
+        {
+          "code": "Coclé",
+          "name": "La Pintada"
+        },
+        {
+          "code": "Coclé",
+          "name": "Nata"
+        },
+        {
+          "code": "Coclé",
+          "name": "Nata"
+        },
+        {
+          "code": "Coclé",
+          "name": "Nata"
+        },
+        {
+          "code": "Coclé",
+          "name": "Nata"
+        },
+        {
+          "code": "Coclé",
+          "name": "Nata"
+        },
+        {
+          "code": "Coclé",
+          "name": "Nata"
+        },
+        {
+          "code": "Coclé",
+          "name": "Ola"
+        },
+        {
+          "code": "Coclé",
+          "name": "Ola"
+        },
+        {
+          "code": "Coclé",
+          "name": "Ola"
+        },
+        {
+          "code": "Coclé",
+          "name": "Ola"
+        },
+        {
+          "code": "Coclé",
+          "name": "Ola"
+        },
+        {
+          "code": "Coclé",
+          "name": "Penonome"
+        },
+        {
+          "code": "Coclé",
+          "name": "Penonome"
+        },
+        {
+          "code": "Coclé",
+          "name": "Penonome"
+        },
+        {
+          "code": "Coclé",
+          "name": "Penonome"
+        },
+        {
+          "code": "Coclé",
+          "name": "Penonome"
+        },
+        {
+          "code": "Coclé",
+          "name": "Penonome"
+        },
+        {
+          "code": "Coclé",
+          "name": "Penonome"
+        },
+        {
+          "code": "Coclé",
+          "name": "Penonome"
+        },
+        {
+          "code": "Coclé",
+          "name": "Penonome"
+        },
+        {
+          "code": "Coclé",
+          "name": "Penonome"
+        },
+        {
+          "code": "Colón",
+          "name": "Colón"
+        },
+        {
+          "code": "Colón",
+          "name": "Colón"
+        },
+        {
+          "code": "Colón",
+          "name": "Colón"
+        },
+        {
+          "code": "Colón",
+          "name": "Colón"
+        },
+        {
+          "code": "Colón",
+          "name": "Colón"
+        },
+        {
+          "code": "Colón",
+          "name": "Colón"
+        },
+        {
+          "code": "Colón",
+          "name": "Colón"
+        },
+        {
+          "code": "Colón",
+          "name": "Colón"
+        },
+        {
+          "code": "Colón",
+          "name": "Colón"
+        },
+        {
+          "code": "Colón",
+          "name": "Colón"
+        },
+        {
+          "code": "Colón",
+          "name": "Colón"
+        },
+        {
+          "code": "Colón",
+          "name": "Colón"
+        },
+        {
+          "code": "Colón",
+          "name": "Colón"
+        },
+        {
+          "code": "Colón",
+          "name": "Colón"
+        },
+        {
+          "code": "Colón",
+          "name": "Colón"
+        },
+        {
+          "code": "Colón",
+          "name": "Chagres"
+        },
+        {
+          "code": "Colón",
+          "name": "Chagres"
+        },
+        {
+          "code": "Colón",
+          "name": "Chagres"
+        },
+        {
+          "code": "Colón",
+          "name": "Chagres"
+        },
+        {
+          "code": "Colón",
+          "name": "Chagres"
+        },
+        {
+          "code": "Colón",
+          "name": "Chagres"
+        },
+        {
+          "code": "Colón",
+          "name": "Chagres"
+        },
+        {
+          "code": "Colón",
+          "name": "Donoso"
+        },
+        {
+          "code": "Colón",
+          "name": "Donoso"
+        },
+        {
+          "code": "Colón",
+          "name": "Donoso"
+        },
+        {
+          "code": "Colón",
+          "name": "Donoso"
+        },
+        {
+          "code": "Colón",
+          "name": "Donoso"
+        },
+        {
+          "code": "Colón",
+          "name": "Donoso"
+        },
+        {
+          "code": "Colón",
+          "name": "Portobelo"
+        },
+        {
+          "code": "Colón",
+          "name": "Portobelo"
+        },
+        {
+          "code": "Colón",
+          "name": "Portobelo"
+        },
+        {
+          "code": "Colón",
+          "name": "Portobelo"
+        },
+        {
+          "code": "Colón",
+          "name": "Portobelo"
+        },
+        {
+          "code": "Colón",
+          "name": "Santa Isabel"
+        },
+        {
+          "code": "Colón",
+          "name": "Santa Isabel"
+        },
+        {
+          "code": "Colón",
+          "name": "Santa Isabel"
+        },
+        {
+          "code": "Colón",
+          "name": "Santa Isabel"
+        },
+        {
+          "code": "Colón",
+          "name": "Santa Isabel"
+        },
+        {
+          "code": "Colón",
+          "name": "Santa Isabel"
+        },
+        {
+          "code": "Colón",
+          "name": "Santa Isabel"
+        },
+        {
+          "code": "Colón",
+          "name": "Santa Isabel"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Alanje"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Alanje"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Alanje"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Alanje"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Alanje"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Alanje"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Alanje"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Alanje"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Alanje"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Baru"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Baru"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Baru"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Barú"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Baru"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Boquerón"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Boquerón"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Boquerón"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Boqueron"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Boqueron"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Boqueron"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Boqueron"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Boqueron"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Boquete"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Boquete"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Boquete"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Boquete"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Boquete"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Boquete"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Bugaba"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Bugaba"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Bugaba"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Bugaba"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Bugaba"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Bugaba"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Bugaba"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Bugaba"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Bugaba"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Bugaba"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Bugaba"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "David"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "David"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "David"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "David"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "David"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "David"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "David"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "David"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "David"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "David"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Dolega"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Dolega"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Dolega"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Dolega"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Dolega"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Dolega"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Dolega"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Dolega"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Gualaca"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Gualaca"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Gualaca"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Gualaca"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Gualaca"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Remedios"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Remedios"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Remedios"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Remedios"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Remedios"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Renacimiento"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Renacimiento"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Renacimiento"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Renacimiento"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Renacimiento"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Renacimiento"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Renacimiento"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Renacimiento"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "San Felix"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "San Felix"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "San Felix"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "San Felix"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "San Felix"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "San Lorenzo"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "San Lorenzo"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "San Lorenzo"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "San Lorenzo"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "San Lorenzo"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Tole"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Tole"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Tole"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Tole"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Tole"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Tole"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Tole"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Tole"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Tole"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Tierras Altas"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Tierras Altas"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Tierras Altas"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Tierras Altas"
+        },
+        {
+          "code": "Chiriquí",
+          "name": "Tierras Altas"
+        },
+        {
+          "code": "Darién",
+          "name": "Chepigana"
+        },
+        {
+          "code": "Darién",
+          "name": "Chepigana"
+        },
+        {
+          "code": "Darién",
+          "name": "Chepigana"
+        },
+        {
+          "code": "Darién",
+          "name": "Chepigana"
+        },
+        {
+          "code": "Darién",
+          "name": "Chepigana"
+        },
+        {
+          "code": "Darién",
+          "name": "Chepigana"
+        },
+        {
+          "code": "Darién",
+          "name": "Chepigana"
+        },
+        {
+          "code": "Darién",
+          "name": "Chepigana"
+        },
+        {
+          "code": "Darién",
+          "name": "Chepigana"
+        },
+        {
+          "code": "Darién",
+          "name": "Chepigana"
+        },
+        {
+          "code": "Darién",
+          "name": "Pinogana"
+        },
+        {
+          "code": "Darién",
+          "name": "Pinogana"
+        },
+        {
+          "code": "Darién",
+          "name": "Pinogana"
+        },
+        {
+          "code": "Darién",
+          "name": "Pinogana"
+        },
+        {
+          "code": "Darién",
+          "name": "Pinogana"
+        },
+        {
+          "code": "Darién",
+          "name": "Pinogana"
+        },
+        {
+          "code": "Darién",
+          "name": "Pinogana"
+        },
+        {
+          "code": "Darién",
+          "name": "Pinogana"
+        },
+        {
+          "code": "Darién",
+          "name": "Pinogana"
+        },
+        {
+          "code": "Darién",
+          "name": "Santa Fe"
+        },
+        {
+          "code": "Darién",
+          "name": "Santa Fe"
+        },
+        {
+          "code": "Darién",
+          "name": "Santa Fe"
+        },
+        {
+          "code": "Darién",
+          "name": "Santa Fe"
+        },
+        {
+          "code": "Darién",
+          "name": "Santa Fe"
+        },
+        {
+          "code": "Darién",
+          "name": "Santa Fe"
+        },
+        {
+          "code": "Darién",
+          "name": "Santa Fe"
+        },
+        {
+          "code": "Herrera",
+          "name": "Chitre"
+        },
+        {
+          "code": "Herrera",
+          "name": "Chitre"
+        },
+        {
+          "code": "Herrera",
+          "name": "Chitré"
+        },
+        {
+          "code": "Herrera",
+          "name": "Chitré"
+        },
+        {
+          "code": "Herrera",
+          "name": "Chitré"
+        },
+        {
+          "code": "Herrera",
+          "name": "Las Minas"
+        },
+        {
+          "code": "Herrera",
+          "name": "Las Minas"
+        },
+        {
+          "code": "Herrera",
+          "name": "Las Minas"
+        },
+        {
+          "code": "Herrera",
+          "name": "Las Minas"
+        },
+        {
+          "code": "Herrera",
+          "name": "Las Minas"
+        },
+        {
+          "code": "Herrera",
+          "name": "Las Minas"
+        },
+        {
+          "code": "Herrera",
+          "name": "Las Minas"
+        },
+        {
+          "code": "Herrera",
+          "name": "Los Pozos"
+        },
+        {
+          "code": "Herrera",
+          "name": "Los Pozos"
+        },
+        {
+          "code": "Herrera",
+          "name": "Los Pozos"
+        },
+        {
+          "code": "Herrera",
+          "name": "Los Pozos"
+        },
+        {
+          "code": "Herrera",
+          "name": "Los Pozos"
+        },
+        {
+          "code": "Herrera",
+          "name": "Los Pozos"
+        },
+        {
+          "code": "Herrera",
+          "name": "Los Pozos"
+        },
+        {
+          "code": "Herrera",
+          "name": "Los Pozos"
+        },
+        {
+          "code": "Herrera",
+          "name": "Los Pozos"
+        },
+        {
+          "code": "Herrera",
+          "name": "Ocu"
+        },
+        {
+          "code": "Herrera",
+          "name": "Ocu"
+        },
+        {
+          "code": "Herrera",
+          "name": "Ocu"
+        },
+        {
+          "code": "Herrera",
+          "name": "Ocu"
+        },
+        {
+          "code": "Herrera",
+          "name": "Ocu"
+        },
+        {
+          "code": "Herrera",
+          "name": "Ocu"
+        },
+        {
+          "code": "Herrera",
+          "name": "Ocu"
+        },
+        {
+          "code": "Herrera",
+          "name": "Parita"
+        },
+        {
+          "code": "Herrera",
+          "name": "Parita"
+        },
+        {
+          "code": "Herrera",
+          "name": "Parita"
+        },
+        {
+          "code": "Herrera",
+          "name": "Parita"
+        },
+        {
+          "code": "Herrera",
+          "name": "Parita"
+        },
+        {
+          "code": "Herrera",
+          "name": "Parita"
+        },
+        {
+          "code": "Herrera",
+          "name": "Parita"
+        },
+        {
+          "code": "Herrera",
+          "name": "Pese"
+        },
+        {
+          "code": "Herrera",
+          "name": "Pese"
+        },
+        {
+          "code": "Herrera",
+          "name": "Pese"
+        },
+        {
+          "code": "Herrera",
+          "name": "Pese"
+        },
+        {
+          "code": "Herrera",
+          "name": "Pese"
+        },
+        {
+          "code": "Herrera",
+          "name": "Pese"
+        },
+        {
+          "code": "Herrera",
+          "name": "Pese"
+        },
+        {
+          "code": "Herrera",
+          "name": "Pese"
+        },
+        {
+          "code": "Herrera",
+          "name": "Santa Maria"
+        },
+        {
+          "code": "Herrera",
+          "name": "Santa Maria"
+        },
+        {
+          "code": "Herrera",
+          "name": "Santa Maria"
+        },
+        {
+          "code": "Herrera",
+          "name": "Santa Maria"
+        },
+        {
+          "code": "Herrera",
+          "name": "Santa Maria"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Guarare"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Guarare"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Guarare"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Guarare"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Guarare"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Guarare"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Guarare"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Guarare"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Guarare"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Guarare"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Las Tablas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Las Tablas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Las Tablas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Las Tablas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Las Tablas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Las Tablas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Las Tablas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Las Tablas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Las Tablas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Las Tablas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Las Tablas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Las Tablas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Las Tablas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Las Tablas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Las Tablas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Las Tablas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Las Tablas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Las Tablas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Las Tablas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Las Tablas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Las Tablas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Las Tablas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Las Tablas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Las Tablas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Los Santos"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Los Santos"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Los Santos"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Los Santos"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Los Santos"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Los Santos"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Los Angeles"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Los Olivos"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Los Santos"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Los Santos"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Los Santos"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Los Santos"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Los Santos"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Los Santos"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Macaracas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Macaracas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Macaracas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Macaracas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Macaracas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Macaracas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Macaracas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Macaracas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Macaracas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Macaracas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Macaracas"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Pedasi"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Pedasi"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Pedasi"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Pedasi"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Pedasi"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Pocri"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Pocri"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Pocri"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Pocri"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Pocri"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Tonosi"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Tonosi"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Tonosi"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Tonosi"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Tonosi"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Tonosi"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Tonosi"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Tonosi"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Tonosi"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Tonosi"
+        },
+        {
+          "code": "Los Santos",
+          "name": "Tonosi"
+        },
+        {
+          "code": "Panamá",
+          "name": "Balboa"
+        },
+        {
+          "code": "Panamá",
+          "name": "Balboa"
+        },
+        {
+          "code": "Panamá",
+          "name": "Balboa"
+        },
+        {
+          "code": "Panamá",
+          "name": "Balboa"
+        },
+        {
+          "code": "Panamá",
+          "name": "Balboa"
+        },
+        {
+          "code": "Panamá",
+          "name": "Balboa"
+        },
+        {
+          "code": "Panamá",
+          "name": "Chepo"
+        },
+        {
+          "code": "Panamá",
+          "name": "Chepo"
+        },
+        {
+          "code": "Panamá",
+          "name": "Chepo"
+        },
+        {
+          "code": "Panamá",
+          "name": "Chepo"
+        },
+        {
+          "code": "Panamá",
+          "name": "Chepo"
+        },
+        {
+          "code": "Panamá",
+          "name": "Chepo"
+        },
+        {
+          "code": "Panamá",
+          "name": "Chepo"
+        },
+        {
+          "code": "Panamá",
+          "name": "Chepo"
+        },
+        {
+          "code": "Panamá",
+          "name": "Chiman"
+        },
+        {
+          "code": "Panamá",
+          "name": "Chiman"
+        },
+        {
+          "code": "Panamá",
+          "name": "Chiman"
+        },
+        {
+          "code": "Panamá",
+          "name": "Chiman"
+        },
+        {
+          "code": "Panamá",
+          "name": "Chiman"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "Panamá"
+        },
+        {
+          "code": "Panamá",
+          "name": "San Miguelito"
+        },
+        {
+          "code": "Panamá",
+          "name": "San Miguelito"
+        },
+        {
+          "code": "Panamá",
+          "name": "San Miguelito"
+        },
+        {
+          "code": "Panamá",
+          "name": "San Miguelito"
+        },
+        {
+          "code": "Panamá",
+          "name": "San Miguelito"
+        },
+        {
+          "code": "Panamá",
+          "name": "San Miguelito"
+        },
+        {
+          "code": "Panamá",
+          "name": "San Miguelito"
+        },
+        {
+          "code": "Panamá",
+          "name": "San Miguelito"
+        },
+        {
+          "code": "Panamá",
+          "name": "San Miguelito"
+        },
+        {
+          "code": "Panamá",
+          "name": "Taboga"
+        },
+        {
+          "code": "Panamá",
+          "name": "Taboga"
+        },
+        {
+          "code": "Panamá",
+          "name": "Taboga"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Atalaya"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Atalaya"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Atalaya"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Atalaya"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Atalaya"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Calobre"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Calobre"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Calobre"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Calobre"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Calobre"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Calobre"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Calobre"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Calobre"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Calobre"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Calobre"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Calobre"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Calobre"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Cañazas"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Cañazas"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Cañazas"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Cañazas"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Cañazas"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Cañazas"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Cañazas"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Cañazas"
+        },
+        {
+          "code": "Veraguas",
+          "name": "La Meza"
+        },
+        {
+          "code": "Veraguas",
+          "name": "La Meza"
+        },
+        {
+          "code": "Veraguas",
+          "name": "La Meza"
+        },
+        {
+          "code": "Veraguas",
+          "name": "La Meza"
+        },
+        {
+          "code": "Veraguas",
+          "name": "La Meza"
+        },
+        {
+          "code": "Veraguas",
+          "name": "La Meza"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Las Palmas"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Las Palmas"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Las Palmas"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Las Palmas"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Las Palmas"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Las Palmas"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Las Palmas"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Las Palmas"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Las Palmas"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Las Palmas"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Las Palmas"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Las Palmas"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Las Palmas"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Montijo"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Montijo"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Montijo"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Montijo"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Montijo"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Montijo"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Montijo"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Montijo"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Montijo"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Montijo"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Rio De Jesus"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Rio De Jesus"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Rio De Jesus"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Rio De Jesus"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Rio De Jesus"
+        },
+        {
+          "code": "Veraguas",
+          "name": "San Francisco"
+        },
+        {
+          "code": "Veraguas",
+          "name": "San Francisco"
+        },
+        {
+          "code": "Veraguas",
+          "name": "San Francisco"
+        },
+        {
+          "code": "Veraguas",
+          "name": "San Francisco"
+        },
+        {
+          "code": "Veraguas",
+          "name": "San Francisco"
+        },
+        {
+          "code": "Veraguas",
+          "name": "San Francisco"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Santa Fe"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Santa Fe"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Santa Fe"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Santa Fe"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Santa Fe"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Santa Fe"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Santa Fe"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Santiago"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Santiago"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Santiago"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Santiago"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Santiago"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Santiago"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Santiago"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Santiago"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Santiago"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Santiago"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Santiago"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Santiago"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Sona"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Sona"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Sona"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Sona"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Sona"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Sona"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Sona"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Sona"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Sona"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Sona"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Mariato"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Mariato"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Mariato"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Mariato"
+        },
+        {
+          "code": "Veraguas",
+          "name": "Mariato"
+        },
+        {
+          "code": "Comarca Kuna Yala",
+          "name": "Comarca Kuna Yala"
+        },
+        {
+          "code": "Comarca Kuna Yala",
+          "name": "Comarca Kuna Yala"
+        },
+        {
+          "code": "Comarca Kuna Yala",
+          "name": "Comarca Kuna Yala"
+        },
+        {
+          "code": "Comarca Kuna Yala",
+          "name": "Comarca Kuna Yala"
+        },
+        {
+          "code": "Comarca Emberá-Wounaan",
+          "name": "Cemaco"
+        },
+        {
+          "code": "Comarca Emberá-Wounaan",
+          "name": "Cemaco"
+        },
+        {
+          "code": "Comarca Emberá-Wounaan",
+          "name": "Cemaco"
+        },
+        {
+          "code": "Comarca Emberá-Wounaan",
+          "name": "Sambu"
+        },
+        {
+          "code": "Comarca Emberá-Wounaan",
+          "name": "Sambu"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Besiko"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Besiko"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Besiko"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Besiko"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Besiko"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Besiko"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Besiko"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Besiko"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Mirono"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Mirono"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Mirono"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Mirono"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Mirono"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Mirono"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Mirono"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Mirono"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Muna"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Muna"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Muna"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Muna"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Muna"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Muna"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Muna"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Muna"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Muna"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Muna"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Muna"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Muna"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Nole Duima"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Nole Duima"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Nole Duima"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Nole Duima"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Nole Duima"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Nurum"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Nurum"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Nurum"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Nurum"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Nurum"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Nurum"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Nurum"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Nurum"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Nurum"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Kankintu"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Kankintu"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Kankintu"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Kankintu"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Kankintu"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Kankintu"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Kankintu"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Kankintu"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Kankintu"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Kusapin"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Kusapin"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Kusapin"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Kusapin"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Kusapin"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Kusapin"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Kusapin"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Jirondai"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Jirondai"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Jirondai"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Jirondai"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Jirondai"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Santa Catalina O Calovebora (Bledeshia)"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Santa Catalina O Calovebora (Bledeshia)"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Santa Catalina O Calovebora (Bledeshia)"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Santa Catalina O Calovebora (Bledeshia)"
+        },
+        {
+          "code": "Comarca Ngäbe-Buglé",
+          "name": "Santa Catalina O Calovebora (Bledeshia)"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Arraiján"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Arraiján"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Arraiján"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Arraiján"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Arraiján"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Arraiján"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Arraiján"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Arraiján"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Capira"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Capira"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Capira"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Capira"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Capira"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Capira"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Capira"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Capira"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Capira"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Capira"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Capira"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Capira"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Capira"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Chame"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Chame"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Chame"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Chame"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Chame"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Chame"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Chame"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Chame"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Chame"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Chame"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "Chame"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "La Chorrera"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "La Chorrera"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "La Chorrera"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "La Chorrera"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "La Chorrera"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "La Chorrera"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "La Chorrera"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "La Chorrera"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "La Chorrera"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "La Chorrera"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "La Chorrera"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "La Chorrera"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "La Chorrera"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "La Chorrera"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "La Chorrera"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "La Chorrera"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "La Chorrera"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "La Chorrera"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "San Carlos"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "San Carlos"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "San Carlos"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "San Carlos"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "San Carlos"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "San Carlos"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "San Carlos"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "San Carlos"
+        },
+        {
+          "code": "Panamá Oeste",
+          "name": "San Carlos"
+        }
+      ]
+    }
+  ]
+}

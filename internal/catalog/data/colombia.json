@@ -1,0 +1,799 @@
+{
+  "country": "colombia",
+  "label": "Colombia",
+  "source": "https://developer.alegra.com/reference/colombia.md",
+  "categories": [
+    {
+      "key": "tipos-de-identificacion",
+      "title": "Tipos de identificación",
+      "entries": [
+        {
+          "code": "RC",
+          "name": "Registro civil"
+        },
+        {
+          "code": "TI",
+          "name": "Tarjeta de identidad"
+        },
+        {
+          "code": "CC",
+          "name": "Cédula de ciudadanía"
+        },
+        {
+          "code": "TE",
+          "name": "Tarjeta de extranjería"
+        },
+        {
+          "code": "CE",
+          "name": "Cédula de extranjería"
+        },
+        {
+          "code": "NIT",
+          "name": "Número de identificación tributaria"
+        },
+        {
+          "code": "PP",
+          "name": "Pasaporte"
+        },
+        {
+          "code": "PEP",
+          "name": "Permiso especial de permanencia"
+        },
+        {
+          "code": "DIE",
+          "name": "Documento de identificación extranjero"
+        },
+        {
+          "code": "NUIP",
+          "name": "NUIP"
+        },
+        {
+          "code": "FOREIGN_NIT",
+          "name": "NIT de otro país"
+        }
+      ]
+    },
+    {
+      "key": "regimenes",
+      "title": "Regímenes",
+      "entries": [
+        {
+          "code": "SIMPLIFIED_REGIME",
+          "name": "No responsable del IVA (Régimen simplificado)"
+        },
+        {
+          "code": "COMMON_REGIME",
+          "name": "Responsable del IVA (Régimen común)a"
+        },
+        {
+          "code": "NOT_REPONSIBLE_FOR_CONSUMPTION",
+          "name": "No responsable de consumo (Régimen simplificado del INC)a"
+        },
+        {
+          "code": "SPECIAL_REGIME",
+          "name": "Régimen especial"
+        },
+        {
+          "code": "NATIONAL_CONSUMPTION_TAX",
+          "name": "Impuesto Nacional al Consumo"
+        },
+        {
+          "code": "INC_IVA_RESPONSIBLE",
+          "name": "Responsable de IVA e INC"
+        }
+      ]
+    },
+    {
+      "key": "tipos-de-personas",
+      "title": "Tipos de Personas",
+      "entries": [
+        {
+          "code": "LEGAL_ENTITY",
+          "name": "Persona jurídica"
+        },
+        {
+          "code": "PERSON_ENTITY",
+          "name": "Persona naturala"
+        }
+      ]
+    },
+    {
+      "key": "estados-legales",
+      "title": "Estados legales",
+      "entries": [
+        {
+          "code": "ACCEPTED",
+          "name": "Comprobante entregado a la DIAN"
+        },
+        {
+          "code": "REJECTED",
+          "name": "Comprobante no entregado por falla"
+        },
+        {
+          "code": "PENDING",
+          "name": "Comprobante en proceso de autorización ante la DIAN"
+        }
+      ]
+    },
+    {
+      "key": "tipos-de-factura",
+      "title": "Tipos de factura",
+      "entries": [
+        {
+          "code": "NATIONAL",
+          "name": "Factura nacional"
+        },
+        {
+          "code": "EXPORT",
+          "name": "Factura de exportación"
+        }
+      ]
+    },
+    {
+      "key": "tipos-de-nota-credito",
+      "title": "Tipos de Nota Crédito",
+      "entries": [
+        {
+          "code": "PARTIALL_DEVOLUTION",
+          "name": "Devolución de parte de los bienes; no aceptación de partes del servicio"
+        },
+        {
+          "code": "VOID_ELECTRONIC_INVOICE",
+          "name": "Anulación de factura electrónica"
+        },
+        {
+          "code": "REDUCTION_DISCOUNT_PARTIAL_TOTAL",
+          "name": "Rebaja o descuento parcial o total"
+        },
+        {
+          "code": "PRICE_ADJUSTMENT",
+          "name": "Ajuste de precio"
+        },
+        {
+          "code": "OTHER",
+          "name": "Otros"
+        }
+      ]
+    },
+    {
+      "key": "tipos-de-operacion-en-nota-credito",
+      "title": "Tipos de operación en Nota Crédito",
+      "entries": [
+        {
+          "code": "REFERENCE_TO_ELECTRONIC_INVOICE",
+          "name": "Se hace referencia a la factura electronica"
+        },
+        {
+          "code": "NO_REFERENCE_TO_ELECTRONIC_INVOICE",
+          "name": "No se hace referencia a la factura electronica. (Indicada si la factura tiene el evento de aceptación)"
+        }
+      ]
+    },
+    {
+      "key": "tipos-de-nota-debito-de-cliente",
+      "title": "Tipos de Nota Débito de Cliente",
+      "entries": [
+        {
+          "code": "PROFITS",
+          "name": "Intereses"
+        },
+        {
+          "code": "EXPENSES_RECEIVABLE",
+          "name": "Gastos por cobrar"
+        },
+        {
+          "code": "VALUE_CHANGE",
+          "name": "Cambio del valor"
+        },
+        {
+          "code": "OTHERS",
+          "name": "Otros"
+        }
+      ]
+    },
+    {
+      "key": "tipos-de-operacion",
+      "title": "Tipos de Operación",
+      "entries": [
+        {
+          "code": "STANDARD",
+          "name": "Estándar"
+        },
+        {
+          "code": "AIU_SERVICE",
+          "name": "Servicios"
+        }
+      ]
+    },
+    {
+      "key": "formas-de-pago",
+      "title": "Formas de pago",
+      "entries": [
+        {
+          "code": "CASH",
+          "name": "Contado"
+        },
+        {
+          "code": "CREDIT",
+          "name": "Crédito"
+        }
+      ]
+    },
+    {
+      "key": "medios-de-pago",
+      "title": "Medios de pago",
+      "entries": [
+        {
+          "code": "INSTRUMENT_NOT_DEFINED",
+          "name": "Instrumento no definido"
+        },
+        {
+          "code": "CASH",
+          "name": "Efectivo"
+        },
+        {
+          "code": "DEBIT_TRANSFER",
+          "name": "Débito ACH"
+        },
+        {
+          "code": "BANK_DEPOSIT",
+          "name": "Consignación bancaria"
+        },
+        {
+          "code": "ACH_CREDIT",
+          "name": "Crédito ACH"
+        },
+        {
+          "code": "ACH_DEBIT",
+          "name": "Débito ACH"
+        },
+        {
+          "code": "REVERSION_ACH_DEBIT",
+          "name": "Reversión débito de demanda ACH"
+        },
+        {
+          "code": "REVERSION_ACH_CREDIT",
+          "name": "Reversión crédito de demanda ACH"
+        },
+        {
+          "code": "CREDIT_ACH_DEMAND",
+          "name": "Crédito de demanda ACH"
+        },
+        {
+          "code": "DEBIT_ACH_DEMAND",
+          "name": "Débito de demanda ACH"
+        },
+        {
+          "code": "NATIONAL_CLEARING",
+          "name": "Clearing nacional o regional"
+        },
+        {
+          "code": "REVERSION_CREDIT_SAVING",
+          "name": "Reversión crédito ahorro"
+        },
+        {
+          "code": "REVERSION_DEBIT_SAVING",
+          "name": "Reversión débito ahorro"
+        },
+        {
+          "code": "CREDIT_SAVING",
+          "name": "Crédito ahorro"
+        },
+        {
+          "code": "DEBIT_SAVING",
+          "name": "Débito ahorro"
+        },
+        {
+          "code": "BOOKENTRY_CREDIT",
+          "name": "Bookentry crédito"
+        },
+        {
+          "code": "BOOKENTRY_DEBIT",
+          "name": "Bookentry débito"
+        },
+        {
+          "code": "CTP_CREDIT",
+          "name": "Crédito pago negocio corporativo (CTP)"
+        },
+        {
+          "code": "CHECK",
+          "name": "Cheque"
+        },
+        {
+          "code": "BANK_PROYECT",
+          "name": "Proyecto bancario"
+        },
+        {
+          "code": "BANK_PROYECT_CERTIFIED",
+          "name": "Proyecto bancario certificado"
+        },
+        {
+          "code": "EXCHANGE_RATE_PENDING_ACEPT",
+          "name": "Nota cambiaria esperando aceptación"
+        },
+        {
+          "code": "CERTIFIED_CHECK",
+          "name": "Cheque certificado"
+        },
+        {
+          "code": "LOCAL_CHECK",
+          "name": "Cheque local"
+        },
+        {
+          "code": "CTP_DEBIT",
+          "name": "Débito Pago Negocio Corporativo (CTP)"
+        },
+        {
+          "code": "CTX_CREDIT",
+          "name": "Crédito Negocio Intercambio Corporativo (CTX)"
+        },
+        {
+          "code": "CTX_DEBIT",
+          "name": "Débito Negocio Intercambio Corporativo (CTX)"
+        },
+        {
+          "code": "CREDIT_TRANSFER",
+          "name": "Transferecia crédito"
+        },
+        {
+          "code": "PPD_PAY",
+          "name": "Pago y depósito pre acordado (PPD)"
+        },
+        {
+          "code": "CTP_CREDIT_SAVING",
+          "name": "Pago negocio corporativo ahorros crédito (CTP)"
+        },
+        {
+          "code": "CTP_DEBIT_SAVING",
+          "name": "Pago negocio corporativo ahorros débito (CTP)"
+        },
+        {
+          "code": "EXCHANGE_RATE",
+          "name": "Nota cambiaria"
+        },
+        {
+          "code": "CREDIT_TRANSFER_BANK",
+          "name": "Transferencia crédito bancario"
+        },
+        {
+          "code": "DEBIT_TRANSFER_INTERBANK",
+          "name": "Transferencia débito interbancario"
+        },
+        {
+          "code": "DEBIT_TRANSFER_BANK",
+          "name": "Transferencia débito bancaria"
+        },
+        {
+          "code": "CREDIT_CARD",
+          "name": "Tarjeta crédito"
+        },
+        {
+          "code": "DEBIT_CARD",
+          "name": "Tarjeta débito"
+        },
+        {
+          "code": "POSTTURN",
+          "name": "Postgiro"
+        },
+        {
+          "code": "URGENT_BUSINESS_PAYMENT",
+          "name": "Pago comercial urgente"
+        },
+        {
+          "code": "URGENT_CASH_PAYMENT",
+          "name": "Pago tesorería urgente"
+        },
+        {
+          "code": "PROMISING_NOTE",
+          "name": "Nota promisoria"
+        },
+        {
+          "code": "PROMISING_NOTE_SIGNED_PROVIDER",
+          "name": "Nota promisoria firmada por el acreedor"
+        },
+        {
+          "code": "PROMISING_NOTE_SIGNED_PROVIDER_BANK",
+          "name": "Nota promisoria firmada por el acreedor, avalada por el banco"
+        },
+        {
+          "code": "PROMISING_NOTE_SIGNED_PROVIDER_THIRD",
+          "name": "Nota promisoria firmada por el acreedor, avalada por un tercero"
+        },
+        {
+          "code": "PROMISING_NOTE_SIGNED_BANK",
+          "name": "Nota promisoria firmada por el bancos"
+        },
+        {
+          "code": "PROMISING_NOTE_SIGNED_BANK_ENDORSED_BANK",
+          "name": "Nota promisoria firmada por un banco avalada por otro banco"
+        },
+        {
+          "code": "PROMISING_NOTE_SIGNED",
+          "name": "Nota promisoria firmada"
+        },
+        {
+          "code": "PROMISING_NOTE_SIGNED_THIRD",
+          "name": "Nota promisoria firmada por un tercero avalada por un banco"
+        },
+        {
+          "code": "WITHDRAWAL_NOTE_CREDITOR",
+          "name": "Retiro de nota por el acreedor"
+        },
+        {
+          "code": "BONDS",
+          "name": "Bonos"
+        },
+        {
+          "code": "VOUCHERS",
+          "name": "Vales"
+        },
+        {
+          "code": "WITHDRAWAL_NOTE_CREDITOR_BANK",
+          "name": "Retiro de nota por el acreedor sobre un banco"
+        },
+        {
+          "code": "WITHDRAWAL_NOTE_CREDITOR_ENDORSED_BANK",
+          "name": "Retiro de nota por el acreedor, avalada por otro banco"
+        },
+        {
+          "code": "WITHDRAWAL_NOTE_CREDITOR_BANK_ENDORSED_THIRD",
+          "name": "Retiro de nota por el acreedor, sobre un banco avalada por un tercero"
+        },
+        {
+          "code": "WITHDRAWAL_NOTE_CREDITOR_ENDORSED_THIRD",
+          "name": "Retiro de una nota por el acreedor sobre un tercero"
+        },
+        {
+          "code": "WITHDRAWAL_NOTE_CREDITOR_THIRD_PARTY",
+          "name": "Retiro de una nota por el acreedor sobre un tercero avalada por un banco"
+        },
+        {
+          "code": "TRANSFERABLE_BANK_NOTE",
+          "name": "Nota bancaria transferible"
+        },
+        {
+          "code": "TRANSFERABLE_LOCAL_CHECK",
+          "name": "Cheque local transferible"
+        },
+        {
+          "code": "REFERENCED_TURN",
+          "name": "Giro referenciado"
+        },
+        {
+          "code": "URGENT_TURN",
+          "name": "Giro urgente"
+        },
+        {
+          "code": "OPEN_FORMAT_TWIST",
+          "name": "Giro formato abierto"
+        },
+        {
+          "code": "PAYMENT_METHOD_REQUESTED_NOT_USED",
+          "name": "Método de pago solicitado no usado"
+        },
+        {
+          "code": "CLEARING_PARTNERS",
+          "name": "Clearing entre partners"
+        },
+        {
+          "code": "CCD_CREDIT",
+          "name": "Desembolso Crédito (CCD)s"
+        },
+        {
+          "code": "CCD_DEBIT",
+          "name": "Desembolso (CCD) débito"
+        },
+        {
+          "code": "BANK_CHECK",
+          "name": "Cheque bancario de gerencia"
+        },
+        {
+          "code": "CDD_CREDIT",
+          "name": "Desembolso Crédito plus (CCD+)s"
+        },
+        {
+          "code": "CDD_CASH",
+          "name": "Desembolso Débito plus (CCD+)"
+        },
+        {
+          "code": "CCD_CASH_CREDIT",
+          "name": "Desembolso Crédito (CCD)"
+        },
+        {
+          "code": "CCD_CASH_DEBIT",
+          "name": "Desembolso Débito (CCD)"
+        },
+        {
+          "code": "CTX_CREDIT_DEAL",
+          "name": "Crédito Intercambio Corporativo (CTX)"
+        },
+        {
+          "code": "CTX_DEBIT_DEAL",
+          "name": "Débito Intercambio Corporativo (CTX)"
+        },
+        {
+          "code": "CCD_CREDIT_PLUS",
+          "name": "Desembolso Crédito plus (CCD+)"
+        },
+        {
+          "code": "CCD_DEBIT_PLUS",
+          "name": "Desembolso Débito plus (CCD+)"
+        },
+        {
+          "code": "FRENCH_BANKING_STANDARD_TELEX",
+          "name": "Telex estándar bancario"
+        },
+        {
+          "code": "MUTUAL_AGREEMENT",
+          "name": "Otro"
+        }
+      ]
+    },
+    {
+      "key": "estado-de-emision",
+      "title": "Estado de emisión (emission_status)",
+      "entries": [
+        {
+          "code": "PENDING",
+          "name": "Para documentos electrónicos que no se han emitido."
+        },
+        {
+          "code": "STAMPED_AND_WAITING_RESPONSE",
+          "name": "Para documentos electrónicos que fueron enviados pero aun no se obtiene respuesta por parte de la DIAN"
+        },
+        {
+          "code": "STAMPED_AND_ACCEPTED",
+          "name": "Para documentos electrónicos que fueron emitidos y aceptados."
+        },
+        {
+          "code": "STAMPED_AND_REJECTED",
+          "name": "Para documentos electrónicos que fueron emitidos y rechazados."
+        },
+        {
+          "code": "STAMPED_AND_ACCEPTED_WITH_OBSERVATIONS",
+          "name": "Para documento electrónicos que fueron emitidos y aceptados con observaciones."
+        }
+      ]
+    },
+    {
+      "key": "responsabilidades-fiscales",
+      "title": "Responsabilidades fiscales",
+      "entries": [
+        {
+          "code": "5",
+          "name": "Gran contribuyente"
+        },
+        {
+          "code": "7",
+          "name": "Autorretenedor"
+        },
+        {
+          "code": "12",
+          "name": "Agente de retención en el impuesto sobre las ventas"
+        },
+        {
+          "code": "114",
+          "name": "Régimen simple de tributación"
+        }
+      ]
+    },
+    {
+      "key": "condiciones-de-entrega",
+      "title": "Condiciones de entrega",
+      "entries": [
+        {
+          "code": "CFR",
+          "name": "Costo y flete"
+        },
+        {
+          "code": "CIF",
+          "name": "Costo, flete y seguro"
+        },
+        {
+          "code": "CIP",
+          "name": "Transporte y seguro pagados hasta"
+        },
+        {
+          "code": "CPT",
+          "name": "Transporte pagado hasta"
+        },
+        {
+          "code": "DAP",
+          "name": "Entregado en un lugar"
+        },
+        {
+          "code": "DAT",
+          "name": "Entregado en terminal"
+        },
+        {
+          "code": "DDP",
+          "name": "Entregado con pago de derechos"
+        },
+        {
+          "code": "EXW",
+          "name": "En fábrica"
+        },
+        {
+          "code": "FAS",
+          "name": "Franco al costado del buque"
+        },
+        {
+          "code": "FCA",
+          "name": "Franco transportista"
+        },
+        {
+          "code": "FOB",
+          "name": "Franco a bordo"
+        }
+      ]
+    },
+    {
+      "key": "unidades-de-medida",
+      "title": "Unidades de medida",
+      "entries": [
+        {
+          "code": "unit",
+          "name": "Unidad"
+        },
+        {
+          "code": "service",
+          "name": "Servicio"
+        },
+        {
+          "code": "piece",
+          "name": "Pieza"
+        },
+        {
+          "code": "thousand",
+          "name": "Millar"
+        },
+        {
+          "code": "par",
+          "name": "Par"
+        },
+        {
+          "code": "npr",
+          "name": "Número de pares"
+        },
+        {
+          "code": "box",
+          "name": "Caja"
+        },
+        {
+          "code": "drum",
+          "name": "Tambor"
+        },
+        {
+          "code": "centimeter",
+          "name": "Centímetro"
+        },
+        {
+          "code": "meter",
+          "name": "Metro"
+        },
+        {
+          "code": "inch",
+          "name": "Pulgada"
+        },
+        {
+          "code": "foot",
+          "name": "Pie"
+        },
+        {
+          "code": "centimeterSquared",
+          "name": "Centímetro cuadrado"
+        },
+        {
+          "code": "meterSquared",
+          "name": "Metro cuadrado"
+        },
+        {
+          "code": "inchSquared",
+          "name": "Pulgada cuadrada"
+        },
+        {
+          "code": "mililiter",
+          "name": "Mililitro"
+        },
+        {
+          "code": "liter",
+          "name": "Litro"
+        },
+        {
+          "code": "gallon",
+          "name": "Galón"
+        },
+        {
+          "code": "gram",
+          "name": "Gramo"
+        },
+        {
+          "code": "kilogram",
+          "name": "Kilogramo"
+        },
+        {
+          "code": "ton",
+          "name": "Tonelada"
+        },
+        {
+          "code": "pound",
+          "name": "Libra"
+        },
+        {
+          "code": "administration",
+          "name": "Administración"
+        },
+        {
+          "code": "cubicMeterNet",
+          "name": "Metro cúbico (neto)"
+        },
+        {
+          "code": "cubicMeter",
+          "name": "Metro cúbico"
+        },
+        {
+          "code": "hour",
+          "name": "Hora"
+        },
+        {
+          "code": "minute",
+          "name": "Minuto"
+        },
+        {
+          "code": "day",
+          "name": "Día"
+        },
+        {
+          "code": "hectare",
+          "name": "Hectárea"
+        },
+        {
+          "code": "blister",
+          "name": "Ampolla"
+        },
+        {
+          "code": "vial",
+          "name": "Frasco"
+        },
+        {
+          "code": "package",
+          "name": "Paquete"
+        },
+        {
+          "code": "envelope",
+          "name": "Sobre"
+        },
+        {
+          "code": "jar",
+          "name": "Tarro"
+        },
+        {
+          "code": "tube",
+          "name": "Tubo"
+        },
+        {
+          "code": "decimeter",
+          "name": "Decímetro"
+        },
+        {
+          "code": "linealMeter",
+          "name": "Metro lineal"
+        }
+      ]
+    },
+    {
+      "key": "eventos-electronicos",
+      "title": "Eventos electrónicos",
+      "entries": [
+        {
+          "code": "**CLIENT_EMAILS**",
+          "name": "Tipo de evento que se genera cuando se envia un correo mediante API o la APP."
+        },
+        {
+          "code": "**CLIENT_ACCEPTANCE**",
+          "name": "Tipo de evento que se genera mediante las respuestas electrónicas del cliente a excepción de `TACITLY_ACCEPTED` que es generado por el usuario."
+        }
+      ]
+    }
+  ]
+}
