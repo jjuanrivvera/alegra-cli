@@ -11,6 +11,10 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/jjuanrivvera/alegra-cli)
 
+<br>
+
+<img src="assets/demo.gif" alt="alegra-cli in action" width="900">
+
 </div>
 
 A fast, scriptable command-line interface for the [Alegra](https://www.alegra.com/)

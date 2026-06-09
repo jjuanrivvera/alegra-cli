@@ -1,0 +1,58 @@
+<!doctype html>
+<!-- Source for assets/social-preview.png (GitHub social card, 1280x640).
+     Regenerate: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+       --headless --screenshot=assets/social-preview.png --window-size=1280,640 \
+       --hide-scrollbars file://$PWD/.demo/social-card.html -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+    --bg1:#21222c; --bg2:#282a36; --fg:#f8f8f2; --muted:#a6accd;
+    --purple:#bd93f9; --green:#50fa7b; --cyan:#8be9fd; --pink:#ff79c6; --comment:#6272a4;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1280px;height:640px}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    color:var(--fg);
+    background:radial-gradient(1200px 600px at 80% -10%, #343746 0%, var(--bg2) 45%, var(--bg1) 100%);
+    padding:72px 80px;display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .top{display:flex;align-items:center;gap:14px}
+  .dots{display:flex;gap:9px}
+  .dot{width:15px;height:15px;border-radius:50%}
+  .r{background:#ff5f56}.y{background:#ffbd2e}.g{background:#27c93f}
+  .wordmark{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:30px;color:var(--muted);letter-spacing:.5px}
+  .wordmark b{color:var(--fg)}
+  h1{font-size:78px;line-height:1.04;font-weight:800;letter-spacing:-1.5px;margin-top:26px}
+  h1 .accent{color:var(--purple)}
+  .sub{font-size:31px;color:var(--muted);margin-top:22px;font-weight:500}
+  .sub .c{color:var(--cyan)} .sub .p{color:var(--pink)} .sub .gr{color:var(--green)}
+  .cmd{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:27px;margin-top:30px;color:var(--fg)}
+  .cmd .prompt{color:var(--purple)} .cmd .ok{color:var(--green)}
+  .chips{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px}
+  .chip{font-size:23px;font-weight:600;padding:11px 20px;border-radius:999px;
+        background:rgba(189,147,249,.13);border:1px solid rgba(189,147,249,.35);color:#e7deff}
+  .chip.alt{background:rgba(80,250,123,.12);border-color:rgba(80,250,123,.32);color:#cdfbd6}
+  .chip.alt2{background:rgba(139,233,253,.12);border-color:rgba(139,233,253,.32);color:#d4f6ff}
+</style>
+</head>
+<body>
+  <div>
+    <div class="top">
+      <div class="dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+      <div class="wordmark">jjuanrivvera/<b>alegra-cli</b></div>
+    </div>
+    <h1>The Alegra accounting API,<br><span class="accent">from your terminal.</span></h1>
+    <div class="sub">Invoices · payments · <span class="c">DIAN</span>/<span class="p">SAT</span> e-invoicing · built-in <span class="gr">MCP</span> for AI agents</div>
+    <div class="cmd"><span class="prompt">$</span> alegra invoices emit --all&nbsp;&nbsp;<span class="ok">✔ stamped</span></div>
+  </div>
+  <div class="chips">
+    <span class="chip">⚡ Fast Go CLI</span>
+    <span class="chip alt">🍺 Homebrew · Scoop · Docker</span>
+    <span class="chip alt2">🤖 AI-native (MCP + skill)</span>
+    <span class="chip">🌎 Multi-country LATAM</span>
+  </div>
+</body>
+</html>
