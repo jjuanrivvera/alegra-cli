@@ -63,8 +63,9 @@ terms, additional charges, and webhook subscriptions — plus electronic invoice
 
 ### Only in the official MCP
 - **Catalog/reference lookups** — product keys, units, and reference enums
-  (Mexico/country catalogs). These map only to the MCP's own endpoint with no documented
-  public REST path, so the CLI does not expose them yet.
+  (Mexico/country catalogs). The official MCP serves these through its own endpoint;
+  Alegra publishes no public REST path for them, so the CLI does not wrap them. They can
+  be added if/when Alegra documents the endpoint.
 - **Support Center** help-desk tickets (out of scope for an accounting CLI).
 
 ## Capability differences that matter
