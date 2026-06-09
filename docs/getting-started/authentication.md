@@ -6,7 +6,8 @@ title: Authentication
 
 Alegra authenticates API requests with **HTTP Basic auth**: your account email
 as the username and an **API token** as the password. The CLI encodes these as
-`Authorization: Basic base64(email:token)`.
+`Authorization: Basic base64(email:token)`. (Marketplace apps can instead use an
+OAuth bearer token via `ALEGRA_BEARER_TOKEN`.)
 
 ## Get your API token
 
@@ -14,7 +15,18 @@ as the username and an **API token** as the password. The CLI encodes these as
 2. Go to **Configuración → Integraciones → API**.
 3. Copy your token (and the email associated with the account).
 
-## Option 1: `alegra auth login` (recommended)
+## Option 0: `alegra init` (easiest first run)
+
+```bash
+alegra init
+```
+
+Prompts for your email and token, verifies them, **auto-detects your country**
+(used for pre-flight validation), and saves a profile — all in one step. On
+both `init` and `auth login` the CLI reads `/company` and caches the country, so
+country-specific behavior works automatically.
+
+## Option 1: `alegra auth login`
 
 ```bash
 alegra auth login

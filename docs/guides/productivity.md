@@ -19,8 +19,11 @@ $ alegra doctor
 ✔ company       Invitas · country: colombia · regime: Responsable de IVA
 ✔ rate limit    149/150 remaining (resets in 41s)
 ✔ numbering     14 resolution(s) configured
-⚠ plan          'reconciliations' returned 403 — not in your plan
+✔ plan          core endpoints reachable
 ```
+
+(A `⚠ plan` line appears only when an endpoint your plan doesn't include returns
+`402` — see the [Error reference](../reference/errors.md).)
 
 Run it first whenever something misbehaves.
 
@@ -83,5 +86,5 @@ remedies. See the [Error reference](../reference/errors.md).
 
 ## Drive it from an AI agent
 
-The whole CLI is an MCP server: `claude mcp add alegra -- alegra mcp`. See
-[MCP Server](../user-guide/mcp.md).
+The whole CLI is an MCP server: `claude mcp add alegra -- alegra mcp start` (or
+`alegra mcp claude enable`). See [MCP Server](../user-guide/mcp.md).

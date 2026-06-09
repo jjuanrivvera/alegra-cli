@@ -13,11 +13,11 @@ exits non-zero. Here's what each status means and what to do.
 |------|---------|------------|
 | **400** | Bad request — the body is malformed or missing required fields. | Read the message; it usually names the field. For documents, check country requirements (resolution, identification type, régimen). Re-run with `--dry-run` to inspect what you sent. |
 | **401** | Authentication failed. | Wrong email/token. Re-run `alegra auth login`, or check `ALEGRA_EMAIL`/`ALEGRA_TOKEN`. Verify with `alegra auth status`. |
-| **402** | Payment required — your **plan doesn't include** this action, or the account is suspended. | Upgrade the Alegra plan, or avoid the endpoint. Common on `reconciliations` and some reports. |
+| **402** | Payment required — your **plan doesn't include** this action, or the account is suspended. | Upgrade the Alegra plan, or avoid the endpoint. Common on some reports and add-on/marketplace features. |
 | **403** | Forbidden — the user lacks permission for this action. | Check the user's role/permissions in Alegra (`alegra users self`). |
 | **404** | Not found — the id doesn't exist (or the account is suspended). | Verify the id with a `list`. |
 | **405** | Method not allowed for this endpoint. | Usually a CLI/usage bug — e.g. an action the resource doesn't support. |
-| **429** | Too many requests — you hit **150 req/min**. | The CLI auto-retries with backoff. If scripting, slow down; prefer `--count` over `--all`. |
+| **429** | Too many requests — you hit your plan's per-minute ceiling. | The CLI auto-retries with backoff and adapts to the `X-Rate-Limit-*` headers. If scripting, slow down; prefer `--count` over `--all`. |
 | **500** | Alegra server error. | Transient; the CLI retries. If it persists, try later. |
 | **503** | Service unavailable (maintenance). | Retry later. |
 
@@ -30,7 +30,7 @@ Every response includes:
 
 | Header | Meaning |
 |--------|---------|
-| `X-Rate-Limit-Limit` | Your ceiling (currently **150**/minute). |
+| `X-Rate-Limit-Limit` | Your plan's per-minute ceiling. |
 | `X-Rate-Limit-Remaining` | Calls left in the current minute. |
 | `X-Rate-Limit-Reset` | Seconds until the window resets. |
 
@@ -50,9 +50,11 @@ code. The most common families (Colombia / DIAN via the e-Provider layer):
 | `AEP2011` | Already sent / processing | **Check status before retrying** — it may have emitted. |
 | `EPR500` / `EPR503` | DIAN communication error / timeout | Transient — verify status, then retry. |
 
-> Emission is **not idempotent**. After any stamping error, run
-> `alegra invoices get <id>` to see whether it actually emitted **before** you
-> retry. See [Electronic Invoicing](../guides/electronic-invoicing.md).
+> Emission is **not idempotent** server-side. Emit through `alegra invoices emit`
+> — it keeps a local idempotency guard and skips already-emitted invoices unless
+> you pass `--force`. After any stamping error, run `alegra invoices get <id>` to
+> see whether it actually emitted **before** you retry. See
+> [Electronic Invoicing](../guides/electronic-invoicing.md).
 
 ## Getting more detail
 

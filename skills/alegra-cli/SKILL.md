@@ -1,7 +1,7 @@
 ---
 name: alegra-cli
 description: Manage the Alegra accounting API (https://alegra.com) from the terminal with the `alegra` CLI — contacts/clients, items, sales invoices, payments, bills, credit notes, taxes, reports, and DIAN/SAT/SUNAT/Hacienda electronic invoicing. Use this whenever the user wants to create or list invoices, manage clients or products, record or reconcile payments, run sales reports, bulk-import accounting data, or emit electronic (fiscal) invoices. Alegra is one API whose behavior is localized per country (Colombia, Mexico, Peru, Costa Rica, Spain, Panama, Argentina, Chile, the Dominican Republic and more); detect the connected country/version with `alegra company get` before any country-specific write.
-version: 0.4.0
+version: 0.7.0
 homepage: https://github.com/jjuanrivvera/alegra-cli
 license: MIT
 allowed-tools: Bash(alegra:*)
@@ -123,10 +123,18 @@ per-country OpenAPI with every accepted enum value.
 
 `alegra <resource> {list|get|create|update|delete|export|import}` plus resource
 actions. Resources include: `contacts`, `items`, `invoices`, `credit-notes`,
-`debit-notes`, `estimates`, `payments`, `bills`, `purchase-orders`, `taxes`,
-`retentions`, `terms`, `price-lists`, `bank-accounts`, `number-templates`,
-`warehouses`, `journals`, `categories`, `company`, `users`, `reports`, and more
-(run `alegra --help` for the full list).
+`debit-notes`, `income-debit-notes`, `estimates`, `remissions`,
+`transportation-receipts`, `payments`, `bills`, `purchase-orders`, `sellers`,
+`taxes`, `retentions`, `terms`, `price-lists`, `bank-accounts`, `reconciliations`,
+`number-templates`, `warehouses`, `journals`, `categories`, `company`, `users`,
+`webhook-subscriptions`, `reports`, and more (run `alegra --help` for the full list).
+
+Notable actions: `invoices stamp|emit|void|open|email|preview`,
+`payments stamp|void|open`,
+`bills advances|attach|attachment-delete|perceptions|retentions|comments|close|import-by-cufe`,
+`items stock <id>` (per-warehouse). Offline per-country reference data (units,
+identification types, tax types, …): `alegra catalog [category] --country <c>`
+(alias `alegra reference`).
 
 ```bash
 # Contacts

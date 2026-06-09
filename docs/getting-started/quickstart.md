@@ -5,8 +5,9 @@ title: Quickstart
 # Quickstart
 
 ```bash
-# 1. Authenticate
-alegra auth login
+# 1. Set up — guided: prompts for email + token, verifies, detects your
+#    country, and saves a profile (or use `alegra auth login` to just sign in)
+alegra init
 
 # 2. Explore
 alegra --help
@@ -16,6 +17,7 @@ alegra contacts --help
 alegra contacts list
 alegra contacts list --type client --query "acme" --all
 alegra invoices list --status open --limit 30
+alegra invoices list --status open --since this-month   # natural date ranges
 
 # 4. Read a single record
 alegra invoices get 12

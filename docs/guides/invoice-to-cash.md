@@ -79,11 +79,22 @@ alegra invoices get "$INV" -o json | jq '{status, balance}'   # balance should b
 
 ## 6. Need to reverse it?
 
-Don't edit the invoice — issue a credit note:
+Don't edit a stamped invoice. Depending on what you need:
 
 ```bash
+# Annul (void) or reopen the document itself
+alegra invoices void "$INV"
+alegra invoices open "$INV"
+
+# A recorded payment can be voided / reopened too
+alegra payments void <payment-id>
+
+# To correct the amount, issue a credit note
 alegra credit-notes create -f credit-note.json
 ```
+
+`alegra invoices preview "$INV"` returns a PDF preview URL if you want to eyeball
+it first.
 
 ---
 

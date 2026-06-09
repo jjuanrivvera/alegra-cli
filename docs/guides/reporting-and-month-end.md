@@ -46,8 +46,18 @@ alegra payments list --type out --date-after $FROM --date-before $TO --all \
 alegra reports sales-by-client --from 2026-01-01 --to 2026-03-31 \
   --order-field total --order-direction DESC
 
-# Sales by seller, to CSV
+# Sales by seller, to CSV (manage the salespeople with `alegra sellers`)
 alegra reports sales-by-seller --from 2026-01-01 --to 2026-12-31 -o csv > sellers.csv
+```
+
+## Inventory valuation at close
+
+```bash
+# Per-warehouse stock for an item, as of the period-end date
+alegra items stock 5 --date 2026-06-30
+
+# Need a valid unit / tax / ID code for an adjustment? Look it up offline:
+alegra catalog units
 ```
 
 !!! note "Plan-gated reports"

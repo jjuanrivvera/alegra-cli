@@ -51,14 +51,24 @@ alegra items create --set name="Consultoría" --set price=50000 \
 # Export the full catalog to a spreadsheet
 alegra items list --all -o csv --columns id,name,reference,price,status > items.csv
 
-# A product's current price across price lists
+# A product's price entries (one row per price list)
 alegra items get 5 -o json | jq '.price'
+
+# Per-warehouse stock for an item (--date for a historical snapshot)
+alegra items stock 5
+alegra items stock 5 --date 2026-03-31
+
+# Bulk-create items from a CSV (one row per item; failures don't stop the run)
+alegra items import -f catalog.csv --map 'SKU=reference,Name=name,Price=price'
 ```
 
 ## Invoices
 
 ```bash
-# This month's open (unpaid) invoices
+# This month's open (unpaid) invoices — natural date range
+alegra invoices list --status open --since this-month
+
+# …or explicit dates
 alegra invoices list --status open \
   --date-after 2026-06-01 --date-before 2026-06-30
 
@@ -106,6 +116,43 @@ alegra payments create -f payment.json
 
 # Void a payment (keeps the record, removes accounting effect)
 alegra payments void 88
+```
+
+## Bills & expenses
+
+```bash
+# Provider bills still open this month
+alegra bills list --status open --since this-month
+
+# Record a provider bill from a file
+alegra bills create -f bill.json
+
+# Import a received Colombian e-invoice by its CUFE
+alegra bills import-by-cufe --set cufe="<CUFE>"
+
+# Apply a provider advance, attach the PDF, add a comment
+alegra bills advances 7 --set 'advances=[{"id":42}]'
+alegra bills attach 7 --set 'file="<base64>"' --set name="factura.pdf"
+alegra bills comments 7 --set text="Pagada por transferencia"
+
+# Purchase orders: email, then void
+alegra purchase-orders email 3 --set 'emails=["proveedor@acme.com"]'
+alegra purchase-orders void 3
+```
+
+## Sellers, webhooks & reference data
+
+```bash
+# Salespeople (vendedores) — roll up in `reports sales-by-seller`
+alegra sellers list
+
+# Subscribe to webhook events (push, instead of polling)
+alegra webhook-subscriptions create -f hook.json
+
+# Offline per-country catalogs — avoid hardcoding magic values (tax id 3, NIT, CASH)
+alegra catalog                                  # list categories for your country
+alegra catalog units
+alegra catalog identification-types --country mexico
 ```
 
 ## Taxes, terms, price lists, banks
