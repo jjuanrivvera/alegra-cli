@@ -65,6 +65,7 @@ nav:
   - User Guide:
       - Configuration & Profiles: user-guide/configuration.md
       - Output Formats: user-guide/output-formats.md
+      - Shell Completion: user-guide/shell-completion.md
       - Creating & Updating: user-guide/writing-data.md
       - Agent Skill: user-guide/agent-skill.md
       - MCP Server: user-guide/mcp.md

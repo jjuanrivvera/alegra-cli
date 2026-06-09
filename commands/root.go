@@ -66,6 +66,13 @@ func init() {
 	pf.StringSliceVar(&flagColumns, "columns", nil, "Comma-separated columns for table/csv output")
 	pf.BoolVar(&flagNoColor, "no-color", false, "Disable colored output (also respects the NO_COLOR env var)")
 
+	// Dynamic completion for the global flags. --columns is shared by every
+	// command, so a single completer resolves the per-resource field set from the
+	// target command's annotation (see withColumns/completeColumns).
+	_ = rootCmd.RegisterFlagCompletionFunc("output", fixedCompleter("table", "json", "yaml", "csv"))
+	_ = rootCmd.RegisterFlagCompletionFunc("profile", completeProfiles)
+	_ = rootCmd.RegisterFlagCompletionFunc("columns", completeColumns)
+
 	// Apply the color preference before any command renders output.
 	rootCmd.PersistentPreRun = func(_ *cobra.Command, _ []string) {
 		ui.SetNoColor(flagNoColor)
