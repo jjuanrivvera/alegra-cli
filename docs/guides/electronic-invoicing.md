@@ -137,16 +137,21 @@ server-side `400`s, so model them in your payload up front.
     - Argentina uses AFIP **CAE**; Dominican Republic uses **NCF / e-CF**. Field
       shapes vary — confirm against your live account before scripting.
 
-## Important: emission is not idempotent
+## Emission isn't idempotent server-side — let the CLI guard it
 
-There is no idempotency key on the Alegra API. **Re-running an emit can create a
-duplicate document** (and the tax authority may reject duplicate numbering). Until
-the CLI ships an emission guard:
+The Alegra API has no idempotency key, so a blind re-run of a raw stamp **can
+create a duplicate document** (and the tax authority may reject duplicate
+numbering). That's exactly why you should emit through `alegra invoices emit`:
+it keeps a **local idempotency guard** and skips any invoice already emitted from
+this machine unless you pass `--force`.
 
+- Prefer `alegra invoices emit` over scripting raw `create … --set stamp=…` /
+  `invoices stamp` retries — `emit` is the guarded path.
 - Always `--dry-run` first.
-- After a failed-looking call, **check status** (`alegra invoices get <id>`)
+- If a call looks like it failed, **check status** (`alegra invoices get <id>`)
   before retrying — it may have emitted.
-- Never script a blind retry loop around stamping.
+- Never script a blind retry loop around raw stamping; let `emit` handle retries
+  (or pass `--force` once, deliberately).
 
 ## Invoices are append-only
 

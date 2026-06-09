@@ -25,12 +25,37 @@ tool schemas.
     against a sandbox profile while developing, and review the actions your agent
     is allowed to take.
 
-## Example: Claude Code
+## Wire it into your editor automatically
 
-Register the server (stdio transport):
+Rather than editing config files by hand, let the CLI write them for you. There
+are subcommands for the common MCP hosts:
 
 ```bash
-claude mcp add alegra -- alegra mcp
+alegra mcp claude enable     # add the server to Claude Desktop's config
+alegra mcp cursor enable     # Cursor
+alegra mcp vscode enable     # VS Code
+
+alegra mcp claude list       # show configured servers
+alegra mcp claude disable    # remove it again
+```
+
+Each `enable` writes the host's MCP config to launch `alegra mcp start` (the
+stdio server) with your current setup.
+
+## Transports
+
+| Command | Transport | Use |
+| --- | --- | --- |
+| `alegra mcp start` | stdio | The default; what the editor wiring launches. Also: `claude mcp add alegra -- alegra mcp start`. |
+| `alegra mcp stream` | HTTP | Long-running server for remote/shared agents. Flags: `--host`, `--port` (default 8080), `--log-level`. |
+| `alegra mcp tools` | — | Print the full tool schema as JSON (one tool per command) — handy for inspection or feeding another system. |
+
+```bash
+# Run the HTTP server on a custom port
+alegra mcp stream --port 9000 --log-level debug
+
+# Inspect the exposed tools
+alegra mcp tools | jq '.[].name'
 ```
 
 Then ask the agent to, for example, "list this month's open invoices in Alegra".

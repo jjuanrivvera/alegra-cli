@@ -58,10 +58,14 @@ checksums are signed** with [cosign](https://github.com/sigstore/cosign)
 ## Authenticate
 
 Alegra uses HTTP Basic auth with your account **email** and an **API token**
-(Alegra → Configuración → Integraciones → API). Two ways:
+(Alegra → Configuración → Integraciones → API).
 
 ```bash
-# Interactive: token is stored in your OS keyring, never written to disk
+# Friendliest first run: prompts for email + token, verifies them, auto-detects
+# your country, and saves a profile — all in one step
+alegra init
+
+# Or sign in directly: token is stored in your OS keyring, never written to disk
 alegra auth login
 
 # Or via environment variables (great for CI / scripts)
@@ -125,7 +129,11 @@ alegra contacts import -f clients.csv --map 'Name=name,NIT=identification.number
 alegra invoices export --param status=open > receivables.csv
 alegra invoices create -f invoice.json --draft   # country pre-flight validated
 alegra invoices emit --all                 # stamp drafts, auto-chunked, idempotent
+alegra catalog units --country mexico      # offline per-country reference catalogs
 ```
+
+Pre-flight validation runs per detected country (CO/MX/PE/CR); skip it with
+`--no-validate`. Check for upgrades with `alegra version --check`.
 
 ### Output formats
 
@@ -176,18 +184,24 @@ alegra mcp           # see MCP subcommands
 
 ## Resources
 
-Full Alegra v1 surface, each with `list`/`get`/`create`/`update`/`delete`
-(plus resource-specific actions):
+Full Alegra v1 surface — each with `list`/`get`/`create`/`update`/`delete` plus
+resource-specific actions. A few are read-only or restricted (e.g.
+`recurring-payments` is read-only; `reconciliations` has no separate update;
+`categories` has no delete):
 
 `contacts`, `items`, `item-categories`, `invoices`, `global-invoices`,
 `recurring-invoices`, `credit-notes`, `income-debit-notes`, `estimates`,
 `remissions`, `transportation-receipts`, `bills`, `debit-notes`,
 `purchase-orders`, `payments`, `recurring-payments`, `taxes`, `retentions`,
 `terms`, `currencies`, `number-templates`, `bank-accounts`, `reconciliations`,
-`cost-centers`, `journals`, `categories`, `additional-charges`, `company`,
-`users`, `warehouses`, `warehouse-transfers`, `inventory-adjustments`,
+`cost-centers`, `journals`, `categories`, `additional-charges`, `sellers`,
+`company`, `users`, `warehouses`, `warehouse-transfers`, `inventory-adjustments`,
 `inventory-adjustment-numerations`, `price-lists`, `custom-fields`,
-`variant-attributes`, `reports`.
+`variant-attributes`, `webhook-subscriptions`, `reports`.
+
+Plus `catalog` (aliases `catalogs`/`reference`) — offline per-country reference
+data (units of measure, identification types, tax types, payment methods, …),
+and `validate` for pre-flight document checks.
 
 Run `alegra <resource> --help` for actions and filters.
 
@@ -214,7 +228,8 @@ alegra skills install --agent cursor        # target a specific agent
 
 The skill wraps this binary, so install the CLI (above) and authenticate first.
 For structured tool access (Claude Desktop, etc.) the CLI is also an MCP server:
-`claude mcp add alegra -- alegra mcp`.
+`claude mcp add alegra -- alegra mcp start` (or wire it automatically with
+`alegra mcp claude enable`).
 
 ## Guides & recipes
 

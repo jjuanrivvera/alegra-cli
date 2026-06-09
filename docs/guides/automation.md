@@ -5,8 +5,8 @@ title: Automation & Scripting
 # Automation & Scripting
 
 `alegra` is built to be scripted: JSON in/out, exit codes that mean something,
-`--dry-run` everywhere, and a built-in rate limiter so loops stay under Alegra's
-**150 requests/minute** ceiling.
+`--dry-run` everywhere, and a built-in rate limiter (it adapts to the
+`X-Rate-Limit-*` headers) so loops stay under your plan's per-minute ceiling.
 
 ## Use a profile + env for non-interactive runs
 
@@ -53,6 +53,16 @@ alegra contacts export --out contacts.csv
 0 8 * * 1-5  ALEGRA_EMAIL=you@biz.com ALEGRA_TOKEN=xxx /usr/local/bin/alegra invoices list --status open --count | mail -s "Open invoices" you@biz.com
 ```
 
+## Push instead of poll: webhook subscriptions
+
+Cron polling is simple, but for event-driven flows subscribe to Alegra webhooks
+so it calls *you* when something changes:
+
+```bash
+alegra webhook-subscriptions create -f hook.json   # { event, url, ... }
+alegra webhook-subscriptions list
+```
+
 ## Preview in CI, never emit by accident
 
 `--dry-run` prints the exact request (and a `curl`) and sends nothing — perfect
@@ -67,7 +77,7 @@ alegra invoices create -f invoice.json --dry-run
 The whole CLI is exposed as a Model Context Protocol server:
 
 ```bash
-claude mcp add alegra -- alegra mcp
+claude mcp add alegra -- alegra mcp start    # or: alegra mcp claude enable
 ```
 
 Then ask your agent things like *"list this month's open invoices in Alegra and

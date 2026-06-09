@@ -34,9 +34,15 @@ full record.
 ## Scripting tips
 
 ```bash
-# Count open invoices
+# Count open invoices — uses the API's metadata total, no full fetch
+alegra invoices list --status open --count
+
+# Count locally after fetching every page (when you need the records anyway)
 alegra invoices list --status open --all -o json | jq 'length'
 
 # Extract IDs
 alegra contacts list --all -o json | jq -r '.[].id'
 ```
+
+Prefer `--count` over `--all | jq 'length'` when you only need the number — it
+asks Alegra for the total instead of downloading every page.

@@ -45,6 +45,15 @@ alegra bills import-by-cufe --set cufe="<the-cufe>"
 
 # Close a bill with a remaining balance (writes it off)
 alegra bills close 7 --set date="$(date -u +%F)" --set 'category={"id":5}'
+
+# Apply a provider advance to a bill; attach a PDF; comment
+alegra bills advances 7 --set 'advances=[{"id":42}]'
+alegra bills attach 7 --set 'file="<base64>"' --set name="factura.pdf"
+alegra bills comments 7 --set text="Pagada parcialmente"
+
+# Adjust perceptions / retentions on a bill (replace the set)
+alegra bills retentions 7 --set 'retentions=[{"id":12}]'
+alegra bills perceptions 7 --set 'perceptions=[]'
 ```
 
 ## Purchase orders

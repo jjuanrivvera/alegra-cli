@@ -64,6 +64,34 @@ alegra bills close 7 --set date=2026-06-05 --set 'category={"id":5}'
 alegra bank-accounts transfer 3 --set 'destinationAccount={"id":4}' --set amount=100000
 ```
 
+## Bulk import & export (CSV/JSON)
+
+Almost every resource supports bulk operations.
+
+**Import** creates one record per CSV row. The header row names the fields; use
+`--map` to rename a column to an API field (dotted paths build nested objects)
+and `--set` to apply a constant to every row. Rows are processed independently —
+a failed row is reported and does not stop the run:
+
+```bash
+alegra contacts import -f clients.csv \
+  --map 'Name=name,NIT=identification.number' \
+  --set 'identification.type=NIT' --set 'type=["client"]'
+
+alegra items import -f catalog.csv --map 'SKU=reference,Name=name'
+```
+
+Preview every row without writing with `--dry-run`.
+
+**Export** fetches *all* pages and writes them to a file or stdout, as CSV
+(default) or JSON, honoring `--columns` and any `--param` filter:
+
+```bash
+alegra invoices export --param status=open > receivables.csv
+alegra items export --format json --out items.json
+alegra contacts export --columns id,name,email,status
+```
+
 ## Dry run
 
 Preview the exact HTTP request (and a copy-pasteable `curl`) without sending it:
@@ -73,3 +101,9 @@ alegra invoices create -f invoice.json --dry-run
 ```
 
 Add `--show-token` to include the auth header in the printed curl (off by default).
+
+!!! tip "Pre-flight validation"
+    `create` validates the body for your detected country (CO/MX/PE/CR) before
+    sending and catches common mistakes early. Skip it with `--no-validate`, or
+    set the country explicitly with `--country` (see
+    [Configuration](configuration.md)).

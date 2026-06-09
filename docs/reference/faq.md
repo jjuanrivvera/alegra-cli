@@ -41,15 +41,21 @@ alegra invoices list --status open --count
 ```
 It uses the API's metadata total instead of downloading rows.
 
-### Can I edit or delete an invoice?
+### Can I edit, void, or delete an invoice?
 You can `update` a draft, but **stamped fiscal documents are immutable** by
-design. To reverse one, issue a credit note (`alegra credit-notes create`). The
-CLI follows accounting's append-only discipline.
+design. To reverse one:
+
+- **Void / reopen**: `alegra invoices void <id>` (annul) or `alegra invoices open <id>`.
+  Payments have the same: `alegra payments void <id>` / `alegra payments open <id>`.
+- **Correct the amount**: issue a credit note (`alegra credit-notes create`).
+
+The CLI follows accounting's append-only discipline.
 
 ### A command returns HTTP 402 — is it broken?
-No — `402` means your **Alegra plan doesn't include** that feature (e.g.
-`reconciliations`, some reports). It's an account/plan limit, not a CLI bug. See
-the [Error reference](errors.md).
+No — `402` means your **Alegra plan doesn't include** that feature (some reports
+and add-on/marketplace features). It's an account/plan limit, not a CLI bug. Run
+`alegra doctor` to see which endpoints your plan can reach. See the
+[Error reference](errors.md).
 
 ### `currencies get USD` — why a code, not a number?
 Currencies are keyed by their ISO **code**, not a numeric id. `get`/`update`/

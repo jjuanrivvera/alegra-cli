@@ -67,6 +67,7 @@ nav:
       - Output Formats: user-guide/output-formats.md
       - Shell Completion: user-guide/shell-completion.md
       - Creating & Updating: user-guide/writing-data.md
+      - Reference Catalogs: user-guide/catalog.md
       - Agent Skill: user-guide/agent-skill.md
       - MCP Server: user-guide/mcp.md
   - Reference:
