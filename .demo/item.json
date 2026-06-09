@@ -1,0 +1,5 @@
+{
+  "name": "Consultoría mensual",
+  "price": 500000,
+  "tax": [{ "id": 4 }]
+}
