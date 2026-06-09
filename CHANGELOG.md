@@ -6,6 +6,36 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-06-09
+
+API fidelity & coverage release (#22, #27).
+
+### Added
+- **`sellers`** (vendedores) and **`webhook-subscriptions`** resources, both
+  verified against the live API.
+- **Spec tooling**: `make spec-sync` reconstructs a manifest of the documented
+  API surface (`testdata/spec/endpoints.json`) from the official docs index;
+  `make spec-check` is a network-free CI guardrail asserting every CLI resource
+  is documented; a weekly workflow opens a PR when the surface drifts.
+- **Live smoke-test suite** (`make smoke`, build-tagged `smoke`): validates the
+  structs against what the API returns at runtime, with unknown-field detection
+  and an optional create→update→delete write cycle on safe master-data. Runs
+  weekly / on demand, never on PRs.
+- Richer resource help text (`Long`) that flows to both `--help` and the
+  `alegra mcp` tool descriptions.
+
+### Fixed
+- **Reconciliations** now uses the documented `/conciliations` path (the old
+  `/reconciliations` returned HTTP 403); `doctor`'s plan probe no longer reports
+  a false 403.
+- Struct↔schema fidelity: seller `identification` decodes as a number; the
+  webhook list response's `subscriptions` wrapper is recognized.
+
+### Changed
+- Audited the resource structs against the live API (0 decode failures across 37
+  resources); documented that contact `identification` is a string on read but
+  an object on write, and pinned it with a regression test.
+
 ## [0.5.0] - 2026-06-08
 
 Polish & distribution release.
