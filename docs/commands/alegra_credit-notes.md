@@ -6,6 +6,10 @@ title: alegra credit-notes
 
 Manage credit notes
 
+### Synopsis
+
+Manage credit notes (notas de crédito) — the way to reverse or correct a stamped invoice, since invoices are immutable. In Colombia/Mexico credit notes are electronic and reference the original invoice.
+
 ### Options
 
 ```

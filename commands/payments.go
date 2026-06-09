@@ -8,9 +8,13 @@ import (
 
 func init() {
 	registerResource(resourceSpec[api.Payment]{
-		Use:         "payments",
-		Aliases:     []string{"payment"},
-		Short:       "Manage payments (incomes and expenses)",
+		Use:     "payments",
+		Aliases: []string{"payment"},
+		Short:   "Manage payments (incomes and expenses)",
+		Long: "Manage payments. type \"in\" is money received (income, against invoices); " +
+			"type \"out\" is money paid (expense, against bills). Allocate a payment to documents " +
+			"via the invoices[]/bills[] arrays in the body. In Costa Rica/Mexico a payment may need " +
+			"electronic stamping — see the `stamp` subcommand (REP / complemento de pago).",
 		New:         func(c *api.Client) *api.Resource[api.Payment] { return c.Payments() },
 		Columns:     []string{"id", "date", "amount", "type", "status"},
 		OrderFields: []string{"id", "date"},

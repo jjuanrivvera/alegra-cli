@@ -6,6 +6,10 @@ title: alegra sellers
 
 Manage sellers (vendedores)
 
+### Synopsis
+
+Manage sellers (vendedores) — salespeople you can assign to sales documents and roll up in `alegra reports sales-by-seller`.
+
 ### Options
 
 ```

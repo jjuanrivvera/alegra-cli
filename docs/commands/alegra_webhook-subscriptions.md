@@ -6,6 +6,10 @@ title: alegra webhook-subscriptions
 
 Manage webhook subscriptions (event notifications)
 
+### Synopsis
+
+Manage webhook subscriptions: Alegra POSTs to your URL whenever an event fires (e.g. new-invoice, edit-client, delete-item). Create one per event+URL with --set event=new-invoice --set url=https://your.app/hook.
+
 ### Options
 
 ```

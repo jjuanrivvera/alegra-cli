@@ -6,6 +6,12 @@ title: alegra invoices
 
 Manage sales invoices
 
+### Synopsis
+
+Manage sales invoices (facturas de venta).
+
+An invoice becomes fiscal/electronic when it carries a numberTemplate.id and stamp.generateStamp:true (emission returns a CUFE in CO / UUID in MX). Prefer the `emit` subcommand for the safe, batched, idempotent flow. Invoices are append-only: reverse or correct a stamped one with a credit note, never by editing.
+
 ### Options
 
 ```
