@@ -101,14 +101,15 @@ func runDoctor(cmd *cobra.Command) error {
 		ok("numbering", fmt.Sprintf("%d resolution(s) configured", len(templates)))
 	}
 
-	// 7. Plan probe (a commonly plan-gated endpoint)
-	if err := client.GetInto(cmd.Context(), "reconciliations", nil, &[]any{}); err != nil {
+	// 7. Plan probe (a commonly plan-gated endpoint). The documented path is
+	// /conciliations (no "re-"); probing the wrong path returns a misleading 403.
+	if err := client.GetInto(cmd.Context(), "conciliations", nil, &[]any{}); err != nil {
 		if apiErr, isAPI := api.AsAPIError(err); isAPI && (apiErr.StatusCode == 402 || apiErr.StatusCode == 403) {
-			warn("plan", fmt.Sprintf("'reconciliations' returned %d — not in your plan", apiErr.StatusCode))
+			warn("plan", fmt.Sprintf("'conciliations' returned %d — not in your plan", apiErr.StatusCode))
 		}
 		// other errors here are not meaningful for a health check
 	} else {
-		ok("plan", "reconciliations accessible")
+		ok("plan", "conciliations accessible")
 	}
 
 	fmt.Fprintln(out, "\n"+c.Green("All critical checks passed."))

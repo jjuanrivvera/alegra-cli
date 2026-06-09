@@ -52,9 +52,13 @@ type ReconciliationAssoc struct {
 	Type         string `json:"type,omitempty"`
 }
 
-// Reconciliations returns a typed handle to the /reconciliations resource.
+// Reconciliations returns a typed handle to the bank-reconciliation resource.
+//
+// The official Alegra API documents this resource at /conciliations (no "re-"
+// prefix); the CLI keeps the "reconciliations" command name for UX but talks to
+// the documented path.
 //
 // Note: create performs a create-or-update (upsert); the API has no PUT endpoint.
 func (c *Client) Reconciliations() *Resource[Reconciliation] {
-	return NewResource[Reconciliation](c, "reconciliations")
+	return NewResource[Reconciliation](c, "conciliations")
 }
