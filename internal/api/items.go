@@ -36,10 +36,22 @@ type ItemTax struct {
 // ItemInventory holds inventory data for inventariable items. Its presence
 // indicates the item is tracked in stock; absence implies a service.
 type ItemInventory struct {
-	Unit              string `json:"unit,omitempty"`
+	Unit              string               `json:"unit,omitempty"`
+	AvailableQuantity Money                `json:"availableQuantity,omitempty"`
+	UnitCost          Money                `json:"unitCost,omitempty"`
+	InitialQuantity   Money                `json:"initialQuantity,omitempty"`
+	Warehouses        []ItemWarehouseStock `json:"warehouses,omitempty"`
+}
+
+// ItemWarehouseStock is an item's stock in one warehouse, as returned in the
+// item's inventory.warehouses array by GET /items/{id}.
+type ItemWarehouseStock struct {
+	ID                ID     `json:"id,omitempty"`
+	Name              string `json:"name,omitempty"`
 	AvailableQuantity Money  `json:"availableQuantity,omitempty"`
-	UnitCost          Money  `json:"unitCost,omitempty"`
 	InitialQuantity   Money  `json:"initialQuantity,omitempty"`
+	MinQuantity       Money  `json:"minQuantity,omitempty"`
+	MaxQuantity       Money  `json:"maxQuantity,omitempty"`
 }
 
 // Items returns a typed handle to the /items resource.
