@@ -1,0 +1,38 @@
+name: Spec sync
+
+# Weekly refresh of the documented-API manifest (testdata/spec/endpoints.json)
+# from the official docs index. If the surface drifted, open a PR to develop for
+# review. Network-bound, so it runs on a schedule, not on every PR — the
+# committed manifest is what PRs check against (TestSpecManifest, network-free).
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+      - name: Refresh manifest
+        run: go run ./tools/specsync
+      - name: Open a PR on drift
+        uses: peter-evans/create-pull-request@v6
+        with:
+          base: develop
+          branch: chore/spec-sync
+          add-paths: testdata/spec/endpoints.json
+          commit-message: "chore(spec): refresh API manifest"
+          title: "chore(spec): documented API surface drifted"
+          body: |
+            Automated `specsync` detected changes in Alegra's documented API surface
+            (`testdata/spec/endpoints.json`). Review for new/removed endpoints that the
+            CLI may need to cover or adapt to.
