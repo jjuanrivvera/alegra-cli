@@ -7,7 +7,10 @@ func init() {
 		Use:     "contacts",
 		Aliases: []string{"contact"},
 		Short:   "Manage contacts (clients and providers)",
-		Long:    "Create, list, update, and delete Alegra contacts — your clients and providers.",
+		Long: "Create, list, update, and delete Alegra contacts — your clients and providers.\n\n" +
+			"Body notes: identification is an object {type, number} (e.g. " +
+			`{"type":"NIT","number":"901123456"}); type is an array like ["client"] ` +
+			"or [\"provider\"]; kindOfPerson is LEGAL_ENTITY or PERSON_ENTITY.",
 		New:     func(c *api.Client) *api.Resource[api.Contact] { return c.Contacts() },
 		Columns: []string{"id", "name", "identification", "email", "status"},
 		OrderFields: []string{

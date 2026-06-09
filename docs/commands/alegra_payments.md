@@ -6,6 +6,10 @@ title: alegra payments
 
 Manage payments (incomes and expenses)
 
+### Synopsis
+
+Manage payments. type "in" is money received (income, against invoices); type "out" is money paid (expense, against bills). Allocate a payment to documents via the invoices[]/bills[] arrays in the body. In Costa Rica/Mexico a payment may need electronic stamping — see the `stamp` subcommand (REP / complemento de pago).
+
 ### Options
 
 ```

@@ -8,9 +8,12 @@ import (
 
 func init() {
 	registerResource(resourceSpec[api.CreditNote]{
-		Use:         "credit-notes",
-		Aliases:     []string{"credit-note"},
-		Short:       "Manage credit notes",
+		Use:     "credit-notes",
+		Aliases: []string{"credit-note"},
+		Short:   "Manage credit notes",
+		Long: "Manage credit notes (notas de crédito) — the way to reverse or correct a stamped " +
+			"invoice, since invoices are immutable. In Colombia/Mexico credit notes are electronic " +
+			"and reference the original invoice.",
 		New:         func(c *api.Client) *api.Resource[api.CreditNote] { return c.CreditNotes() },
 		Columns:     []string{"id", "date", "status", "total"},
 		OrderFields: []string{"id", "date", "status"},

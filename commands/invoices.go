@@ -8,9 +8,14 @@ import (
 
 func init() {
 	registerResource(resourceSpec[api.Invoice]{
-		Use:         "invoices",
-		Aliases:     []string{"invoice"},
-		Short:       "Manage sales invoices",
+		Use:     "invoices",
+		Aliases: []string{"invoice"},
+		Short:   "Manage sales invoices",
+		Long: "Manage sales invoices (facturas de venta).\n\n" +
+			"An invoice becomes fiscal/electronic when it carries a numberTemplate.id and " +
+			"stamp.generateStamp:true (emission returns a CUFE in CO / UUID in MX). Prefer the " +
+			"`emit` subcommand for the safe, batched, idempotent flow. Invoices are append-only: " +
+			"reverse or correct a stamped one with a credit note, never by editing.",
 		New:         func(c *api.Client) *api.Resource[api.Invoice] { return c.Invoices() },
 		Columns:     []string{"id", "date", "dueDate", "status", "total", "balance"},
 		OrderFields: []string{"id", "name", "date", "dueDate", "status"},

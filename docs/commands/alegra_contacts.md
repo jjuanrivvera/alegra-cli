@@ -10,6 +10,8 @@ Manage contacts (clients and providers)
 
 Create, list, update, and delete Alegra contacts — your clients and providers.
 
+Body notes: identification is an object {type, number} (e.g. {"type":"NIT","number":"901123456"}); type is an array like ["client"] or ["provider"]; kindOfPerson is LEGAL_ENTITY or PERSON_ENTITY.
+
 ### Options
 
 ```
