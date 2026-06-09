@@ -3,8 +3,12 @@ package api
 // Contact is an Alegra contact (a client and/or provider).
 // See https://developer.alegra.com/reference/listcontacts-1
 type Contact struct {
-	ID             ID              `json:"id,omitempty"`
-	Name           string          `json:"name,omitempty"`
+	ID   ID     `json:"id,omitempty"`
+	Name string `json:"name,omitempty"`
+	// Identification is asymmetric in the Alegra API: a GET/list RESPONSE returns
+	// it as a plain string (the number, e.g. "901123456"), while CREATE/UPDATE
+	// expect an object {type, number}. This models the read shape (verified live);
+	// build the object form for writes via --set (see `contacts` help / validate).
 	Identification string          `json:"identification,omitempty"`
 	Email          string          `json:"email,omitempty"`
 	PhonePrimary   string          `json:"phonePrimary,omitempty"`
