@@ -1,0 +1,1267 @@
+{
+  "source": "https://developer.alegra.com/llms.txt",
+  "restEndpoints": [
+    {
+      "method": "GET",
+      "path": "/bills",
+      "slug": "get_bills"
+    },
+    {
+      "method": "POST",
+      "path": "/bills",
+      "slug": "post_bills"
+    },
+    {
+      "method": "DELETE",
+      "path": "/bills-attachment-attachment/{id}",
+      "slug": "delete_bills-attachment-attachment-id"
+    },
+    {
+      "method": "DELETE",
+      "path": "/bills/{id}",
+      "slug": "delete_bills-id"
+    },
+    {
+      "method": "GET",
+      "path": "/bills/{id}",
+      "slug": "get_bills-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/bills/{id}",
+      "slug": "put_bills-id"
+    },
+    {
+      "method": "POST",
+      "path": "/bills/{id}-attachment",
+      "slug": "post_bills-id-attachment"
+    },
+    {
+      "method": "POST",
+      "path": "/bills/{id}-close",
+      "slug": "post_bills-id-close"
+    },
+    {
+      "method": "POST",
+      "path": "/bills/{id}-comments",
+      "slug": "post_bills-id-comments"
+    },
+    {
+      "method": "GET",
+      "path": "/company-1",
+      "slug": "get_company-1"
+    },
+    {
+      "method": "PUT",
+      "path": "/company-1",
+      "slug": "put_company-1"
+    },
+    {
+      "method": "POST",
+      "path": "/company-attachment-1",
+      "slug": "post_company-attachment-1"
+    },
+    {
+      "method": "POST",
+      "path": "/contacts",
+      "slug": "post_contacts"
+    },
+    {
+      "method": "GET",
+      "path": "/credit-notes",
+      "slug": "get_credit-notes"
+    },
+    {
+      "method": "POST",
+      "path": "/credit-notes",
+      "slug": "post_credit-notes"
+    },
+    {
+      "method": "DELETE",
+      "path": "/credit-notes/{id}",
+      "slug": "delete_credit-notes-id"
+    },
+    {
+      "method": "GET",
+      "path": "/credit-notes/{id}",
+      "slug": "get_credit-notes-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/credit-notes/{id}",
+      "slug": "put_credit-notes-id"
+    },
+    {
+      "method": "POST",
+      "path": "/credit-notes/{id}-email",
+      "slug": "post_credit-notes-id-email"
+    },
+    {
+      "method": "GET",
+      "path": "/currencies",
+      "slug": "get_currencies"
+    },
+    {
+      "method": "POST",
+      "path": "/currencies",
+      "slug": "post_currencies"
+    },
+    {
+      "method": "DELETE",
+      "path": "/currencies-code",
+      "slug": "delete_currencies-code"
+    },
+    {
+      "method": "GET",
+      "path": "/currencies-code",
+      "slug": "get_currencies-code"
+    },
+    {
+      "method": "PUT",
+      "path": "/currencies-code",
+      "slug": "put_currencies-code"
+    },
+    {
+      "method": "GET",
+      "path": "/custom-fields",
+      "slug": "get_custom-fields"
+    },
+    {
+      "method": "POST",
+      "path": "/custom-fields",
+      "slug": "post_custom-fields"
+    },
+    {
+      "method": "DELETE",
+      "path": "/custom-fields/{id}",
+      "slug": "delete_custom-fields-id"
+    },
+    {
+      "method": "GET",
+      "path": "/custom-fields/{id}",
+      "slug": "get_custom-fields-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/custom-fields/{id}",
+      "slug": "put_custom-fields-id"
+    },
+    {
+      "method": "GET",
+      "path": "/debit-notes",
+      "slug": "get_debit-notes"
+    },
+    {
+      "method": "POST",
+      "path": "/debit-notes",
+      "slug": "post_debit-notes"
+    },
+    {
+      "method": "DELETE",
+      "path": "/debit-notes/{id}",
+      "slug": "delete_debit-notes-id"
+    },
+    {
+      "method": "GET",
+      "path": "/debit-notes/{id}",
+      "slug": "get_debit-notes-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/debit-notes/{id}",
+      "slug": "put_debit-notes-id"
+    },
+    {
+      "method": "GET",
+      "path": "/estimates",
+      "slug": "get_estimates"
+    },
+    {
+      "method": "POST",
+      "path": "/estimates",
+      "slug": "post_estimates"
+    },
+    {
+      "method": "DELETE",
+      "path": "/estimates/{id}",
+      "slug": "delete_estimates-id"
+    },
+    {
+      "method": "GET",
+      "path": "/estimates/{id}",
+      "slug": "get_estimates-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/estimates/{id}",
+      "slug": "put_estimates-id"
+    },
+    {
+      "method": "POST",
+      "path": "/estimates/{id}-email",
+      "slug": "post_estimates-id-email"
+    },
+    {
+      "method": "GET",
+      "path": "/global-invoices",
+      "slug": "get_global-invoices"
+    },
+    {
+      "method": "POST",
+      "path": "/global-invoices",
+      "slug": "post_global-invoices"
+    },
+    {
+      "method": "DELETE",
+      "path": "/global-invoices/{id}",
+      "slug": "delete_global-invoices-id"
+    },
+    {
+      "method": "GET",
+      "path": "/global-invoices/{id}",
+      "slug": "get_global-invoices-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/global-invoices/{id}",
+      "slug": "put_global-invoices-id"
+    },
+    {
+      "method": "GET",
+      "path": "/income-debit-notes",
+      "slug": "get_income-debit-notes"
+    },
+    {
+      "method": "POST",
+      "path": "/income-debit-notes",
+      "slug": "post_income-debit-notes"
+    },
+    {
+      "method": "DELETE",
+      "path": "/income-debit-notes/{id}",
+      "slug": "delete_income-debit-notes-id"
+    },
+    {
+      "method": "GET",
+      "path": "/income-debit-notes/{id}",
+      "slug": "get_income-debit-notes-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/income-debit-notes/{id}",
+      "slug": "put_income-debit-notes-id"
+    },
+    {
+      "method": "GET",
+      "path": "/inventory-adjustments",
+      "slug": "get_inventory-adjustments"
+    },
+    {
+      "method": "POST",
+      "path": "/inventory-adjustments",
+      "slug": "post_inventory-adjustments"
+    },
+    {
+      "method": "GET",
+      "path": "/inventory-adjustments-numerations",
+      "slug": "get_inventory-adjustments-numerations"
+    },
+    {
+      "method": "POST",
+      "path": "/inventory-adjustments-numerations",
+      "slug": "post_inventory-adjustments-numerations"
+    },
+    {
+      "method": "DELETE",
+      "path": "/inventory-adjustments-numerations/{id}",
+      "slug": "delete_inventory-adjustments-numerations-id"
+    },
+    {
+      "method": "GET",
+      "path": "/inventory-adjustments-numerations/{id}",
+      "slug": "get_inventory-adjustments-numerations-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/inventory-adjustments-numerations/{id}",
+      "slug": "put_inventory-adjustments-numerations-id"
+    },
+    {
+      "method": "DELETE",
+      "path": "/inventory-adjustments/{id}",
+      "slug": "delete_inventory-adjustments-id"
+    },
+    {
+      "method": "GET",
+      "path": "/inventory-adjustments/{id}",
+      "slug": "get_inventory-adjustments-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/inventory-adjustments/{id}",
+      "slug": "put_inventory-adjustments-id"
+    },
+    {
+      "method": "GET",
+      "path": "/invoices",
+      "slug": "get_invoices"
+    },
+    {
+      "method": "POST",
+      "path": "/invoices",
+      "slug": "post_invoices"
+    },
+    {
+      "method": "DELETE",
+      "path": "/invoices-attachment/{id}attachment",
+      "slug": "delete_invoices-attachment-idattachment"
+    },
+    {
+      "method": "POST",
+      "path": "/invoices-preview",
+      "slug": "post_invoices-preview"
+    },
+    {
+      "method": "POST",
+      "path": "/invoices-stamp",
+      "slug": "post_invoices-stamp"
+    },
+    {
+      "method": "DELETE",
+      "path": "/invoices/{id}",
+      "slug": "delete_invoices-id"
+    },
+    {
+      "method": "GET",
+      "path": "/invoices/{id}",
+      "slug": "get_invoices-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/invoices/{id}",
+      "slug": "put_invoices-id"
+    },
+    {
+      "method": "POST",
+      "path": "/invoices/{id}-attachment",
+      "slug": "post_invoices-id-attachment"
+    },
+    {
+      "method": "POST",
+      "path": "/invoices/{id}-email",
+      "slug": "post_invoices-id-email"
+    },
+    {
+      "method": "POST",
+      "path": "/invoices/{id}-open",
+      "slug": "post_invoices-id-open"
+    },
+    {
+      "method": "PUT",
+      "path": "/invoices/{id}-retentionsapplied",
+      "slug": "put_invoices-id-retentionsapplied"
+    },
+    {
+      "method": "POST",
+      "path": "/invoices/{id}-void",
+      "slug": "post_invoices-id-void"
+    },
+    {
+      "method": "GET",
+      "path": "/item-categories",
+      "slug": "get_item-categories"
+    },
+    {
+      "method": "POST",
+      "path": "/item-categories",
+      "slug": "post_item-categories"
+    },
+    {
+      "method": "DELETE",
+      "path": "/item-categories-attachment/{id}attachment",
+      "slug": "delete_item-categories-attachment-idattachment"
+    },
+    {
+      "method": "DELETE",
+      "path": "/item-categories/{id}",
+      "slug": "delete_item-categories-id"
+    },
+    {
+      "method": "GET",
+      "path": "/item-categories/{id}",
+      "slug": "get_item-categories-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/item-categories/{id}",
+      "slug": "put_item-categories-id"
+    },
+    {
+      "method": "POST",
+      "path": "/item-categories/{id}-attachment",
+      "slug": "post_item-categories-id-attachment"
+    },
+    {
+      "method": "DELETE",
+      "path": "/items",
+      "slug": "delete_items"
+    },
+    {
+      "method": "GET",
+      "path": "/items",
+      "slug": "get_items"
+    },
+    {
+      "method": "POST",
+      "path": "/items",
+      "slug": "post_items"
+    },
+    {
+      "method": "DELETE",
+      "path": "/items-attachment/{id}attachment",
+      "slug": "delete_items-attachment-idattachment"
+    },
+    {
+      "method": "DELETE",
+      "path": "/items/{id}",
+      "slug": "delete_items-id"
+    },
+    {
+      "method": "GET",
+      "path": "/items/{id}",
+      "slug": "get_items-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/items/{id}",
+      "slug": "put_items-id"
+    },
+    {
+      "method": "POST",
+      "path": "/items/{id}-attachment",
+      "slug": "post_items-id-attachment"
+    },
+    {
+      "method": "GET",
+      "path": "/journals-entries-graph",
+      "slug": "get_journals-entries-graph"
+    },
+    {
+      "method": "GET",
+      "path": "/number-templates-1",
+      "slug": "get_number-templates-1"
+    },
+    {
+      "method": "POST",
+      "path": "/number-templates-1",
+      "slug": "post_number-templates-1"
+    },
+    {
+      "method": "DELETE",
+      "path": "/number-templates/{id}",
+      "slug": "delete_number-templates-id"
+    },
+    {
+      "method": "GET",
+      "path": "/number-templates/{id}-1",
+      "slug": "get_number-templates-id-1"
+    },
+    {
+      "method": "PUT",
+      "path": "/number-templates/{id}-1",
+      "slug": "put_number-templates-id-1"
+    },
+    {
+      "method": "GET",
+      "path": "/payments",
+      "slug": "get_payments"
+    },
+    {
+      "method": "POST",
+      "path": "/payments",
+      "slug": "post_payments"
+    },
+    {
+      "method": "GET",
+      "path": "/payments-1",
+      "slug": "get_payments-1"
+    },
+    {
+      "method": "POST",
+      "path": "/payments-1",
+      "slug": "post_payments-1"
+    },
+    {
+      "method": "DELETE",
+      "path": "/payments/{id}",
+      "slug": "delete_payments-id"
+    },
+    {
+      "method": "GET",
+      "path": "/payments/{id}",
+      "slug": "get_payments-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/payments/{id}",
+      "slug": "put_payments-id"
+    },
+    {
+      "method": "DELETE",
+      "path": "/payments/{id}-1",
+      "slug": "delete_payments-id-1"
+    },
+    {
+      "method": "GET",
+      "path": "/payments/{id}-1",
+      "slug": "get_payments-id-1"
+    },
+    {
+      "method": "PUT",
+      "path": "/payments/{id}-1",
+      "slug": "put_payments-id-1"
+    },
+    {
+      "method": "POST",
+      "path": "/payments/{id}-attachment",
+      "slug": "post_payments-id-attachment"
+    },
+    {
+      "method": "POST",
+      "path": "/payments/{id}-attachment-1",
+      "slug": "post_payments-id-attachment-1"
+    },
+    {
+      "method": "POST",
+      "path": "/payments/{id}-open",
+      "slug": "post_payments-id-open"
+    },
+    {
+      "method": "POST",
+      "path": "/payments/{id}-open-1",
+      "slug": "post_payments-id-open-1"
+    },
+    {
+      "method": "POST",
+      "path": "/payments/{id}-stamp",
+      "slug": "post_payments-id-stamp"
+    },
+    {
+      "method": "POST",
+      "path": "/payments/{id}-void",
+      "slug": "post_payments-id-void"
+    },
+    {
+      "method": "POST",
+      "path": "/payments/{id}-void-1",
+      "slug": "post_payments-id-void-1"
+    },
+    {
+      "method": "GET",
+      "path": "/price-lists",
+      "slug": "get_price-lists"
+    },
+    {
+      "method": "POST",
+      "path": "/price-lists",
+      "slug": "post_price-lists"
+    },
+    {
+      "method": "DELETE",
+      "path": "/price-lists/{id}",
+      "slug": "delete_price-lists-id"
+    },
+    {
+      "method": "GET",
+      "path": "/price-lists/{id}",
+      "slug": "get_price-lists-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/price-lists/{id}",
+      "slug": "put_price-lists-id"
+    },
+    {
+      "method": "DELETE",
+      "path": "/purchase-orders-attachment-attachment/{id}",
+      "slug": "delete_purchase-orders-attachment-attachment-id"
+    },
+    {
+      "method": "DELETE",
+      "path": "/purchase-orders/{id}",
+      "slug": "delete_purchase-orders-id"
+    },
+    {
+      "method": "GET",
+      "path": "/purchase-orders/{id}",
+      "slug": "get_purchase-orders-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/purchase-orders/{id}",
+      "slug": "put_purchase-orders-id"
+    },
+    {
+      "method": "POST",
+      "path": "/purchase-orders/{id}-attachment",
+      "slug": "post_purchase-orders-id-attachment"
+    },
+    {
+      "method": "POST",
+      "path": "/purchase-orders/{id}-void",
+      "slug": "post_purchase-orders-id-void"
+    },
+    {
+      "method": "GET",
+      "path": "/recurring-invoices",
+      "slug": "get_recurring-invoices"
+    },
+    {
+      "method": "POST",
+      "path": "/recurring-invoices",
+      "slug": "post_recurring-invoices"
+    },
+    {
+      "method": "DELETE",
+      "path": "/recurring-invoices/{id}",
+      "slug": "delete_recurring-invoices-id"
+    },
+    {
+      "method": "GET",
+      "path": "/recurring-invoices/{id}",
+      "slug": "get_recurring-invoices-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/recurring-invoices/{id}",
+      "slug": "put_recurring-invoices-id"
+    },
+    {
+      "method": "GET",
+      "path": "/recurring-payments",
+      "slug": "get_recurring-payments"
+    },
+    {
+      "method": "GET",
+      "path": "/recurring-payments/{id}",
+      "slug": "get_recurring-payments-id"
+    },
+    {
+      "method": "GET",
+      "path": "/remissions",
+      "slug": "get_remissions"
+    },
+    {
+      "method": "POST",
+      "path": "/remissions",
+      "slug": "post_remissions"
+    },
+    {
+      "method": "DELETE",
+      "path": "/remissions-attachment/{id}attachment",
+      "slug": "delete_remissions-attachment-idattachment"
+    },
+    {
+      "method": "DELETE",
+      "path": "/remissions/{id}",
+      "slug": "delete_remissions-id"
+    },
+    {
+      "method": "GET",
+      "path": "/remissions/{id}",
+      "slug": "get_remissions-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/remissions/{id}",
+      "slug": "put_remissions-id"
+    },
+    {
+      "method": "POST",
+      "path": "/remissions/{id}-attachment",
+      "slug": "post_remissions-id-attachment"
+    },
+    {
+      "method": "POST",
+      "path": "/remissions/{id}-open",
+      "slug": "post_remissions-id-open"
+    },
+    {
+      "method": "POST",
+      "path": "/remissions/{id}-void",
+      "slug": "post_remissions-id-void"
+    },
+    {
+      "method": "GET",
+      "path": "/retentions",
+      "slug": "get_retentions"
+    },
+    {
+      "method": "POST",
+      "path": "/retentions",
+      "slug": "post_retentions"
+    },
+    {
+      "method": "DELETE",
+      "path": "/retentions/{id}",
+      "slug": "delete_retentions-id"
+    },
+    {
+      "method": "GET",
+      "path": "/retentions/{id}",
+      "slug": "get_retentions-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/retentions/{id}",
+      "slug": "put_retentions-id"
+    },
+    {
+      "method": "GET",
+      "path": "/taxes",
+      "slug": "get_taxes"
+    },
+    {
+      "method": "POST",
+      "path": "/taxes",
+      "slug": "post_taxes"
+    },
+    {
+      "method": "DELETE",
+      "path": "/taxes/{id}",
+      "slug": "delete_taxes-id"
+    },
+    {
+      "method": "GET",
+      "path": "/taxes/{id}",
+      "slug": "get_taxes-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/taxes/{id}",
+      "slug": "put_taxes-id"
+    },
+    {
+      "method": "GET",
+      "path": "/terms",
+      "slug": "get_terms"
+    },
+    {
+      "method": "POST",
+      "path": "/terms",
+      "slug": "post_terms"
+    },
+    {
+      "method": "DELETE",
+      "path": "/terms/{id}",
+      "slug": "delete_terms-id"
+    },
+    {
+      "method": "GET",
+      "path": "/terms/{id}",
+      "slug": "get_terms-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/terms/{id}",
+      "slug": "put_terms-id"
+    },
+    {
+      "method": "GET",
+      "path": "/transportation-receipts",
+      "slug": "get_transportation-receipts"
+    },
+    {
+      "method": "POST",
+      "path": "/transportation-receipts",
+      "slug": "post_transportation-receipts"
+    },
+    {
+      "method": "DELETE",
+      "path": "/transportation-receipts-attachment/{id}attachment",
+      "slug": "delete_transportation-receipts-attachment-idattachment"
+    },
+    {
+      "method": "POST",
+      "path": "/transportation-receipts-preview",
+      "slug": "post_transportation-receipts-preview"
+    },
+    {
+      "method": "DELETE",
+      "path": "/transportation-receipts/{id}",
+      "slug": "delete_transportation-receipts-id"
+    },
+    {
+      "method": "GET",
+      "path": "/transportation-receipts/{id}",
+      "slug": "get_transportation-receipts-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/transportation-receipts/{id}",
+      "slug": "put_transportation-receipts-id"
+    },
+    {
+      "method": "POST",
+      "path": "/transportation-receipts/{id}-attachment",
+      "slug": "post_transportation-receipts-id-attachment"
+    },
+    {
+      "method": "POST",
+      "path": "/transportation-receipts/{id}-email",
+      "slug": "post_transportation-receipts-id-email"
+    },
+    {
+      "method": "POST",
+      "path": "/transportation-receipts/{id}-open",
+      "slug": "post_transportation-receipts-id-open"
+    },
+    {
+      "method": "POST",
+      "path": "/transportation-receipts/{id}-void",
+      "slug": "post_transportation-receipts-id-void"
+    },
+    {
+      "method": "GET",
+      "path": "/users",
+      "slug": "get_users"
+    },
+    {
+      "method": "POST",
+      "path": "/users",
+      "slug": "post_users"
+    },
+    {
+      "method": "POST",
+      "path": "/users-attachment-1",
+      "slug": "post_users-attachment-1"
+    },
+    {
+      "method": "GET",
+      "path": "/users-self-1",
+      "slug": "get_users-self-1"
+    },
+    {
+      "method": "PUT",
+      "path": "/users-self-1",
+      "slug": "put_users-self-1"
+    },
+    {
+      "method": "PUT",
+      "path": "/users-self-metadata-1",
+      "slug": "put_users-self-metadata-1"
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/{id}",
+      "slug": "delete_users-id"
+    },
+    {
+      "method": "GET",
+      "path": "/users/{id}",
+      "slug": "get_users-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/{id}",
+      "slug": "put_users-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/{id}-metadata-1",
+      "slug": "put_users-id-metadata-1"
+    },
+    {
+      "method": "GET",
+      "path": "/variant-attributes",
+      "slug": "get_variant-attributes"
+    },
+    {
+      "method": "POST",
+      "path": "/variant-attributes",
+      "slug": "post_variant-attributes"
+    },
+    {
+      "method": "DELETE",
+      "path": "/variant-attributes/{id}",
+      "slug": "delete_variant-attributes-id"
+    },
+    {
+      "method": "GET",
+      "path": "/variant-attributes/{id}",
+      "slug": "get_variant-attributes-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/variant-attributes/{id}",
+      "slug": "put_variant-attributes-id"
+    },
+    {
+      "method": "GET",
+      "path": "/warehouse-transfers",
+      "slug": "get_warehouse-transfers"
+    },
+    {
+      "method": "POST",
+      "path": "/warehouse-transfers",
+      "slug": "post_warehouse-transfers"
+    },
+    {
+      "method": "DELETE",
+      "path": "/warehouse-transfers/{id}",
+      "slug": "delete_warehouse-transfers-id"
+    },
+    {
+      "method": "GET",
+      "path": "/warehouse-transfers/{id}",
+      "slug": "get_warehouse-transfers-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/warehouse-transfers/{id}",
+      "slug": "put_warehouse-transfers-id"
+    },
+    {
+      "method": "GET",
+      "path": "/warehouses",
+      "slug": "get_warehouses"
+    },
+    {
+      "method": "POST",
+      "path": "/warehouses",
+      "slug": "post_warehouses"
+    },
+    {
+      "method": "DELETE",
+      "path": "/warehouses/{id}",
+      "slug": "delete_warehouses-id"
+    },
+    {
+      "method": "GET",
+      "path": "/warehouses/{id}",
+      "slug": "get_warehouses-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/warehouses/{id}",
+      "slug": "put_warehouses-id"
+    },
+    {
+      "method": "GET",
+      "path": "/webhooks-subscriptions",
+      "slug": "get_webhooks-subscriptions"
+    },
+    {
+      "method": "POST",
+      "path": "/webhooks-subscriptions",
+      "slug": "post_webhooks-subscriptions"
+    },
+    {
+      "method": "DELETE",
+      "path": "/webhooks-subscriptions/{id}",
+      "slug": "delete_webhooks-subscriptions-id"
+    },
+    {
+      "method": "GET",
+      "path": "/webhooks-subscriptions/{id}",
+      "slug": "get_webhooks-subscriptions-id"
+    },
+    {
+      "method": "PUT",
+      "path": "/webhooks-subscriptions/{id}",
+      "slug": "put_webhooks-subscriptions-id"
+    }
+  ],
+  "mcpTools": [
+    "accounting__createcostcenter",
+    "accounting__createjournal",
+    "accounting__deletecostcenter",
+    "accounting__deletejournal",
+    "accounting__getcostcenter",
+    "accounting__getjournal",
+    "accounting__listcostcenters",
+    "accounting__listjournals",
+    "accounting__updatecostcenter",
+    "accounting__updatejournal",
+    "banks__createbankaccount",
+    "banks__createreconciliation",
+    "banks__deletebankaccount",
+    "banks__deletereconciliation",
+    "banks__getbanks",
+    "banks__getbanksbyid",
+    "banks__getbanksbyname",
+    "banks__getreconciliationbyid",
+    "banks__getreconciliations",
+    "banks__updatebankaccount",
+    "config__getproductkeys",
+    "config__getunits",
+    "contacts__createcontact",
+    "contacts__deletecontact",
+    "contacts__getcontactbyname",
+    "contacts__getcontacts",
+    "contacts__updatecontact",
+    "currencies__createcurrency",
+    "currencies__deletecurrency",
+    "currencies__getcurrencies",
+    "currencies__getdefaultcurrency",
+    "currencies__updatecurrency",
+    "customfields__createcustomfield",
+    "customfields__deletecustomfield",
+    "customfields__getcustomfield",
+    "customfields__getcustomfields",
+    "customfields__updatecustomfield",
+    "incomepayments__createincomepayment",
+    "incomepayments__deleteincomepayment",
+    "incomepayments__getincomepayments",
+    "incomepayments__updateincomepayment",
+    "inventoryadjustmentnumerations__createinventoryadjustmentnumeration",
+    "inventoryadjustmentnumerations__deleteinventoryadjustmentnumeration",
+    "inventoryadjustmentnumerations__getinventoryadjustmentnumeration",
+    "inventoryadjustmentnumerations__getinventoryadjustmentnumerations",
+    "inventoryadjustmentnumerations__updateinventoryadjustmentnumeration",
+    "inventoryadjustments__createinventoryadjustment",
+    "inventoryadjustments__deleteinventoryadjustment",
+    "inventoryadjustments__getinventoryadjustment",
+    "inventoryadjustments__getinventoryadjustments",
+    "inventoryadjustments__updateinventoryadjustment",
+    "invoices__createinvoice",
+    "invoices__deleteinvoice",
+    "invoices__getinvoicebyid",
+    "invoices__getinvoicebynumber",
+    "invoices__getinvoices",
+    "invoices__getpaymenttypes",
+    "invoices__updateinvoice",
+    "itemcategories__createitemcategory",
+    "itemcategories__deleteitemcategory",
+    "itemcategories__getitemcategories",
+    "itemcategories__getitemcategory",
+    "itemcategories__updateitemcategory",
+    "items__createitem",
+    "items__deleteitem",
+    "items__getitem",
+    "items__getitems",
+    "items__updateitem",
+    "itemstock__get_item_stock",
+    "itemstock__get_item_stock_summary",
+    "ledger__createcategory",
+    "ledger__getcategory",
+    "ledger__listcategories",
+    "ledger__updatecategory",
+    "pricelist__createpricelist",
+    "pricelist__deletepricelist",
+    "pricelist__getpricelist",
+    "pricelist__getpricelists",
+    "pricelist__updatepricelist",
+    "reports__getclientswithitems",
+    "reports__getgeneralsalesdocuments",
+    "reports__getgeneralsalestotals",
+    "reports__getsalesbyclient",
+    "reports__getsalesbyclienttotals",
+    "reports__getsalesbyseller",
+    "reports__getsalesbysellertotals",
+    "resolutions__createresolutions",
+    "resolutions__deleteresolutions",
+    "resolutions__getdefaultresolutions",
+    "resolutions__getresolutionbyid",
+    "resolutions__getresolutionss",
+    "resolutions__updateresolutions",
+    "retentions__createretention",
+    "retentions__deleteretention",
+    "retentions__getretentions",
+    "retentions__updateretention",
+    "sellers__createseller",
+    "sellers__deleteseller",
+    "sellers__getsellers",
+    "sellers__updateseller",
+    "supportcenter__createticket",
+    "supportcenter__retrievetickethistory",
+    "supportcenter__searchhelpers",
+    "taxes__createtax",
+    "taxes__deletetax",
+    "taxes__gettaxes",
+    "taxes__updatetax",
+    "variantattributes__createvariantattribute",
+    "variantattributes__deletevariantattribute",
+    "variantattributes__getvariantattribute",
+    "variantattributes__getvariantattributes",
+    "variantattributes__updatevariantattribute",
+    "warehouses__createwarehouse",
+    "warehouses__deletewarehouse",
+    "warehouses__getwarehouse",
+    "warehouses__getwarehouses",
+    "warehouses__updatewarehouse",
+    "warehousetransfers__createwarehousetransfer",
+    "warehousetransfers__deletewarehousetransfer",
+    "warehousetransfers__getwarehousetransfer",
+    "warehousetransfers__getwarehousetransfers",
+    "warehousetransfers__updatewarehousetransfer"
+  ],
+  "legacySlugs": [
+    "autenticación",
+    "bankaccountdelete",
+    "bankaccountdetails",
+    "bankaccountedit",
+    "bankaccounttransfer",
+    "bills-add_bill_comments",
+    "bills-apply_bill_advances",
+    "bills-close_bill",
+    "bills-create_bill",
+    "bills-delete_bill",
+    "bills-delete_bill_attachment",
+    "bills-delete_bill_comment",
+    "bills-get_bill",
+    "bills-import_bill_by_cufe",
+    "bills-list_bills",
+    "bills-update_bill",
+    "bills-update_bill_comment",
+    "bills-update_bill_perceptions",
+    "bills-update_bill_retentions",
+    "bills-upload_bill_attachment",
+    "categoriescreate",
+    "categoriesindex",
+    "categoriessettingsupdate",
+    "categoriessettingsview",
+    "categoriesupdate",
+    "categoriesview",
+    "colombia",
+    "contactsattachment",
+    "contactsdetails-1",
+    "costa-rica",
+    "costcentercreate",
+    "costcentersdelete",
+    "costcentersindex",
+    "costcentersupdate",
+    "costcentersview",
+    "createadditionalcharge",
+    "createbankaccount",
+    "createpurchaseorder",
+    "createreconciliation",
+    "debit-notes-add_debit_note_comments",
+    "debit-notes-create_debit_note",
+    "debit-notes-delete_debit_note",
+    "debit-notes-get_debit_note",
+    "debit-notes-list_debit_notes",
+    "debit-notes-update_debit_note",
+    "deleteadditionalcharge",
+    "deleteattachmentcontact",
+    "deletecontact",
+    "deletemultiplecontacts",
+    "descripción-general",
+    "editcontact",
+    "españa",
+    "getadditionalchargebyid",
+    "getalladditionalcharges",
+    "healthcheck",
+    "journalscreate",
+    "journalsdelete",
+    "journalsindex",
+    "journalsupdate",
+    "journalsview",
+    "listbankaccounts",
+    "listcontacts-1",
+    "listpurchaseorders",
+    "listreconciliations",
+    "límite-de-request",
+    "mcpclosesession",
+    "mcpexecute",
+    "mcpsse",
+    "méxico",
+    "panamá",
+    "purchase-orders-add-purchase-order-comments",
+    "purchase-orders-create-purchase-order",
+    "purchase-orders-delete-purchase-order",
+    "purchase-orders-email-purchase-order",
+    "purchase-orders-get-purchase-order",
+    "purchase-orders-list-purchase-orders",
+    "purchase-orders-update-purchase-order",
+    "purchase-orders-void-purchase-order",
+    "reconciliationdelete",
+    "reconciliationdetails",
+    "referencebanks",
+    "referencecontacts",
+    "referencecurrencies",
+    "referenceincomepayments",
+    "referenceinvoices",
+    "referenceresolutions",
+    "referenceretentions",
+    "referencesellers",
+    "referencetaxes",
+    "respuestas-del-api-y-manejo-de-errores",
+    "restorecontact",
+    "transaction-out-create-outgoing-payment",
+    "transaction-out-delete-outgoing-payment",
+    "transaction-out-get-outgoing-payment",
+    "transaction-out-list-outgoing-payments",
+    "transaction-out-update-outgoing-payment",
+    "transaction-out-void-outgoing-payment",
+    "updateadditionalcharge"
+  ],
+  "resources": [
+    "accounting",
+    "banks",
+    "bills",
+    "bills-attachment-attachment",
+    "company-1",
+    "company-attachment-1",
+    "config",
+    "contacts",
+    "credit-notes",
+    "currencies",
+    "currencies-code",
+    "custom-fields",
+    "customfields",
+    "debit-notes",
+    "estimates",
+    "global-invoices",
+    "income-debit-notes",
+    "incomepayments",
+    "inventory-adjustments",
+    "inventory-adjustments-numerations",
+    "inventoryadjustmentnumerations",
+    "inventoryadjustments",
+    "invoices",
+    "invoices-attachment",
+    "invoices-preview",
+    "invoices-stamp",
+    "item-categories",
+    "item-categories-attachment",
+    "itemcategories",
+    "items",
+    "items-attachment",
+    "itemstock",
+    "journals-entries-graph",
+    "ledger",
+    "number-templates",
+    "number-templates-1",
+    "payments",
+    "payments-1",
+    "price-lists",
+    "pricelist",
+    "purchase-orders",
+    "purchase-orders-attachment-attachment",
+    "recurring-invoices",
+    "recurring-payments",
+    "remissions",
+    "remissions-attachment",
+    "reports",
+    "resolutions",
+    "retentions",
+    "sellers",
+    "supportcenter",
+    "taxes",
+    "terms",
+    "transportation-receipts",
+    "transportation-receipts-attachment",
+    "transportation-receipts-preview",
+    "users",
+    "users-attachment-1",
+    "users-self-1",
+    "users-self-metadata-1",
+    "variant-attributes",
+    "variantattributes",
+    "warehouse-transfers",
+    "warehouses",
+    "warehousetransfers",
+    "webhooks-subscriptions"
+  ]
+}

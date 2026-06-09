@@ -78,6 +78,29 @@ type resourceSpec[T any] struct {
 // registerResource builds the resource command tree and attaches it to root.
 func registerResource[T any](sp resourceSpec[T]) {
 	rootCmd.AddCommand(buildResourceCmd(sp))
+	if sp.New != nil {
+		sp := sp
+		resourcePathFns = append(resourcePathFns, func() string { return sp.New(pathProbe).Path() })
+	}
+}
+
+// pathProbe is a credential-free client used only to read a resource's
+// collection path (NewResource stores the path; no request is made).
+var pathProbe = api.New()
+
+// resourcePathFns lazily yields each registered resource's API collection path.
+var resourcePathFns []func() string
+
+// RegisteredResourcePaths returns the API collection path of every registered
+// resource (e.g. "contacts", "conciliations", "webhooks/subscriptions"). It is
+// used by the spec-coverage test to compare the CLI against the documented API
+// manifest (testdata/spec/endpoints.json).
+func RegisteredResourcePaths() []string {
+	out := make([]string, 0, len(resourcePathFns))
+	for _, f := range resourcePathFns {
+		out = append(out, f())
+	}
+	return out
 }
 
 func buildResourceCmd[T any](sp resourceSpec[T]) *cobra.Command {

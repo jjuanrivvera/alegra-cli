@@ -62,6 +62,14 @@ cover-check: ## Fail if total statement coverage is below COVERAGE_MIN (default 
 	@total=$$($(GO) tool cover -func=coverage.out | awk '/^total:/ {print substr($$3, 1, length($$3)-1)}'); \
 	awk -v c="$$total" -v min="$(COVERAGE_MIN)" 'BEGIN { if (c+0 < min+0) { printf "FAIL: total coverage %s%% is below %s%%\n", c, min; exit 1 } printf "OK: total coverage %s%% (>= %s%%)\n", c, min }'
 
+.PHONY: spec-sync
+spec-sync: ## Refresh the API manifest from the official docs index (network)
+	$(GO) run ./tools/specsync
+
+.PHONY: spec-check
+spec-check: ## Verify CLI resources match the committed API manifest (network-free)
+	$(GO) test ./commands/ -run TestSpecManifest
+
 .PHONY: fmt
 fmt: ## Format the code
 	$(GO) fmt ./...
