@@ -71,5 +71,6 @@ nav:
       - MCP Server: user-guide/mcp.md
   - Reference:
       - Command Reference: commands/index.md
+      - vs. Official MCP: reference/vs-official-mcp.md
       - Errors & Rate Limits: reference/errors.md
       - FAQ & Troubleshooting: reference/faq.md
