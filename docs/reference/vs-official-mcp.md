@@ -53,7 +53,8 @@ Contacts; items (with per-warehouse stock via `items stock`) and the inventory f
 numerations, custom fields); bank accounts; reconciliations; journals; cost centers;
 taxes; retentions; currencies; sellers; invoices (read/write); bills (with attachments,
 comments, advances, and perceptions/retentions); supplier debit notes; purchase orders;
-payments; and sales reports.
+payments; sales reports; and country reference catalogs — units of measure and reference
+enums via `alegra catalog` (embedded per country).
 
 ### Only in alegra-cli
 Estimates, credit notes, customer debit notes, remissions, transportation receipts,
@@ -62,10 +63,9 @@ terms, additional charges, and webhook subscriptions — plus electronic invoice
 (see below).
 
 ### Only in the official MCP
-- **Catalog/reference lookups** — product keys, units, and reference enums
-  (Mexico/country catalogs). The official MCP serves these through its own endpoint;
-  Alegra publishes no public REST path for them, so the CLI does not wrap them. They can
-  be added if/when Alegra documents the endpoint.
+- **SAT product keys** (`claveProdServ`, ~52k Mexico-specific entries) — too large to
+  embed; the one catalog the CLI does not ship. (Units and the other reference enums
+  *are* covered via `alegra catalog`.)
 - **Support Center** help-desk tickets (out of scope for an accounting CLI).
 
 ## Capability differences that matter
