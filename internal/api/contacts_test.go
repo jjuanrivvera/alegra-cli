@@ -65,11 +65,15 @@ func TestContacts_TypeStringOrArray(t *testing.T) {
 func TestContacts_Get(t *testing.T) {
 	c := newTestClient(t, func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "/contacts/5", r.URL.Path)
-		_, _ = w.Write([]byte(`{"id":5,"name":"Acme","address":{"city":"Cali"}}`))
+		// A GET response returns identification as a plain string (not the
+		// {type,number} object used in write bodies) — verified against the live
+		// API. Locking it here guards the field type against a wrong "fix".
+		_, _ = w.Write([]byte(`{"id":5,"name":"Acme","identification":"901234567","address":{"city":"Cali"}}`))
 	})
 	contact, err := c.Contacts().Get(context.Background(), "5")
 	require.NoError(t, err)
 	assert.Equal(t, ID("5"), contact.ID)
+	assert.Equal(t, "901234567", contact.Identification)
 	require.NotNil(t, contact.Address)
 	assert.Equal(t, "Cali", contact.Address.City)
 }
