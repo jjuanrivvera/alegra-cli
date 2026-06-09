@@ -6,6 +6,28 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-06-08
+
+Polish & distribution release.
+
+### Added
+- **`alegra init`** — guided onboarding: authenticate, auto-detect the account
+  country, save the profile, and print next steps.
+- **`version --json`** (structured build info) and **`version --check`** (compare
+  against the latest GitHub release).
+- **Colorized output** for `doctor` (respects `NO_COLOR`; global `--no-color`).
+- **Shell completions** (bash/zsh/fish) bundled in release archives, Homebrew,
+  Scoop, and the Linux packages.
+- **New install channels**: `.deb`/`.rpm`/`.apk` packages, a Docker image on
+  **GHCR** (`ghcr.io/jjuanrivvera/alegra-cli`), and a **Scoop** bucket.
+- **Supply chain**: SBOM (syft) per archive and **cosign keyless signatures** of
+  the checksums file.
+- README animated demo (VHS) + DeepWiki badge + Codecov badge; social preview.
+
+### Changed
+- README header/badges centered; `canvas-cli` references removed.
+- A CI coverage gate now fails the build below 80% (coverage ~86%).
+
 ## [0.4.4] - 2026-06-08
 
 Test-quality release — no functional changes to the CLI.
