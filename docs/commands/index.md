@@ -42,6 +42,7 @@ Auto-generated from the CLI. See [alegra](alegra.md) for the root command.
 - [remissions](alegra_remissions.md) — Manage remissions (delivery notes)
 - [reports](alegra_reports.md) — Read-only Alegra reports
 - [retentions](alegra_retentions.md) — Manage retentions (withholdings)
+- [sellers](alegra_sellers.md) — Manage sellers (vendedores)
 - [skills](alegra_skills.md) — Install this CLI's AI-agent skill into Claude, Cursor, and other agents
 - [taxes](alegra_taxes.md) — Manage taxes (e.g. IVA)
 - [terms](alegra_terms.md) — Manage payment terms (términos de pago)
@@ -51,3 +52,4 @@ Auto-generated from the CLI. See [alegra](alegra.md) for the root command.
 - [version](alegra_version.md) — Print version information
 - [warehouse-transfers](alegra_warehouse-transfers.md) — Manage inventory transfers between warehouses
 - [warehouses](alegra_warehouses.md) — Manage inventory warehouses (bodegas)
+- [webhook-subscriptions](alegra_webhook-subscriptions.md) — Manage webhook subscriptions (event notifications)

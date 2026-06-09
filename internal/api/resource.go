@@ -63,12 +63,13 @@ func decodeList[T any](raw []byte) ([]T, error) {
 		return out, nil
 	}
 	var wrapper struct {
-		Data    json.RawMessage `json:"data"`
-		Results json.RawMessage `json:"results"`
-		Rows    json.RawMessage `json:"rows"`
+		Data          json.RawMessage `json:"data"`
+		Results       json.RawMessage `json:"results"`
+		Rows          json.RawMessage `json:"rows"`
+		Subscriptions json.RawMessage `json:"subscriptions"` // /webhooks/subscriptions
 	}
 	if err := json.Unmarshal(trimmed, &wrapper); err == nil {
-		for _, arr := range []json.RawMessage{wrapper.Data, wrapper.Results, wrapper.Rows} {
+		for _, arr := range []json.RawMessage{wrapper.Data, wrapper.Results, wrapper.Rows, wrapper.Subscriptions} {
 			if len(bytes.TrimSpace(arr)) == 0 {
 				continue
 			}
