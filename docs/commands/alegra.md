@@ -40,6 +40,7 @@ or set ALEGRA_EMAIL and ALEGRA_TOKEN in the environment.
 * [alegra auth](alegra_auth.md)	 - Manage Alegra API authentication
 * [alegra bank-accounts](alegra_bank-accounts.md)	 - Manage bank accounts (bank, credit card, and cash accounts)
 * [alegra bills](alegra_bills.md)	 - Manage provider bills (facturas de proveedor)
+* [alegra catalog](alegra_catalog.md)	 - Country reference catalogs (units, identification types, taxes, ...)
 * [alegra categories](alegra_categories.md)	 - Manage chart-of-accounts accounts (cuentas contables)
 * [alegra company](alegra_company.md)	 - View and update the account's company (empresa)
 * [alegra config](alegra_config.md)	 - Manage alegra-cli configuration and profiles

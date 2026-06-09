@@ -1,0 +1,187 @@
+{
+  "country": "spain",
+  "label": "España",
+  "source": "https://developer.alegra.com/reference/españa.md",
+  "categories": [
+    {
+      "key": "tipos-de-operaciones",
+      "title": "Tipos de operaciones",
+      "entries": [
+        {
+          "code": "GENERAL_REGIME_AND_OTHERS",
+          "name": "Operación de régimen general y cualquier otro supuesto que no esté recogido en los siguientes valores"
+        },
+        {
+          "code": "EXPORTATION",
+          "name": "Exportación"
+        },
+        {
+          "code": "SPECIAL_REGIME_USED_GOODS_ART_ANTIQUES_COLLECTIONS",
+          "name": "Operaciones a las que se aplique el régimen especial de bienes usados, objetos de arte antigüedades y objetos de colección"
+        },
+        {
+          "code": "SPECIAL_REGIME_INVESTMENT_GOLD",
+          "name": "Régimen especial del oro de inversión"
+        },
+        {
+          "code": "SPECIAL_REGIME_TRAVEL_AGENCIES",
+          "name": "Régimen especial de las agencias de viajes"
+        },
+        {
+          "code": "SPECIAL_REGIME_GROUP_ENTITIES_ADVANCED_LEVEL",
+          "name": "Régimen especial grupo de entidades en IVA (Nivel Avanzado)"
+        },
+        {
+          "code": "SPECIAL_REGIME_CASH_ACCOUNTING",
+          "name": "Régimen especial del criterio de caja"
+        },
+        {
+          "code": "OPERATIONS_SUBJECT_IPSI_IGIC",
+          "name": "Operaciones sujetas al IPSI/IGIC (Impuesto sobre la Producción, los Servicios y la Importación / Impuesto General Indirecto Canario)"
+        },
+        {
+          "code": "BILLING_SERVICE_PROVIDED_TRAVEL_AGENCIES",
+          "name": "Facturación de las prestaciones de servicios de agencias de viaje que actúan como mediadoras en nombre y por cuenta ajena (disposición adicional 3a del Reglamento de Facturación)"
+        },
+        {
+          "code": "BUSINESS_PREMISES_LEASE_SUBJECT_RETENTION",
+          "name": "Operaciones de arrendamiento de local de negocio sujetos a retención"
+        },
+        {
+          "code": "BUSINESS_PREMISES_LEASE_NOT_SUBJECT_RETENTION",
+          "name": "Operaciones de arrendamiento de local de negocio no sujetos a retención"
+        },
+        {
+          "code": "BUSINESS_PREMISES_LEASE_SUBJECT_NOT_SUBJECT_RETENTION",
+          "name": "Operaciones de arrendamiento de local de negocio sujetas y no sujetas a retención"
+        },
+        {
+          "code": "INVOICE_VAT_PENDING_ACCRUAL_CERTIFICATES_WORK",
+          "name": "Factura con IVA pendiente de devengo en certificaciones de obra cuya destinataria sea una Administración Pública"
+        },
+        {
+          "code": "INVOICE_VAT_PENDING_ACCRUAL_OPERATIONS_SUCCESSION",
+          "name": "Factura con IVA pendiente de devengo en operaciones de tracto sucesivo"
+        },
+        {
+          "code": "OPERATIONS_RECHARGE_EQUIVALENCE",
+          "name": "Operaciones en recargo de equivalencia"
+        },
+        {
+          "code": "OPERATIONS_SIMPLIFIED_REGIME",
+          "name": "Operaciones en régimen simplificado"
+        },
+        {
+          "code": "OPERATIONS_NOT_CONSIDERED_ENTREPRENEURS_FOR_VAT",
+          "name": "Operaciones realizadas por personas o entidades que no tengan la consideración de empresarios, empresarias o profesionales a efectos del IVA"
+        },
+        {
+          "code": "OPERATIONS_PERMANENT_ESTABLISHMENTS_CANARY_ISLANDS_CEUTA_MELILLA",
+          "name": "Operaciones realizadas desde Establecimientos Permanentes situados en  Canarias, Ceuta y Melilla"
+        }
+      ]
+    },
+    {
+      "key": "regimenes",
+      "title": "Regímenes",
+      "entries": [
+        {
+          "code": "SIMPLIFIED_REGIME",
+          "name": "Régimen simplificado"
+        },
+        {
+          "code": "GENERAL_REGIME",
+          "name": "Régimen general"
+        }
+      ]
+    },
+    {
+      "key": "unidades-de-medida",
+      "title": "Unidades de medida",
+      "entries": [
+        {
+          "code": "notApplicable",
+          "name": "No aplica"
+        },
+        {
+          "code": "unit",
+          "name": "Unidad"
+        },
+        {
+          "code": "service",
+          "name": "Servicio"
+        },
+        {
+          "code": "piece",
+          "name": "Pieza"
+        },
+        {
+          "code": "centimeter",
+          "name": "Centímetro"
+        },
+        {
+          "code": "meter",
+          "name": "Metro"
+        },
+        {
+          "code": "inch",
+          "name": "Pulgada"
+        },
+        {
+          "code": "centimeterSquared",
+          "name": "Centímetro cuadrado"
+        },
+        {
+          "code": "meterSquared",
+          "name": "Metro cuadrado"
+        },
+        {
+          "code": "inchSquared",
+          "name": "Pulgada cuadrada"
+        },
+        {
+          "code": "mililiter",
+          "name": "Mililitro"
+        },
+        {
+          "code": "liter",
+          "name": "Litro"
+        },
+        {
+          "code": "gallon",
+          "name": "Galón"
+        },
+        {
+          "code": "gram",
+          "name": "Gramo"
+        },
+        {
+          "code": "kilogram",
+          "name": "Kilogramo"
+        },
+        {
+          "code": "ton",
+          "name": "Tonelada"
+        },
+        {
+          "code": "pound",
+          "name": "Libra"
+        }
+      ]
+    },
+    {
+      "key": "ciudades-y-provincias",
+      "title": "Ciudades y Provincias",
+      "entries": [
+        {
+          "code": "Ciudad Autónoma de Ceuta",
+          "name": "Ceuta"
+        },
+        {
+          "code": "Ciudad Autónoma de Melilla",
+          "name": "Melilla"
+        }
+      ]
+    }
+  ]
+}
