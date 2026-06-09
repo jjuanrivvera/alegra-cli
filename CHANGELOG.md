@@ -6,6 +6,14 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [0.6.1] - 2026-06-09
+
+### Changed
+- Every resource command now ships a `Long` description. Because `ophis`
+  surfaces a command's `Long` as its MCP tool description, this brings the
+  `alegra mcp` tool docs (and `alegra <resource> --help`) to parity with the
+  official Alegra MCP server's per-tool descriptions (#22).
+
 ## [0.6.0] - 2026-06-09
 
 API fidelity & coverage release (#22, #27).
