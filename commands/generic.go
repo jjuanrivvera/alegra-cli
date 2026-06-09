@@ -25,6 +25,10 @@ type listFilter struct {
 	Flag  string
 	Query string
 	Usage string
+	// Values optionally enumerates the allowed values for shell completion. When
+	// empty, a compact comma-separated Usage (e.g. "open,closed,void") is treated
+	// as the value set automatically.
+	Values []string
 }
 
 // dateRangeFilters returns the standard Alegra date/dueDate range filters shared
@@ -224,6 +228,15 @@ func newListCmd[T any](sp resourceSpec[T]) *cobra.Command {
 			continue
 		}
 		filterVals[f.Query] = fs.String(f.Flag, "", f.Usage)
+		// Enum-valued filters (e.g. --status open|closed|void) complete their values.
+		if vals := filterEnum(f); len(vals) > 0 {
+			_ = cmd.RegisterFlagCompletionFunc(f.Flag, fixedCompleter(vals...))
+		}
+	}
+	withColumns(cmd, sp.Columns)
+	_ = cmd.RegisterFlagCompletionFunc("order-direction", fixedCompleter("ASC", "DESC"))
+	if len(sp.OrderFields) > 0 {
+		_ = cmd.RegisterFlagCompletionFunc("order-field", fixedCompleter(sp.OrderFields...))
 	}
 	return cmd
 }
@@ -301,6 +314,8 @@ func newExportCmd[T any](sp resourceSpec[T]) *cobra.Command {
 	fs.StringVar(&format, "format", "csv", "Export format: csv or json")
 	fs.StringArrayVar(&params, "param", nil, "Filter by an API query parameter: key=value (repeatable)")
 	fs.StringVarP(&query, "query", "q", "", "Free-text search")
+	_ = cmd.RegisterFlagCompletionFunc("format", fixedCompleter("csv", "json"))
+	withColumns(cmd, sp.Columns)
 	return cmd
 }
 
@@ -451,11 +466,12 @@ func parseKeyVals(pairs []string) (map[string]string, error) {
 // --- get ---
 
 func newGetCmd[T any](sp resourceSpec[T]) *cobra.Command {
-	return &cobra.Command{
-		Use:     "get <id>",
-		Short:   "Get a single " + singular(sp.Use) + " by ID",
-		Args:    cobra.ExactArgs(1),
-		Example: "  alegra " + sp.Use + " get <id>\n  alegra " + sp.Use + " get <id> -o json",
+	cmd := &cobra.Command{
+		Use:               "get <id>",
+		Short:             "Get a single " + singular(sp.Use) + " by ID",
+		Args:              cobra.ExactArgs(1),
+		ValidArgsFunction: resourceIDCompleter(sp),
+		Example:           "  alegra " + sp.Use + " get <id>\n  alegra " + sp.Use + " get <id> -o json",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			client, err := getAPIClient()
 			if err != nil {
@@ -470,6 +486,9 @@ func newGetCmd[T any](sp resourceSpec[T]) *cobra.Command {
 			return render(cmd, item, nil)
 		},
 	}
+	// --columns completes against this resource's known fields.
+	withColumns(cmd, sp.Columns)
+	return cmd
 }
 
 // --- create ---
@@ -553,9 +572,10 @@ func resolveCountry(override string) string {
 func newUpdateCmd[T any](sp resourceSpec[T]) *cobra.Command {
 	var bf bodyFlags
 	cmd := &cobra.Command{
-		Use:   "update <id>",
-		Short: "Update a " + singular(sp.Use) + " by ID",
-		Args:  cobra.ExactArgs(1),
+		Use:               "update <id>",
+		Short:             "Update a " + singular(sp.Use) + " by ID",
+		Args:              cobra.ExactArgs(1),
+		ValidArgsFunction: resourceIDCompleter(sp),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			body, err := bf.build()
 			if err != nil {
@@ -581,9 +601,10 @@ func newUpdateCmd[T any](sp resourceSpec[T]) *cobra.Command {
 func newDeleteCmd[T any](sp resourceSpec[T]) *cobra.Command {
 	var yes bool
 	cmd := &cobra.Command{
-		Use:   "delete <id>",
-		Short: "Delete a " + singular(sp.Use) + " by ID",
-		Args:  cobra.ExactArgs(1),
+		Use:               "delete <id>",
+		Short:             "Delete a " + singular(sp.Use) + " by ID",
+		Args:              cobra.ExactArgs(1),
+		ValidArgsFunction: resourceIDCompleter(sp),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if !yes && !confirm(cmd, fmt.Sprintf("Delete %s %s?", singular(sp.Use), args[0])) {
 				return fmt.Errorf("aborted")
@@ -615,9 +636,10 @@ func NewActionCmd[T any](sp resourceSpec[T], use, apiAction, short string, bodyR
 	var bf bodyFlags
 	required := len(bodyRequired) > 0 && bodyRequired[0]
 	cmd := &cobra.Command{
-		Use:   use + " <id>",
-		Short: short,
-		Args:  cobra.ExactArgs(1),
+		Use:               use + " <id>",
+		Short:             short,
+		Args:              cobra.ExactArgs(1),
+		ValidArgsFunction: resourceIDCompleter(sp),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			var body json.RawMessage
 			var err error

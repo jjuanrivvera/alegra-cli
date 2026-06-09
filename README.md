@@ -137,6 +137,22 @@ alegra items list -o csv --columns id,name,price > items.csv
 alegra contacts list --columns id,name,email
 ```
 
+### Shell completion
+
+Completion for bash/zsh/fish/PowerShell is **data-aware** — <kbd>Tab</kbd>
+completes your actual records, not just command names:
+
+```bash
+alegra invoices get <Tab>            # live invoice IDs, labelled with status
+alegra invoices list --status <Tab>  # open  closed  draft  void
+alegra contacts get --columns <Tab>  # that resource's columns (comma-aware)
+alegra --profile <Tab>               # your configured profiles
+```
+
+Release archives and the Homebrew/Scoop/`.deb`/`.rpm`/`.apk` installs bundle the
+scripts; otherwise `source <(alegra completion bash)` (or `zsh`/`fish`). Full
+setup: [docs › Shell Completion](https://jjuanrivvera.github.io/alegra-cli/user-guide/shell-completion/).
+
 ### Profiles
 
 Manage multiple Alegra accounts:

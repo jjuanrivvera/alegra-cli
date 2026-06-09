@@ -15,7 +15,7 @@ func init() {
 		Columns:     []string{"id", "date", "amount", "type", "status"},
 		OrderFields: []string{"id", "date"},
 		ListFilters: append([]listFilter{
-			{Flag: "type", Query: "type", Usage: "in or out"},
+			{Flag: "type", Query: "type", Usage: "in or out", Values: []string{"in", "out"}},
 			{Flag: "status", Query: "status", Usage: "Filter by status"},
 			{Flag: "client-id", Query: "client_id", Usage: "Filter by client ID"},
 		}, dateRangeFilters()...),
