@@ -55,4 +55,6 @@ alegra catalog [category] [flags]
 ### SEE ALSO
 
 * [alegra](alegra.md)	 - Alegra accounting system CLI
+* [alegra catalog product-keys](alegra_catalog_product-keys.md)	 - Search SAT product/service keys (México, claveProdServ)
+* [alegra catalog sync-sat](alegra_catalog_sync-sat.md)	 - Download the SAT product-keys catalog (México) to the local cache
 

@@ -8,6 +8,7 @@ import (
 
 	"github.com/spf13/cobra"
 
+	"github.com/jjuanrivvera/alegra-cli/internal/catalog"
 	"github.com/jjuanrivvera/alegra-cli/internal/config"
 	"github.com/jjuanrivvera/alegra-cli/internal/ui"
 )
@@ -82,10 +83,55 @@ func runInit(cmd *cobra.Command, email, token, baseURL string) error {
 		fmt.Fprintf(out, "  %s %s\n", c.Dim("Country (API version):"), country)
 	}
 
+	offerSATCatalog(cmd, reader, country)
+
 	fmt.Fprintf(out, "\n%s\n", c.Bold("Next steps:"))
 	fmt.Fprintln(out, "  alegra doctor                 # verify auth, plan, rate limit, numbering")
 	fmt.Fprintln(out, "  alegra contacts list          # list your clients/suppliers")
 	fmt.Fprintln(out, "  alegra invoices list --count  # how many invoices you have")
 	fmt.Fprintln(out, "  alegra <resource> --help      # discover any resource's actions")
 	return nil
+}
+
+// offerSATCatalog proposes the one-time SAT product-keys download when init
+// just detected a Mexican account — the moment the user most needs it and
+// least knows the command exists. It must never fail init: a declined prompt,
+// EOF (non-interactive stdin), or a download error all degrade to a hint.
+func offerSATCatalog(cmd *cobra.Command, reader *bufio.Reader, country string) {
+	if !strings.EqualFold(strings.TrimSpace(country), "mexico") {
+		return
+	}
+	out := cmd.OutOrStdout()
+	c := ui.For(out)
+	dir, err := catalogsDir()
+	if err != nil || catalog.SATCached(dir) {
+		return
+	}
+
+	hint := func() {
+		fmt.Fprintf(out, "  %s\n", c.Dim("Skipped — run `alegra catalog sync-sat` anytime."))
+	}
+	fmt.Fprint(out, "\nMexican account detected. Download the SAT product-keys catalog\n(claveProdServ, ~7MB one time, used for offline search and CFDI validation)? [Y/n]: ")
+	line, err := reader.ReadString('\n')
+	if err != nil {
+		fmt.Fprintln(out)
+		hint()
+		return
+	}
+	switch strings.ToLower(strings.TrimSpace(line)) {
+	case "", "y", "yes", "s", "si", "sí":
+	default:
+		hint()
+		return
+	}
+
+	fmt.Fprint(out, "Downloading… ")
+	cat, err := catalog.SyncSAT(cmd.Context(), dir)
+	if err != nil {
+		fmt.Fprintln(out, c.Yellow("failed: "+err.Error()))
+		hint()
+		return
+	}
+	fmt.Fprintln(out, c.Green(fmt.Sprintf("ok (%d keys, catalog %s)", len(cat.Entries), cat.Version)))
+	fmt.Fprintf(out, "  %s\n", c.Dim("Try: alegra catalog product-keys \"refrigerador\""))
 }

@@ -8,6 +8,7 @@ import (
 
 	"github.com/jjuanrivvera/alegra-cli/internal/api"
 	"github.com/jjuanrivvera/alegra-cli/internal/auth"
+	"github.com/jjuanrivvera/alegra-cli/internal/catalog"
 	"github.com/jjuanrivvera/alegra-cli/internal/config"
 	"github.com/jjuanrivvera/alegra-cli/internal/ui"
 )
@@ -83,6 +84,18 @@ func runDoctor(cmd *cobra.Command) error {
 		// Refresh the cached per-profile country used for pre-flight validation.
 		if v, isStr := company["applicationVersion"].(string); isStr {
 			cacheCountry(cfg, profile, strings.ToLower(strings.TrimSpace(v)))
+		}
+		// Mexican accounts rely on the locally-synced SAT product-keys catalog
+		// (no Alegra endpoint exists); surface its state where users debug.
+		if strings.EqualFold(strOr(company, "applicationVersion", ""), "mexico") {
+			if dir, derr := catalogsDir(); derr == nil {
+				if sat, lerr := catalog.LoadSAT(dir); lerr == nil {
+					ok("sat catalog", fmt.Sprintf("%d product keys (version %s, synced %s)",
+						len(sat.Entries), sat.Version, sat.FetchedAt.Format("2006-01-02")))
+				} else {
+					warn("sat catalog", "not synced — run `alegra catalog sync-sat` for offline product-key search")
+				}
+			}
 		}
 	}
 
