@@ -109,7 +109,8 @@ func (r *Resource[T]) ListAll(ctx context.Context, params ListParams, maxPages i
 	}
 	// Reached the page cap with a full final page: more records may exist.
 	r.client.logger.Warn("alegra: --all stopped at the page cap; results may be truncated",
-		"resource", r.path, "fetched", len(all), "max_pages", maxPages)
+		"resource", r.path, "fetched", len(all), "max_pages", maxPages,
+		"hint", "narrow the query with filters or a date range")
 	return all, nil
 }
 

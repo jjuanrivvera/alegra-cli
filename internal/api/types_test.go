@@ -17,6 +17,9 @@ func TestID_Unmarshal(t *testing.T) {
 		`null`:   "",
 		`""`:     "",
 		`"abc1"`: "abc1",
+		// above 2^53: must not round-trip through float64
+		`9007199254740993`:    "9007199254740993",
+		`9223372036854775807`: "9223372036854775807",
 	}
 	for in, want := range cases {
 		var id ID

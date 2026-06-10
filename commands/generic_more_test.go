@@ -87,3 +87,11 @@ func TestConfirm(t *testing.T) {
 		assert.False(t, confirm(cmd, "proceed"), "input %q", in)
 	}
 }
+
+// Every registered resource builds its list command at init, so by the time
+// tests run any filter dropped over an empty definition or a flag collision is
+// already recorded. An entry here means a resource silently lost a filter —
+// rename the flag in the resource definition.
+func TestNoListFiltersAreSilentlyDropped(t *testing.T) {
+	assert.Empty(t, droppedListFilters)
+}

@@ -60,3 +60,20 @@ func TestAsAPIError(t *testing.T) {
 	_, ok = AsAPIError(nil)
 	assert.False(t, ok)
 }
+
+func TestAsAPIError_UnwrapsChainsAndJoins(t *testing.T) {
+	apiErr := &APIError{StatusCode: 404, Message: "not found"}
+
+	got, ok := AsAPIError(fmt.Errorf("wrapped: %w", apiErr))
+	assert.True(t, ok)
+	assert.Same(t, apiErr, got)
+
+	// errors.Join produces a multi-error tree; only errors.As walks it.
+	got, ok = AsAPIError(errors.Join(errors.New("other"), apiErr))
+	assert.True(t, ok)
+	assert.Same(t, apiErr, got)
+
+	got, ok = AsAPIError(errors.New("plain"))
+	assert.False(t, ok)
+	assert.Nil(t, got)
+}

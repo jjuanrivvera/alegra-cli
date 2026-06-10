@@ -31,6 +31,12 @@ func (i *ID) UnmarshalJSON(data []byte) error {
 	if err := json.Unmarshal(data, &n); err != nil {
 		return err
 	}
+	// Int64 first: round-tripping through float64 would silently lose
+	// precision for ids above 2^53.
+	if v, err := n.Int64(); err == nil {
+		*i = ID(strconv.FormatInt(v, 10))
+		return nil
+	}
 	if f, err := n.Float64(); err == nil && f == float64(int64(f)) {
 		*i = ID(strconv.FormatInt(int64(f), 10))
 		return nil

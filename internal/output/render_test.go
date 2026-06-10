@@ -84,11 +84,14 @@ func TestRenderUnsupportedFormat(t *testing.T) {
 func TestResolveColumns(t *testing.T) {
 	rows := []map[string]any{{"id": "1", "name": "A", "nested": map[string]any{"x": 1}}}
 	// Explicit columns pass through unchanged.
-	assert.Equal(t, []string{"name", "id"}, resolveColumns(rows, []string{"name", "id"}))
+	cols, dropped := resolveColumns(rows, []string{"name", "id"})
+	assert.Equal(t, []string{"name", "id"}, cols)
+	assert.Zero(t, dropped)
 
 	// Derived columns: scalars only, preferred order first; nested map excluded.
-	got := resolveColumns(rows, nil)
+	got, dropped := resolveColumns(rows, nil)
 	assert.Equal(t, []string{"id", "name"}, got)
+	assert.Zero(t, dropped)
 	assert.NotContains(t, got, "nested")
 }
 
@@ -97,8 +100,15 @@ func TestResolveColumns_CapsAtTen(t *testing.T) {
 	for _, k := range []string{"c01", "c02", "c03", "c04", "c05", "c06", "c07", "c08", "c09", "c10", "c11", "c12"} {
 		row[k] = "v"
 	}
-	got := resolveColumns([]map[string]any{row}, nil)
-	assert.Len(t, got, 10)
+	got, dropped := resolveColumns([]map[string]any{row}, nil)
+	assert.Len(t, got, maxAutoColumns)
+	assert.Equal(t, 2, dropped)
+
+	// Explicit selection is never capped.
+	explicit := []string{"c01", "c02", "c03", "c04", "c05", "c06", "c07", "c08", "c09", "c10", "c11", "c12"}
+	got, dropped = resolveColumns([]map[string]any{row}, explicit)
+	assert.Len(t, got, 12)
+	assert.Zero(t, dropped)
 }
 
 func TestScalarStringAndValueString(t *testing.T) {
