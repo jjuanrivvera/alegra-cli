@@ -1,6 +1,7 @@
 package config
 
 import (
+	"os"
 	"path/filepath"
 	"testing"
 
@@ -118,4 +119,36 @@ func TestParseRPS(t *testing.T) {
 	assert.Equal(t, 12.5, ParseRPS("12.5", 5.0))
 	assert.Equal(t, 5.0, ParseRPS("nope", 5.0), "invalid falls back")
 	assert.Equal(t, 5.0, ParseRPS("-3", 5.0), "non-positive falls back")
+}
+
+func TestLoadCorruptYAMLIsAnError(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "config.yaml")
+	t.Setenv(EnvConfig, path)
+	require.NoError(t, os.WriteFile(path, []byte("profiles: [not: a: map\n\t"), 0o600))
+
+	// A corrupt config must surface a parse error, never be silently
+	// replaced by defaults (that would drop every profile).
+	_, err := Load()
+	require.Error(t, err)
+	assert.Contains(t, err.Error(), "parsing config")
+}
+
+func TestSaveIsAtomicAndLeavesNoTempFiles(t *testing.T) {
+	dir := t.TempDir()
+	path := filepath.Join(dir, "config.yaml")
+	t.Setenv(EnvConfig, path)
+
+	c := New()
+	c.SetProfile(&Profile{Name: "p", Email: "a@b.c"})
+	require.NoError(t, c.Save())
+	require.NoError(t, c.Save()) // overwrite path: rename over existing file
+
+	entries, err := os.ReadDir(dir)
+	require.NoError(t, err)
+	require.Len(t, entries, 1, "temp files must not survive a save")
+	assert.Equal(t, "config.yaml", entries[0].Name())
+
+	got, err := Load()
+	require.NoError(t, err)
+	assert.Equal(t, "a@b.c", got.Profile("p").Email)
 }

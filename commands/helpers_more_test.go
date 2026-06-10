@@ -131,6 +131,11 @@ func TestCurrentProfileName(t *testing.T) {
 	dir := t.TempDir()
 	t.Setenv(config.EnvConfig, filepath.Join(dir, "config.yaml"))
 	t.Setenv(config.EnvProfile, "")
+	// runRoot resets flag globals before each run, not after — a prior test's
+	// --profile would otherwise leak into this direct helper call.
+	prev := flagProfile
+	flagProfile = ""
+	t.Cleanup(func() { flagProfile = prev })
 
 	cfg := config.New()
 	cfg.DefaultProfile = "prod"

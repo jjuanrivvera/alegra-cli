@@ -58,7 +58,11 @@ A resource needs three files and no edits to shared code:
    ```
 
 3. `internal/api/<resource>_test.go` — an httptest-based service test (reuse the
-   `newTestClient` helper).
+   `newTestClient` helper). Test what is **unique** to the resource — special
+   field types, custom actions, odd response shapes — not the generic CRUD
+   plumbing, which is already covered once by the `Resource[T]` tests
+   (`resource_test.go`, `client_failures_test.go`). A List/Get happy-path pair
+   adds volume, not signal.
 
 Custom actions (e.g. `void`, `email`) go through the `Extra` hook using
 `NewActionCmd` / `NewCollectionActionCmd`. Non-CRUD resources (singletons,
@@ -82,6 +86,16 @@ reports) build a plain cobra command using `client.GetInto/PostInto/PutInto`.
   `internal/api`).
 - Prefer `require` for fatal assertions, `assert` for the rest.
 - Keep coverage healthy — the suite sits above 80%; new code should ship tests.
+- **Test failure paths, not just happy paths.** Every parse of external state
+  (API bodies, config files, caches) needs a test with corrupt input; every
+  batch operation needs a partial-failure test asserting counts and a non-zero
+  exit. Coverage measures execution, not assertion quality — a swallowed error
+  can be 100% "covered" and still hide a bug.
+- The flexible JSON types have fuzzers with value-level properties
+  (`internal/api/fuzz_test.go`); run them after touching a decoder:
+  `go test ./internal/api -fuzz '^FuzzID$' -fuzztime 30s` (likewise `FuzzInt`,
+  `FuzzMoney`, `FuzzStringOrSlice`). Counterexamples land in `testdata/fuzz/`
+  and become permanent regression cases — commit them.
 
 ## Reporting bugs & security issues
 
