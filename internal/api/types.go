@@ -125,6 +125,34 @@ type Ref struct {
 	Name string `json:"name,omitempty"`
 }
 
+// Refs decodes a related-records field that Alegra serializes as either a
+// single {id,name} object or an array of them (e.g. costCenter on income
+// debit notes, documented in both shapes across operations).
+type Refs []Ref
+
+// UnmarshalJSON accepts an object, an array of objects, or null.
+func (r *Refs) UnmarshalJSON(data []byte) error {
+	data = bytes.TrimSpace(data)
+	if len(data) == 0 || string(data) == "null" {
+		*r = nil
+		return nil
+	}
+	if data[0] == '[' {
+		var arr []Ref
+		if err := json.Unmarshal(data, &arr); err != nil {
+			return err
+		}
+		*r = arr
+		return nil
+	}
+	var one Ref
+	if err := json.Unmarshal(data, &one); err != nil {
+		return err
+	}
+	*r = []Ref{one}
+	return nil
+}
+
 // StringOrSlice decodes a JSON value that Alegra serializes as either a single
 // string or an array of strings (e.g. contact "type", which is "client" in
 // simple mode but ["client","provider"] in advanced mode).

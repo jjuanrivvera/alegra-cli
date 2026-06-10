@@ -8,6 +8,7 @@ import (
 	"io"
 	"net/url"
 	"os"
+	"reflect"
 	"strconv"
 	"strings"
 	"time"
@@ -81,8 +82,17 @@ func registerResource[T any](sp resourceSpec[T]) {
 	if sp.New != nil {
 		sp := sp
 		resourcePathFns = append(resourcePathFns, func() string { return sp.New(pathProbe).Path() })
+		// Record the typed struct for the field-level contract test against
+		// the documented schemas (testdata/spec/schemas.json).
+		resourceContractFns = append(resourceContractFns, func() (string, reflect.Type) {
+			return sp.New(pathProbe).Path(), reflect.TypeFor[T]()
+		})
 	}
 }
+
+// resourceContractFns lazily yields each registered resource's API collection
+// path and Go struct type.
+var resourceContractFns []func() (string, reflect.Type)
 
 // pathProbe is a credential-free client used only to read a resource's
 // collection path (NewResource stores the path; no request is made).

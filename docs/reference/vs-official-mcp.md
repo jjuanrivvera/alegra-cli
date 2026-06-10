@@ -62,10 +62,14 @@ global invoices (CFDI), recurring invoices and payments, document numberings, pa
 terms, additional charges, and webhook subscriptions — plus electronic invoice emission
 (see below).
 
+**SAT product keys** (`claveProdServ`, ~52k Mexico-specific entries) are covered too:
+too large to embed, they sync on demand from the SAT's published catalog data
+(`alegra catalog sync-sat`, offered automatically by `alegra init` on Mexican
+accounts) and are searched offline with `alegra catalog product-keys <query>`.
+The official MCP documents an equivalent tool, but its server returns no tools
+in practice.
+
 ### Only in the official MCP
-- **SAT product keys** (`claveProdServ`, ~52k Mexico-specific entries) — too large to
-  embed; the one catalog the CLI does not ship. (Units and the other reference enums
-  *are* covered via `alegra catalog`.)
 - **Support Center** help-desk tickets (out of scope for an accounting CLI).
 
 ## Capability differences that matter

@@ -1,14 +1,14 @@
-// Command specsync reconstructs a manifest of Alegra's documented API surface
-// from the official LLM index (https://developer.alegra.com/llms.txt) and writes
-// it to testdata/spec/endpoints.json (committed) plus the raw index to
-// .alegra-spec/ (gitignored).
+// Command specsync reconstructs Alegra's documented API surface and writes two
+// committed manifests (raw fetches land in .alegra-spec/, gitignored):
 //
-// Why the index and not the pages: the /reference/*.md pages are JS-rendered
-// (ReadMe.io), so their embedded OpenAPI is not present in the static HTML and
-// can't be scraped without a browser. llms.txt is plain text and lists every
-// reference page; its slugs encode method+path for the modern REST pages and
-// tool names for the MCP pages. That makes a reproducible, network-light
-// inventory used by `spec-check` to catch resource drift.
+//   - testdata/spec/endpoints.json — the endpoint inventory, parsed from the
+//     official LLM index (https://developer.alegra.com/llms.txt), whose slugs
+//     encode method+path for modern REST pages and tool names for MCP pages.
+//     Used by spec-check to catch resource-level drift.
+//   - testdata/spec/schemas.json — documented response fields per resource,
+//     harvested from the OpenAPI definition each /reference/<slug>.md page
+//     embeds (the pages serve static markdown; see harvest.go). Used by the
+//     contract test in commands/ to catch field-level drift in typed structs.
 package main
 
 import (
@@ -89,6 +89,15 @@ func run() error {
 	}
 	fmt.Printf("specsync: %d REST endpoints, %d MCP tools, %d resources → testdata/spec/endpoints.json\n",
 		len(man.RESTEndpoints), len(man.MCPTools), len(man.Resources))
+
+	schemas, err := harvest(man.RESTEndpoints)
+	if err != nil {
+		return err
+	}
+	if err := writeFieldSchemas(schemas); err != nil {
+		return err
+	}
+	fmt.Printf("specsync: documented fields for %d resources → testdata/spec/schemas.json\n", len(schemas))
 	return nil
 }
 
