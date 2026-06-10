@@ -1,0 +1,17 @@
+# Alegra API Documentation Documentation
+
+## Guides
+- [Información General](https://developer.alegra.com/docs/información-general.md): Esta página te ayudará a comenzar con el API de Alegra
+- [Contactos](https://developer.alegra.com/docs/contactos.md)
+
+## API Reference
+- [Crear centro de costo](https://developer.alegra.com/reference/accounting__createcostcenter.md)
+- [Listar asientos contables](https://developer.alegra.com/reference/accounting__listjournals.md)
+- [Listar impuestos](https://developer.alegra.com/reference/get_taxes.md)
+- [Consultar impuesto](https://developer.alegra.com/reference/get_taxes-id.md)
+- [Editar impuesto](https://developer.alegra.com/reference/put_taxes-id.md)
+- [Eliminar impuesto](https://developer.alegra.com/reference/delete_taxes-id.md)
+- [Crear suscripción a webhook](https://developer.alegra.com/reference/post_webhooks-subscriptions.md)
+- [Listar conciliaciones](https://developer.alegra.com/reference/listreconciliations.md)
+- [Crear cargo adicional](https://developer.alegra.com/reference/createAdditionalCharge.md)
+- [Consultar impuesto (duplicado)](https://developer.alegra.com/reference/get_taxes-id.md)
