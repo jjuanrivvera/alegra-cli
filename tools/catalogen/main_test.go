@@ -1,6 +1,14 @@
 package main
 
-import "testing"
+import (
+	"encoding/json"
+	"net/http"
+	"net/http/httptest"
+	"os"
+	"path/filepath"
+	"strings"
+	"testing"
+)
 
 const sample = "# Colombia\n\n" +
 	"## Unidades de medida\n\nA continuación las unidades.\n\n" +
@@ -45,5 +53,74 @@ func TestSlugify(t *testing.T) {
 		if got := slugify(in); got != want {
 			t.Errorf("slugify(%q) = %q, want %q", in, got, want)
 		}
+	}
+}
+
+func TestRun_EndToEnd(t *testing.T) {
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if !strings.HasSuffix(r.URL.Path, ".md") {
+			w.WriteHeader(http.StatusNotFound)
+			return
+		}
+		_, _ = w.Write([]byte(sample))
+	}))
+	defer srv.Close()
+	orig := base
+	base = srv.URL + "/"
+	t.Cleanup(func() { base = orig })
+
+	outDir := t.TempDir()
+	if err := run(outDir); err != nil {
+		t.Fatalf("run: %v", err)
+	}
+
+	// One committed-shape JSON per source country, parseable and populated.
+	for _, s := range sources {
+		data, err := os.ReadFile(filepath.Join(outDir, s.key+".json"))
+		if err != nil {
+			t.Fatalf("%s: %v", s.key, err)
+		}
+		var cat catalog
+		if err := json.Unmarshal(data, &cat); err != nil {
+			t.Fatalf("%s: invalid JSON: %v", s.key, err)
+		}
+		if cat.Country != s.key || cat.Label != s.label || len(cat.Categories) != 2 {
+			t.Fatalf("%s: wrong catalog: %+v", s.key, cat)
+		}
+	}
+}
+
+func TestRun_FetchErrorAborts(t *testing.T) {
+	srv := httptest.NewServer(http.NotFoundHandler())
+	defer srv.Close()
+	orig := base
+	base = srv.URL + "/"
+	t.Cleanup(func() { base = orig })
+
+	err := run(t.TempDir())
+	if err == nil || !strings.Contains(err.Error(), "HTTP 404") {
+		t.Fatalf("want HTTP 404 error, got %v", err)
+	}
+}
+
+func TestRun_EmptyParseRefusesToWrite(t *testing.T) {
+	// A page that parses to zero entries must abort: the JSON is embedded in
+	// the binary, so writing it would silently hollow out a country's catalog.
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		_, _ = w.Write([]byte("# Colombia\n\nprose only, no tables\n"))
+	}))
+	defer srv.Close()
+	orig := base
+	base = srv.URL + "/"
+	t.Cleanup(func() { base = orig })
+
+	outDir := t.TempDir()
+	err := run(outDir)
+	if err == nil || !strings.Contains(err.Error(), "0 entries") {
+		t.Fatalf("want 0-entries error, got %v", err)
+	}
+	files, _ := os.ReadDir(outDir)
+	if len(files) != 0 {
+		t.Fatalf("no catalog files should be written, found %d", len(files))
 	}
 }

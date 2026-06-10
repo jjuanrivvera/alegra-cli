@@ -54,7 +54,8 @@ var sources = []source{
 	{"panama", "Panamá", "panamá"},
 }
 
-const base = "https://developer.alegra.com/reference/"
+// base is a var so tests can point the generator at a local server.
+var base = "https://developer.alegra.com/reference/"
 
 var (
 	headingRe = regexp.MustCompile(`^##\s+(.+?)\s*$`)
@@ -67,31 +68,44 @@ func main() {
 	if len(os.Args) > 1 {
 		outDir = os.Args[1]
 	}
-	if err := os.MkdirAll(outDir, 0o755); err != nil {
+	if err := run(outDir); err != nil {
 		fatal(err)
+	}
+}
+
+func run(outDir string) error {
+	if err := os.MkdirAll(outDir, 0o755); err != nil {
+		return err
 	}
 	client := &http.Client{Timeout: 60 * time.Second}
 	for _, s := range sources {
 		body, err := fetch(client, base+url.PathEscape(s.slug)+".md")
 		if err != nil {
-			fatal(fmt.Errorf("%s: %w", s.slug, err))
+			return fmt.Errorf("%s: %w", s.slug, err)
 		}
 		cats := parse(body)
-		cat := catalog{Country: s.key, Label: s.label, Source: base + s.slug + ".md", Categories: cats}
-		data, err := json.MarshalIndent(cat, "", "  ")
-		if err != nil {
-			fatal(err)
-		}
-		path := filepath.Join(outDir, s.key+".json")
-		if err := os.WriteFile(path, append(data, '\n'), 0o644); err != nil {
-			fatal(err)
-		}
+		// The generated JSON is embedded in the binary: a page format change
+		// that parses to nothing must abort, not hollow out a country's
+		// catalog on the next `make catalog-sync`.
 		total := 0
 		for _, c := range cats {
 			total += len(c.Entries)
 		}
+		if total == 0 {
+			return fmt.Errorf("%s: parsed 0 entries — page format likely changed; refusing to write an empty catalog", s.slug)
+		}
+		cat := catalog{Country: s.key, Label: s.label, Source: base + s.slug + ".md", Categories: cats}
+		data, err := json.MarshalIndent(cat, "", "  ")
+		if err != nil {
+			return err
+		}
+		path := filepath.Join(outDir, s.key+".json")
+		if err := os.WriteFile(path, append(data, '\n'), 0o644); err != nil { //nolint:gosec // public docs
+			return err
+		}
 		fmt.Printf("%-10s %2d categories, %5d entries -> %s\n", s.key, len(cats), total, path)
 	}
+	return nil
 }
 
 // parse extracts each "## Section" heading and the first markdown table that
