@@ -6,6 +6,12 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-06-10
+
+Feature release: SAT product-keys catalog for Mexican accounts (full catalog
+parity with the official MCP), lossless money amounts, and field-level contract
+testing against the documented API.
+
 ### Added
 - **SAT product-keys catalog (México)** — closes the last catalog gap vs the
   official MCP. `alegra catalog sync-sat` downloads the SAT's `c_ClaveProdServ`
@@ -25,6 +31,24 @@ All notable changes to this project are documented here. The format is based on
   either one `{id,name}` object or an array of them; `income-debit-notes`'
   `costCenter` (documented in both shapes) now uses it — found by the new
   contract test.
+- **Replay-style integration tests**: recorded API fixtures with the real
+  API's awkward shapes (string amounts with padded decimals, mixed id types)
+  exercised end-to-end through the command tree, asserting rendered output and
+  wire behavior (pagination requests, Basic auth).
+
+### Changed
+- **`Money` now preserves the exact decimal text the API sent** instead of
+  converting through `float64`. Amounts can no longer lose digits (values
+  beyond ~15 significant figures were silently rewritten) and are no longer
+  normalized (`10.00` stays `10.00`, not `10`). Output note: amount fields the
+  API returns as explicit `0` now appear in JSON/YAML output instead of being
+  omitted — higher fidelity to what the API actually said. Amounts still render
+  as plain JSON numbers, so `jq`-style consumers are unaffected.
+
+### Fixed
+- specsync refuses to write an empty endpoint manifest when the upstream
+  `llms.txt` format changes, instead of silently disabling drift detection;
+  its parser is now covered by tests against real-index fixtures.
 
 ## [0.7.1] - 2026-06-10
 
