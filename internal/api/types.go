@@ -3,6 +3,8 @@ package api
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
+	"math"
 	"strconv"
 )
 
@@ -77,15 +79,33 @@ func (i *Int) UnmarshalJSON(data []byte) error {
 			*i = 0
 			return nil
 		}
+		// ParseInt first: the float64 fallback (for "30.0"-style strings)
+		// would lose precision above 2^53.
+		if v, err := strconv.ParseInt(s, 10, 64); err == nil {
+			*i = Int(v)
+			return nil
+		}
 		f, err := strconv.ParseFloat(s, 64)
 		if err != nil {
 			return err
 		}
+		// int64(NaN/Inf) is implementation-defined; reject instead.
+		if math.IsNaN(f) || math.IsInf(f, 0) {
+			return fmt.Errorf("invalid integer value %q", s)
+		}
 		*i = Int(int64(f))
 		return nil
 	}
-	var f float64
-	if err := json.Unmarshal(data, &f); err != nil {
+	var n json.Number
+	if err := json.Unmarshal(data, &n); err != nil {
+		return err
+	}
+	if v, err := n.Int64(); err == nil {
+		*i = Int(v)
+		return nil
+	}
+	f, err := n.Float64()
+	if err != nil {
 		return err
 	}
 	*i = Int(int64(f))
@@ -154,6 +174,11 @@ func (m *Money) UnmarshalJSON(data []byte) error {
 		f, err := strconv.ParseFloat(s, 64)
 		if err != nil {
 			return err
+		}
+		// ParseFloat accepts "NaN"/"Inf", which JSON cannot represent: the
+		// value would poison any later re-marshal of the document.
+		if math.IsNaN(f) || math.IsInf(f, 0) {
+			return fmt.Errorf("invalid money value %q", s)
 		}
 		*m = Money(f)
 		return nil

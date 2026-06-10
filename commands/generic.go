@@ -427,18 +427,21 @@ failures are reported and do not stop the run.`,
 					setDotPath(body, field, inferValue(cell))
 				}
 				if flagDryRun {
-					raw, _ := json.Marshal(body)
+					raw, merr := json.Marshal(body)
+					if merr != nil {
+						failed++
+						fmt.Fprintf(cmd.ErrOrStderr(), "[row %d] FAILED: cannot encode body: %v\n", i+1, merr)
+						continue
+					}
 					fmt.Fprintf(out, "[row %d] would create: %s\n", i+1, raw)
 					continue
 				}
-				item, cerr := res.Create(cmd.Context(), body)
-				if cerr != nil {
+				if _, cerr := res.Create(cmd.Context(), body); cerr != nil {
 					failed++
 					fmt.Fprintf(cmd.ErrOrStderr(), "[row %d] FAILED: %v\n", i+1, cerr)
 					continue
 				}
 				created++
-				_ = item
 				fmt.Fprintf(out, "[row %d] created\n", i+1)
 			}
 			if !flagDryRun {
@@ -553,7 +556,10 @@ func newCreateCmd[T any](sp resourceSpec[T]) *cobra.Command {
 			if draft {
 				if m, ok := bodyToMap(body); ok {
 					delete(m, "stamp")
-					body, _ = json.Marshal(m)
+					body, err = json.Marshal(m)
+					if err != nil {
+						return fmt.Errorf("re-encoding body after stripping stamp: %w", err)
+					}
 				}
 			}
 			if !noValidate {

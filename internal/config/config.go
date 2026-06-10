@@ -118,6 +118,8 @@ func Load() (*Config, error) {
 func (c *Config) Path() string { return c.path }
 
 // Save writes the config to disk (0600), creating the directory as needed.
+// The write is atomic (temp + rename) so a crash mid-write can never leave a
+// torn config.yaml behind.
 func (c *Config) Save() error {
 	dir := filepath.Dir(c.path)
 	if err := os.MkdirAll(dir, 0o700); err != nil {
@@ -127,7 +129,23 @@ func (c *Config) Save() error {
 	if err != nil {
 		return fmt.Errorf("encoding config: %w", err)
 	}
-	if err := os.WriteFile(c.path, data, 0o600); err != nil {
+	tmp, err := os.CreateTemp(dir, "config-*.yaml")
+	if err != nil {
+		return fmt.Errorf("writing config: %w", err)
+	}
+	defer func() { _ = os.Remove(tmp.Name()) }() // no-op once renamed
+	if err := tmp.Chmod(0o600); err != nil {
+		_ = tmp.Close()
+		return fmt.Errorf("writing config: %w", err)
+	}
+	if _, err := tmp.Write(data); err != nil {
+		_ = tmp.Close()
+		return fmt.Errorf("writing config: %w", err)
+	}
+	if err := tmp.Close(); err != nil {
+		return fmt.Errorf("writing config: %w", err)
+	}
+	if err := os.Rename(tmp.Name(), c.path); err != nil {
 		return fmt.Errorf("writing config: %w", err)
 	}
 	return nil
