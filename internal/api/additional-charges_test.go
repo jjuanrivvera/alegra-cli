@@ -25,11 +25,11 @@ func TestAdditionalCharges_List(t *testing.T) {
 	require.Len(t, items, 2)
 	assert.Equal(t, ID("1"), items[0].ID)
 	assert.Equal(t, "Propina", items[0].Name)
-	assert.Equal(t, Money(10), items[0].Percentage)
+	assert.Equal(t, Money("10"), items[0].Percentage)
 	assert.Equal(t, "active", items[0].Status)
 	// Numeric id is normalized to a string; numeric string amount is parsed.
 	assert.Equal(t, ID("2"), items[1].ID)
-	assert.Equal(t, Money(0), items[1].Percentage)
+	assert.Equal(t, Money("0"), items[1].Percentage)
 }
 
 func TestAdditionalCharges_Get(t *testing.T) {

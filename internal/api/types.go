@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"math"
+	"regexp"
 	"strconv"
 )
 
@@ -152,14 +153,19 @@ func (s *StringOrSlice) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// Money is an amount Alegra may serialize as number or numeric string.
-type Money float64
+// Money is an amount Alegra may serialize as number or numeric string. It
+// stores the exact decimal text it was decoded from rather than a float64:
+// accounting amounts must survive decode→encode untouched, and float64
+// silently rewrites digits once an amount exceeds ~15 significant figures
+// (realistic for COP/CLP ledger totals). The CLI never does money arithmetic,
+// so lexical fidelity is the property that matters.
+type Money string
 
 // UnmarshalJSON accepts number, numeric string, or null.
 func (m *Money) UnmarshalJSON(data []byte) error {
 	data = bytes.TrimSpace(data)
 	if len(data) == 0 || string(data) == "null" {
-		*m = 0
+		*m = ""
 		return nil
 	}
 	if data[0] == '"' {
@@ -168,30 +174,73 @@ func (m *Money) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		if s == "" {
-			*m = 0
+			*m = ""
 			return nil
 		}
-		f, err := strconv.ParseFloat(s, 64)
+		norm, err := normalizeMoneyText(s)
 		if err != nil {
 			return err
 		}
-		// ParseFloat accepts "NaN"/"Inf", which JSON cannot represent: the
-		// value would poison any later re-marshal of the document.
-		if math.IsNaN(f) || math.IsInf(f, 0) {
-			return fmt.Errorf("invalid money value %q", s)
-		}
-		*m = Money(f)
+		*m = Money(norm)
 		return nil
 	}
-	var f float64
-	if err := json.Unmarshal(data, &f); err != nil {
+	// The decoder already validated the token as a JSON number; keep its
+	// exact bytes so re-marshaling cannot alter a single digit.
+	var n json.Number
+	if err := json.Unmarshal(data, &n); err != nil {
 		return err
 	}
-	*m = Money(f)
+	*m = Money(n.String())
 	return nil
 }
 
-// MarshalJSON emits a plain number.
+// normalizeMoneyText validates an amount string and returns text that is safe
+// to emit as a bare JSON number. Text already in JSON number form passes
+// through untouched (full fidelity). Anything else ParseFloat accepts but JSON
+// can't represent — "NaN"/"Inf" (would poison any later re-marshal of the
+// document), hex floats, leading "+" — is rejected or reformatted.
+func normalizeMoneyText(s string) (string, error) {
+	if jsonNumberRe.MatchString(s) {
+		return s, nil
+	}
+	f, err := strconv.ParseFloat(s, 64)
+	if err != nil {
+		return "", fmt.Errorf("invalid money value %q", s)
+	}
+	if math.IsNaN(f) || math.IsInf(f, 0) {
+		return "", fmt.Errorf("invalid money value %q", s)
+	}
+	return strconv.FormatFloat(f, 'g', -1, 64), nil
+}
+
+// jsonNumberRe is the JSON number grammar (RFC 8259 §6).
+var jsonNumberRe = regexp.MustCompile(`^-?(0|[1-9][0-9]*)(\.[0-9]+)?([eE][-+]?[0-9]+)?$`)
+
+// MarshalJSON emits a plain number; the zero value emits 0 (struct fields tag
+// Money with omitempty, so an absent amount is normally dropped instead).
 func (m Money) MarshalJSON() ([]byte, error) {
-	return json.Marshal(float64(m))
+	if m == "" {
+		return []byte("0"), nil
+	}
+	if !jsonNumberRe.MatchString(string(m)) {
+		return nil, fmt.Errorf("invalid money value %q", string(m))
+	}
+	return []byte(m), nil
+}
+
+// Float64 returns the amount as a float64 for display or comparison. Never use
+// it to compute ledger values that flow back to the API.
+func (m Money) Float64() (float64, error) {
+	if m == "" {
+		return 0, nil
+	}
+	return strconv.ParseFloat(string(m), 64)
+}
+
+// String returns the decimal text; the zero value reads as "0".
+func (m Money) String() string {
+	if m == "" {
+		return "0"
+	}
+	return string(m)
 }

@@ -34,8 +34,8 @@ func TestInventoryAdjustments_List(t *testing.T) {
 	assert.Equal(t, "Principal", items[0].Warehouse.Name)
 	require.Len(t, items[0].Items, 1)
 	assert.Equal(t, "out", items[0].Items[0].Type)
-	assert.Equal(t, Money(10), items[0].Items[0].Quantity)
-	assert.Equal(t, Money(12000), items[0].Items[0].UnitCost)
+	assert.Equal(t, Money("10"), items[0].Items[0].Quantity)
+	assert.Equal(t, Money("12000"), items[0].Items[0].UnitCost)
 }
 
 func TestInventoryAdjustments_Get(t *testing.T) {
@@ -64,5 +64,5 @@ func TestInventoryAdjustments_Get(t *testing.T) {
 	require.NotNil(t, adj.Warehouse.CostCenter)
 	assert.Equal(t, ID("4"), adj.Warehouse.CostCenter.ID)
 	require.Len(t, adj.Items, 1)
-	assert.Equal(t, Money(9800), adj.Items[0].UnitCost)
+	assert.Equal(t, Money("9800"), adj.Items[0].UnitCost)
 }

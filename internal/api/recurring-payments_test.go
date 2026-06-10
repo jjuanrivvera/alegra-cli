@@ -25,10 +25,10 @@ func TestRecurringPayments_List(t *testing.T) {
 	require.Len(t, payments, 2)
 	assert.Equal(t, ID("1"), payments[0].ID)
 	assert.Equal(t, "2019-09-21", payments[0].StartDate)
-	assert.Equal(t, Money(100), payments[0].Amount)
+	assert.Equal(t, Money("100.0000000000"), payments[0].Amount)
 	// Numeric id normalizes to a string and numeric money parses.
 	assert.Equal(t, ID("2"), payments[1].ID)
-	assert.Equal(t, Money(200), payments[1].Amount)
+	assert.Equal(t, Money("200"), payments[1].Amount)
 }
 
 func TestRecurringPayments_Get(t *testing.T) {
@@ -49,12 +49,12 @@ func TestRecurringPayments_Get(t *testing.T) {
 	payment, err := c.RecurringPayments().Get(context.Background(), "1")
 	require.NoError(t, err)
 	assert.Equal(t, ID("1"), payment.ID)
-	assert.Equal(t, Money(100), payment.Amount)
+	assert.Equal(t, Money("100.0000000000"), payment.Amount)
 	require.NotNil(t, payment.Account)
 	assert.Equal(t, ID("5"), payment.Account.ID)
 	assert.Equal(t, "Banco en dolares", payment.Account.Name)
 	assert.Equal(t, "bank", payment.Account.Type)
 	require.NotNil(t, payment.Currency)
 	assert.Equal(t, "AUD", payment.Currency.Code)
-	assert.Equal(t, Money(2950), payment.Currency.ExchangeRate)
+	assert.Equal(t, Money("2950"), payment.Currency.ExchangeRate)
 }

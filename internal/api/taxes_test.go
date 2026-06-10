@@ -19,7 +19,7 @@ func TestTaxes_List(t *testing.T) {
 	require.Len(t, items, 1)
 	assert.Equal(t, ID("1"), items[0].ID)
 	assert.Equal(t, "IVA", items[0].Name)
-	assert.Equal(t, Money(19), items[0].Percentage)
+	assert.Equal(t, Money("19"), items[0].Percentage)
 	assert.Equal(t, "active", items[0].Status)
 }
 

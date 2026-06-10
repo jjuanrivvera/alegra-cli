@@ -72,6 +72,31 @@ func run() error {
 		return err
 	}
 
+	man, err := parseManifest(body)
+	if err != nil {
+		return err
+	}
+
+	if err := os.MkdirAll("testdata/spec", 0o755); err != nil {
+		return err
+	}
+	out, err := json.MarshalIndent(man, "", "  ")
+	if err != nil {
+		return err
+	}
+	if err := os.WriteFile("testdata/spec/endpoints.json", append(out, '\n'), 0o644); err != nil { //nolint:gosec // public docs
+		return err
+	}
+	fmt.Printf("specsync: %d REST endpoints, %d MCP tools, %d resources → testdata/spec/endpoints.json\n",
+		len(man.RESTEndpoints), len(man.MCPTools), len(man.Resources))
+	return nil
+}
+
+// parseManifest extracts the documented API surface from the llms.txt index.
+// It fails loudly when the parse comes up empty: specsync feeds spec-check's
+// drift detection, and a format change upstream that silently produced an
+// empty manifest would disable drift detection without anyone noticing.
+func parseManifest(body []byte) (Manifest, error) {
 	seenSlug := map[string]bool{}
 	var rest []RESTEndpoint
 	var mcp []string
@@ -99,6 +124,10 @@ func run() error {
 		}
 	}
 
+	if len(rest) == 0 {
+		return Manifest{}, fmt.Errorf("parsed 0 REST endpoints from %d bytes — llms.txt format likely changed; refusing to write an empty manifest", len(body))
+	}
+
 	sort.Slice(rest, func(i, j int) bool {
 		if rest[i].Path != rest[j].Path {
 			return rest[i].Path < rest[j].Path
@@ -107,21 +136,7 @@ func run() error {
 	})
 	sort.Strings(mcp)
 	sort.Strings(legacy)
-	man := Manifest{Source: llmsURL, RESTEndpoints: rest, MCPTools: mcp, LegacySlugs: legacy, Resources: sortedKeys(resources)}
-
-	if err := os.MkdirAll("testdata/spec", 0o755); err != nil {
-		return err
-	}
-	out, err := json.MarshalIndent(man, "", "  ")
-	if err != nil {
-		return err
-	}
-	if err := os.WriteFile("testdata/spec/endpoints.json", append(out, '\n'), 0o644); err != nil { //nolint:gosec // public docs
-		return err
-	}
-	fmt.Printf("specsync: %d REST endpoints, %d MCP tools, %d resources → testdata/spec/endpoints.json\n",
-		len(rest), len(mcp), len(man.Resources))
-	return nil
+	return Manifest{Source: llmsURL, RESTEndpoints: rest, MCPTools: mcp, LegacySlugs: legacy, Resources: sortedKeys(resources)}, nil
 }
 
 func fetch(url string) ([]byte, error) {

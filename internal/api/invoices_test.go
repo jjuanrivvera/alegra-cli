@@ -25,12 +25,12 @@ func TestInvoices_List(t *testing.T) {
 	require.Len(t, invoices, 2)
 	assert.Equal(t, ID("1"), invoices[0].ID)
 	assert.Equal(t, "open", invoices[0].Status)
-	assert.Equal(t, Money(609), invoices[0].Total)
+	assert.Equal(t, Money("609"), invoices[0].Total)
 	require.NotNil(t, invoices[0].Client)
 	assert.Equal(t, "Coorporación Alegrate", invoices[0].Client.Name)
 	// Numeric id and numeric-string money are normalized.
 	assert.Equal(t, ID("2"), invoices[1].ID)
-	assert.Equal(t, Money(1250.50), invoices[1].Total)
+	assert.Equal(t, Money("1250.50"), invoices[1].Total)
 }
 
 func TestInvoices_Get(t *testing.T) {
@@ -44,7 +44,7 @@ func TestInvoices_Get(t *testing.T) {
 	assert.Equal(t, "closed", invoice.Status)
 	require.Len(t, invoice.Items, 1)
 	assert.Equal(t, "Billetera", invoice.Items[0].Name)
-	assert.Equal(t, Money(80), invoice.Items[0].Price)
+	assert.Equal(t, Money("80"), invoice.Items[0].Price)
 }
 
 func TestInvoices_Void(t *testing.T) {

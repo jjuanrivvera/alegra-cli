@@ -66,21 +66,39 @@ func TestInt_RoundTrip(t *testing.T) {
 }
 
 func TestMoney_RoundTrip(t *testing.T) {
-	cases := map[string]float64{
-		`1000`:      1000,
-		`"1000.50"`: 1000.50,
-		`""`:        0,
-		`null`:      0,
-		`59500`:     59500,
+	cases := map[string]Money{
+		`1000`:      "1000",
+		`"1000.50"`: "1000.50",
+		`""`:        "",
+		`null`:      "",
+		`59500`:     "59500",
+		// Amounts beyond float64's ~15 significant digits must survive intact;
+		// a float64-backed Money rewrote the trailing cents here.
+		`1234567890123456.78`:   "1234567890123456.78",
+		`"9999999999999999.99"`: "9999999999999999.99",
 	}
 	for in, want := range cases {
 		var m Money
 		require.NoError(t, json.Unmarshal([]byte(in), &m), "input %s", in)
-		assert.InDelta(t, want, float64(m), 0.0001, "input %s", in)
+		assert.Equal(t, want, m, "input %s", in)
 	}
-	b, err := json.Marshal(Money(1234.5))
+	b, err := json.Marshal(Money("1234.5"))
 	require.NoError(t, err)
 	assert.Equal(t, "1234.5", string(b))
+
+	// The zero value (absent amount) still emits a valid number.
+	b, err = json.Marshal(Money(""))
+	require.NoError(t, err)
+	assert.Equal(t, "0", string(b))
+
+	// A Money cast from non-numeric text must fail loudly at marshal time
+	// rather than emit invalid JSON.
+	_, err = json.Marshal(Money("abc"))
+	assert.Error(t, err)
+
+	f, err := Money("1250.50").Float64()
+	require.NoError(t, err)
+	assert.InDelta(t, 1250.50, f, 0.0001)
 
 	// ParseFloat accepts these; a NaN/Inf Money would poison any re-marshal
 	// of the containing document (JSON cannot represent them).

@@ -19,7 +19,7 @@ func TestBankAccounts_List(t *testing.T) {
 	require.Len(t, items, 1)
 	assert.Equal(t, ID("3"), items[0].ID)
 	assert.Equal(t, "bank", items[0].Type)
-	assert.Equal(t, Money(200), items[0].InitialBalance)
+	assert.Equal(t, Money("200"), items[0].InitialBalance)
 }
 
 func TestBankAccounts_Get(t *testing.T) {

@@ -23,7 +23,7 @@ func TestJournals_List(t *testing.T) {
 	require.Len(t, items, 1)
 	assert.Equal(t, ID("35"), items[0].ID)
 	assert.Equal(t, "open", items[0].Status)
-	assert.Equal(t, Money(150000.55), items[0].Total)
+	assert.Equal(t, Money("150000.55"), items[0].Total)
 }
 
 func TestJournals_Get(t *testing.T) {
@@ -50,5 +50,5 @@ func TestJournals_Get(t *testing.T) {
 	require.NotNil(t, item.Client)
 	assert.Equal(t, "Nombre de prueba", item.Client.Name)
 	require.Len(t, item.Entries, 1)
-	assert.Equal(t, Money(150000.55), item.Entries[0].Debit)
+	assert.Equal(t, Money("150000.55"), item.Entries[0].Debit)
 }

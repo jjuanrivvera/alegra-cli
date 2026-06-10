@@ -19,7 +19,7 @@ func TestPurchaseOrders_List(t *testing.T) {
 	require.Len(t, items, 1)
 	assert.Equal(t, ID("1"), items[0].ID)
 	assert.Equal(t, "open", items[0].Status)
-	assert.Equal(t, Money(1500.5), items[0].Total)
+	assert.Equal(t, Money("1500.5"), items[0].Total)
 	require.NotNil(t, items[0].Provider)
 	assert.Equal(t, "Coorporación Alegrate", items[0].Provider.Name)
 }
@@ -35,7 +35,7 @@ func TestPurchaseOrders_Get(t *testing.T) {
 	assert.Equal(t, ID("1"), po.ID)
 	assert.Equal(t, "open", po.Status)
 	assert.Equal(t, "2023-05-20", po.DeliveryDate)
-	assert.Equal(t, Money(1500.5), po.Total)
+	assert.Equal(t, Money("1500.5"), po.Total)
 	require.NotNil(t, po.Provider)
 	assert.Equal(t, "159.549.847", po.Provider.Identification)
 	require.NotNil(t, po.Purchases)

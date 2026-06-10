@@ -19,7 +19,7 @@ func TestBills_List(t *testing.T) {
 	require.Len(t, items, 1)
 	assert.Equal(t, ID("1"), items[0].ID)
 	assert.Equal(t, "closed", items[0].Status)
-	assert.Equal(t, Money(2100), items[0].Total)
+	assert.Equal(t, Money("2100"), items[0].Total)
 	require.NotNil(t, items[0].Provider)
 	assert.Equal(t, "Coorporación Alegrate", items[0].Provider.Name)
 }
@@ -34,8 +34,8 @@ func TestBills_Get(t *testing.T) {
 	require.NotNil(t, bill)
 	assert.Equal(t, ID("1"), bill.ID)
 	assert.Equal(t, "open", bill.Status)
-	assert.Equal(t, Money(12500.45), bill.Total)
-	assert.Equal(t, Money(12000.45), bill.Balance)
+	assert.Equal(t, Money("12500.45"), bill.Total)
+	assert.Equal(t, Money("12000.45"), bill.Balance)
 	require.NotNil(t, bill.Provider)
 	assert.Equal(t, "159.549.847", bill.Provider.Identification)
 }

@@ -27,7 +27,7 @@ func TestItems_List(t *testing.T) {
 	assert.Equal(t, "Cuaderno", items[0].Name)
 	assert.Equal(t, "CUA-001", items[0].Reference)
 	require.Len(t, items[0].Price, 1)
-	assert.Equal(t, Money(1500), items[0].Price[0].Price)
+	assert.Equal(t, Money("1500"), items[0].Price[0].Price)
 	// Numeric id is normalized to a string.
 	assert.Equal(t, ID("2"), items[1].ID)
 }
@@ -49,5 +49,5 @@ func TestItems_Get(t *testing.T) {
 	assert.Equal(t, "Tecnología", item.Category.Name)
 	require.NotNil(t, item.Inventory)
 	assert.Equal(t, "unit", item.Inventory.Unit)
-	assert.Equal(t, Money(45000), item.Inventory.UnitCost)
+	assert.Equal(t, Money("45000"), item.Inventory.UnitCost)
 }

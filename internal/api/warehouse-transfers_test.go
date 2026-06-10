@@ -34,7 +34,7 @@ func TestWarehouseTransfers_List(t *testing.T) {
 	assert.Equal(t, ID("1"), items[0].Origin.ID)
 	assert.Equal(t, "Principal", items[0].Origin.Name)
 	require.Len(t, items[0].Items, 1)
-	assert.Equal(t, Money(10), items[0].Items[0].Quantity)
+	assert.Equal(t, Money("10.00"), items[0].Items[0].Quantity)
 }
 
 func TestWarehouseTransfers_Get(t *testing.T) {

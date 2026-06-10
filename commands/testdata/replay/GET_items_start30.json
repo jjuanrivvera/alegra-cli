@@ -1,0 +1,28 @@
+[
+  {
+    "id": 31,
+    "name": "Repuesto 031",
+    "reference": "REF-031",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1031.00"
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "name": "Repuesto 032",
+    "reference": "REF-032",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1032.00"
+      }
+    ]
+  }
+]
