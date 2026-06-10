@@ -1,0 +1,21 @@
+{
+  "id": 1,
+  "date": "2026-05-02",
+  "dueDate": "2026-06-01",
+  "status": "open",
+  "total": "19928.00",
+  "totalPaid": "0.0000000000",
+  "balance": "19928.00",
+  "decimalPrecision": "2",
+  "client": { "id": "12", "name": "Rivera Refrigeración S.A.S." },
+  "numberTemplate": { "id": "19", "prefix": "FE", "number": "341", "fullNumber": "FE341" },
+  "items": [
+    {
+      "id": 101,
+      "name": "Mantenimiento preventivo",
+      "price": "16746.218487",
+      "quantity": 1,
+      "tax": [{ "id": "3", "name": "IVA 19%" }]
+    }
+  ]
+}

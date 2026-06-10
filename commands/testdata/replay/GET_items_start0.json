@@ -1,0 +1,392 @@
+[
+  {
+    "id": 1,
+    "name": "Repuesto 001",
+    "reference": "REF-001",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1001.00"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Repuesto 002",
+    "reference": "REF-002",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1002.00"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Repuesto 003",
+    "reference": "REF-003",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1003.00"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Repuesto 004",
+    "reference": "REF-004",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1004.00"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Repuesto 005",
+    "reference": "REF-005",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1005.00"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Repuesto 006",
+    "reference": "REF-006",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1006.00"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Repuesto 007",
+    "reference": "REF-007",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1007.00"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Repuesto 008",
+    "reference": "REF-008",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1008.00"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Repuesto 009",
+    "reference": "REF-009",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1009.00"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Repuesto 010",
+    "reference": "REF-010",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1010.00"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Repuesto 011",
+    "reference": "REF-011",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1011.00"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Repuesto 012",
+    "reference": "REF-012",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1012.00"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Repuesto 013",
+    "reference": "REF-013",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1013.00"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Repuesto 014",
+    "reference": "REF-014",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1014.00"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Repuesto 015",
+    "reference": "REF-015",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1015.00"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Repuesto 016",
+    "reference": "REF-016",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1016.00"
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Repuesto 017",
+    "reference": "REF-017",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1017.00"
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Repuesto 018",
+    "reference": "REF-018",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1018.00"
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Repuesto 019",
+    "reference": "REF-019",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1019.00"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Repuesto 020",
+    "reference": "REF-020",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1020.00"
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "name": "Repuesto 021",
+    "reference": "REF-021",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1021.00"
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "name": "Repuesto 022",
+    "reference": "REF-022",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1022.00"
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "name": "Repuesto 023",
+    "reference": "REF-023",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1023.00"
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "name": "Repuesto 024",
+    "reference": "REF-024",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1024.00"
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "name": "Repuesto 025",
+    "reference": "REF-025",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1025.00"
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "name": "Repuesto 026",
+    "reference": "REF-026",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1026.00"
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "name": "Repuesto 027",
+    "reference": "REF-027",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1027.00"
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "name": "Repuesto 028",
+    "reference": "REF-028",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1028.00"
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "name": "Repuesto 029",
+    "reference": "REF-029",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1029.00"
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "name": "Repuesto 030",
+    "reference": "REF-030",
+    "status": "active",
+    "price": [
+      {
+        "idPriceList": "1",
+        "name": "General",
+        "price": "1030.00"
+      }
+    ]
+  }
+]
