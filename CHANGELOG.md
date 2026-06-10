@@ -6,6 +6,26 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+### Added
+- **SAT product-keys catalog (México)** — closes the last catalog gap vs the
+  official MCP. `alegra catalog sync-sat` downloads the SAT's `c_ClaveProdServ`
+  catalog (~52k keys, sourced from the SAT's published data via the phpcfdi
+  mirror) into a shared local cache, and `alegra catalog product-keys [query]`
+  searches it offline, accent- and case-insensitively, across keys, names, and
+  the SAT's similar-names lists. `alegra init` offers the download when it
+  detects a Mexican account (interactive only, never fatal), and `alegra
+  doctor` reports the catalog's state on Mexican accounts.
+- **Field-level contract tests against the documented API.** `make spec-sync`
+  now also harvests the OpenAPI definitions embedded in every REST reference
+  page into `testdata/spec/schemas.json`, and a contract test verifies every
+  typed struct field exists in the documented response fields with a compatible
+  JSON type — catching phantom fields and type drift that resource-level
+  matching cannot.
+- `api.Refs` flexible type for related-record fields Alegra serializes as
+  either one `{id,name}` object or an array of them; `income-debit-notes`'
+  `costCenter` (documented in both shapes) now uses it — found by the new
+  contract test.
+
 ## [0.7.1] - 2026-06-10
 
 Hardening release: fiscal-safety fixes around electronic emission, decoder
