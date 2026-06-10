@@ -24,12 +24,12 @@ func TestDebitNotes_List(t *testing.T) {
 	require.NoError(t, err)
 	require.Len(t, notes, 2)
 	assert.Equal(t, ID("26"), notes[0].ID)
-	assert.Equal(t, Money(12000), notes[0].Total)
+	assert.Equal(t, Money("12000"), notes[0].Total)
 	require.NotNil(t, notes[0].Client)
 	assert.Equal(t, "11111", notes[0].Client.Name)
 	// Numeric id and numeric-string total are normalized.
 	assert.Equal(t, ID("2"), notes[1].ID)
-	assert.Equal(t, Money(6000), notes[1].Total)
+	assert.Equal(t, Money("6000"), notes[1].Total)
 }
 
 func TestDebitNotes_Get(t *testing.T) {
@@ -50,7 +50,7 @@ func TestDebitNotes_Get(t *testing.T) {
 	note, err := c.DebitNotes().Get(context.Background(), "26")
 	require.NoError(t, err)
 	assert.Equal(t, ID("26"), note.ID)
-	assert.Equal(t, Money(5000), note.TotalApplied)
+	assert.Equal(t, Money("5000"), note.TotalApplied)
 	require.NotNil(t, note.NumberTemplate)
 	assert.Equal(t, "debitNote", note.NumberTemplate.DocumentType)
 	require.Len(t, note.Items, 1)

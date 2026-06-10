@@ -19,7 +19,7 @@ func TestPriceLists_List(t *testing.T) {
 	require.Len(t, items, 2)
 	assert.Equal(t, ID("1"), items[0].ID)
 	assert.Equal(t, "amount", items[0].Type)
-	assert.Equal(t, Money(10), items[1].Percentage)
+	assert.Equal(t, Money("10.00"), items[1].Percentage)
 }
 
 func TestPriceLists_Get(t *testing.T) {
@@ -31,5 +31,5 @@ func TestPriceLists_Get(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, ID("53"), pl.ID)
 	assert.Equal(t, "percentage", pl.Type)
-	assert.Equal(t, Money(60), pl.Percentage)
+	assert.Equal(t, Money("60"), pl.Percentage)
 }

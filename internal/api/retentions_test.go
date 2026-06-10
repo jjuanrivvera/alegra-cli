@@ -26,10 +26,10 @@ func TestRetentions_List(t *testing.T) {
 	assert.Equal(t, ID("1"), items[0].ID)
 	assert.Equal(t, "Arrendamiento de bienes muebles", items[0].Name)
 	assert.Equal(t, "percentage", items[0].CalculatedBy)
-	assert.Equal(t, Money(4), items[0].Percentage)
+	assert.Equal(t, Money("4"), items[0].Percentage)
 	// Numeric id is normalized to a string.
 	assert.Equal(t, ID("2"), items[1].ID)
-	assert.Equal(t, Money(3.5), items[1].Percentage)
+	assert.Equal(t, Money("3.5"), items[1].Percentage)
 }
 
 func TestRetentions_Get(t *testing.T) {

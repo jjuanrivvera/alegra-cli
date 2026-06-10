@@ -40,5 +40,5 @@ func TestTransportationReceipts_Get(t *testing.T) {
 	require.NotNil(t, rec.Client)
 	assert.Equal(t, ID("3"), rec.Client.ID)
 	require.Len(t, rec.Items, 1)
-	assert.Equal(t, Money(1000), rec.Items[0].Total)
+	assert.Equal(t, Money("1000"), rec.Items[0].Total)
 }

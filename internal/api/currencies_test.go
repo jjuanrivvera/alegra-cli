@@ -25,7 +25,7 @@ func TestCurrencies_List(t *testing.T) {
 	assert.Equal(t, "COP", items[0].Code)
 	assert.Equal(t, "Peso colombiano", items[0].Name)
 	assert.Equal(t, "USD", items[1].Code)
-	assert.Equal(t, Money(4000), items[1].ExchangeRate)
+	assert.Equal(t, Money("4000"), items[1].ExchangeRate)
 }
 
 func TestCurrencies_Get(t *testing.T) {
@@ -42,5 +42,5 @@ func TestCurrencies_Get(t *testing.T) {
 	assert.Equal(t, "Dólar estadounidense", cur.Name)
 	assert.Equal(t, "$", cur.Symbol)
 	assert.Equal(t, "active", cur.Status)
-	assert.Equal(t, Money(4000), cur.ExchangeRate)
+	assert.Equal(t, Money("4000"), cur.ExchangeRate)
 }

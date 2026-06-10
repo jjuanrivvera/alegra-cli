@@ -26,14 +26,14 @@ func TestPayments_List(t *testing.T) {
 	assert.Equal(t, ID("1"), payments[0].ID)
 	assert.Equal(t, "in", payments[0].Type)
 	assert.Equal(t, "open", payments[0].Status)
-	assert.Equal(t, Money(150), payments[0].Amount)
+	assert.Equal(t, Money("150"), payments[0].Amount)
 	require.NotNil(t, payments[0].Client)
 	assert.Equal(t, "Juan Carlos", payments[0].Client.Name)
 	require.NotNil(t, payments[0].BankAccount)
 	assert.Equal(t, "bank", payments[0].BankAccount.Type)
 	// Numeric-string id and amount are normalized.
 	assert.Equal(t, ID("2"), payments[1].ID)
-	assert.Equal(t, Money(500.50), payments[1].Amount)
+	assert.Equal(t, Money("500.50"), payments[1].Amount)
 }
 
 func TestPayments_Get(t *testing.T) {
@@ -47,7 +47,7 @@ func TestPayments_Get(t *testing.T) {
 	assert.Equal(t, "open", payment.Status)
 	require.Len(t, payment.Invoices, 1)
 	assert.Equal(t, "AL-12", payment.Invoices[0].Number)
-	assert.Equal(t, Money(100), payment.Invoices[0].Amount)
+	assert.Equal(t, Money("100"), payment.Invoices[0].Amount)
 }
 
 func TestPayments_Void(t *testing.T) {

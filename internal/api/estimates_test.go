@@ -24,11 +24,11 @@ func TestEstimates_List(t *testing.T) {
 	require.NoError(t, err)
 	require.Len(t, items, 2)
 	assert.Equal(t, ID("8"), items[0].ID)
-	assert.Equal(t, Money(1720400), items[0].Total)
+	assert.Equal(t, Money("1720400"), items[0].Total)
 	require.NotNil(t, items[0].Client)
 	assert.Equal(t, "Mi contacto", items[0].Client.Name)
 	assert.Equal(t, ID("9"), items[1].ID)
-	assert.Equal(t, Money(610200), items[1].Total)
+	assert.Equal(t, Money("610200"), items[1].Total)
 }
 
 func TestEstimates_Get(t *testing.T) {
@@ -54,10 +54,10 @@ func TestEstimates_Get(t *testing.T) {
 	require.NotNil(t, est)
 	assert.Equal(t, ID("8"), est.ID)
 	assert.Equal(t, "8", est.Number)
-	assert.Equal(t, Money(1720400), est.Total)
+	assert.Equal(t, Money("1720400"), est.Total)
 	require.Len(t, est.Items, 2)
 	assert.Equal(t, "Consultoría", est.Items[0].Name)
-	assert.Equal(t, Money(1500000), est.Items[0].Total)
+	assert.Equal(t, Money("1500000"), est.Items[0].Total)
 	require.Len(t, est.Items[1].Tax, 1)
 	assert.Equal(t, "IVA", est.Items[1].Tax[0].Name)
 }

@@ -25,10 +25,10 @@ func TestCreditNotes_List(t *testing.T) {
 	require.Len(t, notes, 2)
 	assert.Equal(t, ID("1"), notes[0].ID)
 	assert.Equal(t, "open", notes[0].Status)
-	assert.Equal(t, Money(1000), notes[0].Total)
+	assert.Equal(t, Money("1000"), notes[0].Total)
 	// Numeric id is normalized to a string and numeric-string money parses.
 	assert.Equal(t, ID("2"), notes[1].ID)
-	assert.Equal(t, Money(500.50), notes[1].Total)
+	assert.Equal(t, Money("500.50"), notes[1].Total)
 }
 
 func TestCreditNotes_Get(t *testing.T) {

@@ -31,7 +31,7 @@ func TestReports_SalesDocuments(t *testing.T) {
 	require.Len(t, out.Data, 1)
 	assert.Equal(t, ID("1"), out.Data[0].ID)
 	assert.Equal(t, "FV-001", out.Data[0].DocumentNumber)
-	assert.Equal(t, Money(1500), out.Data[0].Total)
+	assert.Equal(t, Money("1500"), out.Data[0].Total)
 }
 
 func TestReports_SalesTotals(t *testing.T) {
@@ -50,8 +50,8 @@ func TestReports_SalesTotals(t *testing.T) {
 	require.NoError(t, err)
 	require.Len(t, out.Data, 1)
 	assert.Equal(t, "2024-01", out.Data[0].Period)
-	assert.Equal(t, Money(11900), out.Data[0].Total)
-	assert.Equal(t, Money(1900), out.Data[0].Tax)
+	assert.Equal(t, Money("11900"), out.Data[0].Total)
+	assert.Equal(t, Money("1900"), out.Data[0].Tax)
 }
 
 func TestReports_SalesByClient(t *testing.T) {
@@ -68,7 +68,7 @@ func TestReports_SalesByClient(t *testing.T) {
 	require.Len(t, out.Data, 1)
 	assert.Equal(t, "Empresa ABC S.A.S", out.Data[0].ClientName)
 	assert.Equal(t, Int(8), out.Data[0].TotalDocuments)
-	assert.Equal(t, Money(15000), out.Data[0].SubTotal)
+	assert.Equal(t, Money("15000"), out.Data[0].SubTotal)
 }
 
 func TestReports_SalesBySeller(t *testing.T) {
@@ -84,8 +84,8 @@ func TestReports_SalesBySeller(t *testing.T) {
 	require.NoError(t, err)
 	require.Len(t, out.Data, 1)
 	assert.Equal(t, "Juan Pérez", out.Data[0].SellerName)
-	assert.Equal(t, Money(5000), out.Data[0].TotalPayed)
-	assert.Equal(t, Money(8000), out.Data[0].BeforeTaxes)
+	assert.Equal(t, Money("5000"), out.Data[0].TotalPayed)
+	assert.Equal(t, Money("8000"), out.Data[0].BeforeTaxes)
 }
 
 func TestReports_ResourceAccessor(t *testing.T) {
@@ -98,5 +98,5 @@ func TestReports_ResourceAccessor(t *testing.T) {
 	require.NoError(t, err)
 	require.Len(t, items, 1)
 	assert.Equal(t, "2024-02", items[0].Period)
-	assert.Equal(t, Money(2000), items[0].Total)
+	assert.Equal(t, Money("2000"), items[0].Total)
 }

@@ -80,16 +80,29 @@ func FuzzMoney(f *testing.F) {
 		if json.Unmarshal(data, &m) != nil {
 			return
 		}
-		// A bare JSON number must decode to exactly what ParseFloat yields —
-		// Money is a float64, so this is the strongest property available.
+		// A bare JSON number must decode to its exact text and re-marshal to
+		// identical bytes — Money exists to never rewrite a digit.
 		tok := bytes.TrimSpace(data)
 		if len(tok) > 0 && tok[0] != '"' && string(tok) != "null" {
-			if want, err := strconv.ParseFloat(string(tok), 64); err == nil && float64(m) != want {
-				t.Fatalf("number %s decoded to %v, want %v", tok, float64(m), want)
+			if string(m) != string(tok) {
+				t.Fatalf("number %s decoded to %q, want exact text", tok, string(m))
 			}
+			out, err := json.Marshal(m)
+			if err != nil {
+				t.Fatalf("re-marshal failed for %q: %v", data, err)
+			}
+			if !bytes.Equal(out, tok) {
+				t.Fatalf("number %s re-marshaled to %s", tok, out)
+			}
+			return
 		}
-		if _, err := json.Marshal(m); err != nil {
+		// Strings/null: whatever decoded must still re-marshal to valid JSON.
+		out, err := json.Marshal(m)
+		if err != nil {
 			t.Fatalf("re-marshal failed for %q: %v", data, err)
+		}
+		if !json.Valid(out) {
+			t.Fatalf("re-marshal of %q produced invalid JSON: %s", data, out)
 		}
 	})
 }

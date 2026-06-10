@@ -18,7 +18,7 @@ func TestRecurringInvoices_List(t *testing.T) {
 	require.NoError(t, err)
 	require.Len(t, items, 1)
 	assert.Equal(t, ID("01G77Z97X66GZT7320T9HC6EBA"), items[0].ID)
-	assert.Equal(t, Money(15000), items[0].Total)
+	assert.Equal(t, Money("15000"), items[0].Total)
 	require.NotNil(t, items[0].Client)
 	assert.Equal(t, "Coorporación Alegrate", items[0].Client.Name)
 }
@@ -47,5 +47,5 @@ func TestRecurringInvoices_Get(t *testing.T) {
 	assert.Equal(t, "invoice", ri.NumberTemplate.DocumentType)
 	require.Len(t, ri.Items, 1)
 	assert.Equal(t, "Zapatos", ri.Items[0].Name)
-	assert.Equal(t, Money(5000), ri.Items[0].Price)
+	assert.Equal(t, Money("5000"), ri.Items[0].Price)
 }
