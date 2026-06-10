@@ -6,6 +6,48 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [0.7.1] - 2026-06-10
+
+Hardening release: fiscal-safety fixes around electronic emission, decoder
+correctness, and crash-safe persistence. No new commands, no breaking changes.
+
+### Fixed
+- **`invoices emit` idempotency guard** — three silent failure modes that could
+  lead to double electronic (fiscal) emission:
+  - A corrupt or unreadable `emitted.json` was silently treated as an empty
+    cache, dropping the guard. `emit` now aborts with the cache path and a
+    remediation hint (a missing file is still a normal fresh start).
+  - The cache was persisted once after all batches; a crash mid-run lost every
+    stamped id. It is now saved after each successful batch, and emission stops
+    (listing the affected ids) if the save fails.
+  - The cache file was written in place and could be torn by a crash mid-write;
+    writes now go through temp-file + rename.
+- **`Money` accepted `"NaN"`/`"Inf"` strings**, producing a value that breaks
+  any later JSON re-serialization of the document; `Int` converted them through
+  an undefined `int64(NaN)`. Both decoders now reject non-finite values.
+  (Found by the new value-level fuzz properties within seconds.)
+- **`ID` and `Int` lost precision above 2⁵³** by round-tripping integers
+  through `float64`; both now decode via `int64` first.
+- `import --dry-run` and `create --draft` ignored `json.Marshal` errors,
+  risking garbage output or a stale body sent to the API.
+- `auth status` ignored config-load errors and could dereference a nil config.
+- `config.yaml` is now written atomically (temp + rename), same crash-safety
+  treatment as the emission cache.
+- `AsAPIError` now delegates to `errors.As`, so `errors.Join` multi-error
+  trees are unwrapped correctly.
+
+### Changed
+- Table/CSV output: when the auto-detected column set is capped at 10, a note
+  on stderr now reports how many columns were dropped and suggests `--columns`
+  or `--output json` (stdout stays clean for piping).
+- `--all` pagination: the page-cap warning now includes a remediation hint.
+- Resource list filters that would collide with built-in flags are recorded at
+  registration and asserted empty by a registry test, so a bad resource
+  definition fails CI instead of silently losing the filter.
+- CONTRIBUTING: resource tests should cover what is unique to the resource
+  (not re-test generic CRUD); documented failure-path testing and fuzzing
+  expectations.
+
 ## [0.7.0] - 2026-06-09
 
 Coverage parity with Alegra's official MCP (except Support Center and the SAT
