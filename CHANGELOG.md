@@ -6,6 +6,16 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [0.8.1] - 2026-06-10
+
+### Fixed
+- **catalogen refuses to write empty catalogs.** A format change on Alegra's
+  country parameter pages that parsed to zero entries would have silently
+  hollowed out the embedded per-country catalogs on the next `catalog-sync`;
+  the generator now aborts instead. Its fetch→parse→write pipeline is covered
+  end-to-end by tests (58% → 84.5%), and regenerated output was verified
+  byte-identical against the live pages.
+
 ## [0.8.0] - 2026-06-10
 
 Feature release: SAT product-keys catalog for Mexican accounts (full catalog
