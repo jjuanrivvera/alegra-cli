@@ -108,6 +108,22 @@ func TestMoney_RoundTrip(t *testing.T) {
 	}
 }
 
+func TestRefs_Unmarshal(t *testing.T) {
+	var r Refs
+	require.NoError(t, json.Unmarshal([]byte(`[{"id":1,"name":"A"},{"id":"2","name":"B"}]`), &r))
+	assert.Equal(t, Refs{{ID: "1", Name: "A"}, {ID: "2", Name: "B"}}, r)
+
+	// Alegra also serializes the field as a single object (e.g. costCenter on
+	// income debit notes); it must decode as a one-element slice.
+	require.NoError(t, json.Unmarshal([]byte(`{"id":7,"name":"Central"}`), &r))
+	assert.Equal(t, Refs{{ID: "7", Name: "Central"}}, r)
+
+	require.NoError(t, json.Unmarshal([]byte(`null`), &r))
+	assert.Nil(t, r)
+
+	assert.Error(t, json.Unmarshal([]byte(`"nope"`), &r))
+}
+
 func TestStringOrSlice_Unmarshal(t *testing.T) {
 	var s StringOrSlice
 	require.NoError(t, json.Unmarshal([]byte(`"client"`), &s))

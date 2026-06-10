@@ -22,7 +22,7 @@ type IncomeDebitNote struct {
 	PriceList        *Ref                   `json:"priceList,omitempty"`
 	NumberTemplate   *IncomeDebitNoteNumber `json:"numberTemplate,omitempty"`
 	Items            []IncomeDebitNoteItem  `json:"items,omitempty"`
-	CostCenter       []Ref                  `json:"costCenter,omitempty"`
+	CostCenter       Refs                   `json:"costCenter,omitempty"`
 }
 
 // IncomeDebitNoteNumber is the numbering template metadata of a debit note.
