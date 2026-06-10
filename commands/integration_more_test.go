@@ -169,3 +169,19 @@ func TestIntegration_ExtendedCommands(t *testing.T) {
 		require.NoError(t, err)
 	})
 }
+
+// A corrupt emitted.json must stop emission before any API call: proceeding
+// with an empty guard could double-emit already-stamped invoices.
+func TestEmit_AbortsOnCorruptCache(t *testing.T) {
+	dir := t.TempDir()
+	t.Setenv(config.EnvBaseURL, "http://127.0.0.1:1")
+	t.Setenv(config.EnvEmail, "e@x.com")
+	t.Setenv(config.EnvToken, "tok")
+	t.Setenv(config.EnvProfile, "")
+	t.Setenv(config.EnvConfig, filepath.Join(dir, "config.yaml"))
+	require.NoError(t, os.WriteFile(filepath.Join(dir, "emitted.json"), []byte("{corrupt"), 0o600))
+
+	_, err := runRoot(t, "invoices", "emit", "7")
+	require.Error(t, err)
+	assert.Contains(t, err.Error(), "idempotency cache")
+}

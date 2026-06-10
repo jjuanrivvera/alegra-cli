@@ -36,5 +36,7 @@ func cacheCountry(cfg *config.Config, profile, country string) {
 	}
 	p.Country = country
 	cfg.SetProfile(p)
+	// Best-effort by design: the cache only saves a future detection call, so
+	// a failed write must never break the command that triggered it.
 	_ = cfg.Save()
 }

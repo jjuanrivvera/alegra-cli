@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -35,4 +36,19 @@ func TestKeyringStore_DeleteMissing(t *testing.T) {
 	keyring.MockInit()
 	err := NewKeyringStore().Delete("nope")
 	assert.ErrorIs(t, err, ErrNotFound)
+}
+
+func TestLookup_KeyringBackendFailureDegradesGracefully(t *testing.T) {
+	// A locked or unavailable keyring (not just "no entry") must not break
+	// auth resolution: Lookup returns "" so callers fall back to env/config.
+	keyring.MockInitWithError(errors.New("keyring backend locked"))
+	t.Cleanup(keyring.MockInit)
+
+	assert.Equal(t, "", Lookup("prof"))
+
+	// The raw store surfaces the backend error untouched for callers that
+	// need to distinguish it from not-found.
+	_, err := NewKeyringStore().Get("prof")
+	require.Error(t, err)
+	assert.NotErrorIs(t, err, ErrNotFound)
 }

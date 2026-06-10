@@ -109,7 +109,10 @@ func newAuthStatusCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			cfg, _ := config.Load()
+			cfg, err := config.Load()
+			if err != nil {
+				return err
+			}
 			profile := cfg.ActiveProfileName(flagProfile)
 			r := cfg.Resolve(profile)
 			out := cmd.OutOrStdout()

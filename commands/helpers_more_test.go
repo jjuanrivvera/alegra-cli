@@ -5,6 +5,7 @@ import (
 	"context"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"path/filepath"
 	"testing"
 
@@ -58,9 +59,9 @@ func TestEmitCacheRoundTrip(t *testing.T) {
 	dir := t.TempDir()
 	t.Setenv(config.EnvConfig, filepath.Join(dir, "config.yaml"))
 
-	// Missing cache: empty map + a read error.
+	// Missing cache is a fresh start, not an error.
 	cache, err := loadEmitCache()
-	assert.Error(t, err)
+	require.NoError(t, err)
 	assert.Empty(t, cache)
 
 	require.NoError(t, saveEmitCache(map[string]bool{"prod:5": true}))
@@ -69,6 +70,25 @@ func TestEmitCacheRoundTrip(t *testing.T) {
 	cache, err = loadEmitCache()
 	require.NoError(t, err)
 	assert.True(t, cache["prod:5"])
+
+	// The atomic write must not leave temp files behind.
+	entries, rerr := os.ReadDir(dir)
+	require.NoError(t, rerr)
+	for _, e := range entries {
+		assert.NotContains(t, e.Name(), "emitted-", "leftover temp file %s", e.Name())
+	}
+}
+
+func TestLoadEmitCache_CorruptFileIsAnError(t *testing.T) {
+	dir := t.TempDir()
+	t.Setenv(config.EnvConfig, filepath.Join(dir, "config.yaml"))
+	require.NoError(t, os.WriteFile(filepath.Join(dir, "emitted.json"), []byte("{not json"), 0o600))
+
+	// A corrupt cache must never read as empty: that would drop the
+	// idempotency guard and allow double emission.
+	_, err := loadEmitCache()
+	require.Error(t, err)
+	assert.Contains(t, err.Error(), "corrupt cache")
 }
 
 func TestRootCmd(t *testing.T) {
@@ -111,6 +131,11 @@ func TestCurrentProfileName(t *testing.T) {
 	dir := t.TempDir()
 	t.Setenv(config.EnvConfig, filepath.Join(dir, "config.yaml"))
 	t.Setenv(config.EnvProfile, "")
+	// runRoot resets flag globals before each run, not after — a prior test's
+	// --profile would otherwise leak into this direct helper call.
+	prev := flagProfile
+	flagProfile = ""
+	t.Cleanup(func() { flagProfile = prev })
 
 	cfg := config.New()
 	cfg.DefaultProfile = "prod"

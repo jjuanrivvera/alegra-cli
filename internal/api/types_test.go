@@ -17,6 +17,9 @@ func TestID_Unmarshal(t *testing.T) {
 		`null`:   "",
 		`""`:     "",
 		`"abc1"`: "abc1",
+		// above 2^53: must not round-trip through float64
+		`9007199254740993`:    "9007199254740993",
+		`9223372036854775807`: "9223372036854775807",
 	}
 	for in, want := range cases {
 		var id ID
@@ -42,6 +45,9 @@ func TestInt_RoundTrip(t *testing.T) {
 		`""`:   0,
 		`null`: 0,
 		`12.9`: 12,
+		// above 2^53: must not round-trip through float64
+		`9007199254740993`:   9007199254740993,
+		`"9007199254740993"`: 9007199254740993,
 	}
 	for in, want := range cases {
 		var n Int
@@ -51,6 +57,12 @@ func TestInt_RoundTrip(t *testing.T) {
 	b, err := json.Marshal(Int(7))
 	require.NoError(t, err)
 	assert.Equal(t, "7", string(b))
+
+	// ParseFloat accepts these; the decoder must not (int64(NaN) is undefined).
+	for _, in := range []string{`"NaN"`, `"Inf"`, `"-Inf"`} {
+		var n Int
+		assert.Error(t, json.Unmarshal([]byte(in), &n), "input %s", in)
+	}
 }
 
 func TestMoney_RoundTrip(t *testing.T) {
@@ -69,6 +81,13 @@ func TestMoney_RoundTrip(t *testing.T) {
 	b, err := json.Marshal(Money(1234.5))
 	require.NoError(t, err)
 	assert.Equal(t, "1234.5", string(b))
+
+	// ParseFloat accepts these; a NaN/Inf Money would poison any re-marshal
+	// of the containing document (JSON cannot represent them).
+	for _, in := range []string{`"NaN"`, `"nAn"`, `"Inf"`, `"-Infinity"`} {
+		var m Money
+		assert.Error(t, json.Unmarshal([]byte(in), &m), "input %s", in)
+	}
 }
 
 func TestStringOrSlice_Unmarshal(t *testing.T) {

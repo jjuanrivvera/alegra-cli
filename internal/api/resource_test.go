@@ -16,10 +16,11 @@ func TestDecodeList_Shapes(t *testing.T) {
 	}
 
 	cases := map[string]string{
-		"bare array":      `[{"id":"1","name":"a"},{"id":"2","name":"b"}]`,
-		"data wrapper":    `{"metadata":{"total":2},"data":[{"id":"1","name":"a"},{"id":"2","name":"b"}]}`,
-		"results wrapper": `{"total":"2","results":[{"id":"1","name":"a"},{"id":"2","name":"b"}]}`,
-		"rows wrapper":    `{"rows":[{"id":"1","name":"a"},{"id":"2","name":"b"}]}`,
+		"bare array":            `[{"id":"1","name":"a"},{"id":"2","name":"b"}]`,
+		"data wrapper":          `{"metadata":{"total":2},"data":[{"id":"1","name":"a"},{"id":"2","name":"b"}]}`,
+		"results wrapper":       `{"total":"2","results":[{"id":"1","name":"a"},{"id":"2","name":"b"}]}`,
+		"rows wrapper":          `{"rows":[{"id":"1","name":"a"},{"id":"2","name":"b"}]}`,
+		"subscriptions wrapper": `{"subscriptions":[{"id":"1","name":"a"},{"id":"2","name":"b"}]}`,
 	}
 	for name, body := range cases {
 		t.Run(name, func(t *testing.T) {
@@ -36,6 +37,14 @@ func TestDecodeList_Empty(t *testing.T) {
 	out, err := decodeList[Contact](nil)
 	require.NoError(t, err)
 	assert.Empty(t, out)
+
+	// Empty wrapper arrays must yield an empty slice, not an error or a
+	// fall-through to the bare-array parser.
+	for _, body := range []string{`{"data":[]}`, `{"results":[]}`, `{"rows":[]}`, `{"data":null}`} {
+		out, err := decodeList[Contact]([]byte(body))
+		require.NoError(t, err, "body %s", body)
+		assert.Empty(t, out, "body %s", body)
+	}
 }
 
 func TestCount_TotalShapes(t *testing.T) {

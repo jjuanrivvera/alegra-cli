@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"os"
 	"sort"
 	"strconv"
 	"strings"
@@ -83,7 +84,8 @@ func renderCSV(w io.Writer, data any, columns []string) error {
 	if len(rows) == 0 {
 		return nil
 	}
-	cols := resolveColumns(rows, columns)
+	cols, dropped := resolveColumns(rows, columns)
+	warnDroppedColumns(dropped)
 	cw := csv.NewWriter(w)
 	defer cw.Flush()
 	if err := cw.Write(cols); err != nil {
@@ -134,7 +136,8 @@ func renderTable(w io.Writer, data any, columns []string) error {
 	if len(rows) == 1 {
 		return renderKeyValue(w, rows[0], columns)
 	}
-	cols := resolveColumns(rows, columns)
+	cols, dropped := resolveColumns(rows, columns)
+	warnDroppedColumns(dropped)
 	tw := tabwriter.NewWriter(w, 0, 2, 2, ' ', 0)
 	fmt.Fprintln(tw, strings.Join(upper(cols), "\t"))
 	for _, row := range rows {
@@ -206,11 +209,16 @@ func toObject(data any) (map[string]any, bool) {
 	return m, ok
 }
 
+// maxAutoColumns caps the auto-detected column set so wide resources stay
+// readable; explicit --columns selections are never capped.
+const maxAutoColumns = 10
+
 // resolveColumns returns the explicit columns (filtered to ones present) or
-// derives a scalar-only column set ordered by preference.
-func resolveColumns(rows []map[string]any, columns []string) []string {
+// derives a scalar-only column set ordered by preference, plus how many
+// detected columns were dropped by the cap.
+func resolveColumns(rows []map[string]any, columns []string) ([]string, int) {
 	if len(columns) > 0 {
-		return columns
+		return columns, 0
 	}
 	seen := map[string]bool{}
 	for _, row := range rows {
@@ -221,10 +229,20 @@ func resolveColumns(rows []map[string]any, columns []string) []string {
 		}
 	}
 	cols := orderKeys(seen)
-	if len(cols) > 10 {
-		cols = cols[:10]
+	dropped := 0
+	if len(cols) > maxAutoColumns {
+		dropped = len(cols) - maxAutoColumns
+		cols = cols[:maxAutoColumns]
 	}
-	return cols
+	return cols, dropped
+}
+
+// warnDroppedColumns surfaces the auto-detect cap on stderr; stdout must stay
+// clean for piping (a note inside CSV/table data would corrupt it).
+func warnDroppedColumns(dropped int) {
+	if dropped > 0 {
+		fmt.Fprintf(os.Stderr, "note: %d more column(s) detected but not shown; use --columns to choose, or --output json for everything\n", dropped)
+	}
 }
 
 func orderedKeys(obj map[string]any, includeAll bool) []string {

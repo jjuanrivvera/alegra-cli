@@ -2,6 +2,7 @@ package commands
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -60,9 +61,14 @@ emission is NOT idempotent on Alegra's side, so this prevents duplicates.`,
 				return fmt.Errorf("no invoices to emit (pass ids or --all)")
 			}
 
-			// 2. Idempotency guard.
+			// 2. Idempotency guard. A cache that exists but cannot be read is a
+			// hard stop: proceeding with an empty guard could re-emit invoices
+			// that were already stamped (a fiscal duplicate, not undoable).
 			profile := currentProfileName()
-			cache, _ := loadEmitCache()
+			cache, cerr := loadEmitCache()
+			if cerr != nil {
+				return fmt.Errorf("cannot read the emission idempotency cache: %w\nInspect or remove %s, then retry", cerr, emitCachePath())
+			}
 			todo, skipped := filterEmitted(ids, cache, profile, force)
 			out := cmd.OutOrStdout()
 			if len(skipped) > 0 {
@@ -92,9 +98,14 @@ emission is NOT idempotent on Alegra's side, so this prevents duplicates.`,
 					emitted++
 				}
 				fmt.Fprintf(out, "stamped: %v\n", batch)
+				// Persist after every batch, and stop on failure: stamping more
+				// invoices the guard cannot record would risk re-emission on the
+				// next run.
+				if werr := saveEmitCache(cache); werr != nil {
+					return fmt.Errorf("stamped %v but could not record them in the idempotency cache: %w\nRecord these ids in %s before re-running, or a re-run may emit them twice", batch, werr, emitCachePath())
+				}
 			}
 			if !flagDryRun {
-				_ = saveEmitCache(cache)
 				fmt.Fprintf(out, "Emitted %d invoice(s); %d batch(es) failed.\n", emitted, failedChunks)
 			}
 			if failedChunks > 0 {
@@ -146,26 +157,54 @@ func emitCachePath() string {
 	return filepath.Join(filepath.Dir(config.DefaultPath()), "emitted.json")
 }
 
+// loadEmitCache reads the emitted-ids cache. A missing file is a fresh start;
+// an unreadable or corrupt file is an error — silently treating it as empty
+// would drop the idempotency guard and allow double emission.
 func loadEmitCache() (map[string]bool, error) {
 	cache := map[string]bool{}
 	data, err := os.ReadFile(emitCachePath()) //nolint:gosec // path under config dir
-	if err != nil {
-		return cache, err
+	if errors.Is(err, os.ErrNotExist) {
+		return cache, nil
 	}
-	_ = json.Unmarshal(data, &cache)
+	if err != nil {
+		return nil, err
+	}
+	if err := json.Unmarshal(data, &cache); err != nil {
+		return nil, fmt.Errorf("corrupt cache %s: %w", emitCachePath(), err)
+	}
 	return cache, nil
 }
 
+// saveEmitCache persists atomically (write temp + rename): a crash mid-write
+// must never leave a torn emitted.json, which would read as corrupt and block
+// (or, worse, lose) the guard.
 func saveEmitCache(cache map[string]bool) error {
 	path := emitCachePath()
-	if err := os.MkdirAll(filepath.Dir(path), 0o700); err != nil {
+	dir := filepath.Dir(path)
+	if err := os.MkdirAll(dir, 0o700); err != nil {
 		return err
 	}
 	data, err := json.Marshal(cache)
 	if err != nil {
 		return err
 	}
-	return os.WriteFile(path, data, 0o600)
+	tmp, err := os.CreateTemp(dir, "emitted-*.json")
+	if err != nil {
+		return err
+	}
+	defer func() { _ = os.Remove(tmp.Name()) }() // no-op once renamed
+	if err := tmp.Chmod(0o600); err != nil {
+		_ = tmp.Close()
+		return err
+	}
+	if _, err := tmp.Write(data); err != nil {
+		_ = tmp.Close()
+		return err
+	}
+	if err := tmp.Close(); err != nil {
+		return err
+	}
+	return os.Rename(tmp.Name(), path)
 }
 
 // currentProfileName returns the active profile name for cache scoping.

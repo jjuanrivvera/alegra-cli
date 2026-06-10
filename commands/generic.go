@@ -131,6 +131,12 @@ func buildResourceCmd[T any](sp resourceSpec[T]) *cobra.Command {
 
 // --- list ---
 
+// droppedListFilters records resource filters that were skipped at registration
+// because of an empty definition or a flag collision. The CLI must never panic
+// at init over a bad resource definition, so the mistake is surfaced by a
+// registry test (TestNoListFiltersAreSilentlyDropped) failing CI instead.
+var droppedListFilters []string
+
 // reservedListFlags are the built-in flag names on every `list` subcommand;
 // resource-specific filters that collide with these are skipped.
 var reservedListFlags = map[string]bool{
@@ -245,9 +251,15 @@ func newListCmd[T any](sp resourceSpec[T]) *cobra.Command {
 	fs.StringVar(&lf.orderDir, "order-direction", "", "Sort direction: ASC or DESC")
 	// Register resource-specific filters, skipping any that would collide with a
 	// built-in list flag or a previously declared filter (defensive: a bad
-	// resource definition must never panic the whole CLI at init).
+	// resource definition must never panic the whole CLI at init). Skips are
+	// recorded so the registry test fails CI instead of losing filters silently.
 	for _, f := range sp.ListFilters {
-		if f.Flag == "" || f.Query == "" || reservedListFlags[f.Flag] || fs.Lookup(f.Flag) != nil {
+		if f.Flag == "" || f.Query == "" {
+			droppedListFilters = append(droppedListFilters, fmt.Sprintf("%s: filter %+v has an empty flag or query", sp.Use, f))
+			continue
+		}
+		if reservedListFlags[f.Flag] || fs.Lookup(f.Flag) != nil {
+			droppedListFilters = append(droppedListFilters, fmt.Sprintf("%s: --%s collides with a built-in or duplicate flag", sp.Use, f.Flag))
 			continue
 		}
 		filterVals[f.Query] = fs.String(f.Flag, "", f.Usage)
@@ -415,18 +427,21 @@ failures are reported and do not stop the run.`,
 					setDotPath(body, field, inferValue(cell))
 				}
 				if flagDryRun {
-					raw, _ := json.Marshal(body)
+					raw, merr := json.Marshal(body)
+					if merr != nil {
+						failed++
+						fmt.Fprintf(cmd.ErrOrStderr(), "[row %d] FAILED: cannot encode body: %v\n", i+1, merr)
+						continue
+					}
 					fmt.Fprintf(out, "[row %d] would create: %s\n", i+1, raw)
 					continue
 				}
-				item, cerr := res.Create(cmd.Context(), body)
-				if cerr != nil {
+				if _, cerr := res.Create(cmd.Context(), body); cerr != nil {
 					failed++
 					fmt.Fprintf(cmd.ErrOrStderr(), "[row %d] FAILED: %v\n", i+1, cerr)
 					continue
 				}
 				created++
-				_ = item
 				fmt.Fprintf(out, "[row %d] created\n", i+1)
 			}
 			if !flagDryRun {
@@ -541,7 +556,10 @@ func newCreateCmd[T any](sp resourceSpec[T]) *cobra.Command {
 			if draft {
 				if m, ok := bodyToMap(body); ok {
 					delete(m, "stamp")
-					body, _ = json.Marshal(m)
+					body, err = json.Marshal(m)
+					if err != nil {
+						return fmt.Errorf("re-encoding body after stripping stamp: %w", err)
+					}
 				}
 			}
 			if !noValidate {

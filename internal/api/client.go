@@ -217,7 +217,6 @@ func (c *Client) do(ctx context.Context, method, path string, query url.Values, 
 		return nil, errDryRun
 	}
 
-	var lastErr error
 	for attempt := 0; attempt <= c.retryPolicy.MaxRetries; attempt++ {
 		if err := c.rateLimiter.Wait(ctx); err != nil {
 			return nil, err
@@ -254,7 +253,6 @@ func (c *Client) do(ctx context.Context, method, path string, query url.Values, 
 				return nil, ctx.Err()
 			case <-time.After(wait):
 			}
-			lastErr = err
 			continue
 		}
 
@@ -276,9 +274,8 @@ func (c *Client) do(ctx context.Context, method, path string, query url.Values, 
 		return respBody, nil
 	}
 
-	if lastErr != nil {
-		return nil, fmt.Errorf("alegra: exhausted retries: %w", lastErr)
-	}
+	// Unreachable with a sane policy (MaxRetries >= 0): the final attempt always
+	// returns inside the loop. Kept as a guard against a negative MaxRetries.
 	return nil, errors.New("alegra: exhausted retries")
 }
 

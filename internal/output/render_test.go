@@ -84,11 +84,14 @@ func TestRenderUnsupportedFormat(t *testing.T) {
 func TestResolveColumns(t *testing.T) {
 	rows := []map[string]any{{"id": "1", "name": "A", "nested": map[string]any{"x": 1}}}
 	// Explicit columns pass through unchanged.
-	assert.Equal(t, []string{"name", "id"}, resolveColumns(rows, []string{"name", "id"}))
+	cols, dropped := resolveColumns(rows, []string{"name", "id"})
+	assert.Equal(t, []string{"name", "id"}, cols)
+	assert.Zero(t, dropped)
 
 	// Derived columns: scalars only, preferred order first; nested map excluded.
-	got := resolveColumns(rows, nil)
+	got, dropped := resolveColumns(rows, nil)
 	assert.Equal(t, []string{"id", "name"}, got)
+	assert.Zero(t, dropped)
 	assert.NotContains(t, got, "nested")
 }
 
@@ -97,8 +100,15 @@ func TestResolveColumns_CapsAtTen(t *testing.T) {
 	for _, k := range []string{"c01", "c02", "c03", "c04", "c05", "c06", "c07", "c08", "c09", "c10", "c11", "c12"} {
 		row[k] = "v"
 	}
-	got := resolveColumns([]map[string]any{row}, nil)
-	assert.Len(t, got, 10)
+	got, dropped := resolveColumns([]map[string]any{row}, nil)
+	assert.Len(t, got, maxAutoColumns)
+	assert.Equal(t, 2, dropped)
+
+	// Explicit selection is never capped.
+	explicit := []string{"c01", "c02", "c03", "c04", "c05", "c06", "c07", "c08", "c09", "c10", "c11", "c12"}
+	got, dropped = resolveColumns([]map[string]any{row}, explicit)
+	assert.Len(t, got, 12)
+	assert.Zero(t, dropped)
 }
 
 func TestScalarStringAndValueString(t *testing.T) {
@@ -111,4 +121,23 @@ func TestScalarStringAndValueString(t *testing.T) {
 	// Nested structures compact to JSON via valueString.
 	assert.Equal(t, `{"x":1}`, valueString(map[string]any{"x": float64(1)}))
 	assert.Equal(t, "plain", valueString("plain"))
+}
+
+func TestRenderKeyValue_FiltersAndOrdersByColumns(t *testing.T) {
+	var buf bytes.Buffer
+	obj := map[string]any{"id": "1", "name": "Acme", "secret": "hide-me"}
+	// Single objects render as key/value; --columns must filter and order it.
+	require.NoError(t, Render(&buf, obj, FormatTable, []string{"name", "id"}))
+	out := buf.String()
+	assert.Contains(t, out, "Acme")
+	assert.Contains(t, out, "1")
+	assert.NotContains(t, out, "hide-me", "columns filter must apply to key/value output")
+	assert.Less(t, strings.Index(out, "NAME"), strings.Index(out, "ID"), "explicit column order must be respected")
+}
+
+func TestToRows_DropsNonMapItems(t *testing.T) {
+	// Heterogeneous arrays keep only object rows — pinned so a future change
+	// to surface (or error on) dropped items is a conscious decision.
+	rows := toRows([]any{map[string]any{"id": "1"}, "stray-string", 42, map[string]any{"id": "2"}})
+	assert.Len(t, rows, 2)
 }

@@ -2,6 +2,7 @@ package api
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"regexp"
@@ -124,16 +125,8 @@ func parseAPIError(statusCode int, body []byte) *APIError {
 // AsAPIError extracts an *APIError from an error chain, if present.
 func AsAPIError(err error) (*APIError, bool) {
 	var apiErr *APIError
-	for err != nil {
-		if e, ok := err.(*APIError); ok {
-			return e, true
-		}
-		type unwrapper interface{ Unwrap() error }
-		u, ok := err.(unwrapper)
-		if !ok {
-			break
-		}
-		err = u.Unwrap()
+	if errors.As(err, &apiErr) {
+		return apiErr, true
 	}
-	return apiErr, false
+	return nil, false
 }
