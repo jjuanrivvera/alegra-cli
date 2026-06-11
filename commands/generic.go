@@ -15,6 +15,8 @@ import (
 
 	"github.com/spf13/cobra"
 
+	"github.com/njayp/ophis"
+
 	"github.com/jjuanrivvera/alegra-cli/internal/api"
 	"github.com/jjuanrivvera/alegra-cli/internal/config"
 	"github.com/jjuanrivvera/alegra-cli/internal/output"
@@ -120,23 +122,70 @@ func buildResourceCmd[T any](sp resourceSpec[T]) *cobra.Command {
 		Short:   sp.Short,
 		Long:    sp.Long,
 	}
-	cmd.AddCommand(newListCmd(sp))
-	cmd.AddCommand(newGetCmd(sp))
-	cmd.AddCommand(newExportCmd(sp))
+	// Tag each subcommand with MCP tool annotations (read-only vs destructive).
+	// `alegra mcp` (via ophis) exposes these on every tool, so MCP hosts that
+	// honor them gate writes automatically — see docs/user-guide/agent-safety.md.
+	cmd.AddCommand(readOnlyHints(newListCmd(sp)))
+	cmd.AddCommand(readOnlyHints(newGetCmd(sp)))
+	cmd.AddCommand(readOnlyHints(newExportCmd(sp)))
 	if !sp.NoCreate {
-		cmd.AddCommand(newCreateCmd(sp))
-		cmd.AddCommand(newImportCmd(sp))
+		cmd.AddCommand(writeHints(newCreateCmd(sp)))
+		cmd.AddCommand(writeHints(newImportCmd(sp)))
 	}
 	if !sp.NoUpdate {
-		cmd.AddCommand(newUpdateCmd(sp))
+		cmd.AddCommand(destructiveHints(newUpdateCmd(sp)))
 	}
 	if !sp.NoDelete {
-		cmd.AddCommand(newDeleteCmd(sp))
+		cmd.AddCommand(destructiveHints(newDeleteCmd(sp)))
 	}
 	if sp.Extra != nil {
 		sp.Extra(cmd, sp)
 	}
+	// Custom actions (void, emit, stamp, …) registered by Extra mutate state.
+	// Any that didn't annotate themselves are treated as destructive so a host
+	// gates them by default; the rare read-only custom command can opt back in
+	// by calling readOnlyHints in its resource file.
+	for _, c := range cmd.Commands() {
+		if !hasMCPHints(c) {
+			destructiveHints(c)
+		}
+	}
 	return cmd
+}
+
+// readOnlyHints / writeHints / destructiveHints merge MCP tool annotations onto
+// a command (consumed by `alegra mcp` through ophis). They merge rather than
+// overwrite so they never clobber other annotations (e.g. completion columns).
+func readOnlyHints(c *cobra.Command) *cobra.Command {
+	return mcpHints(c, ophis.AnnotationReadOnly, "true", ophis.AnnotationIdempotent, "true", ophis.AnnotationOpenWorld, "true")
+}
+
+func writeHints(c *cobra.Command) *cobra.Command {
+	return mcpHints(c, ophis.AnnotationOpenWorld, "true")
+}
+
+func destructiveHints(c *cobra.Command) *cobra.Command {
+	return mcpHints(c, ophis.AnnotationDestructive, "true", ophis.AnnotationOpenWorld, "true")
+}
+
+func mcpHints(c *cobra.Command, kv ...string) *cobra.Command {
+	if c.Annotations == nil {
+		c.Annotations = map[string]string{}
+	}
+	for i := 0; i+1 < len(kv); i += 2 {
+		c.Annotations[kv[i]] = kv[i+1]
+	}
+	return c
+}
+
+// hasMCPHints reports whether a command already carries any MCP tool annotation.
+func hasMCPHints(c *cobra.Command) bool {
+	for _, k := range []string{ophis.AnnotationReadOnly, ophis.AnnotationDestructive, ophis.AnnotationOpenWorld} {
+		if _, ok := c.Annotations[k]; ok {
+			return true
+		}
+	}
+	return false
 }
 
 // --- list ---

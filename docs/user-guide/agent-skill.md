@@ -62,3 +62,6 @@ append-only, prefer `--count`), the resource/action map, how to write nested
 bodies, electronic-invoicing emission, bulk CSV import/export, and error
 handling. A condensed cheatsheet ships alongside it in
 `references/alegra-commands.md`.
+
+To stop the agent from running destructive operations (block `delete`, `void`,
+`emit`, …), see [Agent Safety](agent-safety.md).

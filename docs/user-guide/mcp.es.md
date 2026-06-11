@@ -62,3 +62,10 @@ alegra mcp tools | jq '.[].name'
 
 Luego pídele al agente que, por ejemplo, "liste las facturas abiertas de este mes
 en Alegra".
+
+## Mantenlo seguro
+
+Cada tool expuesta está anotada como solo lectura o destructiva, así que un host
+que respete las anotaciones MCP gatea las escrituras por su cuenta. Para
+realmente bloquear las tools destructivas (`void`, `emit`, `delete`, …) del lado
+del agente, mira [Seguridad para agentes](agent-safety.md).
