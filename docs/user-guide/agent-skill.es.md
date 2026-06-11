@@ -67,3 +67,6 @@ recursos/acciones, cómo escribir cuerpos anidados, la emisión de facturación
 electrónica, la importación/exportación masiva por CSV y el manejo de errores.
 Junto a ella se incluye un cheatsheet condensado en
 `references/alegra-commands.md`.
+
+Para evitar que el agente ejecute operaciones destructivas (bloquear `delete`,
+`void`, `emit`, …), mira [Seguridad para agentes](agent-safety.md).

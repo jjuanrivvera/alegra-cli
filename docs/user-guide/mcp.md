@@ -59,3 +59,10 @@ alegra mcp tools | jq '.[].name'
 ```
 
 Then ask the agent to, for example, "list this month's open invoices in Alegra".
+
+## Keep it safe
+
+Every exposed tool is annotated read-only or destructive, so a host that honors
+MCP annotations gates writes on its own. To actually block destructive tools
+(`void`, `emit`, `delete`, …) on the agent side, see
+[Agent Safety](agent-safety.md).

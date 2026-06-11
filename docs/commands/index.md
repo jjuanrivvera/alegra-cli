@@ -7,6 +7,7 @@ title: Command Reference
 Auto-generated from the CLI. See [alegra](alegra.md) for the root command.
 
 - [additional-charges](alegra_additional-charges.md) — Manage additional charges (tips and parafiscal contributions)
+- [agent](alegra_agent.md) — Helpers for running alegra under an AI agent
 - [alias](alegra_alias.md) — Save and manage command aliases
 - [auth](alegra_auth.md) — Manage Alegra API authentication
 - [bank-accounts](alegra_bank-accounts.md) — Manage bank accounts (bank, credit card, and cash accounts)

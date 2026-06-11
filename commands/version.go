@@ -48,7 +48,7 @@ func init() {
 	}
 	cmd.Flags().BoolVar(&asJSON, "json", false, "Output version information as JSON")
 	cmd.Flags().BoolVar(&check, "check", false, "Check whether a newer release is available")
-	rootCmd.AddCommand(cmd)
+	rootCmd.AddCommand(readOnlyHints(cmd))
 	rootCmd.Version = version.Short()
 }
 

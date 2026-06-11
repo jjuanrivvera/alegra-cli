@@ -59,8 +59,8 @@ func init() {
 	}
 	cmd.Flags().StringVar(&country, "country", "", "Country to look up (default: auto-detected from the account; e.g. colombia, mexico, costaRica, peru)")
 	_ = cmd.RegisterFlagCompletionFunc("country", fixedCompleter(catalog.Available()...))
-	cmd.AddCommand(newCatalogSyncSATCmd(), newCatalogProductKeysCmd())
-	rootCmd.AddCommand(cmd)
+	cmd.AddCommand(newCatalogSyncSATCmd(), readOnlyHints(newCatalogProductKeysCmd()))
+	rootCmd.AddCommand(readOnlyHints(cmd))
 }
 
 // catalogsDir is the shared (cross-profile) local catalog cache, next to the

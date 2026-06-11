@@ -22,7 +22,7 @@ func init() {
 			{Flag: "name", Query: "name", Usage: "Filter by name"},
 		},
 		Extra: func(parent *cobra.Command, sp resourceSpec[api.Item]) {
-			parent.AddCommand(itemStockCmd(sp))
+			parent.AddCommand(readOnlyHints(itemStockCmd(sp)))
 		},
 	})
 }

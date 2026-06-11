@@ -23,11 +23,11 @@ certain Alegra plans and may return HTTP 403 otherwise.`,
 	}
 
 	reportsCmd.AddCommand(
-		newReportSalesByClientCmd(),
-		newReportSalesByClientTotalsCmd(),
-		newReportSalesBySellerCmd(),
-		newReportIncomeStatementCmd(),
-		newReportAccountStatementCmd(),
+		readOnlyHints(newReportSalesByClientCmd()),
+		readOnlyHints(newReportSalesByClientTotalsCmd()),
+		readOnlyHints(newReportSalesBySellerCmd()),
+		readOnlyHints(newReportIncomeStatementCmd()),
+		readOnlyHints(newReportAccountStatementCmd()),
 	)
 
 	rootCmd.AddCommand(reportsCmd)

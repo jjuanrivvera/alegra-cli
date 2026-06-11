@@ -68,6 +68,7 @@ plugins:
             Reference Catalogs: Catálogos de referencia
             Agent Skill: Skill para agentes
             MCP Server: Servidor MCP
+            Agent Safety: Seguridad para agentes
             Reference: Referencia
             Command Reference: Referencia de comandos
             vs. Official MCP: vs. MCP oficial
@@ -110,6 +111,7 @@ nav:
       - Reference Catalogs: user-guide/catalog.md
       - Agent Skill: user-guide/agent-skill.md
       - MCP Server: user-guide/mcp.md
+      - Agent Safety: user-guide/agent-safety.md
   - Reference:
       - Command Reference: commands/index.md
       - vs. Official MCP: reference/vs-official-mcp.md

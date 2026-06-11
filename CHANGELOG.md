@@ -6,6 +6,28 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-06-11
+
+Agent safety release: make it easy to stop an AI agent from running destructive
+accounting operations.
+
+### Added
+- **MCP tool safety annotations.** `alegra mcp` now advertises the standard MCP
+  tool annotations on every tool — read commands carry `readOnlyHint`, and
+  writes/actions carry `destructiveHint`. Hosts that honor them (e.g. Codex)
+  gate destructive operations automatically, with no configuration.
+- **`alegra agent guard`** — generates the agent-safety config (permission rules
+  **and** a definitive PreToolUse hook) for `--host claude-code`, `codex`, or
+  `opencode`. The destructive operations are derived from the live command tree,
+  so the list is always complete. By default it hard-blocks the irreversible
+  actions (`delete`, `void`, `emit`, `stamp`, `close`, `*-delete`) and makes
+  ordinary writes require approval; `--all-writes` blocks every write, `--write`
+  installs the files (never overwriting an existing config).
+- **Agent Safety guide** (`docs/user-guide/agent-safety.md`, EN + ES): a
+  layered, honest explanation of what blocks vs what only advises, with hooks and
+  per-host config for Claude Code, Codex, and OpenCode. Cross-referenced from the
+  MCP, agent-skill, and vs-official-MCP pages.
+
 ## [0.8.3] - 2026-06-11
 
 Docs-only release. No code changes.

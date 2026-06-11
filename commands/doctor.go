@@ -14,7 +14,7 @@ import (
 )
 
 func init() {
-	rootCmd.AddCommand(&cobra.Command{
+	rootCmd.AddCommand(readOnlyHints(&cobra.Command{
 		Use:   "doctor",
 		Short: "Diagnose configuration, credentials, and account health",
 		Long: `doctor runs a series of read-only checks: configuration, credentials,
@@ -24,7 +24,7 @@ plan probe. Use it first whenever something isn't working.`,
 		RunE: func(cmd *cobra.Command, _ []string) error {
 			return runDoctor(cmd)
 		},
-	})
+	}))
 }
 
 func runDoctor(cmd *cobra.Command) error {

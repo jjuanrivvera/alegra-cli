@@ -48,7 +48,9 @@ typing commands. The rationale is laid out in the post
   far fewer tokens to the model than a raw JSON tool result.
 - **Safety is enforceable.** `--dry-run` previews the exact request on any command,
   `delete` asks for confirmation, and a shell can block destructive commands with hooks —
-  so an autonomous agent *cannot* delete even if it tries.
+  so an autonomous agent *cannot* delete even if it tries. See
+  [Agent Safety](../user-guide/agent-safety.md) for per-host gating (Claude Code, Codex,
+  OpenCode).
 - **Two ways in for agents.** A coding agent with shell access uses the **skill** (it
   learns the golden rules and when to call each command); an MCP-protocol host uses
   **`alegra mcp`**, which exposes the same command tree as MCP tools.
