@@ -6,6 +6,18 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [0.8.2] - 2026-06-11
+
+Docs-only release. No code changes.
+
+### Changed
+- **Corrected the "vs. the official MCP" comparison** against the official
+  server's live deployed tool set (49 read-only tools, captured by connecting
+  to `mcp.alegra.com`). The official MCP is read-only and OAuth-browser-gated
+  for interactive hosts (claude.ai web, Claude Desktop); `alegra-cli` reads and
+  writes, runs headless, and ships its own `alegra mcp`. Replaces an earlier
+  comparison built from the broader developer docs.
+
 ## [0.8.1] - 2026-06-10
 
 ### Fixed
