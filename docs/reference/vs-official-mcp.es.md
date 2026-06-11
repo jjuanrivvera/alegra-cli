@@ -20,7 +20,7 @@ ambos para que elijas el que mejor te encaje.
 | --- | --- | --- |
 | Interfaz | Servidor MCP alojado (`mcp.alegra.com`, streamable HTTP) | Terminal + **skill** de agente + servidor `alegra mcp` |
 | Autenticación | OAuth 2.0 (login en el navegador, authorization-code + PKCE; scope `owner`) | Token de API de Alegra (Basic), guardado en el **keyring del sistema** |
-| Cómo se conecta un agente | Un host MCP interactivo que ejecuta el flujo OAuth — **claude.ai** web o **Claude Desktop** (su redirect callback está en la lista de permitidos) | Un comando en **Claude Code**, Cursor o Codex vía una [skill](../user-guide/agent-skill.md); **o** [`alegra mcp`](../user-guide/mcp.md) para hosts MCP |
+| Cómo se conecta un agente | Un host MCP interactivo cuyo callback Alegra puso en su lista de permitidos — **claude.ai** web o **ChatGPT** (ejecuta el flujo OAuth) | Un comando en **Claude Code**, Cursor o Codex vía una [skill](../user-guide/agent-skill.md); **o** [`alegra mcp`](../user-guide/mcp.md) para hosts MCP |
 | Headless / CI / cron | No — OAuth necesita un login interactivo en el navegador (sin `client_credentials` ni device grant) | Sí — el token de API funciona desatendido |
 | Instalación | Ninguna — alojado por Alegra | Instalas un binario (Homebrew, Scoop, Docker, …) |
 | Salida | Resultados de herramienta en JSON estructurado | tabla / JSON / YAML / CSV — combinable con `jq` y pipes (menos tokens para un agente) |
@@ -39,11 +39,13 @@ persona escribiendo comandos. El razonamiento está expuesto en el post
 - **Se conecta a agentes de shell en un solo paso.** Un agente de código (Claude Code,
   Cursor, Codex) instala el binario, configura un token de API y ejecuta comandos — sin
   flujo OAuth, sin navegador, sin configurar un host. El MCP oficial usa OAuth 2.0 con una
-  lista de permitidos de redirect-URI que solo acepta hosts interactivos conocidos
-  (`claude.ai` web, Claude Desktop) y rechaza callbacks de loopback
-  (`localhost`/`127.0.0.1`), por lo que no se enlaza con un agente de terminal como Claude
-  Code. Con `alegra-cli`, el mismo token también funciona en CI, cron y scripts, donde un
-  login OAuth interactivo no es posible.
+  **lista de permitidos de redirect-URI cerrada**: al sondear su endpoint de registro,
+  solo se aceptan los callbacks de los partners de integración de Alegra (`claude.ai` y
+  ChatGPT) — los de loopback (`localhost`/`127.0.0.1`), los schemes de URI custom
+  (`vscode://`, `cursor://`) y los HTTPS arbitrarios se rechazan todos. Por eso ningún
+  cliente MCP de terminal, CLI o self-hosted (Claude Code, Cursor, OpenCode, OpenClaw,
+  Hermes, …) puede completar el flujo. Con `alegra-cli`, el mismo token de API también
+  funciona en CI, cron y scripts, donde un login OAuth interactivo no es posible.
 - **Salida combinable.** Un agente puede elegir `--columns`, redirigir a `jq` con un pipe,
   o usar `grep` — enviando muchos menos tokens al modelo que un resultado de herramienta en
   JSON crudo.
@@ -123,7 +125,7 @@ Sirven a nichos distintos; ambos son válidos.
 
 | Tu situación | Mejor opción |
 | --- | --- |
-| Consulta de solo lectura de tus datos desde claude.ai o Claude Desktop | **MCP oficial** (hecho a propósito para eso) |
+| Consulta de solo lectura de tus datos desde claude.ai o ChatGPT | **MCP oficial** (hecho a propósito para eso) |
 | Agente de código con acceso al shell (Claude Code, Cursor, Codex) | **alegra-cli + skill** |
 | Un host MCP que el servidor oficial no soporta, o necesitas herramientas de escritura | El `alegra mcp` de **alegra-cli** |
 | Scripts, CI/CD, jobs de cron | **alegra-cli** (pipes, códigos de salida, variables de entorno) |
