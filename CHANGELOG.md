@@ -6,6 +6,14 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [0.9.2] - 2026-06-11
+
+### Changed
+- Docs: clearer Spanish in the Agent Safety guide — replaced the "gatear"
+  anglicism (which reads as "to crawl" in Spanish) with "controlar", and
+  promoted the PreToolUse **hook** as the definitive, un-bypassable block rather
+  than a footnote to the permission rules.
+
 ## [0.9.1] - 2026-06-11
 
 ### Fixed
