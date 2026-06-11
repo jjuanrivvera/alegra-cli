@@ -23,7 +23,6 @@ theme:
         icon: material/weather-sunny
         name: Switch to light mode
   features:
-    - navigation.instant
     - navigation.tabs
     - navigation.sections
     - search.highlight
@@ -33,6 +32,47 @@ theme:
 
 plugins:
   - search
+  - i18n:
+      docs_structure: suffix
+      fallback_to_default: true
+      reconfigure_material: true
+      reconfigure_search: true
+      languages:
+        - locale: en
+          default: true
+          name: English
+          build: true
+        - locale: es
+          name: Español
+          build: true
+          site_name: Alegra CLI
+          nav_translations:
+            Home: Inicio
+            Getting Started: Primeros pasos
+            Installation: Instalación
+            Authentication: Autenticación
+            Quickstart: Inicio rápido
+            Cookbook: Recetario
+            Guides: Guías
+            "Invoice → Cash": "Factura → Cobro"
+            Expenses & Purchases: Gastos y compras
+            Electronic Invoicing: Facturación electrónica
+            Reporting & Month-End: Reportes y cierre de mes
+            Productivity Features: Productividad
+            Automation & Scripting: Automatización y scripting
+            User Guide: Guía de uso
+            Configuration & Profiles: Configuración y perfiles
+            Output Formats: Formatos de salida
+            Shell Completion: Autocompletado del shell
+            Creating & Updating: Crear y actualizar
+            Reference Catalogs: Catálogos de referencia
+            Agent Skill: Skill para agentes
+            MCP Server: Servidor MCP
+            Reference: Referencia
+            Command Reference: Referencia de comandos
+            vs. Official MCP: vs. MCP oficial
+            Errors & Rate Limits: Errores y límites de tasa
+            FAQ & Troubleshooting: FAQ y solución de problemas
   - git-revision-date-localized:
       enable_creation_date: true
       type: timeago

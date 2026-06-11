@@ -18,7 +18,7 @@ page compares the two so you can pick the right fit.
 | --- | --- | --- |
 | Interface | Hosted MCP server (`mcp.alegra.com`, streamable HTTP) | Terminal + agent **skill** + `alegra mcp` server |
 | Authentication | OAuth 2.0 (browser login, authorization-code + PKCE; scope `owner`) | Alegra API token (Basic), stored in the **OS keyring** |
-| How an agent connects | An interactive MCP host that runs the OAuth flow — **claude.ai** web or **Claude Desktop** (its redirect callback is allow-listed) | One command in **Claude Code**, Cursor, or Codex via a [skill](../user-guide/agent-skill.md); **or** [`alegra mcp`](../user-guide/mcp.md) for MCP hosts |
+| How an agent connects | An interactive MCP host whose callback Alegra allow-listed — **claude.ai** web or **ChatGPT** (it runs the OAuth flow) | One command in **Claude Code**, Cursor, or Codex via a [skill](../user-guide/agent-skill.md); **or** [`alegra mcp`](../user-guide/mcp.md) for MCP hosts |
 | Headless / CI / cron | No — OAuth needs an interactive browser login (no `client_credentials` or device grant) | Yes — API token works unattended |
 | Install | None — hosted by Alegra | Install a binary (Homebrew, Scoop, Docker, …) |
 | Output | Structured JSON tool results | table / JSON / YAML / CSV — composable with `jq` and pipes (fewer tokens for an agent) |
@@ -36,11 +36,14 @@ typing commands. The rationale is laid out in the post
 
 - **It connects to shell agents in one step.** A coding agent (Claude Code, Cursor,
   Codex) installs the binary, sets an API token, and runs commands — no OAuth flow, no
-  browser, no host configuration. The official MCP uses OAuth 2.0 with a redirect-URI
-  allow-list that only accepts known interactive hosts (`claude.ai` web, Claude Desktop)
-  and rejects loopback (`localhost`/`127.0.0.1`) callbacks, so it does not wire into a
-  terminal agent like Claude Code. With `alegra-cli`, the same token also works in CI,
-  cron, and scripts, where an interactive OAuth login is not possible.
+  browser, no host configuration. The official MCP uses OAuth 2.0 with a **closed
+  redirect-URI allow-list**: probing its registration endpoint, only Alegra's
+  integration-partner callbacks (`claude.ai` and ChatGPT) are accepted — loopback
+  (`localhost`/`127.0.0.1`), custom URI schemes (`vscode://`, `cursor://`), and arbitrary
+  HTTPS callbacks are all rejected. So no terminal, CLI, or self-hosted MCP client (Claude
+  Code, Cursor, OpenCode, OpenClaw, Hermes, …) can complete the flow. With `alegra-cli`,
+  the same API token also works in CI, cron, and scripts, where an interactive OAuth login
+  is not possible.
 - **Composable output.** An agent can pick `--columns`, pipe to `jq`, or `grep` — sending
   far fewer tokens to the model than a raw JSON tool result.
 - **Safety is enforceable.** `--dry-run` previews the exact request on any command,
@@ -117,7 +120,7 @@ They serve different niches; both are valid.
 
 | Your situation | Best fit |
 | --- | --- |
-| Read-only consulting of your data from claude.ai or Claude Desktop | **Official MCP** (purpose-built for it) |
+| Read-only consulting of your data from claude.ai or ChatGPT | **Official MCP** (purpose-built for it) |
 | Coding agent with shell access (Claude Code, Cursor, Codex) | **alegra-cli + skill** |
 | An MCP host the official server doesn't support, or you need write tools | **alegra-cli**'s `alegra mcp` |
 | Scripts, CI/CD, cron jobs | **alegra-cli** (pipes, exit codes, env vars) |

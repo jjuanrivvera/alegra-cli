@@ -27,7 +27,7 @@ jobs:
         with:
           python-version: '3.x'
       - name: Install MkDocs
-        run: pip install mkdocs-material mkdocs-git-revision-date-localized-plugin
+        run: pip install mkdocs-material mkdocs-git-revision-date-localized-plugin mkdocs-static-i18n
       - name: Generate command reference
         run: go run ./tools/gendocs
       - name: Build and deploy
