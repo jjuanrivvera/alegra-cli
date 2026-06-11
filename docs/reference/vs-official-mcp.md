@@ -8,22 +8,23 @@ page compares the two so you can pick the right fit.
 
 !!! note "Snapshot"
     Reflects the official MCP server's publicly documented tool set and `alegra-cli`
-    **v0.6.1**, verified **2026-06-09**. Both wrap the same Alegra v1 API and both require
-    network access to it. Alegra may add tools over time — treat coverage figures as a
+    **v0.8.1**, verified **2026-06-11**. Both wrap the same Alegra v1 API and both require
+    network access to it. Alegra may change its MCP over time — treat this as a
     point-in-time snapshot.
 
 ## At a glance
 
 | | Official Alegra MCP | alegra-cli |
 | --- | --- | --- |
-| Interface | MCP tools (hosted, HTTP/SSE) | Terminal + agent **skill** + `alegra mcp` server |
-| How an agent connects | MCP protocol (e.g. Claude Desktop) | A [skill](../user-guide/agent-skill.md) for shell-capable agents (Claude Code, Cursor, Codex) **or** [`alegra mcp`](../user-guide/mcp.md) for MCP hosts |
+| Interface | Hosted MCP server (`mcp.alegra.com`, streamable HTTP) | Terminal + agent **skill** + `alegra mcp` server |
+| Authentication | OAuth 2.0 (browser login, authorization-code + PKCE; scope `owner`) | Alegra API token (Basic), stored in the **OS keyring** |
+| How an agent connects | An interactive MCP host that runs the OAuth flow — **claude.ai** web or **Claude Desktop** (its redirect callback is allow-listed) | One command in **Claude Code**, Cursor, or Codex via a [skill](../user-guide/agent-skill.md); **or** [`alegra mcp`](../user-guide/mcp.md) for MCP hosts |
+| Headless / CI / cron | No — OAuth needs an interactive browser login (no `client_credentials` or device grant) | Yes — API token works unattended |
 | Install | None — hosted by Alegra | Install a binary (Homebrew, Scoop, Docker, …) |
-| Credentials | Configured in the MCP host/client | Alegra token in your **OS keyring** (profiles + env), kept out of agent config files |
 | Output | Structured JSON tool results | table / JSON / YAML / CSV — composable with `jq` and pipes (fewer tokens for an agent) |
-| Agent safety controls | — | `--dry-run` on any command, interactive confirm on `delete`, restrictable via shell hooks |
+| Agent safety controls | Host-dependent | `--dry-run` on any command, interactive confirm on `delete`, restrictable via shell hooks |
 | Human (terminal) use | — | First-class |
-| Resource coverage | ~24 resource areas | 37 resources |
+| Resource coverage | ~24 resource areas | 45+ resources |
 | Invoice emission (stamp / void / email) | Not exposed | Yes |
 
 ## Built agent-first
@@ -32,16 +33,28 @@ page compares the two so you can pick the right fit.
 typing commands. The rationale is laid out in the post
 [CLIs over MCPs](https://jjuanrivvera.com/es/blog/clis-sobre-mcps/); in short:
 
-- **Credentials stay in the OS keyring**, not in an agent's config file or a plaintext
-  secret the model can read back.
-- **Composable output.** An agent can `--fields`, pipe to `jq`, or `grep` — sending far
-  fewer tokens to the model than a raw JSON tool result.
+- **It connects to shell agents in one step.** A coding agent (Claude Code, Cursor,
+  Codex) installs the binary, sets an API token, and runs commands — no OAuth flow, no
+  browser, no host configuration. The official MCP uses OAuth 2.0 with a redirect-URI
+  allow-list that only accepts known interactive hosts (`claude.ai` web, Claude Desktop)
+  and rejects loopback (`localhost`/`127.0.0.1`) callbacks, so it does not wire into a
+  terminal agent like Claude Code. With `alegra-cli`, the same token also works in CI,
+  cron, and scripts, where an interactive OAuth login is not possible.
+- **Composable output.** An agent can pick `--columns`, pipe to `jq`, or `grep` — sending
+  far fewer tokens to the model than a raw JSON tool result.
 - **Safety is enforceable.** `--dry-run` previews the exact request on any command,
   `delete` asks for confirmation, and a shell can block destructive commands with hooks —
   so an autonomous agent *cannot* delete even if it tries.
 - **Two ways in for agents.** A coding agent with shell access uses the **skill** (it
   learns the golden rules and when to call each command); an MCP-protocol host uses
   **`alegra mcp`**, which exposes the same command tree as MCP tools.
+
+!!! note "On credentials"
+    Both tools handle credentials responsibly — they are not a point of difference.
+    `alegra-cli` keeps a long-lived API token in the OS keyring; the official MCP uses
+    short-lived OAuth tokens the model never sees. The real trade-off is reach: an API
+    token runs unattended (CI, cron, shell agents), while OAuth requires a one-time
+    interactive browser login.
 
 ## Resource coverage
 
@@ -66,8 +79,7 @@ terms, additional charges, and webhook subscriptions — plus electronic invoice
 too large to embed, they sync on demand from the SAT's published catalog data
 (`alegra catalog sync-sat`, offered automatically by `alegra init` on Mexican
 accounts) and are searched offline with `alegra catalog product-keys <query>`.
-The official MCP documents an equivalent tool, but its server returns no tools
-in practice.
+The official MCP documents an equivalent tool, behind its OAuth connection.
 
 ### Only in the official MCP
 - **Support Center** help-desk tickets (out of scope for an accounting CLI).
@@ -100,7 +112,7 @@ They serve different niches; both are valid.
 | Your situation | Best fit |
 | --- | --- |
 | Coding agent with shell access (Claude Code, Cursor, Codex) | **alegra-cli + skill** |
-| Claude Desktop or another MCP host without a shell | Official MCP, or `alegra mcp` |
+| Interactive MCP host that runs an OAuth login (claude.ai web, Claude Desktop) | Official MCP, or `alegra mcp` |
 | Scripts, CI/CD, cron jobs | **alegra-cli** (pipes, exit codes, env vars) |
 | Autonomous agent touching production data | **alegra-cli** (dry-run, confirmations, hooks) |
 | Electronic invoice emission | **alegra-cli** |
