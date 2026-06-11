@@ -130,6 +130,7 @@ They serve different niches; both are valid.
 | Electronic invoice emission | **alegra-cli** |
 | Working interactively in a terminal | **alegra-cli** |
 
-Because `alegra-cli`'s MCP server is generated from its command tree, its agent-facing
-coverage equals the CLI's: anything you can run in the terminal is available to an agent.
-See [Agent Skill](../user-guide/agent-skill.md) and [MCP Server](../user-guide/mcp.md).
+Because `alegra-cli`'s MCP server is generated from its command tree, every accounting
+operation you can run in the terminal is available to an agent (local setup and credential
+commands stay out of the tool surface). See [Agent Skill](../user-guide/agent-skill.md),
+[MCP Server](../user-guide/mcp.md), and [Agent Safety](../user-guide/agent-safety.md).

@@ -6,6 +6,16 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [0.9.1] - 2026-06-11
+
+### Fixed
+- **`alegra mcp` no longer exposes local setup/meta commands as tools.** The
+  command tree drives the tool surface, which meant `agent`, `skills`, `auth`,
+  `config`, `alias`, and `init` showed up as MCP tools even though an agent has
+  no business calling them (e.g. `alegra agent guard`, which generates the
+  agent's own safety config). The tool surface is now scoped to accounting
+  operations (302 tools); `mcp`/`completion`/`help` were already excluded.
+
 ## [0.9.0] - 2026-06-11
 
 Agent safety release: make it easy to stop an AI agent from running destructive

@@ -135,7 +135,8 @@ Sirven a nichos distintos; ambos son válidos.
 | Emisión de facturas electrónicas | **alegra-cli** |
 | Trabajar de forma interactiva en una terminal | **alegra-cli** |
 
-Como el servidor MCP de `alegra-cli` se genera a partir de su árbol de comandos, su
-cobertura de cara al agente equivale a la de la CLI: cualquier cosa que puedas ejecutar en la
-terminal está disponible para un agente. Mira [Agent Skill](../user-guide/agent-skill.md) y
-[MCP Server](../user-guide/mcp.md).
+Como el servidor MCP de `alegra-cli` se genera a partir de su árbol de comandos, cada
+operación contable que puedas ejecutar en la terminal está disponible para un agente (los
+comandos locales de setup y credenciales quedan fuera de la superficie de tools). Mira
+[Skill para agentes](../user-guide/agent-skill.md), [Servidor MCP](../user-guide/mcp.md) y
+[Seguridad para agentes](../user-guide/agent-safety.md).
