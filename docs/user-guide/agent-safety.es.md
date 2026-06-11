@@ -23,6 +23,29 @@ El resumen honesto: **la capa 1 hace que los buenos hosts se porten bien por
 defecto, pero no es un límite de seguridad. La capa 2 es la que de verdad
 bloquea.** Usa ambas.
 
+## La vía rápida: `alegra agent guard`
+
+`alegra` te genera la config de la capa 2, con las operaciones destructivas
+derivadas del árbol de comandos en vivo (así la lista siempre está completa):
+
+```bash
+alegra agent guard --host claude-code   # imprime settings.json + el hook PreToolUse
+alegra agent guard --host codex         # imprime config.toml
+alegra agent guard --host opencode      # imprime opencode.json
+```
+
+Por defecto **bloquea de forma definitiva las acciones irreversibles** (`delete`,
+`void`, `emit`, `stamp`, `close`, y las acciones `*-delete`) y hace que las
+escrituras normales (`create`, `update`, `import`) **requieran aprobación**; las
+lecturas quedan permitidas. Flags:
+
+- `--all-writes` — bloquea toda escritura, no solo las irreversibles.
+- `--write` — instala los archivos en vez de imprimirlos (nunca sobreescribe una
+  config existente; esa la imprime para que la mergees).
+
+Revisa la salida, pégala en tu host y listo. El resto de la página explica qué
+genera y cómo ajustarla a mano.
+
 ## Qué cuenta como destructivo
 
 Las operaciones de lectura de `alegra` son `list`, `get` y `export` (más

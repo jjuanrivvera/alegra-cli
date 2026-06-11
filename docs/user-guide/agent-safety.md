@@ -22,6 +22,28 @@ Be clear about what each layer actually does:
 The honest summary: **layer 1 makes good hosts behave well by default, but it is
 not a security boundary. Layer 2 is what actually blocks.** Use both.
 
+## The quick way: `alegra agent guard`
+
+`alegra` generates the layer-2 config for you, with the destructive operations
+derived from the live command tree (so the list is always complete):
+
+```bash
+alegra agent guard --host claude-code   # prints settings.json + the PreToolUse hook
+alegra agent guard --host codex         # prints config.toml
+alegra agent guard --host opencode      # prints opencode.json
+```
+
+By default it **hard-blocks the irreversible actions** (`delete`, `void`,
+`emit`, `stamp`, `close`, and the `*-delete` actions) and makes ordinary writes
+(`create`, `update`, `import`) **require approval**; reads stay allowed. Flags:
+
+- `--all-writes` — block every write, not just the irreversible ones.
+- `--write` — install the files instead of printing them (it never overwrites an
+  existing config; it prints that one for you to merge).
+
+Review the output, drop it into your host, and you're done. The rest of this
+page explains what it generates and how to tune it by hand.
+
 ## What counts as destructive
 
 `alegra` read operations are `list`, `get`, and `export` (plus `catalog`,
