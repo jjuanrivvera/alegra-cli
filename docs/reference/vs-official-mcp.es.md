@@ -52,7 +52,7 @@ persona escribiendo comandos. El razonamiento está expuesto en el post
 - **La seguridad es aplicable.** `--dry-run` previsualiza la petición exacta en cualquier
   comando, `delete` pide confirmación, y un shell puede bloquear comandos destructivos con
   hooks — de modo que un agente autónomo *no puede* borrar aunque lo intente. Mira
-  [Seguridad para agentes](../user-guide/agent-safety.md) para el gateo por host (Claude
+  [Seguridad para agentes](../user-guide/agent-safety.md) para el control por host (Claude
   Code, Codex, OpenCode).
 - **Dos vías de entrada para agentes.** Un agente de código con acceso al shell usa la
   **skill** (aprende las reglas de oro y cuándo llamar a cada comando); un host del

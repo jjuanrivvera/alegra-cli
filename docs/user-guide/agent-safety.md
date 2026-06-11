@@ -16,11 +16,20 @@ Be clear about what each layer actually does:
 | Layer | Mechanism | What it does | Enforces? |
 | --- | --- | --- | --- |
 | 1. Tool annotations | `alegra mcp` marks each tool read-only or destructive | Lets an annotation-aware host gate writes on its own | **Advisory** — depends on the host |
-| 2. Host config | deny / ask rules and hooks in the agent | Blocks or prompts before a command/tool runs | **Yes** — this is the real gate |
+| 2. Host config | deny / ask rules **and a PreToolUse hook** | The hook inspects the real command and can't be dodged by shell tricks — the definitive block | **Yes** — this is the real gate |
 | 3. CLI built-ins | `--dry-run`, `delete` confirmation | Preview and a manual confirm in a terminal | Shell only (not the MCP surface) |
 
 The honest summary: **layer 1 makes good hosts behave well by default, but it is
 not a security boundary. Layer 2 is what actually blocks.** Use both.
+
+!!! tip "The hook is the layer that can't be bypassed"
+    Permission `deny`/`ask` globs are easy to read, but a crafted shell command
+    can dodge them (quoting, subshells, `&&`). A **PreToolUse hook** runs your
+    code against the *actual* command or tool before it executes, so it is the
+    layer that **definitively** blocks — on both the shell and MCP surfaces.
+    `alegra agent guard --host claude-code` generates it for you. (Hooks are a
+    Claude Code feature; Codex blocks with a read-only sandbox, OpenCode with
+    `deny` rules.)
 
 ## The quick way: `alegra agent guard`
 
@@ -103,9 +112,11 @@ Use `"ask"` instead of `"deny"` to require approval rather than hard-block. A
 denied command never runs; in a headless/CI session `ask` also fails closed
 (no human to approve → blocked).
 
-Glob patterns can be dodged with shell tricks (quoting, subshells, `&&`). For a
-real gate, add a **PreToolUse hook** that inspects the actual command. Create
-`.claude/hooks/block-alegra-writes.sh`:
+**The definitive block is a PreToolUse hook.** The `deny` globs above help, but
+a crafted shell command can dodge them (quoting, subshells, `&&`); a hook runs
+your code against the actual command before it executes, so it cannot be
+bypassed — and the same hook also covers the MCP surface. This is the most
+important piece on Claude Code. Create `.claude/hooks/block-alegra-writes.sh`:
 
 ```bash
 #!/usr/bin/env bash

@@ -3,7 +3,7 @@ title: Seguridad para agentes
 description: Evita que un agente de IA ejecute operaciones contables destructivas, con hooks y configuración por host para Claude Code, Codex y OpenCode.
 ---
 
-# Seguridad para agentes: gatear operaciones destructivas
+# Seguridad para agentes: controlar operaciones destructivas
 
 Dejar que un agente de IA toque tu contabilidad es útil pero riesgoso: puede
 crear facturas, registrar pagos, eliminar registros y emitir facturas
@@ -15,13 +15,22 @@ Ten claro qué hace cada capa:
 
 | Capa | Mecanismo | Qué hace | ¿Hace cumplir? |
 | --- | --- | --- | --- |
-| 1. Anotaciones de tools | `alegra mcp` marca cada tool como solo lectura o destructiva | Permite que un host que respete anotaciones gatee las escrituras solo | **Advisoria** — depende del host |
-| 2. Config del host | reglas deny / ask y hooks en el agente | Bloquea o pide aprobación antes de ejecutar un comando/tool | **Sí** — esta es la barrera real |
+| 1. Anotaciones de tools | `alegra mcp` marca cada tool como solo lectura o destructiva | Permite que un host que respete anotaciones controle las escrituras por su cuenta | **Advisoria** — depende del host |
+| 2. Config del host | reglas deny / ask **y un hook PreToolUse** | El hook inspecciona el comando real y no se esquiva con trucos del shell — el bloqueo definitivo | **Sí** — esta es la barrera real |
 | 3. Built-ins del CLI | `--dry-run`, confirmación de `delete` | Previsualización y confirmación manual en una terminal | Solo shell (no la superficie MCP) |
 
 El resumen honesto: **la capa 1 hace que los buenos hosts se porten bien por
 defecto, pero no es un límite de seguridad. La capa 2 es la que de verdad
 bloquea.** Usa ambas.
+
+!!! tip "El hook es la capa que no se puede esquivar"
+    Los globs de `deny`/`ask` son fáciles de leer, pero un comando de shell bien
+    armado puede esquivarlos (comillas, subshells, `&&`). Un **hook PreToolUse**
+    corre tu código contra el comando o tool *real* antes de ejecutarlo, así que
+    es la capa que **bloquea de forma definitiva** — en las superficies shell y
+    MCP. `alegra agent guard --host claude-code` te lo genera. (Los hooks son una
+    función de Claude Code; Codex bloquea con un sandbox de solo lectura,
+    OpenCode con reglas `deny`.)
 
 ## La vía rápida: `alegra agent guard`
 
@@ -64,7 +73,7 @@ Lo que eso te da depende por completo del host:
 
 - Un host que respeta anotaciones (p. ej. **Codex**) pedirá aprobación para las
   tools destructivas y dejará correr las de solo lectura, automáticamente.
-- Un host que gatea por nombre de tool (p. ej. **Claude Code**) ignora la
+- Un host que controla por nombre de tool (p. ej. **Claude Code**) ignora la
   anotación para las decisiones de permiso — ahí configuras reglas (capa 2).
 
 Las anotaciones son advisorias según la spec de MCP: un host que las ignore
@@ -80,7 +89,7 @@ ejecuta todo. Nunca reemplazan la capa 2.
 
 ### Claude Code
 
-Claude Code gatea por **nombre de tool/comando**, y **`deny` siempre le gana a
+Claude Code controla por **nombre de tool/comando**, y **`deny` siempre le gana a
 `allow`**. Pon esto en el `.claude/settings.json` del proyecto (compartido con
 el equipo) o en `~/.claude/settings.json` (todos los proyectos).
 
@@ -106,9 +115,12 @@ Usa `"ask"` en vez de `"deny"` para pedir aprobación en lugar de bloquear de
 plano. Un comando denegado nunca corre; en una sesión headless/CI `ask` también
 falla cerrado (sin humano que apruebe → bloqueado).
 
-Los patrones glob se pueden esquivar con trucos del shell (comillas, subshells,
-`&&`). Para una barrera real, agrega un **hook PreToolUse** que inspeccione el
-comando real. Crea `.claude/hooks/block-alegra-writes.sh`:
+**El bloqueo definitivo es un hook PreToolUse.** Los globs de `deny` de arriba
+ayudan, pero un comando de shell bien armado puede esquivarlos (comillas,
+subshells, `&&`); un hook corre tu código contra el comando real antes de
+ejecutarlo, así que no se puede esquivar — y el mismo hook cubre también la
+superficie MCP. Esta es la pieza más importante en Claude Code. Crea
+`.claude/hooks/block-alegra-writes.sh`:
 
 ```bash
 #!/usr/bin/env bash
@@ -167,13 +179,13 @@ vez de intentar hacer allow-list de las lecturas:
 Los patrones de permiso MCP se evalúan como expresiones regulares, así que el
 `.*` y el grupo `(...)` funcionan tal cual; las tools de lectura (`..._list`,
 `..._get`, `..._export`) quedan intactas. Un hook PreToolUse también puede
-gatear tools MCP — pon `"matcher": "mcp__alegra__.*"` e inspecciona
+controlar tools MCP — pon `"matcher": "mcp__alegra__.*"` e inspecciona
 `.tool_name` en el script para semántica de allow-list (deniega cualquier cosa
 que no sea un verbo de lectura).
 
 ### Codex
 
-Codex gatea con dos ajustes en `config.toml` (`~/.codex/config.toml`):
+Codex controla con dos ajustes en `config.toml` (`~/.codex/config.toml`):
 `sandbox_mode` y `approval_policy`.
 
 **Superficie shell** — la barrera más fuerte y simple es quitar el acceso de
@@ -204,7 +216,7 @@ nada que aprobar.
 
 ### OpenCode
 
-OpenCode gatea con un bloque `permission` en `opencode.json`. Cada regla es
+OpenCode controla con un bloque `permission` en `opencode.json`. Cada regla es
 `"allow"`, `"ask"` o `"deny"`, y **gana el último patrón que coincide**, así que
 pon el comodín primero y las denegaciones específicas después.
 
