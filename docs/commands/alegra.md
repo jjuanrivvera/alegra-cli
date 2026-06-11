@@ -36,6 +36,7 @@ or set ALEGRA_EMAIL and ALEGRA_TOKEN in the environment.
 ### SEE ALSO
 
 * [alegra additional-charges](alegra_additional-charges.md)	 - Manage additional charges (tips and parafiscal contributions)
+* [alegra agent](alegra_agent.md)	 - Helpers for running alegra under an AI agent
 * [alegra alias](alegra_alias.md)	 - Save and manage command aliases
 * [alegra auth](alegra_auth.md)	 - Manage Alegra API authentication
 * [alegra bank-accounts](alegra_bank-accounts.md)	 - Manage bank accounts (bank, credit card, and cash accounts)
