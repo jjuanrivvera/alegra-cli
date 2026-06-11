@@ -7,10 +7,10 @@ is built **agent-first** as a command-line tool that AI agents drive directly �
 page compares the two so you can pick the right fit.
 
 !!! note "Snapshot"
-    Reflects the official MCP server's publicly documented tool set and `alegra-cli`
-    **v0.8.1**, verified **2026-06-11**. Both wrap the same Alegra v1 API and both require
-    network access to it. Alegra may change its MCP over time — treat this as a
-    point-in-time snapshot.
+    Reflects the official MCP server's **live deployed tool set (49 read-only tools)** and
+    `alegra-cli` **v0.8.1**, verified **2026-06-11** by connecting to `mcp.alegra.com`.
+    Both wrap the same Alegra v1 API and both require network access to it. Alegra may
+    change its MCP over time — treat this as a point-in-time snapshot.
 
 ## At a glance
 
@@ -24,7 +24,8 @@ page compares the two so you can pick the right fit.
 | Output | Structured JSON tool results | table / JSON / YAML / CSV — composable with `jq` and pipes (fewer tokens for an agent) |
 | Agent safety controls | Host-dependent | `--dry-run` on any command, interactive confirm on `delete`, restrictable via shell hooks |
 | Human (terminal) use | — | First-class |
-| Resource coverage | ~24 resource areas | 45+ resources |
+| Resource coverage | 17 areas (49 tools) | 45+ resources |
+| Writes (create / update / delete) | Not exposed — read-only | Yes |
 | Invoice emission (stamp / void / email) | Not exposed | Yes |
 
 ## Built agent-first
@@ -58,43 +59,48 @@ typing commands. The rationale is laid out in the post
 
 ## Resource coverage
 
-Both wrap the same Alegra v1 API but expose different slices of it.
+Both wrap the same Alegra v1 API but expose different slices of it. The key difference:
+the official MCP's 49 tools are all **read-only** (`get…`/`list…`), while `alegra-cli`
+reads *and* writes.
 
-### Covered by both
+### Read by both, written only by alegra-cli
 Contacts; items (with per-warehouse stock via `items stock`) and the inventory family
 (item categories, variant attributes, warehouses, transfers, price lists, adjustments and
-numerations, custom fields); bank accounts; reconciliations; journals; cost centers;
-taxes; retentions; currencies; sellers; invoices (read/write); bills (with attachments,
-comments, advances, and perceptions/retentions); supplier debit notes; purchase orders;
-payments; sales reports; and country reference catalogs — units of measure and reference
-enums via `alegra catalog` (embedded per country).
+numerations, custom fields); bank accounts and reconciliations; invoices; the expenses
+family (bills, supplier debit notes, purchase orders, outgoing payments); sales reports;
+and the units / SAT product-key reference catalogs. The official MCP exposes these
+**read-only**; `alegra-cli` also creates, updates, and deletes them.
 
 ### Only in alegra-cli
-Estimates, credit notes, customer debit notes, remissions, transportation receipts,
-global invoices (CFDI), recurring invoices and payments, document numberings, payment
-terms, additional charges, and webhook subscriptions — plus electronic invoice emission
-(see below).
+Resources the official MCP does not expose at all: journals, cost centers, taxes,
+retentions, currencies, sellers, estimates, credit notes, customer (income) debit notes,
+remissions, transportation receipts, global invoices (CFDI), recurring invoices and
+payments, document numberings, payment terms, additional charges, incoming payments, and
+webhook subscriptions. Plus every write operation and electronic invoice emission (see
+below).
 
-**SAT product keys** (`claveProdServ`, ~52k Mexico-specific entries) are covered too:
-too large to embed, they sync on demand from the SAT's published catalog data
-(`alegra catalog sync-sat`, offered automatically by `alegra init` on Mexican
-accounts) and are searched offline with `alegra catalog product-keys <query>`.
-The official MCP documents an equivalent tool, behind its OAuth connection.
+**SAT product keys** (`claveProdServ`, ~52k Mexico-specific entries): the official MCP
+exposes a read-only `config_getProductKeys` tool. `alegra-cli` syncs the SAT's published
+catalog on demand (`alegra catalog sync-sat`, offered by `alegra init` on Mexican
+accounts) and searches it offline with `alegra catalog product-keys <query>`, no
+connection needed.
 
 ### Only in the official MCP
-- **Support Center** help-desk tickets (out of scope for an accounting CLI).
+- **Support Center** help-desk helpers and **Task Manager** (tasks) — out of scope for an
+  accounting CLI.
 
 ## Capability differences that matter
 
-**Electronic invoicing.** The official MCP's invoice tools cover create/read/update/
-delete; they do not expose `stamp`, `void`, `email`, `open`, or `preview`. Emitting an
-electronic invoice to DIAN/SAT, voiding, or emailing it is done with `alegra-cli`
+**Electronic invoicing.** The official MCP's invoice tools are read-only
+(`getInvoices`, `getInvoiceById`/`ByNumber`, plus an exportable-document generator). It
+cannot create, update, `stamp`, `void`, or `email` an invoice. Emitting an electronic
+invoice to DIAN/SAT, voiding, or emailing it is done with `alegra-cli`
 (`alegra invoices stamp|void|email …`) or the REST API directly. If electronic emission
 is part of your workflow, the CLI covers the full cycle.
 
-**Payments.** The official MCP splits payments into incoming and outgoing tool families;
-`alegra-cli` unifies them under one `payments` resource with a `type` flag, plus
-`stamp`/`void`/`open`.
+**Payments.** The official MCP exposes only **outgoing** payments, read-only, under its
+expenses tools. `alegra-cli` has a single `payments` resource covering both incoming and
+outgoing, with read, write, and `stamp`/`void`/`open`.
 
 **Reports.** The two report sets are complementary:
 
@@ -102,7 +108,7 @@ is part of your workflow, the CLI covers the full cycle.
 | --- | --- | --- |
 | Sales by client / totals | ✓ | ✓ |
 | Sales by seller | ✓ | ✓ |
-| Sales by seller totals · general sales · clients with items | ✓ | — |
+| Sales by seller totals · general sales | ✓ | — |
 | Account statement · income statement | — | ✓ |
 
 ## Which should I use?
@@ -111,8 +117,9 @@ They serve different niches; both are valid.
 
 | Your situation | Best fit |
 | --- | --- |
+| Read-only consulting of your data from claude.ai or Claude Desktop | **Official MCP** (purpose-built for it) |
 | Coding agent with shell access (Claude Code, Cursor, Codex) | **alegra-cli + skill** |
-| Interactive MCP host that runs an OAuth login (claude.ai web, Claude Desktop) | Official MCP, or `alegra mcp` |
+| An MCP host the official server doesn't support, or you need write tools | **alegra-cli**'s `alegra mcp` |
 | Scripts, CI/CD, cron jobs | **alegra-cli** (pipes, exit codes, env vars) |
 | Autonomous agent touching production data | **alegra-cli** (dry-run, confirmations, hooks) |
 | Electronic invoice emission | **alegra-cli** |
