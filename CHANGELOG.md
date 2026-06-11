@@ -6,6 +6,24 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [0.8.3] - 2026-06-11
+
+Docs-only release. No code changes.
+
+### Added
+- **Spanish documentation.** The docs site now ships in Spanish alongside
+  English via `mkdocs-static-i18n`, with a header language switcher and a fully
+  translated nav. All 21 hand-written pages are translated; the auto-generated
+  command reference stays English and falls back automatically.
+
+### Changed
+- **Sharpened the "vs. the official MCP" comparison.** Probing the official
+  server's OAuth registration endpoint showed a *closed* redirect-URI
+  allow-list: only Alegra's integration-partner callbacks (claude.ai and
+  ChatGPT) are accepted, while loopback, custom URI schemes, and arbitrary
+  HTTPS are rejected. So no terminal/CLI/self-hosted MCP client (Claude Code,
+  Cursor, OpenCode, OpenClaw, Hermes) can connect.
+
 ## [0.8.2] - 2026-06-11
 
 Docs-only release. No code changes.
