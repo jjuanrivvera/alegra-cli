@@ -8,11 +8,11 @@ servidor MCP (`alegra mcp`) y funciona para personas en una terminal. Esta pági
 ambos para que elijas el que mejor te encaje.
 
 !!! note "Foto del momento"
-    Refleja el **conjunto de herramientas desplegado en vivo del servidor MCP oficial (49
-    herramientas de solo lectura)** y `alegra-cli` **v0.8.1**, verificado el **2026-06-11**
-    conectándose a `mcp.alegra.com`. Ambos envuelven la misma API v1 de Alegra y ambos
-    requieren acceso de red a ella. Alegra puede cambiar su MCP con el tiempo — trátalo como
-    una foto de un momento puntual.
+    Refleja el **conjunto de herramientas en vivo del MCP oficial (66 herramientas de solo
+    lectura)** y `alegra-cli` **v0.9.2**, verificado el **2026-06-11** conectando el MCP
+    oficial vía claude.ai e inspeccionando cada tool. Ambos envuelven la misma API v1 de
+    Alegra y ambos requieren acceso de red a ella. Alegra puede cambiar su MCP con el
+    tiempo — trátalo como una foto de un momento puntual.
 
 ## De un vistazo
 
@@ -26,7 +26,7 @@ ambos para que elijas el que mejor te encaje.
 | Salida | Resultados de herramienta en JSON estructurado | tabla / JSON / YAML / CSV — combinable con `jq` y pipes (menos tokens para un agente) |
 | Controles de seguridad para agentes | Depende del host | `--dry-run` en cualquier comando, confirmación interactiva en `delete`, restringible con hooks del shell |
 | Uso humano (terminal) | — | De primera clase |
-| Cobertura de recursos | 17 áreas (49 herramientas) | 45+ recursos |
+| Cobertura de recursos | ~25 áreas (66 herramientas), todas de lectura | 45+ recursos |
 | Escrituras (create / update / delete) | No expuestas — solo lectura | Sí |
 | Emisión de facturas (stamp / void / email) | No expuesta | Sí |
 
@@ -69,25 +69,26 @@ persona escribiendo comandos. El razonamiento está expuesto en el post
 ## Cobertura de recursos
 
 Ambos envuelven la misma API v1 de Alegra pero exponen porciones distintas de ella. La
-diferencia clave: las 49 herramientas del MCP oficial son todas de **solo lectura**
+diferencia clave: las 66 herramientas del MCP oficial son **todas de solo lectura**
 (`get…`/`list…`), mientras que `alegra-cli` lee *y* escribe.
 
 ### Leídos por ambos, escritos solo por alegra-cli
-Contactos; ítems (con stock por bodega vía `items stock`) y la familia de inventario
-(categorías de ítems, atributos de variantes, bodegas, transferencias, listas de precios,
-ajustes y numeraciones, campos personalizados); cuentas bancarias y conciliaciones;
-facturas; la familia de gastos (facturas de compra, notas débito de proveedor, órdenes de
-compra, pagos salientes); reportes de ventas; y los catálogos de referencia de unidades /
-claves de producto del SAT. El MCP oficial los expone en **solo lectura**; `alegra-cli`
-además los crea, actualiza y elimina.
+El MCP oficial lee casi toda la API: contactos; ítems (con stock por bodega) y la familia
+de inventario (categorías de ítems, atributos de variantes, bodegas, transferencias, listas
+de precios, ajustes y numeraciones, campos personalizados); cuentas bancarias y
+conciliaciones; contabilidad (libros diarios, centros de costo, categorías del libro mayor);
+facturas; pagos entrantes y salientes; la familia de gastos (facturas de compra, notas
+débito de proveedor, órdenes de compra); impuestos; retenciones; monedas; vendedores;
+resoluciones/numeraciones; reportes de ventas; y los catálogos de referencia de unidades /
+claves de producto del SAT. Todos los expone en **solo lectura**; `alegra-cli` además los
+crea, actualiza y elimina.
 
 ### Solo en alegra-cli
-Recursos que el MCP oficial no expone en absoluto: libros diarios, centros de costo,
-impuestos, retenciones, monedas, vendedores, cotizaciones, notas crédito, notas débito de
-cliente (ingresos), remisiones, recibos de transporte, facturas globales (CFDI), facturas y
-pagos recurrentes, numeraciones de documentos, términos de pago, cargos adicionales, pagos
-entrantes y suscripciones a webhooks. Además de toda operación de escritura y la emisión de
-facturas electrónicas (ver más abajo).
+Recursos que el MCP oficial no expone en absoluto: cotizaciones, notas crédito, notas débito
+de cliente (ingresos), remisiones, recibos de transporte, facturas globales (CFDI), facturas
+y pagos recurrentes, términos de pago, cargos adicionales y suscripciones a webhooks. Además
+de **toda operación de escritura** en todos los recursos y la emisión de facturas
+electrónicas (ver más abajo).
 
 **Claves de producto del SAT** (`claveProdServ`, ~52k entradas específicas de México): el
 MCP oficial expone una herramienta de solo lectura `config_getProductKeys`. `alegra-cli`
@@ -108,9 +109,9 @@ factura electrónica a la DIAN/SAT, anularla o enviarla por correo se hace con `
 (`alegra invoices stamp|void|email …`) o con la API REST directamente. Si la emisión
 electrónica es parte de tu flujo de trabajo, la CLI cubre el ciclo completo.
 
-**Pagos.** El MCP oficial expone únicamente pagos **salientes**, en solo lectura, dentro de
-sus herramientas de gastos. `alegra-cli` tiene un único recurso `payments` que cubre tanto
-entrantes como salientes, con lectura, escritura y `stamp`/`void`/`open`.
+**Pagos.** El MCP oficial lee pagos entrantes (`incomePayments`) y salientes (pagos de la
+familia de gastos). `alegra-cli` los unifica en un único recurso `payments` y agrega
+escritura, `stamp`, `void` y `open`.
 
 **Reportes.** Los dos conjuntos de reportes son complementarios:
 
