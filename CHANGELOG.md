@@ -6,7 +6,17 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
-## [0.9.2] - 2026-06-11
+## [0.9.3] - 2026-06-11
+
+### Changed
+- Docs: corrected the "vs. the official MCP" comparison against the official
+  server's **actual** tool surface, captured by connecting it through claude.ai
+  and inspecting every tool. It exposes **66 read-only tools** (not 49 as a
+  partial earlier list suggested) covering almost the whole API — including
+  accounting, currencies, sellers, incoming payments, retentions, taxes, ledger
+  categories, and resolutions, which the page had wrongly listed as
+  alegra-cli-only. The read surface is broad; the difference remains that the
+  MCP writes nothing while alegra-cli reads and writes (plus emission). EN + ES.
 
 ### Changed
 - Docs: clearer Spanish in the Agent Safety guide — replaced the "gatear"
