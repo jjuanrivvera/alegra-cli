@@ -283,7 +283,11 @@ func newListCmd[T any](sp resourceSpec[T]) *cobra.Command {
 
 			var items []T
 			if lf.all {
-				items, err = res.ListAll(cmd.Context(), params, 0)
+				var truncated bool
+				items, truncated, err = res.ListAllChecked(cmd.Context(), params, 0)
+				if err == nil && truncated {
+					fmt.Fprintln(cmd.ErrOrStderr(), "warning: result stopped at the page cap and may be truncated; narrow with filters or a date range and re-run.")
+				}
 			} else {
 				items, err = res.List(cmd.Context(), params)
 			}
@@ -380,7 +384,7 @@ func newExportCmd[T any](sp resourceSpec[T]) *cobra.Command {
 				}
 				p.Extra.Set(k, v)
 			}
-			items, err := sp.New(client).ListAll(cmd.Context(), p, 0)
+			items, truncated, err := sp.New(client).ListAllChecked(cmd.Context(), p, 0)
 			if err != nil {
 				return err
 			}
@@ -389,6 +393,9 @@ func newExportCmd[T any](sp resourceSpec[T]) *cobra.Command {
 			// would otherwise clobber an existing file even though no request ran.
 			if flagDryRun {
 				return nil
+			}
+			if truncated {
+				fmt.Fprintln(cmd.ErrOrStderr(), "warning: export stopped at the page cap and may be incomplete; narrow with --param filters and re-run.")
 			}
 			w := cmd.OutOrStdout()
 			if outFile != "" {

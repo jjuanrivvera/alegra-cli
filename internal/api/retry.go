@@ -6,6 +6,7 @@ import (
 	"log/slog"
 	"math"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -110,10 +111,15 @@ func (p *RetryPolicy) backoff(attempt int, resp *http.Response) time.Duration {
 // 9110 form: delta-seconds ("120") or an HTTP-date ("Wed, 21 Oct 2025 07:28:00
 // GMT"). A past HTTP-date yields a non-positive duration, which callers treat as
 // "no usable hint" and fall back to exponential backoff.
+//
+// The seconds form is parsed as a plain number, NOT via time.ParseDuration with
+// an appended "s": that would misread a value carrying a stray unit — "1m" would
+// become "1ms" (1 millisecond) and "30s" would fail outright — so a misbehaving
+// proxy could trick the client into hammering the server.
 func parseRetryAfter(v string) (time.Duration, bool) {
 	v = strings.TrimSpace(v)
-	if d, err := time.ParseDuration(v + "s"); err == nil {
-		return d, true
+	if secs, err := strconv.ParseFloat(v, 64); err == nil && !math.IsNaN(secs) && !math.IsInf(secs, 0) {
+		return time.Duration(secs * float64(time.Second)), true
 	}
 	if t, err := http.ParseTime(v); err == nil {
 		return time.Until(t), true

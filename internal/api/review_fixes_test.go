@@ -7,10 +7,32 @@ import (
 	"strings"
 	"sync/atomic"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
+
+// TestParseRetryAfter_UnitSuffixNotMisread guards against the "+s" parsing hack:
+// a Retry-After carrying a stray unit ("1m") must not be misread as 1ms.
+func TestParseRetryAfter_UnitSuffixNotMisread(t *testing.T) {
+	d, ok := parseRetryAfter("30")
+	require.True(t, ok)
+	assert.Equal(t, 30*time.Second, d)
+
+	d, ok = parseRetryAfter("0.5") // fractional delta-seconds still works
+	require.True(t, ok)
+	assert.Equal(t, 500*time.Millisecond, d)
+
+	// Values carrying a unit are not valid RFC 9110 delta-seconds; they must be
+	// ignored (fall back to exponential), never misinterpreted.
+	_, ok = parseRetryAfter("1m")
+	assert.False(t, ok, `"1m" must not be parsed (the old code turned it into 1ms)`)
+	_, ok = parseRetryAfter("30s")
+	assert.False(t, ok)
+	_, ok = parseRetryAfter("NaN")
+	assert.False(t, ok)
+}
 
 // TestResource_Create_DoesNotRetryPOST pins finding H3: a non-idempotent POST
 // that fails transiently must surface the error rather than silently retrying,

@@ -110,6 +110,7 @@ func TestClaudeGuardHook_DenyAndAllow(t *testing.T) {
 	}{
 		{"bash void", `{"tool_name":"Bash","tool_input":{"command":"alegra invoices void 5"}}`, true},
 		{"bash quote-obfuscated void", `{"tool_name":"Bash","tool_input":{"command":"alegra invoices vo\"\"id 5"}}`, true},
+		{"bash newline-split void", `{"tool_name":"Bash","tool_input":{"command":"alegra invoices \nvoid 9"}}`, true},
 		{"bash delete", `{"tool_name":"Bash","tool_input":{"command":"alegra contacts delete 3"}}`, true},
 		{"bash list", `{"tool_name":"Bash","tool_input":{"command":"alegra contacts list"}}`, false},
 		{"mcp void", `{"tool_name":"mcp__server_alegra_invoices_void"}`, true},

@@ -100,13 +100,21 @@ func nativeNumbers(v any) any {
 		}
 		return t
 	case json.Number:
+		s := t.String()
 		if i, err := t.Int64(); err == nil {
 			return i
+		}
+		// A big integer that overflows int64 must NOT become a lossy float64 —
+		// that would silently corrupt a large Money/ledger total, the precision
+		// hazard the Money type exists to avoid. Keep its exact text; only
+		// genuinely fractional/scientific values fall through to float64.
+		if !strings.ContainsAny(s, ".eE") {
+			return s
 		}
 		if f, err := t.Float64(); err == nil {
 			return f
 		}
-		return t.String()
+		return s
 	default:
 		return v
 	}

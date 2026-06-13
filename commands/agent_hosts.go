@@ -96,31 +96,40 @@ func claudeHookScript(blocked []string) string {
 verbs='` + verbGroup(blocked) + `'
 input=$(cat)
 
-# deny emits the PreToolUse denial via printf (not jq) so it works even when jq
-# is absent.
-deny() {
+# deny_raw emits a denial with a FIXED reason via printf (no jq, no interpolation
+# → always valid JSON). Used by the no-jq fallback.
+deny_raw() {
   printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"deny","permissionDecisionReason":"%s"}}\n' "$1"
   exit 0
 }
 
 # Without jq we cannot isolate the tool name. Fail safe, not open: scan the raw
-# payload for an irreversible alegra verb and deny if present, rather than
-# silently allowing everything.
+# payload (newlines flattened) for an irreversible alegra verb and deny if
+# present, rather than silently allowing everything.
 if ! command -v jq >/dev/null 2>&1; then
   if printf '%s' "$input" | tr '\n' ' ' | grep -qiE "alegra.*${verbs}"; then
-    deny "alegra agent guard: irreversible operation blocked (jq unavailable; raw match)."
+    deny_raw "alegra agent guard: irreversible operation blocked (jq unavailable; raw match)."
   fi
   exit 0
 fi
+
+# deny emits the denial with a jq-escaped reason, so an interpolated value (e.g.
+# a tool name) can never break out of the JSON string.
+deny() {
+  jq -c -n --arg r "$1" '{hookSpecificOutput:{hookEventName:"PreToolUse",permissionDecision:"deny",permissionDecisionReason:$r}}'
+  exit 0
+}
 
 tool=$(printf '%s' "$input" | jq -r '.tool_name // empty')
 case "$tool" in
   Bash)
     cmd=$(printf '%s' "$input" | jq -r '.tool_input.command // empty')
     # Also test with quotes/backslashes stripped to defeat trivial obfuscation
-    # such as ` + "`alegra invoices vo\"\"id 1`" + ` (\042=" \047=' \134=\).
+    # such as ` + "`alegra invoices vo\"\"id 1`" + ` (\042=" \047=' \134=\), and
+    # flatten newlines so a verb split across lines can't slip past the
+    # line-oriented grep.
     stripped=$(printf '%s' "$cmd" | tr -d '\042\047\134')
-    if printf '%s\n%s' "$cmd" "$stripped" | grep -qiE "\balegra\b.*\b${verbs}\b"; then
+    if printf '%s\n%s' "$cmd" "$stripped" | tr '\n' ' ' | grep -qiE "\balegra\b.*\b${verbs}\b"; then
       deny "alegra agent guard: irreversible operation blocked (${verbs})."
     fi
     ;;

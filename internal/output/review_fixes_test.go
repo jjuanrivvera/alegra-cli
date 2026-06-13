@@ -2,9 +2,27 @@ package output
 
 import (
 	"bytes"
+	"encoding/json"
 	"strings"
 	"testing"
 )
+
+// TestRenderYAML_LargeIntKeepsExactDigits guards F4: an integer that overflows
+// int64 must keep its exact text in YAML, not be demoted to a lossy float64.
+func TestRenderYAML_LargeIntKeepsExactDigits(t *testing.T) {
+	var buf bytes.Buffer
+	data := map[string]any{"big": json.Number("99999999999999999999")}
+	if err := Render(&buf, data, FormatYAML, nil); err != nil {
+		t.Fatal(err)
+	}
+	out := buf.String()
+	if !strings.Contains(out, "99999999999999999999") {
+		t.Errorf("large integer must keep its exact digits; got:\n%s", out)
+	}
+	if strings.Contains(out, "1e+20") || strings.Contains(out, "1e20") {
+		t.Errorf("large integer must not be demoted to a lossy float; got:\n%s", out)
+	}
+}
 
 // TestRenderYAML_NumbersAreNotQuoted pins finding M3: YAML output must emit
 // numbers as numbers, not quoted strings, matching the JSON renderer.
