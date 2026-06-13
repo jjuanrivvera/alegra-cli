@@ -52,6 +52,16 @@ func (p ListParams) values(defaultLimit int) url.Values {
 	return v
 }
 
+// cloneValues returns a copy of v that is safe to mutate (Set/Add on the copy
+// never touches the caller's map). A nil input yields a usable empty map.
+func cloneValues(v url.Values) url.Values {
+	out := make(url.Values, len(v))
+	for k, vals := range v {
+		out[k] = append([]string(nil), vals...)
+	}
+	return out
+}
+
 // effectiveLimit reports the page size that values() would apply.
 func (p ListParams) effectiveLimit(defaultLimit int) int {
 	limit := p.Limit

@@ -60,7 +60,7 @@ func runDoctor(cmd *cobra.Command) error {
 	}
 	ok("credentials", tokenSrc)
 
-	client, err := getAPIClient()
+	client, err := getAPIClient(cmd)
 	if err != nil {
 		bad("client", err.Error())
 		return err

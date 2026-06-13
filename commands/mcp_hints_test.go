@@ -36,6 +36,9 @@ func TestMCPHints(t *testing.T) {
 		{"catalog"}, {"catalog", "product-keys"},
 		{"reports", "sales-by-client"}, {"reports", "account-statement"},
 		{"doctor"}, {"version"},
+		// Read-only custom GET subcommands that must opt back in to read-only
+		// hints rather than defaulting to destructive (M1).
+		{"journals", "balance"}, {"users", "self"}, {"categories", "settings"},
 	}
 	for _, p := range readOnly {
 		c := find(t, p...)
@@ -46,6 +49,8 @@ func TestMCPHints(t *testing.T) {
 	destructive := []([]string){
 		{"contacts", "delete"}, {"contacts", "update"},
 		{"invoices", "void"}, {"invoices", "emit"},
+		// The PUT counterpart of categories settings must stay destructive (M1).
+		{"categories", "set-settings"},
 	}
 	for _, p := range destructive {
 		c := find(t, p...)

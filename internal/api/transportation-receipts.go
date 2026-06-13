@@ -30,12 +30,15 @@ type TransportationReceiptItem struct {
 	Unit        string `json:"unit,omitempty"`
 	Description string `json:"description,omitempty"`
 	Reference   string `json:"reference,omitempty"`
-	Quantity    string `json:"quantity,omitempty"`
-	ProductKey  string `json:"productKey,omitempty"`
-	Price       Money  `json:"price,omitempty"`
-	Total       Money  `json:"total,omitempty"`
-	Subtotal    Money  `json:"subtotal,omitempty"`
-	Weight      string `json:"weight,omitempty"`
+	// Quantity and Weight use Money (number-or-string tolerant) like every other
+	// line-item numeric field; plain string would fail to decode when Alegra
+	// returns them as JSON numbers (L7).
+	Quantity   Money  `json:"quantity,omitempty"`
+	ProductKey string `json:"productKey,omitempty"`
+	Price      Money  `json:"price,omitempty"`
+	Total      Money  `json:"total,omitempty"`
+	Subtotal   Money  `json:"subtotal,omitempty"`
+	Weight     Money  `json:"weight,omitempty"`
 }
 
 // TransportationReceipts returns a typed handle to the /transportation-receipts resource.

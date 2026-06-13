@@ -38,7 +38,7 @@ An invoice becomes fiscal/electronic when it carries a numberTemplate.id and sta
 * [alegra invoices create](alegra_invoices_create.md)	 - Create a invoice
 * [alegra invoices delete](alegra_invoices_delete.md)	 - Delete a invoice by ID
 * [alegra invoices email](alegra_invoices_email.md)	 - Email an invoice
-* [alegra invoices emit](alegra_invoices_emit.md)	 - Emit (stamp) draft/open invoices electronically, in batches of 10
+* [alegra invoices emit](alegra_invoices_emit.md)	 - Emit (stamp) draft invoices electronically, in batches of 10
 * [alegra invoices export](alegra_invoices_export.md)	 - Export all invoices to CSV or JSON
 * [alegra invoices get](alegra_invoices_get.md)	 - Get a single invoice by ID
 * [alegra invoices import](alegra_invoices_import.md)	 - Bulk-create invoices from a CSV file

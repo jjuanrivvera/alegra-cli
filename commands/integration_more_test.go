@@ -101,7 +101,9 @@ func TestIntegration_ExtendedCommands(t *testing.T) {
 		require.NoError(t, os.WriteFile(csvFile, []byte("name\nBeta\nGamma\n"), 0o600))
 		out, err := runRoot(t, "contacts", "import", "-f", csvFile)
 		require.NoError(t, err)
-		assert.Contains(t, out, "2") // created count
+		// Assert the exact tally, not just a stray "2": "Imported 0, failed 2"
+		// would also contain "2" (T5).
+		assert.Contains(t, out, "Imported 2, failed 0")
 	})
 
 	t.Run("emit explicit id", func(t *testing.T) {

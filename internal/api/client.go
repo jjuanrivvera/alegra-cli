@@ -239,7 +239,7 @@ func (c *Client) do(ctx context.Context, method, path string, query url.Values, 
 			)
 		}
 
-		if c.retryPolicy.shouldRetry(resp, err) && attempt < c.retryPolicy.MaxRetries {
+		if c.retryPolicy.shouldRetry(method, resp, err) && attempt < c.retryPolicy.MaxRetries {
 			if resp != nil && resp.StatusCode == http.StatusTooManyRequests {
 				c.rateLimiter.Throttle()
 			}
@@ -257,6 +257,12 @@ func (c *Client) do(ctx context.Context, method, path string, query url.Values, 
 		}
 
 		if err != nil {
+			// http.Client.Do can return a non-nil response together with a
+			// non-nil error (e.g. a redirect-policy failure), so close the body
+			// before abandoning the request to avoid leaking the connection.
+			if resp != nil {
+				_ = resp.Body.Close()
+			}
 			return nil, fmt.Errorf("alegra: request failed: %w", err)
 		}
 
@@ -323,11 +329,15 @@ func (c *Client) printCurl(method, rawURL string, body []byte) {
 	b.WriteString(shellQuote(rawURL))
 	b.WriteString(" \\\n  -H 'Accept: application/json'")
 
+	// --show-token reveals the auth scheme but never the live secret: the Basic
+	// branch already emits a placeholder, and printing a real bearer token here
+	// would leak a long-lived credential into terminal scrollback, CI logs, and
+	// shell history. Both schemes are redacted to keep that boundary symmetric.
 	auth := "<redacted>"
 	if c.showToken {
 		switch {
 		case c.bearerToken != "":
-			auth = "Bearer " + c.bearerToken
+			auth = "Bearer <token>"
 		default:
 			auth = "Basic <base64(email:token)>"
 		}

@@ -30,11 +30,32 @@ func TestInferValue(t *testing.T) {
 	assert.Equal(t, true, inferValue("true"))
 	assert.Equal(t, false, inferValue("false"))
 	assert.Nil(t, inferValue("null"))
-	assert.Equal(t, 42.0, inferValue("42"))
+	// Clean integers stay integers (int64), not float64 — so large values keep
+	// full precision (H2).
+	assert.Equal(t, int64(42), inferValue("42"))
+	assert.Equal(t, int64(-7), inferValue("-7"))
+	assert.Equal(t, int64(123456789012345678), inferValue("123456789012345678"))
+	// Genuine decimals coerce to float64.
+	assert.Equal(t, 1.5, inferValue("1.5"))
 	assert.Equal(t, "plain", inferValue("plain"))
 	assert.Equal(t, "quoted", inferValue(`"quoted"`))
 	assert.Equal(t, []any{1.0, 2.0}, inferValue(`[1,2]`))
 	assert.Equal(t, map[string]any{"id": 1.0}, inferValue(`{"id":1}`))
+
+	// H2: identifiers that look numeric but must NOT be silently rewritten stay
+	// as strings — leading zeros, a leading "+", underscores, scientific forms
+	// that change the digits, trailing-zero decimals, and NaN/Inf.
+	for _, s := range []string{
+		"007123456",               // leading zeros (NIT/account number)
+		"+44",                     // leading plus
+		"1_000",                   // underscore separator
+		"1.5e2",                   // scientific form (would become 150)
+		"1.50",                    // trailing zero would be dropped
+		"99999999999999999999999", // beyond int64/float64 exact range
+		"NaN", "Inf", "-Inf", "Infinity",
+	} {
+		assert.Equal(t, s, inferValue(s), "inferValue(%q) must stay a string", s)
+	}
 }
 
 func TestBodyFlags_Build(t *testing.T) {

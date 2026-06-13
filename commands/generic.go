@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"math"
 	"net/url"
 	"os"
 	"reflect"
@@ -227,7 +228,7 @@ func newListCmd[T any](sp resourceSpec[T]) *cobra.Command {
 		Args:    cobra.NoArgs,
 		Example: listExample(sp),
 		RunE: func(cmd *cobra.Command, _ []string) error {
-			client, err := getAPIClient()
+			client, err := getAPIClient(cmd)
 			if err != nil {
 				return err
 			}
@@ -265,7 +266,7 @@ func newListCmd[T any](sp resourceSpec[T]) *cobra.Command {
 				params.Extra.Set("date_before", d)
 			}
 			for _, f := range sp.ListFilters {
-				if v := filterVals[f.Query]; v != nil && *v != "" {
+				if v := filterVals[f.Flag]; v != nil && *v != "" {
 					params.Extra.Set(f.Query, *v)
 				}
 			}
@@ -321,7 +322,9 @@ func newListCmd[T any](sp resourceSpec[T]) *cobra.Command {
 			droppedListFilters = append(droppedListFilters, fmt.Sprintf("%s: --%s collides with a built-in or duplicate flag", sp.Use, f.Flag))
 			continue
 		}
-		filterVals[f.Query] = fs.String(f.Flag, "", f.Usage)
+		// Key by the (unique) flag, not the query: two filters sharing a query
+		// would otherwise overwrite each other here and silently drop one (L9).
+		filterVals[f.Flag] = fs.String(f.Flag, "", f.Usage)
 		// Enum-valued filters (e.g. --status open|closed|void) complete their values.
 		if vals := filterEnum(f); len(vals) > 0 {
 			_ = cmd.RegisterFlagCompletionFunc(f.Flag, fixedCompleter(vals...))
@@ -365,7 +368,7 @@ func newExportCmd[T any](sp resourceSpec[T]) *cobra.Command {
 			"  alegra " + sp.Use + " export --param status=open",
 		Args: cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, _ []string) error {
-			client, err := getAPIClient()
+			client, err := getAPIClient(cmd)
 			if err != nil {
 				return err
 			}
@@ -380,6 +383,12 @@ func newExportCmd[T any](sp resourceSpec[T]) *cobra.Command {
 			items, err := sp.New(client).ListAll(cmd.Context(), p, 0)
 			if err != nil {
 				return err
+			}
+			// In dry-run the client already printed the equivalent curl; never
+			// create/truncate the output file or write an (empty) export. os.Create
+			// would otherwise clobber an existing file even though no request ran.
+			if flagDryRun {
+				return nil
 			}
 			w := cmd.OutOrStdout()
 			if outFile != "" {
@@ -397,7 +406,7 @@ func newExportCmd[T any](sp resourceSpec[T]) *cobra.Command {
 			if err := output.Render(w, items, output.Format(format), cols); err != nil {
 				return err
 			}
-			if outFile != "" && !flagDryRun {
+			if outFile != "" {
 				fmt.Fprintf(cmd.ErrOrStderr(), "Exported %d %s to %s\n", len(items), sp.Use, outFile)
 			}
 			return nil
@@ -462,7 +471,7 @@ failures are reported and do not stop the run.`,
 			}
 			header := records[0]
 
-			client, err := getAPIClient()
+			client, err := getAPIClient(cmd)
 			if err != nil {
 				return err
 			}
@@ -570,7 +579,7 @@ func newGetCmd[T any](sp resourceSpec[T]) *cobra.Command {
 		ValidArgsFunction: resourceIDCompleter(sp),
 		Example:           "  alegra " + sp.Use + " get <id>\n  alegra " + sp.Use + " get <id> -o json",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			client, err := getAPIClient()
+			client, err := getAPIClient(cmd)
 			if err != nil {
 				return err
 			}
@@ -628,7 +637,7 @@ func newCreateCmd[T any](sp resourceSpec[T]) *cobra.Command {
 					}
 				}
 			}
-			client, err := getAPIClient()
+			client, err := getAPIClient(cmd)
 			if err != nil {
 				return err
 			}
@@ -681,7 +690,7 @@ func newUpdateCmd[T any](sp resourceSpec[T]) *cobra.Command {
 			if err != nil {
 				return err
 			}
-			client, err := getAPIClient()
+			client, err := getAPIClient(cmd)
 			if err != nil {
 				return err
 			}
@@ -706,10 +715,13 @@ func newDeleteCmd[T any](sp resourceSpec[T]) *cobra.Command {
 		Args:              cobra.ExactArgs(1),
 		ValidArgsFunction: resourceIDCompleter(sp),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			if !yes && !confirm(cmd, fmt.Sprintf("Delete %s %s?", singular(sp.Use), args[0])) {
+			// In dry-run, skip the interactive confirmation: there is no real
+			// deletion to confirm, and prompting would block (or abort on EOF) when
+			// the user just wants to preview the request.
+			if !yes && !flagDryRun && !confirm(cmd, fmt.Sprintf("Delete %s %s?", singular(sp.Use), args[0])) {
 				return fmt.Errorf("aborted")
 			}
-			client, err := getAPIClient()
+			client, err := getAPIClient(cmd)
 			if err != nil {
 				return err
 			}
@@ -751,7 +763,7 @@ func NewActionCmd[T any](sp resourceSpec[T], use, apiAction, short string, bodyR
 			if err != nil {
 				return err
 			}
-			client, err := getAPIClient()
+			client, err := getAPIClient(cmd)
 			if err != nil {
 				return err
 			}
@@ -787,7 +799,7 @@ func NewPutActionCmd[T any](sp resourceSpec[T], use, apiAction, short string) *c
 			if err != nil {
 				return err
 			}
-			client, err := getAPIClient()
+			client, err := getAPIClient(cmd)
 			if err != nil {
 				return err
 			}
@@ -821,7 +833,7 @@ func NewCollectionActionCmd[T any](sp resourceSpec[T], use, apiAction, short str
 			if err != nil {
 				return err
 			}
-			client, err := getAPIClient()
+			client, err := getAPIClient(cmd)
 			if err != nil {
 				return err
 			}
@@ -920,7 +932,7 @@ func inferValue(v string) any {
 	case "null":
 		return nil
 	}
-	if n, err := strconv.ParseFloat(v, 64); err == nil {
+	if n, ok := numberIfLossless(v); ok {
 		return n
 	}
 	if c := v[0]; c == '{' || c == '[' || c == '"' {
@@ -930,6 +942,31 @@ func inferValue(v string) any {
 		}
 	}
 	return v
+}
+
+// numberIfLossless returns v as a numeric value (int64 or float64) only when the
+// number formats back to the original text exactly. This keeps identifiers that
+// merely look numeric as strings — leading zeros ("007123456"), values past
+// 2^53, a leading "+", underscores, "NaN"/"Inf", and scientific notation that
+// would rewrite the digits — which is critical for an accounting tool: those are
+// the shapes of NITs/RFCs, document numbers, and bank-account numbers that must
+// reach the API byte-for-byte. (Finding H2.)
+func numberIfLossless(v string) (any, bool) {
+	if i, err := strconv.ParseInt(v, 10, 64); err == nil {
+		if strconv.FormatInt(i, 10) == v {
+			return i, true
+		}
+		return nil, false // e.g. "007" parses to 7 but isn't the same text
+	}
+	if f, err := strconv.ParseFloat(v, 64); err == nil {
+		if math.IsNaN(f) || math.IsInf(f, 0) {
+			return nil, false
+		}
+		if strconv.FormatFloat(f, 'g', -1, 64) == v {
+			return f, true
+		}
+	}
+	return nil, false
 }
 
 // --- helpers ---

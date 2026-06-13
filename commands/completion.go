@@ -44,7 +44,7 @@ func resourceIDCompleter[T any](sp resourceSpec[T]) completeFunc {
 		if len(args) != 0 {
 			return nil, cobra.ShellCompDirectiveNoFileComp
 		}
-		client, err := getAPIClient()
+		client, err := getAPIClient(cmd)
 		if err != nil {
 			return nil, cobra.ShellCompDirectiveNoFileComp
 		}

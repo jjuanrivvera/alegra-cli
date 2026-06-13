@@ -105,7 +105,7 @@ func newAuthStatusCmd() *cobra.Command {
 		Short:   "Show the active profile and verify the stored credentials",
 		Args:    cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, _ []string) error {
-			client, err := getAPIClient()
+			client, err := getAPIClient(cmd)
 			if err != nil {
 				return err
 			}
@@ -143,6 +143,9 @@ func loginAndSave(ctx context.Context, cfg *config.Config, profile, email, token
 	if base == "" {
 		base = cfg.Resolve(profile).BaseURL
 	}
+	// This is the first time the email+token leave the machine; warn before
+	// sending them to a non-HTTPS base URL (M6).
+	warnInsecureBaseURL(os.Stderr, base)
 	client := api.New(
 		api.WithBaseURL(base),
 		api.WithBasicAuth(email, token),

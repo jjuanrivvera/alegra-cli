@@ -38,7 +38,7 @@ func itemStockCmd(sp resourceSpec[api.Item]) *cobra.Command {
 		ValidArgsFunction: resourceIDCompleter(sp),
 		Example:           "  alegra items stock <id>\n  alegra items stock <id> --date 2026-01-31 -o json",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			client, err := getAPIClient()
+			client, err := getAPIClient(cmd)
 			if err != nil {
 				return err
 			}

@@ -25,7 +25,9 @@ func init() {
 			{Flag: "format", Query: "format", Usage: "Response format (e.g. tree) to show account hierarchy"},
 		},
 		Extra: func(parent *cobra.Command, _ resourceSpec[api.Category]) {
-			parent.AddCommand(newCategoriesSettingsCmd())
+			// GET /categories/settings is read-only (opt back in to read-only MCP
+			// hints, M1); the PUT set-settings is left to default to destructive.
+			parent.AddCommand(readOnlyHints(newCategoriesSettingsCmd()))
 			parent.AddCommand(newCategoriesSetSettingsCmd())
 		},
 	})
@@ -38,7 +40,7 @@ func newCategoriesSettingsCmd() *cobra.Command {
 		Short: "Show chart-of-accounts settings",
 		Args:  cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, _ []string) error {
-			client, err := getAPIClient()
+			client, err := getAPIClient(cmd)
 			if err != nil {
 				return err
 			}
@@ -63,7 +65,7 @@ func newCategoriesSetSettingsCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			client, err := getAPIClient()
+			client, err := getAPIClient(cmd)
 			if err != nil {
 				return err
 			}

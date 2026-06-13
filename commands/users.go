@@ -20,12 +20,14 @@ func init() {
 			{Flag: "role", Query: "role", Usage: "Filter by role"},
 		},
 		Extra: func(parent *cobra.Command, sp resourceSpec[api.User]) {
-			parent.AddCommand(&cobra.Command{
+			// GET /users/self — read-only; opt back in to read-only MCP hints so it
+			// isn't defaulted to destructive (M1).
+			parent.AddCommand(readOnlyHints(&cobra.Command{
 				Use:   "self",
 				Short: "Show the currently authenticated user",
 				Args:  cobra.NoArgs,
 				RunE: func(cmd *cobra.Command, args []string) error {
-					client, err := getAPIClient()
+					client, err := getAPIClient(cmd)
 					if err != nil {
 						return err
 					}
@@ -35,7 +37,7 @@ func init() {
 					}
 					return render(cmd, out, nil)
 				},
-			})
+			}))
 		},
 	})
 }

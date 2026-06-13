@@ -129,7 +129,9 @@ func loadResolved() (*config.Config, *config.Resolved, error) {
 }
 
 // getAPIClient builds an API client from the resolved configuration and flags.
-func getAPIClient() (*api.Client, error) {
+// cmd supplies the dry-run output sink (cmd.OutOrStdout()) so the printed curl
+// honors any output redirection and is capturable in tests.
+func getAPIClient(cmd *cobra.Command) (*api.Client, error) {
 	_, r, err := loadResolved()
 	if err != nil {
 		return nil, err
@@ -149,7 +151,7 @@ func getAPIClient() (*api.Client, error) {
 		api.WithRequestsPerSecond(r.RequestsPerSecond),
 		api.WithUserAgent(version.UserAgent()),
 		api.WithLogger(logger),
-		api.WithDryRun(flagDryRun, flagShowToken, os.Stdout),
+		api.WithDryRun(flagDryRun, flagShowToken, cmd.OutOrStdout()),
 	}
 	if r.BearerToken != "" {
 		opts = append(opts, api.WithBearerToken(r.BearerToken))
@@ -160,11 +162,13 @@ func getAPIClient() (*api.Client, error) {
 }
 
 // warnInsecureBaseURL prints a warning when API credentials would be sent to a
-// non-HTTPS, non-loopback base URL (cleartext credential exposure). Loopback
-// over http is allowed silently for local sandboxes and tests.
+// non-HTTPS, non-loopback base URL (cleartext credential exposure). Only https,
+// and http to loopback (local sandboxes/tests), are silently safe. A schemeless
+// URL (e.g. "api.alegra.com/api/v1") is warned about too: it is not https and
+// will produce a confusing low-level request error otherwise (L12).
 func warnInsecureBaseURL(w io.Writer, baseURL string) {
 	u, err := url.Parse(baseURL)
-	if err != nil || u.Scheme == "" || u.Scheme == "https" {
+	if err != nil || u.Scheme == "https" {
 		return
 	}
 	host := u.Hostname()
@@ -174,7 +178,7 @@ func warnInsecureBaseURL(w io.Writer, baseURL string) {
 	if ip := net.ParseIP(host); ip != nil && ip.IsLoopback() {
 		return
 	}
-	fmt.Fprintf(w, "warning: base URL %q is not HTTPS — API credentials will be sent in cleartext to %s\n", baseURL, host)
+	fmt.Fprintf(w, "warning: base URL %q is not HTTPS — API credentials will be sent in cleartext\n", baseURL)
 }
 
 func newLogger(level string) *slog.Logger {

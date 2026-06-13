@@ -153,6 +153,22 @@ func (r *Refs) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON mirrors UnmarshalJSON's shape tolerance so a value round-trips
+// faithfully: a single ref emits a bare {id,name} object (the form Alegra
+// expects on input for fields it documents as a single object), more than one
+// emits an array, and an empty Refs emits null. The []Ref conversion is
+// required to avoid recursing back into this method.
+func (r Refs) MarshalJSON() ([]byte, error) {
+	switch len(r) {
+	case 0:
+		return []byte("null"), nil
+	case 1:
+		return json.Marshal(r[0])
+	default:
+		return json.Marshal([]Ref(r))
+	}
+}
+
 // StringOrSlice decodes a JSON value that Alegra serializes as either a single
 // string or an array of strings (e.g. contact "type", which is "client" in
 // simple mode but ["client","provider"] in advanced mode).

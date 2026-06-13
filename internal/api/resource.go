@@ -87,6 +87,14 @@ func decodeList[T any](raw []byte) ([]T, error) {
 // the end. It is bounded by maxPages to avoid runaway loops; pass 0 for the
 // default cap.
 func (r *Resource[T]) ListAll(ctx context.Context, params ListParams, maxPages int) ([]T, error) {
+	all, _, err := r.ListAllChecked(ctx, params, maxPages)
+	return all, err
+}
+
+// ListAllChecked is ListAll that also reports whether it stopped at the page cap
+// with a still-full final page (truncated == true), so callers can warn the user
+// that more records may exist rather than silently presenting a partial result.
+func (r *Resource[T]) ListAllChecked(ctx context.Context, params ListParams, maxPages int) (items []T, truncated bool, err error) {
 	if maxPages <= 0 {
 		maxPages = 1000
 	}
@@ -97,13 +105,13 @@ func (r *Resource[T]) ListAll(ctx context.Context, params ListParams, maxPages i
 		p := params
 		p.Start = start
 		p.Limit = limit
-		batch, err := r.List(ctx, p)
-		if err != nil {
-			return all, err
+		batch, lerr := r.List(ctx, p)
+		if lerr != nil {
+			return all, false, lerr
 		}
 		all = append(all, batch...)
 		if len(batch) < limit {
-			return all, nil
+			return all, false, nil
 		}
 		start += limit
 	}
@@ -111,17 +119,19 @@ func (r *Resource[T]) ListAll(ctx context.Context, params ListParams, maxPages i
 	r.client.logger.Warn("alegra: --all stopped at the page cap; results may be truncated",
 		"resource", r.path, "fetched", len(all), "max_pages", maxPages,
 		"hint", "narrow the query with filters or a date range")
-	return all, nil
+	return all, true, nil
 }
 
 // Count returns the total number of records matching params, using Alegra's
 // metadata=true response wrapper ({"metadata":{"total":N},"data":[...]}).
 // It requests a single record to minimize payload.
 func (r *Resource[T]) Count(ctx context.Context, params ListParams) (int64, error) {
+	// Cheap path: request a single record with metadata=true and read the total
+	// the server reports. Clone Extra first — params is a shallow struct copy and
+	// url.Values is a map, so mutating p.Extra would otherwise leak
+	// "metadata=true" back into the caller's params (L8).
 	p := params
-	if p.Extra == nil {
-		p.Extra = url.Values{}
-	}
+	p.Extra = cloneValues(params.Extra)
 	p.Extra.Set("metadata", "true")
 	p.Limit = 1
 	q := p.values(r.client.defaultLimit)
@@ -148,12 +158,19 @@ func (r *Resource[T]) Count(ctx context.Context, params ListParams) (int64, erro
 			return int64(wrapper.Total), nil
 		}
 	}
-	// Fallback: the endpoint may not report a total; count the returned array.
-	items, derr := decodeList[T](raw)
+	// The endpoint reported no total. The response above was capped at one
+	// record, so counting it would report at most 1 regardless of how many
+	// records match (M2). Walk every page and count for real instead.
+	r.client.logger.Debug("alegra: count endpoint reports no total; walking all pages", "resource", r.path)
+	walk := params
+	walk.Extra = cloneValues(params.Extra)
+	walk.Start = 0
+	walk.Limit = 0 // use the maximum page size for the count walk
+	all, derr := r.ListAll(ctx, walk, 0)
 	if derr != nil {
-		return 0, fmt.Errorf("alegra: endpoint does not report a total count")
+		return 0, derr
 	}
-	return int64(len(items)), nil
+	return int64(len(all)), nil
 }
 
 // Get fetches a single record by ID.
