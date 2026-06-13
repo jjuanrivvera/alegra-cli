@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"math"
 	"os"
 	"sort"
 	"strconv"
@@ -73,14 +74,61 @@ func renderYAML(w io.Writer, data any) error {
 	if err != nil {
 		return err
 	}
+	// toGeneric decodes numbers as json.Number (a string type); yaml.v3 would
+	// emit those quoted ("total: \"7\""), unlike the JSON renderer. Convert them
+	// to native int64/float64 so YAML numbers stay numbers (M3).
+	normalized = nativeNumbers(normalized)
 	enc := yaml.NewEncoder(w)
 	enc.SetIndent(2)
 	defer enc.Close()
 	return enc.Encode(normalized)
 }
 
+// nativeNumbers walks a generic value and replaces every json.Number with a
+// native int64 (when integral) or float64, so YAML/serializers that special-case
+// json.Number as a string don't quote numeric output.
+func nativeNumbers(v any) any {
+	switch t := v.(type) {
+	case map[string]any:
+		for k, val := range t {
+			t[k] = nativeNumbers(val)
+		}
+		return t
+	case []any:
+		for i, val := range t {
+			t[i] = nativeNumbers(val)
+		}
+		return t
+	case json.Number:
+		s := t.String()
+		if i, err := t.Int64(); err == nil {
+			return i
+		}
+		// A big integer that overflows int64 must NOT become a lossy float64 —
+		// that would silently corrupt a large Money/ledger total, the precision
+		// hazard the Money type exists to avoid. Keep its exact text; only
+		// genuinely fractional/scientific values fall through to float64.
+		if !strings.ContainsAny(s, ".eE") {
+			return s
+		}
+		if f, err := t.Float64(); err == nil {
+			return f
+		}
+		return s
+	default:
+		return v
+	}
+}
+
 func renderCSV(w io.Writer, data any, columns []string) error {
 	rows := toRows(data)
+	if len(rows) == 0 {
+		// A single record (e.g. `get`) is an object, not an array; emit it as one
+		// CSV row rather than nothing, matching renderTable's single-object path.
+		if obj, ok := toObject(data); ok {
+			rows = []map[string]any{obj}
+		}
+	}
 	if len(rows) == 0 {
 		return nil
 	}
@@ -104,21 +152,36 @@ func renderCSV(w io.Writer, data any, columns []string) error {
 }
 
 // csvField neutralizes spreadsheet formula injection (CWE-1236). A cell whose
-// first character is =, +, @, or a leading tab/CR is interpreted as a formula by
+// first significant character is =, +, @, or - is interpreted as a formula by
 // Excel/LibreOffice/Sheets, so we prefix it with a single quote to force text.
-// A leading '-' is only dangerous when the value is not a real negative number,
-// so numeric cells (e.g. "-42.5") pass through untouched.
+// A leading '-' is only dangerous when the value is not a real, finite negative
+// number, so numeric cells (e.g. "-42.5") pass through untouched while
+// "-Infinity"/"-NaN" — which ParseFloat accepts but a sheet shouldn't evaluate —
+// are escaped. The trigger can hide behind leading whitespace/newlines, so we
+// look past those, and a cell that itself begins with a control character is
+// escaped too.
 func csvField(s string) string {
 	if s == "" {
 		return s
 	}
-	switch s[0] {
-	case '=', '+', '@', '\t', '\r':
-		return "'" + s
+	trimmed := strings.TrimLeft(s, " \t\r\n")
+	if trimmed == "" {
+		return s
+	}
+	guard := false
+	switch trimmed[0] {
+	case '=', '+', '@':
+		guard = true
 	case '-':
-		if _, err := strconv.ParseFloat(s, 64); err != nil {
-			return "'" + s
+		if f, err := strconv.ParseFloat(trimmed, 64); err != nil || math.IsInf(f, 0) || math.IsNaN(f) {
+			guard = true
 		}
+	}
+	if c := s[0]; c == '\t' || c == '\r' || c == '\n' {
+		guard = true
+	}
+	if guard {
+		return "'" + s
 	}
 	return s
 }
@@ -140,14 +203,28 @@ func renderTable(w io.Writer, data any, columns []string) error {
 	warnDroppedColumns(dropped)
 	tw := tabwriter.NewWriter(w, 0, 2, 2, ' ', 0)
 	fmt.Fprintln(tw, strings.Join(upper(cols), "\t"))
+	clipped := false
 	for _, row := range rows {
 		cells := make([]string, len(cols))
 		for i, c := range cols {
-			cells[i] = truncate(scalarString(row[c]), 48)
+			full := scalarString(row[c])
+			if len([]rune(full)) > 48 {
+				clipped = true
+			}
+			cells[i] = truncate(full, 48)
 		}
 		fmt.Fprintln(tw, strings.Join(cells, "\t"))
 	}
-	return tw.Flush()
+	if err := tw.Flush(); err != nil {
+		return err
+	}
+	// The multi-row table clips wide cells for readability; a single detail view
+	// shows them in full. Flag the difference on stderr so a user who sees "…"
+	// knows where to get the untruncated value (stdout stays clean for pipes).
+	if clipped {
+		fmt.Fprintln(os.Stderr, "note: some cells were truncated for display; use --output json (or csv) for full values")
+	}
+	return nil
 }
 
 func renderKeyValue(w io.Writer, obj map[string]any, columns []string) error {
@@ -213,9 +290,10 @@ func toObject(data any) (map[string]any, bool) {
 // readable; explicit --columns selections are never capped.
 const maxAutoColumns = 10
 
-// resolveColumns returns the explicit columns (filtered to ones present) or
-// derives a scalar-only column set ordered by preference, plus how many
-// detected columns were dropped by the cap.
+// resolveColumns returns the explicit columns verbatim — honoring the caller's
+// exact selection and order, including keys that may be absent from some rows —
+// or, when none are given, derives a scalar-only column set ordered by
+// preference, plus how many detected columns were dropped by the cap.
 func resolveColumns(rows []map[string]any, columns []string) ([]string, int) {
 	if len(columns) > 0 {
 		return columns, 0

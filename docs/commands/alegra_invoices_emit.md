@@ -4,7 +4,7 @@ title: alegra invoices emit
 
 ## alegra invoices emit
 
-Emit (stamp) draft/open invoices electronically, in batches of 10
+Emit (stamp) draft invoices electronically, in batches of 10
 
 ### Synopsis
 

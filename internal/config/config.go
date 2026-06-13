@@ -68,11 +68,17 @@ func DefaultPath() string {
 	if p := os.Getenv(EnvConfig); p != "" {
 		return p
 	}
-	home, err := os.UserHomeDir()
-	if err != nil {
-		return ".alegra-cli/config.yaml"
+	if home, err := os.UserHomeDir(); err == nil {
+		return filepath.Join(home, ".alegra-cli", "config.yaml")
 	}
-	return filepath.Join(home, ".alegra-cli", "config.yaml")
+	// HOME unset (stripped CI/cron/container env): fall back to the OS config
+	// dir (honors XDG_CONFIG_HOME / %AppData%) so we still resolve an absolute
+	// path instead of silently writing config — possibly a token — into the CWD
+	// (L10).
+	if cfgDir, err := os.UserConfigDir(); err == nil {
+		return filepath.Join(cfgDir, "alegra-cli", "config.yaml")
+	}
+	return filepath.Join(".alegra-cli", "config.yaml")
 }
 
 // New returns an empty config with defaults populated.

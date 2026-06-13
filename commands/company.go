@@ -32,7 +32,7 @@ func newCompanyGetCmd() *cobra.Command {
 		Short: "Show the company information",
 		Args:  cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, _ []string) error {
-			client, err := getAPIClient()
+			client, err := getAPIClient(cmd)
 			if err != nil {
 				return err
 			}
@@ -60,7 +60,7 @@ or more --set key=value pairs.`,
 			if err != nil {
 				return err
 			}
-			client, err := getAPIClient()
+			client, err := getAPIClient(cmd)
 			if err != nil {
 				return err
 			}

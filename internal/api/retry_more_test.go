@@ -53,12 +53,29 @@ func TestClient_GivesUpAfterMaxRetries(t *testing.T) {
 
 func TestShouldRetry(t *testing.T) {
 	p := &RetryPolicy{}
-	assert.True(t, p.shouldRetry(&http.Response{StatusCode: 429}, nil))
-	assert.True(t, p.shouldRetry(&http.Response{StatusCode: 503}, nil))
-	assert.False(t, p.shouldRetry(&http.Response{StatusCode: 404}, nil))
-	assert.False(t, p.shouldRetry(&http.Response{StatusCode: 200}, nil))
-	assert.False(t, p.shouldRetry(nil, nil))
-	assert.True(t, p.shouldRetry(nil, errors.New("dial tcp: connection refused")))
-	assert.False(t, p.shouldRetry(nil, context.Canceled))
-	assert.False(t, p.shouldRetry(nil, context.DeadlineExceeded))
+
+	// 429 is always retryable regardless of method: the server rejected the
+	// request before processing it, so no state changed.
+	assert.True(t, p.shouldRetry(http.MethodGet, &http.Response{StatusCode: 429}, nil))
+	assert.True(t, p.shouldRetry(http.MethodPost, &http.Response{StatusCode: 429}, nil))
+
+	// Idempotent methods retry on 5xx and transient network errors.
+	assert.True(t, p.shouldRetry(http.MethodGet, &http.Response{StatusCode: 503}, nil))
+	assert.True(t, p.shouldRetry(http.MethodGet, nil, errors.New("dial tcp: connection refused")))
+	assert.True(t, p.shouldRetry(http.MethodPut, &http.Response{StatusCode: 500}, nil))
+	assert.True(t, p.shouldRetry(http.MethodDelete, nil, errors.New("connection reset")))
+
+	// Non-idempotent methods (POST/PATCH) must NOT retry on 5xx or network
+	// errors: the request may already have taken effect (e.g. a stamped
+	// invoice), and resending would duplicate it. This is finding H3.
+	assert.False(t, p.shouldRetry(http.MethodPost, &http.Response{StatusCode: 503}, nil))
+	assert.False(t, p.shouldRetry(http.MethodPost, nil, errors.New("dial tcp: connection refused")))
+	assert.False(t, p.shouldRetry(http.MethodPatch, &http.Response{StatusCode: 500}, nil))
+
+	// Never retry success, 4xx, a nil response, or context cancellation.
+	assert.False(t, p.shouldRetry(http.MethodGet, &http.Response{StatusCode: 404}, nil))
+	assert.False(t, p.shouldRetry(http.MethodGet, &http.Response{StatusCode: 200}, nil))
+	assert.False(t, p.shouldRetry(http.MethodGet, nil, nil))
+	assert.False(t, p.shouldRetry(http.MethodGet, nil, context.Canceled))
+	assert.False(t, p.shouldRetry(http.MethodPost, nil, context.DeadlineExceeded))
 }

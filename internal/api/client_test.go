@@ -88,7 +88,10 @@ func TestDryRunPrintsCurl_ShowTokenAndBody(t *testing.T) {
 
 	out := buf.String()
 	assert.Contains(t, out, "curl -X POST")
-	assert.Contains(t, out, "Bearer brr")
+	// --show-token reveals the auth scheme but never the live secret (L11): the
+	// real bearer token must not leak into the curl preview.
+	assert.Contains(t, out, "Authorization: Bearer <token>")
+	assert.NotContains(t, out, "brr")
 	assert.Contains(t, out, "Content-Type: application/json")
 	assert.Contains(t, out, `-d '{"a":1}'`)
 }

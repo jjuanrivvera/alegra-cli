@@ -24,12 +24,14 @@ func init() {
 			{Flag: "number", Query: "number", Usage: "Filter by numbering"},
 		},
 		Extra: func(parent *cobra.Command, sp resourceSpec[api.Journal]) {
-			parent.AddCommand(&cobra.Command{
+			// GET /journals/entries/graph — read-only; opt back in to read-only
+			// MCP hints so it isn't defaulted to destructive (M1).
+			parent.AddCommand(readOnlyHints(&cobra.Command{
 				Use:   "balance",
 				Short: "Retrieve journal balances grouped by month or day",
 				Args:  cobra.NoArgs,
 				RunE: func(cmd *cobra.Command, _ []string) error {
-					client, err := getAPIClient()
+					client, err := getAPIClient(cmd)
 					if err != nil {
 						return err
 					}
@@ -39,7 +41,7 @@ func init() {
 					}
 					return render(cmd, out, nil)
 				},
-			})
+			}))
 		},
 	})
 }

@@ -83,6 +83,12 @@ func (r *RateLimiter) Observe(limit, remaining, resetSeconds int) {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 	r.lastLimit, r.lastRemaining, r.lastReset = limit, remaining, resetSeconds
+	// A known limit but an absent remaining count (e.g. a CDN that strips
+	// X-Rate-Limit-Remaining) gives us nothing to glide against. Leave the rate
+	// unchanged rather than collapsing to the 0.2 rps floor for no reason.
+	if remaining < 0 {
+		return
+	}
 	var next float64
 	if float64(remaining) > 0.2*float64(limit) {
 		next = r.base

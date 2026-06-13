@@ -72,7 +72,7 @@ func (f *reportFlags) values(paginated bool) url.Values {
 // fetchReport GETs a report subpath and renders the rows from a {data:[...]}
 // envelope.
 func fetchReport(cmd *cobra.Command, path string, q url.Values, cols []string) error {
-	client, err := getAPIClient()
+	client, err := getAPIClient(cmd)
 	if err != nil {
 		return err
 	}
@@ -89,7 +89,7 @@ func fetchReport(cmd *cobra.Command, path string, q url.Values, cols []string) e
 // fetchReportRaw GETs a report subpath and renders the whole response object
 // (for reports that are not a {data:[...]} list).
 func fetchReportRaw(cmd *cobra.Command, path string, q url.Values) error {
-	client, err := getAPIClient()
+	client, err := getAPIClient(cmd)
 	if err != nil {
 		return err
 	}

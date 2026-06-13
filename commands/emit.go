@@ -26,7 +26,7 @@ func newInvoicesEmitCmd(sp resourceSpec[api.Invoice]) *cobra.Command {
 	)
 	cmd := &cobra.Command{
 		Use:   "emit [id...]",
-		Short: "Emit (stamp) draft/open invoices electronically, in batches of 10",
+		Short: "Emit (stamp) draft invoices electronically, in batches of 10",
 		Long: `emit sends invoices to the tax authority for stamping.
 
 Pass invoice ids explicitly, or use --all to emit every draft invoice. Already-
@@ -36,7 +36,7 @@ emission is NOT idempotent on Alegra's side, so this prevents duplicates.`,
 			"  alegra invoices emit --all            # every draft\n" +
 			"  alegra invoices emit --all --dry-run",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			client, err := getAPIClient()
+			client, err := getAPIClient(cmd)
 			if err != nil {
 				return err
 			}
@@ -46,9 +46,14 @@ emission is NOT idempotent on Alegra's side, so this prevents duplicates.`,
 			ids := args
 			if all {
 				params := api.ListParams{Extra: map[string][]string{"status": {"draft"}}}
-				items, lerr := res.ListAll(cmd.Context(), params, 0)
+				items, truncated, lerr := res.ListAllChecked(cmd.Context(), params, 0)
 				if lerr != nil {
 					return lerr
+				}
+				if truncated {
+					// Don't present a partial stamp run as complete: the draft
+					// backlog exceeded the page cap (L5).
+					fmt.Fprintln(cmd.ErrOrStderr(), "warning: too many draft invoices to enumerate in one run; only the first batch is considered. Narrow with explicit ids or a date range and re-run.")
 				}
 				ids = nil
 				for i := range items {

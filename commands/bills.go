@@ -50,7 +50,7 @@ func billCommentUpdateCmd(sp resourceSpec[api.Bill]) *cobra.Command {
 			if err != nil {
 				return err
 			}
-			client, err := getAPIClient()
+			client, err := getAPIClient(cmd)
 			if err != nil {
 				return err
 			}
@@ -83,7 +83,7 @@ func billCommentDeleteCmd(sp resourceSpec[api.Bill]) *cobra.Command {
 			if !yes && !confirm(cmd, fmt.Sprintf("Delete comment %s from bill %s?", args[1], args[0])) {
 				return fmt.Errorf("aborted")
 			}
-			client, err := getAPIClient()
+			client, err := getAPIClient(cmd)
 			if err != nil {
 				return err
 			}
@@ -112,7 +112,7 @@ func billAttachmentDeleteCmd(sp resourceSpec[api.Bill]) *cobra.Command {
 			if !yes && !confirm(cmd, fmt.Sprintf("Delete attachment %s?", args[0])) {
 				return fmt.Errorf("aborted")
 			}
-			client, err := getAPIClient()
+			client, err := getAPIClient(cmd)
 			if err != nil {
 				return err
 			}
