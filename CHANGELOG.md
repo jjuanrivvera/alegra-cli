@@ -6,6 +6,52 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [0.9.4] - 2026-06-13
+
+A correctness, data-integrity, and credential-safety release resolving the
+findings of a deep code review. No happy-path behavior changes; the fixes harden
+edge cases that previously failed silently with wrong-but-no-error results.
+
+### Fixed
+- **`export --out <file> --dry-run` no longer truncates the target file.** It
+  now prints the curl preview and touches nothing on disk.
+- **Numeric-looking identifiers are preserved exactly** in `--set` and CSV
+  `import`. Leading zeros (`007123456`), a leading `+`, integers beyond 2^53, and
+  trailing-zero decimals are sent to the API byte-for-byte instead of being
+  silently rewritten; clean integers keep full precision.
+- **Non-idempotent requests are no longer auto-retried.** A retried
+  `POST /invoices/stamp` could emit a duplicate electronic invoice; POST/PATCH
+  now surface transient errors instead, while GET/HEAD/PUT/DELETE and 429s still
+  retry. `Retry-After` / `X-Rate-Limit-Reset` also accept the HTTP-date form and
+  are no longer misread when they carry a stray unit.
+- **`<resource> list --count` returns the real total** for endpoints that report
+  no total (it could previously only ever return 0 or 1).
+- **YAML output renders numbers as numbers**, not quoted strings, and keeps the
+  exact digits of large integer amounts instead of demoting them to a lossy
+  float.
+- **A single record (e.g. `get`) renders as one CSV row** instead of nothing.
+- `currencies list` no longer shows an empty leading `id` column.
+- Transportation-receipt line `quantity` / `weight` decode correctly when
+  returned as JSON numbers.
+- `journals balance`, `users self`, and `categories settings` are marked
+  read-only in the MCP/agent tool surface (they previously defaulted to
+  destructive).
+- `delete --dry-run` no longer blocks on the confirmation prompt.
+- `list --all`, `export`, and `emit --all` warn on stderr when results stop at
+  the page cap instead of presenting a partial result as complete.
+
+### Security
+- The generated Claude Code agent-guard hook **fails safe (denies) when `jq` is
+  missing** instead of failing open, defeats quote / backslash / newline
+  obfuscation of destructive verbs on the Bash surface, and escapes its denial
+  JSON. Its documentation no longer overstates the Bash surface's guarantee.
+- `--show-token` redacts the bearer token to a placeholder, and `auth login` /
+  `init` warn before sending credentials to a non-HTTPS base URL.
+
+### Changed
+- Rate limiter no longer throttles to its floor when only the remaining-quota
+  header is absent; the response body is closed on every request path.
+
 ## [0.9.3] - 2026-06-11
 
 ### Changed
