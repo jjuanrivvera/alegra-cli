@@ -1,3 +1,8 @@
+---
+title: 'Alegra MCP: official server vs. alegra-cli'
+description: Alegra MCP compared. The official hosted MCP server vs. alegra-cli's own MCP server and agent-first CLI. Read-only vs. write, OAuth vs. terminal.
+---
+
 # alegra-cli vs. the official Alegra MCP server
 
 Alegra publishes a hosted **MCP server** (`mcp.alegra.com`) so AI agents can call the

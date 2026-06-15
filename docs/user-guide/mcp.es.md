@@ -1,5 +1,6 @@
 ---
-title: Servidor MCP
+title: Servidor MCP de Alegra (alegra mcp)
+description: Usa alegra-cli como servidor MCP de Alegra. alegra mcp convierte cada comando en una herramienta MCP para Claude, Cursor y otros agentes de IA.
 ---
 
 # Servidor MCP

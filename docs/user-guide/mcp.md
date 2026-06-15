@@ -1,5 +1,6 @@
 ---
-title: MCP Server
+title: Alegra MCP Server (alegra mcp)
+description: Run alegra-cli as an Alegra MCP server. alegra mcp turns every command into an MCP tool for Claude, Cursor, and other AI agents.
 ---
 
 # MCP Server
