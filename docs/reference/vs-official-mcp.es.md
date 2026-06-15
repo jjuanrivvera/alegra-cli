@@ -1,3 +1,8 @@
+---
+title: 'Alegra MCP: servidor oficial vs. alegra-cli'
+description: Alegra MCP comparado. El servidor MCP oficial alojado vs. el servidor MCP propio de alegra-cli y su CLI agent-first. Solo lectura vs. escritura.
+---
+
 # alegra-cli frente al servidor MCP oficial de Alegra
 
 Alegra publica un **servidor MCP** alojado (`mcp.alegra.com`) para que los agentes de IA
