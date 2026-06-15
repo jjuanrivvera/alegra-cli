@@ -984,6 +984,7 @@
     "accounting__updatecostcenter",
     "accounting__updatejournal",
     "banks__createbankaccount",
+    "banks__createbanktransfer",
     "banks__createreconciliation",
     "banks__deletebankaccount",
     "banks__deletereconciliation",
