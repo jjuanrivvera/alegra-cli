@@ -113,7 +113,9 @@ func LoadSAT(dir string) (*SATCatalog, error) {
 // the query, case- and diacritic-insensitively. An empty query matches all;
 // limit <= 0 means no limit.
 func SearchSAT(cat *SATCatalog, query string, limit int) []SATEntry {
-	q := foldSpanish(query)
+	// Trim surrounding whitespace: a space-padded query (common from shell args)
+	// would otherwise never match the whitespace-free numeric codes.
+	q := strings.TrimSpace(foldSpanish(query))
 	var out []SATEntry
 	for _, e := range cat.Entries {
 		if q == "" || strings.Contains(e.Code, q) ||
@@ -137,7 +139,9 @@ func foldSpanish(s string) string {
 }
 
 func writeSATCache(dir string, cat *SATCatalog) error {
-	if err := os.MkdirAll(dir, 0o755); err != nil {
+	// 0o700: the cache lives under the shared ~/.alegra-cli directory that also
+	// holds the credential-bearing config, so keep the directory private.
+	if err := os.MkdirAll(dir, 0o700); err != nil {
 		return err
 	}
 	// Write-to-temp + rename so a failed sync can't corrupt an existing cache.

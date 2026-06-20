@@ -19,7 +19,7 @@ func init() {
 			{Flag: "repeat-every", Query: "repeatEvery", Usage: "Filter by recurrence interval"},
 			{Flag: "term", Query: "term", Usage: "Filter by payment term"},
 			{Flag: "client-id", Query: "client_id", Usage: "Filter by client ID"},
-			{Flag: "name", Query: "name", Usage: "Filter by client name"},
+			{Flag: "client-name", Query: "client_name", Usage: "Filter by client name"},
 		},
 	})
 }

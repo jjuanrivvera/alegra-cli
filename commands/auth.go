@@ -3,6 +3,7 @@ package commands
 import (
 	"bufio"
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -89,7 +90,7 @@ func newAuthLogoutCmd() *cobra.Command {
 				return err
 			}
 			profile := cfg.ActiveProfileName(flagProfile)
-			if err := auth.NewKeyringStore().Delete(profile); err != nil && err != auth.ErrNotFound {
+			if err := auth.NewKeyringStore().Delete(profile); err != nil && !errors.Is(err, auth.ErrNotFound) {
 				return err
 			}
 			fmt.Fprintf(cmd.OutOrStdout(), "Logged out of profile %q\n", profile)

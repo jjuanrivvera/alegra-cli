@@ -142,7 +142,7 @@ func getAPIClient(cmd *cobra.Command) (*api.Client, error) {
 	}
 
 	if r.Token != "" || r.BearerToken != "" {
-		warnInsecureBaseURL(os.Stderr, r.BaseURL)
+		warnInsecureBaseURL(cmd.ErrOrStderr(), r.BaseURL)
 	}
 
 	logger := newLogger(r.LogLevel)
@@ -204,6 +204,11 @@ func outputFormat() output.Format {
 	if err != nil || r == nil {
 		if flagOutput != "" {
 			return output.Format(strings.ToLower(flagOutput))
+		}
+		// Honor ALEGRA_OUTPUT even when config loading failed; the normal path
+		// resolves it via Resolve, but that's unavailable on this fallback.
+		if env := os.Getenv(config.EnvOutput); env != "" {
+			return output.Format(strings.ToLower(env))
 		}
 		return output.FormatTable
 	}

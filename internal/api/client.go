@@ -47,6 +47,11 @@ type Client struct {
 	logger      *slog.Logger
 	userAgent   string
 
+	// rps is the configured rate-limiter rate; the limiter is built in New()
+	// after all options are applied so it captures the final logger regardless
+	// of option order (WithLogger may come after WithRequestsPerSecond).
+	rps float64
+
 	defaultLimit int
 
 	dryRun       bool
@@ -98,7 +103,7 @@ func WithLogger(l *slog.Logger) Option {
 func WithRequestsPerSecond(rps float64) Option {
 	return func(c *Client) {
 		if rps > 0 {
-			c.rateLimiter = NewRateLimiter(rps, c.logger)
+			c.rps = rps
 		}
 	}
 }
@@ -150,7 +155,8 @@ func New(opts ...Option) *Client {
 		c.httpClient = &http.Client{Timeout: 60 * time.Second}
 	}
 	if c.rateLimiter == nil {
-		c.rateLimiter = NewRateLimiter(5.0, c.logger)
+		// NewRateLimiter applies its own 5.0 default when rps <= 0.
+		c.rateLimiter = NewRateLimiter(c.rps, c.logger)
 	}
 	if c.retryPolicy == nil {
 		c.retryPolicy = DefaultRetryPolicy(c.logger)

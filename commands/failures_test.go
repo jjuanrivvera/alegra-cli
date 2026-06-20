@@ -93,6 +93,9 @@ func TestEmit_CacheSaveFailureStopsEmission(t *testing.T) {
 	if runtime.GOOS == "windows" {
 		t.Skip("read-only directory permissions are not enforced on Windows")
 	}
+	if os.Geteuid() == 0 {
+		t.Skip("root bypasses directory write permissions, so the cache save cannot be forced to fail")
+	}
 	var stamps int32
 	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")

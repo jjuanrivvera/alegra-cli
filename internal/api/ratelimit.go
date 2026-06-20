@@ -18,6 +18,11 @@ type RateLimiter struct {
 	current float64
 	logger  *slog.Logger
 
+	// throttled is true while the rate is held below base by a 429 backoff
+	// (Throttle). It gates Restore so success-path recovery only undoes 429
+	// backoff and never fights Observe's deliberate quota-gliding.
+	throttled bool
+
 	// Last quota reported by the server (-1 = unknown).
 	lastLimit, lastRemaining, lastReset int
 }
@@ -61,6 +66,7 @@ func (r *RateLimiter) Wait(ctx context.Context) error {
 func (r *RateLimiter) Throttle() {
 	r.mu.Lock()
 	defer r.mu.Unlock()
+	r.throttled = true
 	next := r.current / 2
 	if next < 0.5 {
 		next = 0.5
@@ -105,16 +111,24 @@ func (r *RateLimiter) Observe(limit, remaining, resetSeconds int) {
 }
 
 // Restore gradually returns the rate toward the configured baseline after a
-// successful request.
+// successful request, but only to recover from a 429 backoff (Throttle). When
+// the rate was lowered by Observe to glide toward a near-exhausted quota,
+// bumping it back up here would fight that gliding and invite the very 429 it
+// is meant to avoid, so Restore is a no-op unless a throttle is in effect.
 func (r *RateLimiter) Restore() {
 	r.mu.Lock()
 	defer r.mu.Unlock()
+	if !r.throttled {
+		return
+	}
 	if r.current >= r.base {
+		r.throttled = false
 		return
 	}
 	next := r.current * 1.5
-	if next > r.base {
+	if next >= r.base {
 		next = r.base
+		r.throttled = false
 	}
 	r.current = next
 	r.limiter.SetLimit(rate.Limit(next))
