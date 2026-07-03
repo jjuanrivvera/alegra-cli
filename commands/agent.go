@@ -120,11 +120,6 @@ func (g guardPlan) asked() []guardCmd {
 	return g.writes
 }
 
-// blockedVerbs returns the distinct verbs in the hard-block set (for regexes).
-func (g guardPlan) blockedVerbs() []string {
-	return distinctVerbs(g.blocked())
-}
-
 // classifyAPICommands walks the command tree and buckets the operations that hit
 // the Alegra API (those carry the openWorldHint annotation, which excludes local
 // utility commands like auth/config/skills/agent). Read operations carry

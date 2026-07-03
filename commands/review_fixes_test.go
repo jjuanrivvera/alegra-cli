@@ -99,7 +99,7 @@ func TestClaudeGuardHook_DenyAndAllow(t *testing.T) {
 		t.Skip("jq not available")
 	}
 
-	script := claudeHookScript([]string{"void", "delete", "emit"})
+	script := claudeHookScript(guardHookTestCmds())
 	scriptPath := filepath.Join(t.TempDir(), "alegra-guard.sh")
 	require.NoError(t, os.WriteFile(scriptPath, []byte(script), 0o755))
 
@@ -113,7 +113,8 @@ func TestClaudeGuardHook_DenyAndAllow(t *testing.T) {
 		{"bash newline-split void", `{"tool_name":"Bash","tool_input":{"command":"alegra invoices \nvoid 9"}}`, true},
 		{"bash delete", `{"tool_name":"Bash","tool_input":{"command":"alegra contacts delete 3"}}`, true},
 		{"bash list", `{"tool_name":"Bash","tool_input":{"command":"alegra contacts list"}}`, false},
-		{"mcp void", `{"tool_name":"mcp__server_alegra_invoices_void"}`, true},
+		{"mcp void custom server (suffix fallback)", `{"tool_name":"mcp__server_alegra_invoices_void"}`, true},
+		{"mcp void default server (exact)", `{"tool_name":"mcp__alegra__alegra_invoices_void"}`, true},
 		{"mcp list", `{"tool_name":"mcp__server_alegra_contacts_list"}`, false},
 	}
 	for _, c := range cases {
@@ -144,7 +145,7 @@ func TestClaudeGuardHook_FailsSafeWithoutJq(t *testing.T) {
 		require.NoError(t, os.Symlink(p, filepath.Join(binDir, tool)))
 	}
 
-	script := claudeHookScript([]string{"void", "delete", "emit"})
+	script := claudeHookScript(guardHookTestCmds())
 	scriptPath := filepath.Join(t.TempDir(), "alegra-guard.sh")
 	require.NoError(t, os.WriteFile(scriptPath, []byte(script), 0o755))
 
