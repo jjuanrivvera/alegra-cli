@@ -20,8 +20,12 @@ is no list or per-id access. Use "company get" to view it and "company update"
 to edit it with a JSON body.`,
 	}
 
-	companyCmd.AddCommand(newCompanyGetCmd())
-	companyCmd.AddCommand(newCompanyUpdateCmd())
+	// The company subcommands are hand-built (not via buildResourceCmd), so they
+	// must annotate themselves: without openWorldHint the agent guard treats a
+	// command as a local utility and never gates it — which silently exempted
+	// "company update" (a remote PUT) from the guard entirely.
+	companyCmd.AddCommand(readOnlyHints(newCompanyGetCmd()))
+	companyCmd.AddCommand(destructiveHints(newCompanyUpdateCmd()))
 
 	rootCmd.AddCommand(companyCmd)
 }

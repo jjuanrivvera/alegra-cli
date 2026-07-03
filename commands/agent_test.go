@@ -6,6 +6,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/spf13/cobra"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -38,6 +39,12 @@ func TestClassifyAPICommands(t *testing.T) {
 	assert.True(t, w["alegra_contacts_create"], "create is a write")
 	assert.True(t, w["alegra_contacts_update"], "update is a write")
 
+	// The hand-built company singleton must be annotated: "company update" is a
+	// remote PUT — before the audit fix it carried no openWorldHint and was
+	// silently exempted from the guard.
+	assert.True(t, r["alegra_company_get"], "company get is read")
+	assert.True(t, w["alegra_company_update"], "company update is an approval-gated write")
+
 	// Local utility commands (no API call) must never be classified/gated.
 	for _, m := range []map[string]bool{r, w, irr} {
 		assert.False(t, m["alegra_agent_guard"], "guard is not an API op")
@@ -50,6 +57,43 @@ func TestClassifyAPICommands(t *testing.T) {
 		assert.False(t, w[tool], "%s must not be both irreversible and write", tool)
 		assert.False(t, r[tool], "%s must not be both irreversible and read", tool)
 	}
+}
+
+// guardLocalGroups are the top-level command groups that never call the Alegra
+// API. Every runnable leaf OUTSIDE these groups must carry openWorldHint so the
+// guard classifies it — classification silently skips unannotated commands, so
+// a missing hint on an API command exempts it from gating entirely (this is
+// exactly how "company update" escaped the guard before the audit).
+var guardLocalGroups = map[string]bool{
+	"agent":      true,
+	"alias":      true,
+	"auth":       true,
+	"catalog":    true, // embedded reference data; sync-sat downloads SAT (not Alegra) data
+	"completion": true,
+	"config":     true,
+	"init":       true,
+	"mcp":        true,
+	"skills":     true,
+	"help":       true,
+}
+
+func TestEveryAPICommandIsAnnotated(t *testing.T) {
+	root := RootCmd()
+	var walk func(c *cobra.Command, top string)
+	walk = func(c *cobra.Command, top string) {
+		for _, sub := range c.Commands() {
+			name := top
+			if name == "" {
+				name = sub.Name()
+			}
+			if sub.Runnable() && !sub.Hidden && sub.Name() != "help" && !guardLocalGroups[name] {
+				assert.Equalf(t, "true", sub.Annotations["openWorldHint"],
+					"%s is outside the local groups but has no openWorldHint — the agent guard would silently skip it", sub.CommandPath())
+			}
+			walk(sub, name)
+		}
+	}
+	walk(root, "")
 }
 
 func runGuard(t *testing.T, args ...string) string {
@@ -89,8 +133,9 @@ func TestGuard_ClaudeCode(t *testing.T) {
 
 func TestGuard_AllWritesFoldsIntoDeny(t *testing.T) {
 	out := runGuard(t, "--host", "opencode", "--all-writes")
-	assert.Contains(t, out, `"alegra_*_create": "deny"`)
-	assert.NotContains(t, out, `"create*": "ask"`)
+	assert.Contains(t, out, `"alegra_contacts_create": "deny"`)
+	assert.Contains(t, out, `"alegra contacts create": "deny"`)
+	assert.NotContains(t, out, `": "ask"`)
 }
 
 func TestGuard_Codex(t *testing.T) {

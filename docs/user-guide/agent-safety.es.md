@@ -93,23 +93,29 @@ Claude Code controla por **nombre de tool/comando**, y **`deny` siempre le gana 
 `allow`**. Pon esto en el `.claude/settings.json` del proyecto (compartido con
 el equipo) o en `~/.claude/settings.json` (todos los proyectos).
 
-**Superficie shell** — bloquea los comandos `alegra` destructivos:
+**Superficie shell** — bloquea los comandos `alegra` destructivos con **reglas
+exactas por comando** (Claude evalúa las reglas de permiso como patrones de
+prefijo literales; un glob intermedio como `alegra * delete` es poco fiable y
+puede tapar o perder comandos):
 
 ```json
 {
   "permissions": {
     "deny": [
-      "Bash(alegra * delete:*)",
-      "Bash(alegra * create:*)",
-      "Bash(alegra * update:*)",
+      "Bash(alegra invoices delete:*)",
       "Bash(alegra invoices emit:*)",
       "Bash(alegra invoices void:*)",
       "Bash(alegra invoices stamp:*)",
-      "Bash(alegra invoices email:*)"
+      "Bash(alegra contacts delete:*)",
+      "Bash(alegra bills close:*)"
     ]
   }
 }
 ```
+
+`alegra agent guard --host claude-code` emite la lista completa (una regla
+exacta por comando irreversible, derivada del árbol de comandos vivo) para que
+no la mantengas a mano.
 
 Usa `"ask"` en vez de `"deny"` para pedir aprobación en lugar de bloquear de
 plano. Un comando denegado nunca corre; en una sesión headless/CI `ask` también
@@ -124,11 +130,17 @@ superficie MCP. Esta es la pieza más importante en Claude Code. Crea
 
 ```bash
 #!/usr/bin/env bash
-# Lee el payload del hook desde stdin y deniega comandos alegra destructivos.
+# Lee el payload del hook desde stdin y deniega un comando alegra destructivo.
+# Compara la RUTA DE SUBCOMANDO exacta en posición de comando — un grep de verbo
+# suelto como `alegra.*delete` también denegaría líneas benignas como
+# `alegra invoices create --data 'nota: delete luego'`. El patrón anclado de
+# abajo también atrapa binarios invocados por ruta (./bin/alegra,
+# /usr/local/bin/alegra) sin coincidir con otro binario que apenas termine en
+# "alegra".
 input=$(cat)
 cmd=$(printf '%s' "$input" | jq -r '.tool_input.command // empty')
 
-if printf '%s' "$cmd" | grep -qE 'alegra\b.*\b(delete|create|update|import|emit|void|stamp|email|open|close|transfer)\b'; then
+if printf '%s' "$cmd" | grep -qiE '(^|[;&|([:space:]]+)([^[:space:]]*/)?alegra[[:space:]]+invoices[[:space:]]+delete([[:space:]]|$)'; then
   jq -n '{
     hookSpecificOutput: {
       hookEventName: "PreToolUse",
@@ -139,6 +151,17 @@ if printf '%s' "$cmd" | grep -qE 'alegra\b.*\b(delete|create|update|import|emit|
 fi
 exit 0
 ```
+
+Ese es el esqueleto para un comando. El hook generado
+(`alegra agent guard --host claude-code`) hace esto para **todos** los comandos
+irreversibles y añade des-ofuscación (quita comillas/backslashes y aplana
+saltos de línea, así `alegra invoices vo""id 1` también cae), un fallback sin
+`jq` que falla cerrado, y la rama MCP. Límites conocidos: la indirección por
+variables (`a=void; alegra invoices $a 1`), los alias de shell y `eval` no se
+detectan — y como se quitan las comillas, un comando bloqueado *entre comillas*
+dentro de un argumento (p. ej. `rg "alegra invoices delete" src/`) también se
+deniega, un falso positivo conservador deliberado. Para una garantía dura corre
+el agente solo-MCP o en un sandbox de solo lectura.
 
 Regístralo en `.claude/settings.json`:
 
@@ -163,25 +186,29 @@ Es la opción más fuerte — corre tu lógica, no un glob.
 
 **Superficie MCP** — cuando alegra corre como servidor MCP local
 (`claude mcp add alegra -- alegra mcp start`), deniega las tools de escritura
-por nombre. Como `deny` le gana a `allow`, deniega los verbos de escritura en
-vez de intentar hacer allow-list de las lecturas:
+por **nombre exacto**. Las reglas de permiso de Claude Code no interpretan
+expresiones regulares — un patrón como `mcp__alegra__alegra_.*_(void|delete)`
+nunca coincide con nada — así que lista cada tool:
 
 ```json
 {
   "permissions": {
     "deny": [
-      "mcp__alegra__alegra_.*_(create|update|delete|import|void|emit|stamp|email|open|close|transfer)"
+      "mcp__alegra__alegra_invoices_delete",
+      "mcp__alegra__alegra_invoices_void",
+      "mcp__alegra__alegra_invoices_emit",
+      "mcp__alegra__alegra_invoices_stamp",
+      "mcp__alegra__alegra_contacts_delete"
     ]
   }
 }
 ```
 
-Los patrones de permiso MCP se evalúan como expresiones regulares, así que el
-`.*` y el grupo `(...)` funcionan tal cual; las tools de lectura (`..._list`,
-`..._get`, `..._export`) quedan intactas. Un hook PreToolUse también puede
-controlar tools MCP — pon `"matcher": "mcp__alegra__.*"` e inspecciona
-`.tool_name` en el script para semántica de allow-list (deniega cualquier cosa
-que no sea un verbo de lectura).
+`alegra agent guard --host claude-code` emite la lista exacta completa. Un hook
+PreToolUse también puede controlar tools MCP — los **matchers** de hooks (a
+diferencia de las reglas de permiso) sí son regex, así que
+`"matcher": "mcp__.*alegra.*"` manda cada llamada de tool alegra al script, que
+compara `.tool_name` contra el conjunto bloqueado.
 
 ### Codex
 
@@ -228,38 +255,46 @@ pon el comodín primero y las denegaciones específicas después.
   "permission": {
     "bash": {
       "*": "allow",
-      "alegra * delete*": "deny",
-      "alegra * create*": "ask",
-      "alegra * update*": "ask",
-      "alegra invoices emit*": "deny",
-      "alegra invoices void*": "deny",
-      "alegra invoices stamp*": "deny"
+      "alegra invoices delete": "deny",
+      "alegra invoices emit": "deny",
+      "alegra invoices void": "deny",
+      "alegra invoices stamp": "deny",
+      "alegra contacts delete": "deny",
+      "alegra contacts create": "ask",
+      "alegra contacts update": "ask"
     }
   }
 }
 ```
 
-`deny` bloquea el comando; `ask` pide aprobación antes de ejecutarlo.
+`deny` bloquea el comando; `ask` pide aprobación antes de ejecutarlo. Prefiere
+reglas exactas por comando en vez de globs de verbo como `alegra * delete*` —
+un glob intermedio puede coincidir por error con un argumento que contenga el
+verbo y es más difícil de revisar. `alegra agent guard --host opencode` emite
+la lista exacta.
 
 **Superficie MCP** — las mismas claves de permiso coinciden con los nombres de
-las tools MCP como patrones comodín, así que puedes denegar las tools de
-escritura de un servidor:
+las tools MCP, así que puedes denegar las tools de escritura de un servidor por
+nombre exacto:
 
 ```json
 {
   "permission": {
-    "alegra_*_delete": "deny",
-    "alegra_*_create": "ask",
-    "alegra_*_update": "ask",
+    "alegra_invoices_delete": "deny",
     "alegra_invoices_void": "deny",
     "alegra_invoices_emit": "deny",
-    "alegra_invoices_stamp": "deny"
+    "alegra_invoices_stamp": "deny",
+    "alegra_contacts_delete": "deny",
+    "alegra_contacts_create": "ask"
   }
 }
 ```
 
-Confirma el prefijo exacto que tu OpenCode usa para el servidor y haz coincidir
-el patrón (el nombre de la tool es `alegra_<recurso>_<subcomando>`).
+Los nombres exactos (en vez de globs `alegra_*_delete`) también cubren tools
+compuestas como `alegra_bills_attachment-delete`, que un glob con sufijo
+`_delete` se pierde. Confirma el prefijo exacto que tu OpenCode usa para el
+servidor y haz coincidir el patrón (el nombre de la tool es
+`alegra_<recurso>_<subcomando>`).
 
 ## Capa 3 — built-ins del CLI
 
