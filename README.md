@@ -31,6 +31,9 @@ per resource.
 ## Install
 
 ```bash
+# Quick install (macOS/Linux) — auto-detects platform, verifies checksum
+curl -fsSL https://raw.githubusercontent.com/jjuanrivvera/alegra-cli/main/install.sh | sh
+
 # Homebrew (macOS/Linux)
 brew install jjuanrivvera/alegra-cli/alegra-cli
 
