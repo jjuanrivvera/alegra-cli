@@ -6,6 +6,16 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [0.9.6] - 2026-07-11
+
+### Added
+- One-line install script for macOS/Linux (checksum-verified):
+  `curl -fsSL https://raw.githubusercontent.com/jjuanrivvera/alegra-cli/main/install.sh | sh`.
+
+### Security
+- Build with Go 1.25.12 to clear GO-2026-5856 (privacy leak in `crypto/tls`
+  Encrypted Client Hello).
+
 ## [0.9.5] - 2026-07-02
 
 ### Fixed
