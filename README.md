@@ -10,6 +10,7 @@
 [![Go version](https://img.shields.io/github/go-mod/go-version/jjuanrivvera/alegra-cli)](go.mod)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/jjuanrivvera/alegra-cli)
+[![Built with cliwright](https://img.shields.io/badge/built_with-cliwright-1f6feb)](https://cliwright.jjuanrivvera.com)
 
 <br>
 
