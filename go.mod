@@ -2,7 +2,7 @@ module github.com/jjuanrivvera/alegra-cli
 
 go 1.25.0
 
-toolchain go1.25.11
+toolchain go1.25.12
 
 require (
 	github.com/njayp/ophis v1.1.4
