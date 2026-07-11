@@ -51,7 +51,7 @@ func run() error {
 		if c.Hidden || c.Name() == "help" || c.Name() == "completion" {
 			continue
 		}
-		b.WriteString(fmt.Sprintf("- [%s](alegra_%s.md) — %s\n", c.Name(), c.Name(), c.Short))
+		fmt.Fprintf(&b, "- [%s](alegra_%s.md) — %s\n", c.Name(), c.Name(), c.Short)
 	}
 	return os.WriteFile(filepath.Join(outDir, "index.md"), []byte(b.String()), 0o644)
 }
