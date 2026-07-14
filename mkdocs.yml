@@ -117,3 +117,8 @@ nav:
       - vs. Official MCP: reference/vs-official-mcp.md
       - Errors & Rate Limits: reference/errors.md
       - FAQ & Troubleshooting: reference/faq.md
+
+extra:
+  analytics:
+    provider: google
+    property: G-9HY9P7C366
