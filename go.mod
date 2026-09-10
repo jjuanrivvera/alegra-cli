@@ -1,6 +1,6 @@
 module github.com/jjuanrivvera/alegra-cli
 
-go 1.25.0
+go 1.26.8
 
 toolchain go1.25.13
 
