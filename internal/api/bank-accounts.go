@@ -20,11 +20,15 @@ type BankAccount struct {
 // BankTransfer is the body of a transfer from one bank account to another
 // (POST /bank-accounts/{id}/transfer).
 type BankTransfer struct {
-	IDDestination string `json:"idDestination,omitempty"`
-	Amount        Money  `json:"amount,omitempty"`
-	Date          string `json:"date,omitempty"`
-	Observations  string `json:"observations,omitempty"`
-	ExchangeRate  Money  `json:"exchangeRate,omitempty"`
+	IDDestination         string `json:"idDestination,omitempty"`
+	Amount                Money  `json:"amount,omitempty"`
+	Date                  string `json:"date,omitempty"`
+	Observations          string `json:"observations,omitempty"`
+	ExchangeRate          Money  `json:"exchangeRate,omitempty"`
+	CostCenterOrigin      string `json:"costCenterOrigin,omitempty"`
+	CostCenterDestination string `json:"costCenterDestination,omitempty"`
+	IDResolution          string `json:"idResolution,omitempty"`
+	IDResolutionOut       string `json:"idResolutionOut,omitempty"`
 }
 
 // BankAccounts returns a typed handle to the /bank-accounts resource.
