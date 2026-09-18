@@ -1,6 +1,11 @@
 package commands
 
-import "github.com/njayp/ophis"
+import (
+	"slices"
+
+	"github.com/njayp/ophis"
+	"github.com/spf13/cobra"
+)
 
 // mcpExcludedCommands are local setup and meta commands that are not accounting
 // operations, so they stay out of the agent-facing MCP tool surface (an agent
@@ -15,14 +20,23 @@ import "github.com/njayp/ophis"
 // TestMCPExcludesSetupCommands guards the surface either way.
 var mcpExcludedCommands = []string{"agent", "skills", "auth", "config", "alias", "init"}
 
+// selfUpdatePaths are the EXACT command paths of the self-update command. `update` replaces
+// the running binary, so it must never be an MCP tool — but it can't go in mcpExcludedCommands,
+// whose substring match would also drop every `<resource> update` action. Excluded by exact
+// path instead.
+var selfUpdatePaths = []string{"alegra update", "alegra update check"}
+
 // init registers the `alegra mcp` command, which exposes the CLI's accounting
 // operations as a Model Context Protocol server so AI agents can drive Alegra.
 func init() {
+	excludeMeta := ophis.ExcludeCmdsContaining(mcpExcludedCommands...)
 	rootCmd.AddCommand(ophis.Command(&ophis.Config{
 		ToolNamePrefix: "alegra",
 		Selectors: []ophis.Selector{
 			{
-				CmdSelector:           ophis.ExcludeCmdsContaining(mcpExcludedCommands...),
+				CmdSelector: func(cmd *cobra.Command) bool {
+					return excludeMeta(cmd) && !slices.Contains(selfUpdatePaths, cmd.CommandPath())
+				},
 				InheritedFlagSelector: ophis.ExcludeFlags("show-token", "profile"),
 			},
 		},

@@ -128,23 +128,25 @@ release:
   extra_files:
     - glob: ./install.sh
 
-brews:
+# homebrew_casks (not the deprecated `brews`): casks are the modern GoReleaser path for a
+# pre-built binary and match the rest of the fleet. NOTE: switches the tap artifact Formula -> Cask
+# (delete the stale Formula/alegra-cli.rb from homebrew-alegra-cli after the first cask release, or
+# brew sees a formula+cask name collision). Casks don't run a formula's extra_install, so the shell
+# completions are no longer brew-installed — they still ship in the archive and the nfpm packages.
+homebrew_casks:
   - name: alegra-cli
+    binaries: [alegra]
     repository:
       owner: jjuanrivvera
       name: homebrew-alegra-cli
       token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
     homepage: https://github.com/jjuanrivvera/alegra-cli
     description: Command-line interface for the Alegra accounting API
-    license: MIT
-    skip_upload: auto
-    # Install the shell completions bundled in the archive.
-    extra_install: |
-      bash_completion.install "completions/alegra.bash" => "alegra"
-      zsh_completion.install "completions/alegra.zsh" => "_alegra"
-      fish_completion.install "completions/alegra.fish"
-    test: |
-      system "#{bin}/alegra version"
+    # Strip the macOS quarantine xattr so the unsigned CLI binary runs without a Gatekeeper prompt.
+    hooks:
+      post:
+        install: |
+          system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/alegra"]
 
 scoops:
   - repository:

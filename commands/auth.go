@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"context"
 	"fmt"
+	"io"
 	"os"
 	"strings"
 
@@ -183,12 +184,12 @@ func verifyCredentials(ctx context.Context, client *api.Client) error {
 func promptSecret(cmd *cobra.Command, prompt string) (string, error) {
 	fmt.Fprint(cmd.OutOrStdout(), prompt)
 	if f, ok := cmd.InOrStdin().(*os.File); ok && term.IsTerminal(int(f.Fd())) {
-		b, err := term.ReadPassword(int(f.Fd()))
+		s, err := readSecretRaw(f)
 		fmt.Fprintln(cmd.OutOrStdout())
 		if err != nil {
 			return "", err
 		}
-		return strings.TrimSpace(string(b)), nil
+		return sanitizeSecret(s), nil
 	}
 	// Non-interactive: read a line.
 	line, err := bufio.NewReader(cmd.InOrStdin()).ReadString('\n')
@@ -196,6 +197,60 @@ func promptSecret(cmd *cobra.Command, prompt string) (string, error) {
 		return "", err
 	}
 	return strings.TrimSpace(line), nil
+}
+
+// sanitizeSecret strips terminal bracketed-paste markers (ESC[200~ … ESC[201~) and trims
+// surrounding whitespace. With bracketed paste enabled, a raw read (unlike the shell's line
+// editor) receives those wrappers around pasted text; left in they corrupt a pasted key so it
+// fails auth. Stripping them fixes the common "typing works, pasting fails".
+func sanitizeSecret(s string) string {
+	s = strings.ReplaceAll(s, "\x1b[200~", "")
+	s = strings.ReplaceAll(s, "\x1b[201~", "")
+	return strings.TrimSpace(s)
+}
+
+// readSecretRaw puts the terminal in raw mode (no echo, no line-length limit) and reads one line.
+// term.ReadPassword instead reads in CANONICAL mode, capped at MAX_CANON (1024 bytes on macOS):
+// pasting a longer secret fills the line buffer and the terminal BLOCKS — the "prompt hangs until
+// Ctrl-C" bug. Raw mode has no such limit.
+func readSecretRaw(f *os.File) (string, error) {
+	fd := int(f.Fd())
+	oldState, err := term.MakeRaw(fd)
+	if err != nil {
+		return "", err
+	}
+	defer func() { _ = term.Restore(fd, oldState) }()
+	return scanSecretLine(f)
+}
+
+// scanSecretLine reads bytes until CR/LF with no line-length limit. Ctrl-C cancels; Backspace/DEL
+// edits. Split out so the byte handling is testable without a real terminal.
+func scanSecretLine(r io.Reader) (string, error) {
+	var buf []byte
+	chunk := make([]byte, 256)
+	for {
+		n, readErr := r.Read(chunk)
+		for i := 0; i < n; i++ {
+			switch c := chunk[i]; c {
+			case '\r', '\n':
+				return string(buf), nil
+			case 3: // Ctrl-C
+				return "", fmt.Errorf("cancelled")
+			case 127, 8: // DEL / Backspace
+				if len(buf) > 0 {
+					buf = buf[:len(buf)-1]
+				}
+			default:
+				buf = append(buf, c)
+			}
+		}
+		if readErr != nil {
+			if len(buf) == 0 {
+				return "", readErr
+			}
+			return string(buf), nil
+		}
+	}
 }
 
 func orNone(s string) string {

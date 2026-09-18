@@ -75,6 +75,7 @@ var guardLocalGroups = map[string]bool{
 	"mcp":        true,
 	"skills":     true,
 	"help":       true,
+	"update":     true, // self-update the CLI binary; not an Alegra API op
 }
 
 func TestEveryAPICommandIsAnnotated(t *testing.T) {
