@@ -6,6 +6,12 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+### Added
+- Optional `costCenterOrigin`, `costCenterDestination`, `idResolution`, and
+  `idResolutionOut` fields on `BankTransfer` to match the Alegra bank-transfer
+  schema.
+
+
 ## [0.9.6] - 2026-07-11
 
 ### Added

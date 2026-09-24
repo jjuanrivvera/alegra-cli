@@ -2,6 +2,7 @@ package api
 
 import (
 	"context"
+	"encoding/json"
 	"net/http"
 	"testing"
 
@@ -33,4 +34,33 @@ func TestBankAccounts_Get(t *testing.T) {
 	assert.Equal(t, ID("12"), acc.ID)
 	assert.Equal(t, "Banco X", acc.Name)
 	assert.Equal(t, "2022-10-03", acc.InitialBalanceDate)
+}
+
+func TestBankTransfer_JSONRoundTrip(t *testing.T) {
+	in := BankTransfer{
+		IDDestination:         "2",
+		Amount:                Money("150.00"),
+		Date:                  "2026-09-12",
+		Observations:          "move funds",
+		ExchangeRate:          Money("1"),
+		CostCenterOrigin:      "10",
+		CostCenterDestination: "20",
+		IDResolution:          "3",
+		IDResolutionOut:       "4",
+	}
+	raw, err := json.Marshal(in)
+	require.NoError(t, err)
+	assert.Contains(t, string(raw), `"costCenterOrigin":"10"`)
+	assert.Contains(t, string(raw), `"costCenterDestination":"20"`)
+	assert.Contains(t, string(raw), `"idResolution":"3"`)
+	assert.Contains(t, string(raw), `"idResolutionOut":"4"`)
+
+	var out BankTransfer
+	require.NoError(t, json.Unmarshal(raw, &out))
+	assert.Equal(t, in, out)
+
+	omitted, err := json.Marshal(BankTransfer{IDDestination: "2", Amount: Money("1")})
+	require.NoError(t, err)
+	assert.NotContains(t, string(omitted), "costCenterOrigin")
+	assert.NotContains(t, string(omitted), "idResolution")
 }
