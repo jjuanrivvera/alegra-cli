@@ -145,8 +145,8 @@ homebrew_casks:
     # Strip the macOS quarantine xattr so the unsigned CLI binary runs without a Gatekeeper prompt.
     hooks:
       post:
-        install: |
-          system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/alegra"]
+        install_steps: |
+          run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{ .StagedPath }}/alegra"]
 
 scoops:
   - repository:
