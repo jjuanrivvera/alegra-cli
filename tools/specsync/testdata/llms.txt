@@ -7,6 +7,10 @@
 ## API Reference
 - [Crear centro de costo](https://developer.alegra.com/reference/accounting__createcostcenter.md)
 - [Listar asientos contables](https://developer.alegra.com/reference/accounting__listjournals.md)
+- [Listar facturas de compra](https://developer.alegra.com/reference/expenses_list-bills.md): Herramienta MCP: `expenses_list-bills`.
+- [Consultar flujo de caja](https://developer.alegra.com/reference/reports_get_cash_flow.md): Herramienta MCP: `reports_get_cash_flow`.
+- [Listar productos](https://developer.alegra.com/reference/items_getitems.md): Herramienta MCP: `items_getItems`.
+- [Listar facturas de proveedor](https://developer.alegra.com/reference/get_bills.md)
 - [Listar impuestos](https://developer.alegra.com/reference/get_taxes.md)
 - [Consultar impuesto](https://developer.alegra.com/reference/get_taxes-id.md)
 - [Editar impuesto](https://developer.alegra.com/reference/put_taxes-id.md)

@@ -3,11 +3,12 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"maps"
+	"net/url"
 	"os"
 	"path/filepath"
 	"regexp"
 	"sort"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -37,6 +38,9 @@ func harvest(endpoints []RESTEndpoint) (FieldSchemas, error) {
 	}
 	// resource → field → set of seen types
 	acc := map[string]map[string]map[string]bool{}
+	// Survives across pages: a later example must not forget that an earlier
+	// response schema already typed the field.
+	fromSchema := map[string]map[string]bool{}
 	var fetched, failed int
 	for _, e := range endpoints {
 		body, err := fetchPage(e.Slug)
@@ -54,8 +58,9 @@ func harvest(endpoints []RESTEndpoint) (FieldSchemas, error) {
 			failed++
 			continue
 		}
-		mergeSpecFields(acc, spec)
+		mergeSpecFieldsInto(acc, fromSchema, spec)
 	}
+	preferStructuredExampleTypes(acc, fromSchema)
 	if fetched == 0 {
 		return nil, fmt.Errorf("harvested 0 of %d pages — refusing to write an empty schema manifest", len(endpoints))
 	}
@@ -115,7 +120,19 @@ func extractOpenAPI(page []byte) (map[string]any, error) {
 // responses either with a schema or with examples only (e.g. invoices); both
 // are reduced. List envelopes are unwrapped: a bare array uses its items; a
 // {metadata, data:[...]} wrapper uses the data items.
+//
+// A field typed by a response schema keeps that type. Example payloads fill
+// fields the schema doesn't mention, but they must not widen a schema type:
+// several purchase-order pages publish the create/update body (provider as an
+// id string) as the GET example next to a response schema that types provider
+// as an object.
 func mergeSpecFields(acc map[string]map[string]map[string]bool, spec map[string]any) {
+	fromSchema := map[string]map[string]bool{}
+	mergeSpecFieldsInto(acc, fromSchema, spec)
+	preferStructuredExampleTypes(acc, fromSchema)
+}
+
+func mergeSpecFieldsInto(acc map[string]map[string]map[string]bool, fromSchema map[string]map[string]bool, spec map[string]any) {
 	paths, _ := spec["paths"].(map[string]any)
 	for path, rawOps := range paths {
 		resource := firstSegment(path)
@@ -130,33 +147,77 @@ func mergeSpecFields(acc map[string]map[string]map[string]bool, spec map[string]
 			}
 			responses, _ := op["responses"].(map[string]any)
 			for _, code := range []string{"200", "201"} {
-				media := responseMedia(responses, code)
+				media := responseMedia(responses, code, spec)
 				if media == nil {
 					continue
 				}
 				fields := map[string]string{}
+				schemaTyped := false
 				if schema, _ := media["schema"].(map[string]any); schema != nil {
 					fields = objectFields(schema, spec)
+					schemaTyped = len(fields) > 0
 				}
 				if len(fields) == 0 {
-					fields = exampleFields(media)
+					fields = exampleFields(media, spec)
 				}
 				if isStatusEnvelope(fields) {
 					continue
 				}
 				for name, typ := range fields {
-					if typ == "" { // property declared without type information
-						continue
-					}
-					if acc[resource] == nil {
-						acc[resource] = map[string]map[string]bool{}
-					}
-					if acc[resource][name] == nil {
-						acc[resource][name] = map[string]bool{}
-					}
-					acc[resource][name][typ] = true
+					recordField(acc, fromSchema, resource, name, typ, schemaTyped)
 				}
 			}
+		}
+	}
+}
+
+// preferStructuredExampleTypes drops primitive example types for a field that
+// any example typed as object or array. Schema-sourced types are left alone,
+// so a real oneOf (string in one country, object in another) still records
+// both.
+func preferStructuredExampleTypes(acc map[string]map[string]map[string]bool, fromSchema map[string]map[string]bool) {
+	for resource, fields := range acc {
+		for name, types := range fields {
+			if fromSchema[resource][name] {
+				continue
+			}
+			if !types["object"] && !types["array"] {
+				continue
+			}
+			for _, primitive := range []string{"string", "number", "integer", "boolean"} {
+				delete(types, primitive)
+			}
+		}
+	}
+}
+
+// recordField adds a documented type for a resource field. Once any response
+// schema has typed the field, later example-only types are ignored, and a
+// schema type replaces example types recorded earlier in the walk.
+func recordField(acc map[string]map[string]map[string]bool, fromSchema map[string]map[string]bool, resource, name, typ string, schema bool) {
+	if typ == "" || name == "" { // property declared without type information
+		return
+	}
+	if acc[resource] == nil {
+		acc[resource] = map[string]map[string]bool{}
+	}
+	if fromSchema[resource] == nil {
+		fromSchema[resource] = map[string]bool{}
+	}
+	if schema {
+		if !fromSchema[resource][name] {
+			acc[resource][name] = map[string]bool{}
+			fromSchema[resource][name] = true
+		}
+	} else if fromSchema[resource][name] {
+		return
+	}
+	if acc[resource][name] == nil {
+		acc[resource][name] = map[string]bool{}
+	}
+	for _, part := range strings.Split(typ, "|") {
+		if part != "" {
+			acc[resource][name][part] = true
 		}
 	}
 }
@@ -176,8 +237,19 @@ func isStatusEnvelope(fields map[string]string) bool {
 	return true
 }
 
-func responseMedia(responses map[string]any, code string) map[string]any {
+func responseMedia(responses map[string]any, code string, spec map[string]any) map[string]any {
 	resp, _ := responses[code].(map[string]any)
+	if resp == nil {
+		return nil
+	}
+	// List pages (invoices, credit-notes, estimates, remissions) now point the
+	// 200 response at #/components/responses/... instead of inlining it.
+	if _, ok := resp["$ref"]; ok {
+		resp = deref(resp, spec)
+		if resp == nil {
+			return nil
+		}
+	}
 	content, _ := resp["content"].(map[string]any)
 	media, _ := content["application/json"].(map[string]any)
 	return media
@@ -185,19 +257,67 @@ func responseMedia(responses map[string]any, code string) map[string]any {
 
 // exampleFields reduces a media object's example payload(s) to field names and
 // JSON value types, applying the same list/envelope unwrapping as schemas.
-func exampleFields(media map[string]any) map[string]string {
+func exampleFields(media map[string]any, spec map[string]any) map[string]string {
 	out := map[string]string{}
 	if ex, ok := media["example"]; ok {
-		maps.Copy(out, exampleObjectFields(ex))
+		mergeFieldTypes(out, exampleObjectFields(unwrapExample(ex, spec)))
 	}
 	if examples, ok := media["examples"].(map[string]any); ok {
 		for _, rawEx := range examples {
-			if ex, isMap := rawEx.(map[string]any); isMap {
-				maps.Copy(out, exampleObjectFields(ex["value"]))
-			}
+			// Union across examples. Copying would let one request-shaped
+			// example (priceList: "2") replace the object form from another,
+			// and map iteration made that choice unstable.
+			mergeFieldTypes(out, exampleObjectFields(unwrapExample(rawEx, spec)))
 		}
 	}
 	return out
+}
+
+func mergeFieldTypes(dst, src map[string]string) {
+	for name, typ := range src {
+		dst[name] = unionType(dst[name], typ)
+	}
+}
+
+// unwrapExample follows local $refs and OpenAPI Example Objects ({summary,
+// value} or a $ref to one) down to the payload the docs are illustrating.
+func unwrapExample(v any, spec map[string]any) any {
+	for range 10 {
+		m, ok := v.(map[string]any)
+		if !ok {
+			return v
+		}
+		if _, has := m["$ref"]; has {
+			target := deref(m, spec)
+			if target == nil {
+				return nil
+			}
+			v = target
+			continue
+		}
+		if isExampleObject(m) {
+			v = m["value"]
+			continue
+		}
+		return m
+	}
+	return nil
+}
+
+// isExampleObject reports whether m is an OpenAPI Example Object rather than
+// a resource payload that happens to contain a "value" field.
+func isExampleObject(m map[string]any) bool {
+	if _, ok := m["value"]; !ok {
+		return false
+	}
+	for k := range m {
+		switch k {
+		case "summary", "description", "value", "externalValue":
+		default:
+			return false
+		}
+	}
+	return true
 }
 
 func exampleObjectFields(value any) map[string]string {
@@ -205,7 +325,7 @@ func exampleObjectFields(value any) map[string]string {
 	case []any: // bare list response: union across the example's items
 		out := map[string]string{}
 		for _, item := range v {
-			maps.Copy(out, exampleObjectFields(item))
+			mergeFieldTypes(out, exampleObjectFields(item))
 		}
 		return out
 	case map[string]any:
@@ -253,6 +373,13 @@ func objectFields(schema map[string]any, spec map[string]any) map[string]string 
 	if schema == nil {
 		return nil
 	}
+	// allOf/oneOf/anyOf before the array arm: a node can be `type: object`
+	// with oneOf of country variants (bills) or a oneOf of a bare list and a
+	// {metadata, data} envelope (stamp documents) and have no properties of
+	// its own.
+	if fields, ok := composedFields(schema, spec); ok {
+		return fields
+	}
 	// Bare list response: [ {resource} ].
 	if schema["type"] == "array" {
 		items, _ := schema["items"].(map[string]any)
@@ -277,6 +404,61 @@ func objectFields(schema map[string]any, spec map[string]any) map[string]string 
 	return out
 }
 
+// composedFields unions the object fields of allOf/oneOf/anyOf branches.
+// ok is false when the schema isn't composed, so the caller can keep walking.
+func composedFields(schema map[string]any, spec map[string]any) (map[string]string, bool) {
+	var alts []any
+	for _, key := range []string{"allOf", "oneOf", "anyOf"} {
+		if a, ok := schema[key].([]any); ok {
+			alts = append(alts, a...)
+		}
+	}
+	if len(alts) == 0 {
+		return nil, false
+	}
+	out := map[string]string{}
+	for _, alt := range alts {
+		m, ok := alt.(map[string]any)
+		if !ok {
+			continue
+		}
+		for name, typ := range objectFields(m, spec) {
+			out[name] = unionType(out[name], typ)
+		}
+	}
+	if props, ok := schema["properties"].(map[string]any); ok {
+		for name, raw := range props {
+			prop, isMap := raw.(map[string]any)
+			if !isMap {
+				continue
+			}
+			out[name] = unionType(out[name], schemaType(prop, spec))
+		}
+	}
+	return out, true
+}
+
+func unionType(a, b string) string {
+	if a == "" {
+		return b
+	}
+	if b == "" || a == b {
+		return a
+	}
+	set := map[string]bool{}
+	for _, part := range strings.Split(a+"|"+b, "|") {
+		if part != "" {
+			set[part] = true
+		}
+	}
+	ts := make([]string, 0, len(set))
+	for t := range set {
+		ts = append(ts, t)
+	}
+	sort.Strings(ts)
+	return strings.Join(ts, "|")
+}
+
 // schemaType names a property's JSON type, following $ref and oneOf/anyOf.
 func schemaType(prop map[string]any, spec map[string]any) string {
 	prop = deref(prop, spec)
@@ -286,7 +468,7 @@ func schemaType(prop map[string]any, spec map[string]any) string {
 	if t, ok := prop["type"].(string); ok && t != "" {
 		return t
 	}
-	for _, key := range []string{"oneOf", "anyOf"} {
+	for _, key := range []string{"oneOf", "anyOf", "allOf"} {
 		if alts, ok := prop[key].([]any); ok {
 			types := map[string]bool{}
 			for _, alt := range alts {
@@ -313,27 +495,72 @@ func schemaType(prop map[string]any, spec map[string]any) string {
 	return ""
 }
 
-// deref resolves a local "#/components/schemas/X" reference within the page's
-// own document (each page embeds a self-contained spec).
+// deref resolves a local JSON pointer ("#/components/schemas/X",
+// "#/components/responses/...", "#/paths/~1debit-notes/...") within the page's
+// own document. Each reference page embeds a self-contained spec, but the
+// pointer is no longer always a component schema: list responses and examples
+// are shared via components, and some operations point at a sibling path.
 func deref(schema map[string]any, spec map[string]any) map[string]any {
 	for range 10 { // cycle guard
 		ref, ok := schema["$ref"].(string)
 		if !ok {
 			return schema
 		}
-		name, ok := strings.CutPrefix(ref, "#/components/schemas/")
-		if !ok {
+		// Contact (and similar) response schemas $ref the POST requestBody,
+		// where relations are id strings. That is the write shape, not the
+		// response; refuse it so the response examples supply the fields.
+		if strings.Contains(ref, "/requestBody/") {
 			return nil
 		}
-		components, _ := spec["components"].(map[string]any)
-		schemas, _ := components["schemas"].(map[string]any)
-		target, isMap := schemas[name].(map[string]any)
-		if !isMap {
+		target := resolvePointer(spec, ref)
+		if target == nil {
 			return nil
 		}
 		schema = target
 	}
 	return nil
+}
+
+// resolvePointer walks a "#/a/b" JSON pointer. Tokens may be OpenAPI-escaped
+// (~1 for /, ~0 for ~) and percent-encoded ({id} is often %7Bid%7D).
+func resolvePointer(doc map[string]any, ref string) map[string]any {
+	if !strings.HasPrefix(ref, "#/") {
+		return nil
+	}
+	var cur any = doc
+	for _, raw := range strings.Split(ref[2:], "/") {
+		token, err := url.PathUnescape(raw)
+		if err != nil {
+			return nil
+		}
+		// RFC 6901: ~1 is "/" and ~0 is "~", applied in that order so ~01 stays "~1".
+		token = strings.ReplaceAll(token, "~1", "/")
+		token = strings.ReplaceAll(token, "~0", "~")
+		var next any
+		switch node := cur.(type) {
+		case map[string]any:
+			var ok bool
+			next, ok = node[token]
+			if !ok {
+				return nil
+			}
+		case []any:
+			// Pointers such as .../oneOf/0 index the branch.
+			i, err := strconv.Atoi(token)
+			if err != nil || i < 0 || i >= len(node) {
+				return nil
+			}
+			next = node[i]
+		default:
+			return nil
+		}
+		cur = next
+	}
+	target, ok := cur.(map[string]any)
+	if !ok {
+		return nil
+	}
+	return target
 }
 
 func writeFieldSchemas(fs FieldSchemas) error {

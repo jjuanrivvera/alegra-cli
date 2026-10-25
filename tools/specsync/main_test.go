@@ -17,17 +17,27 @@ func TestParseManifest_Fixture(t *testing.T) {
 	require.NoError(t, err)
 
 	// Modern REST slugs: method uppercased, "-id" expanded, duplicates dropped,
-	// output sorted by path then method.
-	require.Len(t, man.RESTEndpoints, 5)
-	assert.Equal(t, RESTEndpoint{Method: "GET", Path: "/taxes", Slug: "get_taxes"}, man.RESTEndpoints[0])
-	assert.Equal(t, RESTEndpoint{Method: "DELETE", Path: "/taxes/{id}", Slug: "delete_taxes-id"}, man.RESTEndpoints[1])
-	assert.Equal(t, RESTEndpoint{Method: "GET", Path: "/taxes/{id}", Slug: "get_taxes-id"}, man.RESTEndpoints[2])
-	assert.Equal(t, RESTEndpoint{Method: "PUT", Path: "/taxes/{id}", Slug: "put_taxes-id"}, man.RESTEndpoints[3])
-	assert.Equal(t, RESTEndpoint{Method: "POST", Path: "/webhooks-subscriptions", Slug: "post_webhooks-subscriptions"}, man.RESTEndpoints[4])
+	// output sorted by path then method. get_bills stays REST — a single
+	// underscore is not enough to call a method-prefixed slug an MCP tool.
+	require.Len(t, man.RESTEndpoints, 6)
+	assert.Equal(t, RESTEndpoint{Method: "GET", Path: "/bills", Slug: "get_bills"}, man.RESTEndpoints[0])
+	assert.Equal(t, RESTEndpoint{Method: "GET", Path: "/taxes", Slug: "get_taxes"}, man.RESTEndpoints[1])
+	assert.Equal(t, RESTEndpoint{Method: "DELETE", Path: "/taxes/{id}", Slug: "delete_taxes-id"}, man.RESTEndpoints[2])
+	assert.Equal(t, RESTEndpoint{Method: "GET", Path: "/taxes/{id}", Slug: "get_taxes-id"}, man.RESTEndpoints[3])
+	assert.Equal(t, RESTEndpoint{Method: "PUT", Path: "/taxes/{id}", Slug: "put_taxes-id"}, man.RESTEndpoints[4])
+	assert.Equal(t, RESTEndpoint{Method: "POST", Path: "/webhooks-subscriptions", Slug: "post_webhooks-subscriptions"}, man.RESTEndpoints[5])
 
-	assert.Equal(t, []string{"accounting__createcostcenter", "accounting__listjournals"}, man.MCPTools)
+	// Both separators: legacy group__tool and the current group_tool form,
+	// including a tool name that itself contains underscores.
+	assert.Equal(t, []string{
+		"accounting__createcostcenter",
+		"accounting__listjournals",
+		"expenses_list-bills",
+		"items_getitems",
+		"reports_get_cash_flow",
+	}, man.MCPTools)
 	assert.Equal(t, []string{"createAdditionalCharge", "listreconciliations"}, man.LegacySlugs)
-	assert.Equal(t, []string{"accounting", "taxes", "webhooks-subscriptions"}, man.Resources)
+	assert.Equal(t, []string{"accounting", "bills", "expenses", "items", "reports", "taxes", "webhooks-subscriptions"}, man.Resources)
 
 	// Guide pages (docs/*.md) must never leak into the manifest.
 	for _, e := range man.RESTEndpoints {
@@ -63,4 +73,15 @@ func TestParseManifest_EmptyInputFailsLoudly(t *testing.T) {
 		require.Error(t, err, name)
 		assert.True(t, strings.Contains(err.Error(), "0 REST endpoints"), name)
 	}
+}
+
+func TestParseManifest_ZeroMCPToolsFailsLoudly(t *testing.T) {
+	// Alegra dropped the group__tool separator for group_tool. A parser that
+	// only recognizes "__" records every tool as legacy and writes mcpTools
+	// null, which silently drops MCP-only resources from drift detection.
+	body := "- [a](https://developer.alegra.com/reference/get_bills.md)\n" +
+		"- [b](https://developer.alegra.com/reference/listreconciliations.md)\n"
+	_, err := parseManifest([]byte(body))
+	require.Error(t, err)
+	assert.Contains(t, err.Error(), "0 MCP tools")
 }

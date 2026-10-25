@@ -47,6 +47,23 @@ var contractAllowlist = map[string]bool{
 	// Declared in the docs without any type (description only), so the harvest
 	// cannot record it.
 	"inventory-adjustments.nextNumber": true,
+	// Purchase-order response schema (POST /purchase-orders 200) types the
+	// document core and provider as an object, and omits these. costCenter and
+	// currency are on the update request; number is on the MCP tool example;
+	// discount, tax, fullNumber, and bills are returned live and kept on the
+	// struct. The manifest did not capture this resource before, so the
+	// contract test never saw them.
+	"purchase-orders.number":     true,
+	"purchase-orders.fullNumber": true,
+	"purchase-orders.discount":   true,
+	"purchase-orders.tax":        true,
+	"purchase-orders.costCenter": true,
+	"purchase-orders.currency":   true,
+	"purchase-orders.bills":      true,
+	// Generic item responses type reference as a string. The Costa Rica
+	// variant schema types it as an object {reference, type}. The struct keeps
+	// the string form used by the other documented variants.
+	"items.reference": true,
 }
 
 // jsonTypeFor maps a struct field's Go type to the documented JSON types it
