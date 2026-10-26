@@ -31,7 +31,7 @@ type Manifest struct {
 	RESTEndpoints []RESTEndpoint `json:"restEndpoints"`
 	MCPTools      []string       `json:"mcpTools"`
 	// LegacySlugs are reference pages whose slug isn't a modern `method_path`
-	// REST slug or an MCP `group__tool` slug (e.g. createAdditionalCharge,
+	// REST slug or an MCP `group_tool` slug (e.g. createAdditionalCharge,
 	// listReconciliations). They still document real endpoints.
 	LegacySlugs []string `json:"legacySlugs"`
 	// Resources is the set of unique top-level resource tokens seen across the
@@ -120,14 +120,21 @@ func parseManifest(body []byte) (Manifest, error) {
 		seenSlug[slug] = true
 
 		switch {
-		case strings.Contains(slug, "__"): // MCP tool, e.g. sellers__getSellers
-			mcp = append(mcp, slug)
-			resources[strings.SplitN(slug, "__", 2)[0]] = true
-		case methodRe.MatchString(slug): // modern REST, e.g. post_webhooks-subscriptions
+		case methodRe.MatchString(slug): // modern REST, e.g. get_bills, post_webhooks-subscriptions
+			// Method-prefixed slugs are REST even though they contain a single
+			// underscore. Checked before the MCP arm so get_bills is not a tool.
 			sm := methodRe.FindStringSubmatch(slug)
 			path := "/" + strings.ReplaceAll(sm[2], "-id", "/{id}")
 			rest = append(rest, RESTEndpoint{Method: strings.ToUpper(sm[1]), Path: path, Slug: slug})
 			resources[firstSegment(path)] = true
+		case strings.Contains(slug, "_"):
+			// MCP tool. Alegra renamed group__tool to group_tool (expenses_list-bills,
+			// reports_get_cash_flow). The group is the token before the first
+			// underscore; tool names may contain further underscores. The old
+			// group__tool form still matches because it contains "_".
+			mcp = append(mcp, slug)
+			group, _, _ := strings.Cut(slug, "_")
+			resources[group] = true
 		default: // legacy/catalog slug (e.g. listreconciliations, createAdditionalCharge)
 			legacy = append(legacy, slug)
 		}
@@ -135,6 +142,9 @@ func parseManifest(body []byte) (Manifest, error) {
 
 	if len(rest) == 0 {
 		return Manifest{}, fmt.Errorf("parsed 0 REST endpoints from %d bytes — llms.txt format likely changed; refusing to write an empty manifest", len(body))
+	}
+	if len(mcp) == 0 {
+		return Manifest{}, fmt.Errorf("parsed 0 MCP tools from %d bytes — llms.txt format likely changed; refusing to write a manifest with no MCP tools", len(body))
 	}
 
 	sort.Slice(rest, func(i, j int) bool {
