@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"slices"
 	"sort"
 	"strconv"
 	"strings"
@@ -366,10 +367,75 @@ func jsonValueType(v any) string {
 	return ""
 }
 
+// maxSchemaDepth bounds how far the schema walk descends through items, data
+// envelopes and allOf/oneOf/anyOf branches. Real Alegra responses are a few
+// levels deep; the cap only stops pathological (acyclic) specs from fanning
+// out without bound.
+const maxSchemaDepth = 16
+
+// schemaWalker keeps the recursive schema walk finite: it tracks the $refs
+// followed on the current path (one that reappears is a cycle, e.g. a Node
+// whose children are oneOf [Node]) and the current depth.
+type schemaWalker struct {
+	spec   map[string]any
+	onPath map[string]bool
+	depth  int
+}
+
+func newSchemaWalker(spec map[string]any) *schemaWalker {
+	return &schemaWalker{spec: spec, onPath: map[string]bool{}}
+}
+
+// enter resolves schema with deref's rules, but returns nil once the depth cap
+// is reached or a $ref in its chain is already on the current path. The caller
+// must invoke leave when it is done with the node.
+func (w *schemaWalker) enter(schema map[string]any) (resolved map[string]any, leave func()) {
+	noop := func() {}
+	if schema == nil || w.depth >= maxSchemaDepth {
+		return nil, noop
+	}
+	var refs []string
+	for range 10 { // same hop limit as deref
+		ref, ok := schema["$ref"].(string)
+		if !ok {
+			for _, r := range refs {
+				w.onPath[r] = true
+			}
+			w.depth++
+			return schema, func() {
+				w.depth--
+				for _, r := range refs {
+					delete(w.onPath, r)
+				}
+			}
+		}
+		if w.onPath[ref] || slices.Contains(refs, ref) {
+			return nil, noop // cycle
+		}
+		// See deref: a requestBody pointer is the write shape, not the response.
+		if strings.Contains(ref, "/requestBody/") {
+			return nil, noop
+		}
+		target := resolvePointer(w.spec, ref)
+		if target == nil {
+			return nil, noop
+		}
+		refs = append(refs, ref)
+		schema = target
+	}
+	return nil, noop
+}
+
 // objectFields reduces a response schema to the resource object's top-level
-// property names and types.
+// property names and types. Self-referential schemas are cut at the repeated
+// $ref instead of recursing forever.
 func objectFields(schema map[string]any, spec map[string]any) map[string]string {
-	schema = deref(schema, spec)
+	return newSchemaWalker(spec).objectFields(schema)
+}
+
+func (w *schemaWalker) objectFields(schema map[string]any) map[string]string {
+	schema, leave := w.enter(schema)
+	defer leave()
 	if schema == nil {
 		return nil
 	}
@@ -377,20 +443,20 @@ func objectFields(schema map[string]any, spec map[string]any) map[string]string 
 	// with oneOf of country variants (bills) or a oneOf of a bare list and a
 	// {metadata, data} envelope (stamp documents) and have no properties of
 	// its own.
-	if fields, ok := composedFields(schema, spec); ok {
+	if fields, ok := w.composedFields(schema); ok {
 		return fields
 	}
 	// Bare list response: [ {resource} ].
 	if schema["type"] == "array" {
 		items, _ := schema["items"].(map[string]any)
-		return objectFields(items, spec)
+		return w.objectFields(items)
 	}
 	props, _ := schema["properties"].(map[string]any)
 	// Paginated envelope: {metadata, data: [ {resource} ]}.
 	if data, ok := props["data"].(map[string]any); ok {
-		if d := deref(data, spec); d != nil && d["type"] == "array" {
+		if d := deref(data, w.spec); d != nil && d["type"] == "array" {
 			items, _ := d["items"].(map[string]any)
-			return objectFields(items, spec)
+			return w.objectFields(items)
 		}
 	}
 	out := map[string]string{}
@@ -399,14 +465,14 @@ func objectFields(schema map[string]any, spec map[string]any) map[string]string 
 		if !isMap {
 			continue
 		}
-		out[name] = schemaType(prop, spec)
+		out[name] = w.schemaType(prop)
 	}
 	return out
 }
 
 // composedFields unions the object fields of allOf/oneOf/anyOf branches.
 // ok is false when the schema isn't composed, so the caller can keep walking.
-func composedFields(schema map[string]any, spec map[string]any) (map[string]string, bool) {
+func (w *schemaWalker) composedFields(schema map[string]any) (map[string]string, bool) {
 	var alts []any
 	for _, key := range []string{"allOf", "oneOf", "anyOf"} {
 		if a, ok := schema[key].([]any); ok {
@@ -422,7 +488,7 @@ func composedFields(schema map[string]any, spec map[string]any) (map[string]stri
 		if !ok {
 			continue
 		}
-		for name, typ := range objectFields(m, spec) {
+		for name, typ := range w.objectFields(m) {
 			out[name] = unionType(out[name], typ)
 		}
 	}
@@ -432,7 +498,7 @@ func composedFields(schema map[string]any, spec map[string]any) (map[string]stri
 			if !isMap {
 				continue
 			}
-			out[name] = unionType(out[name], schemaType(prop, spec))
+			out[name] = unionType(out[name], w.schemaType(prop))
 		}
 	}
 	return out, true
@@ -460,8 +526,11 @@ func unionType(a, b string) string {
 }
 
 // schemaType names a property's JSON type, following $ref and oneOf/anyOf.
-func schemaType(prop map[string]any, spec map[string]any) string {
-	prop = deref(prop, spec)
+// A branch that cycles back onto the current path reads as "object", the same
+// as any other reference the walk declines to follow.
+func (w *schemaWalker) schemaType(prop map[string]any) string {
+	prop, leave := w.enter(prop)
+	defer leave()
 	if prop == nil {
 		return "object"
 	}
@@ -473,7 +542,7 @@ func schemaType(prop map[string]any, spec map[string]any) string {
 			types := map[string]bool{}
 			for _, alt := range alts {
 				if m, isMap := alt.(map[string]any); isMap {
-					types[schemaType(m, spec)] = true
+					types[w.schemaType(m)] = true
 				}
 			}
 			var ts []string

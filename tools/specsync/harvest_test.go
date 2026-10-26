@@ -491,3 +491,125 @@ func TestDeref_CycleAndMissing(t *testing.T) {
 	assert.Nil(t, deref(map[string]any{"$ref": "#/components/schemas/Nope"}, spec))
 	assert.Nil(t, deref(map[string]any{"$ref": "http://external/ref"}, spec))
 }
+
+// Self-referential schemas used to recurse until the goroutine stack
+// overflowed (a fatal error, not a recoverable panic). The walk must cut the
+// cycle at the repeated $ref and still report the non-recursive fields.
+func TestObjectFields_SelfReferentialSchemas(t *testing.T) {
+	ref := func(name string) map[string]any {
+		return map[string]any{"$ref": "#/components/schemas/" + name}
+	}
+	spec := map[string]any{
+		"components": map[string]any{
+			"schemas": map[string]any{
+				// Node is oneOf itself plus a concrete branch.
+				"Node": map[string]any{
+					"oneOf": []any{
+						ref("Node"),
+						map[string]any{"type": "object", "properties": map[string]any{
+							"id": map[string]any{"type": "integer"},
+						}},
+					},
+				},
+				// Ping/Pong cycle through allOf on each side.
+				"Ping": map[string]any{
+					"allOf": []any{ref("Pong")},
+					"properties": map[string]any{
+						"ping": map[string]any{"type": "string"},
+					},
+				},
+				"Pong": map[string]any{
+					"anyOf": []any{ref("Ping")},
+					"properties": map[string]any{
+						"pong": map[string]any{"type": "boolean"},
+					},
+				},
+				// A list whose items are the list itself.
+				"Loop": map[string]any{"type": "array", "items": ref("Loop")},
+				// A tree: children reference the enclosing schema.
+				"Tree": map[string]any{
+					"type": "object",
+					"properties": map[string]any{
+						"name":     map[string]any{"type": "string"},
+						"parent":   ref("Tree"),
+						"children": map[string]any{"type": "array", "items": ref("Tree")},
+					},
+				},
+				// A property that is only a composed cycle.
+				"Odd": map[string]any{
+					"type": "object",
+					"properties": map[string]any{
+						"value": ref("OddValue"),
+					},
+				},
+				"OddValue": map[string]any{"oneOf": []any{ref("OddValue"), map[string]any{"type": "string"}}},
+			},
+		},
+	}
+
+	tests := []struct {
+		name   string
+		schema map[string]any
+		want   map[string]string
+	}{
+		{"oneOf self", ref("Node"), map[string]string{"id": "integer"}},
+		{"mutual allOf/anyOf", ref("Ping"), map[string]string{"ping": "string", "pong": "boolean"}},
+		{"array of itself", ref("Loop"), nil},
+		{"tree", ref("Tree"), map[string]string{"name": "string", "parent": "object", "children": "array"}},
+		{"composed property cycle", ref("Odd"), map[string]string{"value": "object|string"}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, tt.want, objectFields(tt.schema, spec))
+		})
+	}
+}
+
+// Deep but acyclic nesting stops at maxSchemaDepth instead of fanning out.
+func TestObjectFields_DepthCap(t *testing.T) {
+	leaf := map[string]any{"type": "object", "properties": map[string]any{"id": map[string]any{"type": "integer"}}}
+	shallow := leaf
+	for range 3 {
+		shallow = map[string]any{"type": "array", "items": shallow}
+	}
+	assert.Equal(t, map[string]string{"id": "integer"}, objectFields(shallow, nil))
+
+	deep := leaf
+	for range maxSchemaDepth + 1 {
+		deep = map[string]any{"type": "array", "items": deep}
+	}
+	assert.Nil(t, objectFields(deep, nil))
+}
+
+func TestResolvePointer_FailureCases(t *testing.T) {
+	doc := map[string]any{
+		"components": map[string]any{
+			"schemas": map[string]any{
+				"Str":  "not an object",
+				"List": []any{map[string]any{"type": "object"}},
+			},
+		},
+	}
+	tests := []struct {
+		name string
+		ref  string
+	}{
+		{"empty", ""},
+		{"no leading #/", "components/schemas/List"},
+		{"external", "other.json#/components/schemas/List"},
+		{"missing key", "#/components/schemas/Nope"},
+		{"bad percent escape", "#/components/schemas/%zz"},
+		{"non-numeric index", "#/components/schemas/List/x"},
+		{"negative index", "#/components/schemas/List/-1"},
+		{"index out of range", "#/components/schemas/List/1"},
+		{"walk through scalar", "#/components/schemas/Str/deeper"},
+		{"target not an object", "#/components/schemas/Str"},
+		{"target is an array", "#/components/schemas/List"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Nil(t, resolvePointer(doc, tt.ref))
+		})
+	}
+	require.NotNil(t, resolvePointer(doc, "#/components/schemas/List/0"))
+}
