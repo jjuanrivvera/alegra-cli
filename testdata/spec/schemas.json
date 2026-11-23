@@ -567,8 +567,10 @@
     "event": "string",
     "id": "string",
     "message": "string",
+    "status": "string",
     "subscription": "object",
     "subscriptions": "array",
+    "suspendedAt": "string",
     "url": "string"
   }
 }
